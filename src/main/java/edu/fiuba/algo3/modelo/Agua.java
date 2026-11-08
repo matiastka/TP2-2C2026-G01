@@ -4,4 +4,8 @@ public class Agua extends Terreno{
     public boolean sosAgua(){
         return this.equals(Agua.class) ;
     }
+    @Override
+    public boolean esTransitable() {
+        return false;
+    }
 }

@@ -55,21 +55,26 @@ public class Tablero {
         casillas[x][y].desOcupar();
     }
 
-    public boolean estaEnRango(int x, int y){
-        if (x < 0){
-            return false;
-        } else if (x > 8) {
+   public boolean estaEnRango(int x, int y){
+        if (x < 0 || x >= fila){
             return false;
         }
-        else if(y < 0){
+        if (y < 0 || y >= columna){
             return false;
         }
-        else if (y > 8){
-            return false;
+        return true;
+    }
+    public Posicion buscarPosicionDe(Unidad unidadBuscada) {
+        for (int f = 0; f < this.fila; f++) {
+            for (int c = 0; c < this.columna; c++) {
+                Casilla casillaActual = casillas[f][c];
+
+                if (casillaActual.obtenerUnidad() == unidadBuscada) {
+                    return new Posicion(f, c);
+                }
+            }
         }
-        else{
-            return true;
-        }
+        return null;
     }
 
 }

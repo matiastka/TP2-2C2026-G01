@@ -10,7 +10,7 @@ public class Casilla {
     }
 
     public boolean estaLibre(){
-        return true;
+        return this.unidad == null;
     }
 
     public void ocupar(Unidad unidad){
@@ -22,7 +22,7 @@ public class Casilla {
     }
 
     public void cambiarTerreno(Terreno terreno){
-
+        this.terreno = terreno;
     }
 
     public Terreno obtenerTerreno(){
@@ -31,6 +31,10 @@ public class Casilla {
 
     public Unidad obtenerUnidad() {
         return unidad;
+    }
+
+    public boolean esTransitable() {
+        return this.terreno.esTransitable(); 
     }
 
 

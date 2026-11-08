@@ -3,6 +3,7 @@ package edu.fiuba.algo3.architecture;
 import edu.fiuba.algo3.modelo.*;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MechCombateTest {
@@ -49,6 +50,24 @@ public class MechCombateTest {
         // Assert
         assertTrue(tablero.enCasilla(1,3).obtenerUnidad().esDelMismoTipoQue(new Combate()));
 
+    }
+    @Test
+    public void test03MechSeMueveExitosamenteActualizandoElTablero() {
+        // Arrange
+        Tablero tablero = new Tablero(MAPA);
+        Unidad mechCombate = new Combate();
+        
+        Posicion origen = new Posicion(2, 3);
+        Posicion destino = new Posicion(2, 4);
+        
+        tablero.ocuparCasilla(origen.getFila(), origen.getColumna(), mechCombate);
+
+        // Act
+        mechCombate.moverA(destino, tablero);
+
+        // Assert
+        assertTrue(tablero.enCasilla(origen.getFila(), origen.getColumna()).estaLibre());
+        assertFalse(tablero.enCasilla(destino.getFila(), destino.getColumna()).estaLibre());
     }
 
 }
