@@ -1,7 +1,7 @@
 
 package edu.fiuba.algo3.modelo;
 
-public class Combate extends Unidad {
+    public class Combate extends Mech {
     
     @Override
     protected int obtenerRango() {

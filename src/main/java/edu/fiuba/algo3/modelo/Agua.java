@@ -6,6 +6,6 @@ public class Agua extends Terreno{
     }
     @Override
     public boolean esTransitable() {
-        return false;
+        return true;
     }
 }
