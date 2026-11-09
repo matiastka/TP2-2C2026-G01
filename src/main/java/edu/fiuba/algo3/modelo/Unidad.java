@@ -3,6 +3,12 @@ package edu.fiuba.algo3.modelo;
 
 public abstract class Unidad {
 
+    private int vida;
+
+    public Unidad(int vida){
+        this.vida = vida;
+    }
+
     public boolean esDelMismoTipoQue(Unidad otro){
         return this.getClass() == otro.getClass();
     }
@@ -21,5 +27,15 @@ public abstract class Unidad {
         }
     }
 
+    // Quizas convenga tener este metodo publico y el atributo rango (Mati)
     protected abstract int obtenerRango();
+
+    public void recibirDanio(int danio){
+        this.vida = vida - danio;
+    }
+
+    public int obtenerVida(){
+        return vida;
+    }
+
 }

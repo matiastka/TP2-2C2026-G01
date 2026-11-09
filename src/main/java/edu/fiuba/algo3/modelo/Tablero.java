@@ -55,15 +55,18 @@ public class Tablero {
         casillas[x][y].desOcupar();
     }
 
-   public boolean estaEnRango(int x, int y){
+    public boolean estaEnRango(int x, int y){
         if (x < 0 || x >= fila){
             return false;
         }
+
         if (y < 0 || y >= columna){
             return false;
         }
+
         return true;
     }
+
     public Posicion buscarPosicionDe(Unidad unidadBuscada) {
         for (int f = 0; f < this.fila; f++) {
             for (int c = 0; c < this.columna; c++) {
