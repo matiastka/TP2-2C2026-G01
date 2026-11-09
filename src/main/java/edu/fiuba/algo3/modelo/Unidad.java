@@ -5,7 +5,7 @@ public abstract class Unidad {
 
     private int vida;
 
-    public Unidad(int vida){
+    protected Unidad(int vida){
         this.vida = vida;
     }
 
@@ -19,8 +19,8 @@ public abstract class Unidad {
         MovimientoTerrestre validador = new MovimientoTerrestre();
         
         if (validador.puedeLlegar(origen, destino, this.obtenerRango(), tablero)) {
-            tablero.desOcuparCasilla(origen.getFila(), origen.getColumna());
-            tablero.ocuparCasilla(destino.getFila(), destino.getColumna(), this);
+            tablero.desOcuparCasilla(origen);
+            tablero.ocuparCasilla(destino, this);
         }
         else { // Quizas aca podriamos lanzar una excepcion (Mati)
             System.out.println("Movimiento inválido: fuera de rango o camino bloqueado");

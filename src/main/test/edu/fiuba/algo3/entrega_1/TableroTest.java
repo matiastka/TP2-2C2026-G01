@@ -60,8 +60,10 @@ public class TableroTest {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
 
+        Posicion posicionMontana = new Posicion(0,7);
+
         // Act & Assert
-        assertTrue(tablero.enCasilla(0,7).obtenerTerreno().esDelMismoTipoQue(new Montana()));
+        assertTrue(tablero.enCasilla(posicionMontana).obtenerTerreno().esDelMismoTipoQue(new Montana()));
     }
 
     @Test
@@ -69,8 +71,10 @@ public class TableroTest {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
 
+        Posicion posicionAgua = new Posicion(0,0);
+
         // Act & Assert
-        assertTrue(tablero.enCasilla(0,0).obtenerTerreno().esDelMismoTipoQue(new Agua()));
+        assertTrue(tablero.enCasilla(posicionAgua).obtenerTerreno().esDelMismoTipoQue(new Agua()));
     }
 
 
@@ -79,8 +83,10 @@ public class TableroTest {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
 
+        Posicion posicionAcido = new Posicion(1,5);
+
         // Act & Assert
-        assertTrue(tablero.enCasilla(1,5).obtenerTerreno().esDelMismoTipoQue(new Acido()));
+        assertTrue(tablero.enCasilla(posicionAcido).obtenerTerreno().esDelMismoTipoQue(new Acido()));
     }
 
     @Test
@@ -88,16 +94,20 @@ public class TableroTest {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
 
+        Posicion posicionEdificio = new Posicion(0,2);
+
         // Act & Assert
-        assertTrue(tablero.enCasilla(0,2).obtenerTerreno().esDelMismoTipoQue(new Edificio()));
+        assertTrue(tablero.enCasilla(posicionEdificio).obtenerTerreno().esDelMismoTipoQue(new Edificio()));
     }
     @Test
     public void test08UnTableroCargadoPreDefinidoTieneSueloEnUnaPosicionParticular(){
         // Arrange
         Tablero tablero = new Tablero(MAPA);
 
+        Posicion posicionSuelo = new Posicion(6,1);
+
         // Act & Assert
-        assertTrue(tablero.enCasilla(6,1).obtenerTerreno().esDelMismoTipoQue(new Suelo()));
+        assertTrue(tablero.enCasilla(posicionSuelo).obtenerTerreno().esDelMismoTipoQue(new Suelo()));
     }
 
 }

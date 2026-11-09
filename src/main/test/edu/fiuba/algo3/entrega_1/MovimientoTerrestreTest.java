@@ -61,12 +61,18 @@ public class MovimientoTerrestreTest {
 
     @Test
     public void test04CasillaDestinoOcupadaPorOtraUnidadDevuelveFalse() {
+        // Arrange
         Tablero tablero = new Tablero(MAPA_BASE);
-        tablero.ocuparCasilla(0, 2, new Combate());
-        MovimientoTerrestre movimiento = new MovimientoTerrestre();
+
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 2);
 
+        MovimientoTerrestre movimiento = new MovimientoTerrestre();
+
+        // Act
+        tablero.ocuparCasilla(destino, new Combate());
+
+        // Assert
         assertFalse(movimiento.puedeLlegar(origen, destino, 3, tablero));
     }
 

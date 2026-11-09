@@ -5,9 +5,11 @@ public class MovimientoTerrestre {
 
     public boolean puedeLlegar(Posicion origen, Posicion destino, int rango, Tablero tablero) {
         boolean mismaFila = origen.getFila() == destino.getFila();
+
         boolean mismaColumna = origen.getColumna() == destino.getColumna();
+
         if (!mismaFila && !mismaColumna) return false;
-        if (!tablero.estaEnRango(destino.getFila(), destino.getColumna())) return false;
+        if (!tablero.estaEnRango(destino)) return false;
         if (origen.distanciaA(destino) > rango) return false;
         return caminoDespejado(origen, destino, tablero);
     }
@@ -20,7 +22,7 @@ public class MovimientoTerrestre {
         do {
             f += filaDir;
             c += colDir;
-            Casilla actual = tablero.enCasilla(f, c);
+            Casilla actual = tablero.enCasilla(new Posicion(f, c));
             if (!actual.esTransitable() || !actual.estaLibre()) return false;
         } while (f != destino.getFila() || c != destino.getColumna());
         return true;

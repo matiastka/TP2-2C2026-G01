@@ -1,16 +1,14 @@
 package edu.fiuba.algo3.modelo;
 
 public class Tablero {
-    private int fila;
-    private int columna;
+    private static final int CANTIDAD_DE_FILAS = 8;
+    private static final int CANTIDAD_DE_COLUMNAS = 8;
     private Casilla[][] casillas;
 
     public Tablero(String[] mapa){
-        this.columna = 8;
-        this.fila = 8;
-        this.casillas = new Casilla[fila][columna];
-        for (int fila = 0; fila < 8; fila++) {
-            for (int columna = 0; columna < 8; columna++) {
+        this.casillas = new Casilla[CANTIDAD_DE_FILAS][CANTIDAD_DE_COLUMNAS];
+        for (int fila = 0; fila < CANTIDAD_DE_FILAS; fila++) {
+            for (int columna = 0; columna < CANTIDAD_DE_COLUMNAS; columna++) {
                 char letra = mapa[fila].charAt(columna);
                 casillas[fila][columna] = new Casilla(terrenoSegun(letra));
             }
@@ -35,32 +33,32 @@ public class Tablero {
 
     }
 
-    public Casilla enCasilla(int x, int y){
-        return casillas[x][y];
+    public Casilla enCasilla(Posicion posicion){
+        return casillas[posicion.getFila()][posicion.getColumna()];
     }
 
     public int cantidadFilas(){
-        return fila;
+        return CANTIDAD_DE_FILAS;
     }
 
     public int cantidadColumnas(){
-        return columna;
+        return CANTIDAD_DE_COLUMNAS;
     }
 
-    public void ocuparCasilla(int x, int y, Unidad unidad){
-        casillas[x][y].ocupar(unidad);
+    public void ocuparCasilla(Posicion posicion, Unidad unidad){
+        enCasilla(posicion).ocupar(unidad);
     }
 
-    public void desOcuparCasilla(int x, int y){
-        casillas[x][y].desOcupar();
+    public void desOcuparCasilla(Posicion posicion){
+        enCasilla(posicion).desOcupar();
     }
 
-    public boolean estaEnRango(int x, int y){
-        if (x < 0 || x >= fila){
+    public boolean estaEnRango(Posicion posicion){
+        if (posicion.getFila() < 0 || posicion.getFila() >= CANTIDAD_DE_FILAS){
             return false;
         }
 
-        if (y < 0 || y >= columna){
+        if (posicion.getColumna() < 0 || posicion.getColumna() >= CANTIDAD_DE_COLUMNAS){
             return false;
         }
 
@@ -68,8 +66,8 @@ public class Tablero {
     }
 
     public Posicion buscarPosicionDe(Unidad unidadBuscada) {
-        for (int f = 0; f < this.fila; f++) {
-            for (int c = 0; c < this.columna; c++) {
+        for (int f = 0; f < CANTIDAD_DE_FILAS; f++) {
+            for (int c = 0; c < CANTIDAD_DE_COLUMNAS; c++) {
                 Casilla casillaActual = casillas[f][c];
 
                 if (casillaActual.obtenerUnidad() == unidadBuscada) {

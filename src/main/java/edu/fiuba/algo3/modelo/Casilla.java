@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
 public class Casilla {
-    private Posicion posicion;
     private Terreno terreno;
     private Unidad unidad;
 

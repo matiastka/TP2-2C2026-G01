@@ -1,7 +1,10 @@
 package edu.fiuba.algo3.modelo;
 
 public abstract class Mech extends Unidad{
-    public Mech(int vida){
+    protected Mech(int vida){
         super(vida);
     }
+
+    public abstract void atacarA(Posicion posicion, Tablero tablero);
+
 }
