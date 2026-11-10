@@ -3,11 +3,7 @@ package edu.fiuba.algo3.entrega_1;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
-import edu.fiuba.algo3.modelo.Combate;
-import edu.fiuba.algo3.modelo.Luciernaga;
-import edu.fiuba.algo3.modelo.Posicion;
-import edu.fiuba.algo3.modelo.Tablero;
-import edu.fiuba.algo3.modelo.Unidad;
+import edu.fiuba.algo3.modelo.*;
 
 public class MechTurnoTest {
 
@@ -42,7 +38,7 @@ public class MechTurnoTest {
     @Test
     public void test02MechNoPuedeAtacarDosVecesEnElMismoTurno() {
         Tablero tablero = new Tablero(MAPA);
-        Unidad mech = new Combate();
+        Mech mech = new Combate();
         Unidad vek1 = new Luciernaga();
         Unidad vek2 = new Luciernaga();
 
@@ -63,7 +59,7 @@ public class MechTurnoTest {
     @Test
     public void test03AlReiniciarTurnoElMechPuedeVolverAMoverseYAtacar() {
         Tablero tablero = new Tablero(MAPA);
-        Unidad mech = new Combate();
+        Mech mech = new Combate();
         Unidad vek = new Luciernaga();
 
         Posicion origen = new Posicion(0, 0);
@@ -89,7 +85,7 @@ public class MechTurnoTest {
     @Test
     public void test04DeshacerMovimientoDeMechQueTodaviaNoAtaco() {
         Tablero tablero = new Tablero(MAPA);
-        Unidad mech = new Combate();
+        Mech mech = new Combate();
 
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 1);
@@ -106,7 +102,7 @@ public class MechTurnoTest {
     @Test
     public void test05DeshacerMovimientoDeMechQueYaAtaco() {
         Tablero tablero = new Tablero(MAPA);
-        Unidad mech = new Combate();
+        Mech mech = new Combate();
 
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 1);
@@ -123,7 +119,7 @@ public class MechTurnoTest {
     @Test
     public void test06DeshacerDosMovimientosDeMechEnElMismoTurno() {
         Tablero tablero = new Tablero(MAPA);
-        Unidad mech = new Combate();
+        Mech mech = new Combate();
 
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 1);

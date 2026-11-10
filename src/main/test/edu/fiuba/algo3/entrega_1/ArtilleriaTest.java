@@ -20,7 +20,7 @@ public class ArtilleriaTest {
     @Test
     public void test01ArtilleriaNoPuedeAtacarCasillaAdyacente() {
         Tablero tablero = new Tablero(MAPA);
-        Artilleria artilleria = new Artilleria();
+        Mech artilleria = new Artilleria();
         Combate objetivo = new Combate();
 
         Posicion posArtilleria = new Posicion(4, 4);
@@ -38,7 +38,7 @@ public class ArtilleriaTest {
     @Test
     public void test02ArtilleriaAtacaPorEncimaDeObstaculos() {
         Tablero tablero = new Tablero(MAPA);
-        Artilleria artilleria = new Artilleria();
+        Mech artilleria = new Artilleria();
         Combate objetivo = new Combate();
 
         Posicion posArtilleria = new Posicion(2, 0); // Fila 2 (hay montaña en 2,1)
@@ -55,7 +55,7 @@ public class ArtilleriaTest {
     @Test
     public void test03ArtilleriaDaniaObjetivoYEmpujaUnidadesAdyacentesHaciaAfuera() {
         Tablero tablero = new Tablero(MAPA);
-        Artilleria artilleria = new Artilleria();
+        Mech artilleria = new Artilleria();
         Combate centro = new Combate();
         Combate norte = new Combate();
         Combate sur = new Combate();

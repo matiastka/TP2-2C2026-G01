@@ -54,8 +54,4 @@ public abstract class Unidad {
         return vida;
     }
 
-	public abstract void deshacerMovimiento(Tablero tablero);
-
-	public abstract void atacarA(Posicion posicion, Tablero tablero);
-
 }

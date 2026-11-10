@@ -22,9 +22,9 @@ public class CanonTest {
     public void test01CanonImpactaPrimeraUnidadYNoALaSegundaEnLineaRecta() {
         //pendiente a cambios
         Tablero tablero = new Tablero(MAPA);
-        Canon canon = new Canon();
-        Combate blanco1 = new Combate(); 
-        Combate blanco2 = new Combate(); 
+        Mech canon = new Canon();
+        Mech blanco1 = new Combate();
+        Mech blanco2 = new Combate();
 
         Posicion posCanon = new Posicion(0, 0);
         Posicion posBlanco1 = new Posicion(0, 2);
@@ -59,8 +59,8 @@ public class CanonTest {
     public void test02CanonImpactaContraObstaculoYNoALaUnidadDeAtras() {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
-        Canon canon = new Canon();
-        Combate blancoAtras = new Combate();
+        Mech canon = new Canon();
+        Mech blancoAtras = new Combate();
 
         Posicion posCanon = new Posicion(2, 0);
         Posicion posBlanco = new Posicion(2, 2);
@@ -82,7 +82,7 @@ public class CanonTest {
     public void test03CanonDisparaEnLineaLibreSinErrores() {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
-        Canon canon = new Canon();
+        Mech canon = new Canon();
         Posicion posCanon = new Posicion(1, 0);
         
         tablero.ocuparCasilla(posCanon, canon);
@@ -96,8 +96,8 @@ public class CanonTest {
     public void test04CasoBordeImpactaAUnidadAdyacenteYLaEmpuja() {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
-        Canon canon = new Canon();
-        Combate blanco = new Combate();
+        Mech canon = new Canon();
+        Mech blanco = new Combate();
 
         Posicion posCanon = new Posicion(4, 0);
         Posicion posBlanco = new Posicion(4, 1);
