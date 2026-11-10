@@ -27,7 +27,8 @@ public abstract class Mech extends Unidad {
         super.moverA(destino, tablero);
     }
     
-    public void deshacerMoviemiento(Tablero tablero) {
+    @Override
+    public void deshacerMovimiento(Tablero tablero) {
     	if (this.yaAtaco) {
             System.out.println("El Mech ya atacó en este turno. No se puede volver a la posicion anterior");
             return;

@@ -1,8 +1,13 @@
 package edu.fiuba.algo3.entrega_1;
 
-import edu.fiuba.algo3.modelo.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import edu.fiuba.algo3.modelo.Combate;
+import edu.fiuba.algo3.modelo.Luciernaga;
+import edu.fiuba.algo3.modelo.Posicion;
+import edu.fiuba.algo3.modelo.Tablero;
+import edu.fiuba.algo3.modelo.Unidad;
 
 public class MechTurnoTest {
 
@@ -92,7 +97,7 @@ public class MechTurnoTest {
         tablero.ocuparCasilla(origen, mech);
         mech.moverA(destino, tablero);
         
-        mech.deshacerMovimiento();
+        mech.deshacerMovimiento(tablero);
         
         assertEquals(0, tablero.buscarPosicionDe(mech).getFila());
         assertEquals(0, tablero.buscarPosicionDe(mech).getColumna());
@@ -109,10 +114,10 @@ public class MechTurnoTest {
         tablero.ocuparCasilla(origen, mech);
         mech.moverA(destino, tablero);
         
-        mech.deshacerMovimiento();
+        mech.deshacerMovimiento(tablero);
         
         assertEquals(0, tablero.buscarPosicionDe(mech).getFila());
-        assertEquals(1, tablero.buscarPosicionDe(mech).getColumna());
+        assertEquals(0, tablero.buscarPosicionDe(mech).getColumna());
     }
     
     @Test
@@ -127,14 +132,14 @@ public class MechTurnoTest {
         tablero.ocuparCasilla(origen, mech);
         mech.moverA(destino, tablero);
         
-        mech.deshacerMovimiento();
+        mech.deshacerMovimiento(tablero);
         
         mech.moverA(destino2, tablero);
         
-        mech.deshacerMovimiento();
+        mech.deshacerMovimiento(tablero);
         
         assertEquals(0, tablero.buscarPosicionDe(mech).getFila());
-        assertEquals(1, tablero.buscarPosicionDe(mech).getColumna());
+        assertEquals(2, tablero.buscarPosicionDe(mech).getColumna());
     }
     
 }
