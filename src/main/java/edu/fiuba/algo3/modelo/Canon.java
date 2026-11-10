@@ -13,7 +13,7 @@ public class Canon extends Mech {
     }
 
     @Override
-    public void atacarA(Posicion objetivo, Tablero tablero) {
+     protected void ejecutarAtaque(Posicion objetivo, Tablero tablero) {
         Posicion origen = tablero.buscarPosicionDe(this);
         if (origen == null) return;
 

@@ -20,7 +20,7 @@ public class CanonTest {
 
     @Test
     public void test01CanonImpactaPrimeraUnidadYNoALaSegundaEnLineaRecta() {
-        // Arrange
+        //pendiente a cambios
         Tablero tablero = new Tablero(MAPA);
         Canon canon = new Canon();
         Combate blanco1 = new Combate(); 
@@ -34,23 +34,26 @@ public class CanonTest {
         tablero.ocuparCasilla(posBlanco1, blanco1);
         tablero.ocuparCasilla(posBlanco2, blanco2);
 
-        // Act
-        canon.atacarA(posBlanco1, tablero);
+    canon.atacarA(posBlanco1, tablero);
 
-        // Assert
-        Posicion nuevaPosBlanco1 = tablero.buscarPosicionDe(blanco1);
-        assertEquals(0, nuevaPosBlanco1.getFila());
-        assertEquals(3, nuevaPosBlanco1.getColumna());
 
-        // Act 2
-        canon.atacarA(nuevaPosBlanco1, tablero);
-        Posicion posFinal = tablero.buscarPosicionDe(blanco1);
-        canon.atacarA(posFinal, tablero);
+    Posicion nuevaPosBlanco1 = tablero.buscarPosicionDe(blanco1);
+    assertEquals(0, nuevaPosBlanco1.getFila());
+    assertEquals(3, nuevaPosBlanco1.getColumna());
 
-        // Assert 2
-        assertFalse(blanco1.obtenerVida() > 0);
-        assertTrue(blanco2.obtenerVida() > 0);
-    }
+    canon.reiniciarTurno(); 
+    canon.atacarA(nuevaPosBlanco1, tablero);
+
+    Posicion posFinal = tablero.buscarPosicionDe(blanco1);
+
+
+    canon.reiniciarTurno(); 
+    canon.atacarA(posFinal, tablero);
+
+
+    assertFalse(blanco1.obtenerVida() > 0);
+    assertTrue(blanco2.obtenerVida() > 0);
+        }
 
     @Test
     public void test02CanonImpactaContraObstaculoYNoALaUnidadDeAtras() {

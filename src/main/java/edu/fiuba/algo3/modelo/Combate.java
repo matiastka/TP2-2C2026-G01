@@ -12,8 +12,8 @@ public class Combate extends Mech {
         return 3;
     }
 
-    @Override
-    public void atacarA(Posicion objetivo, Tablero tablero){
+    @Override 
+    protected void ejecutarAtaque(Posicion objetivo, Tablero tablero){
         Posicion origen = tablero.buscarPosicionDe(this);
 
         if (origen.distanciaA(objetivo) == 1) { // Toda la logica de empujar, golpear creo que se debe delegar con Polimorfismo. Esto es PROVISIONAL! (Mati)
