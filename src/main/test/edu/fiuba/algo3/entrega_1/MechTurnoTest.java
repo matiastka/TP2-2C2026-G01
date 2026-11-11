@@ -21,30 +21,32 @@ public class MechTurnoTest {
     @Test
     public void test01MechNoPuedeMoverseDosVecesEnElMismoTurno() {
         Tablero tablero = new Tablero(MAPA);
-        Unidad mech = new Combate();
+
         Posicion origen = new Posicion(0, 0);
         Posicion primerDestino = new Posicion(0, 2);
         Posicion segundoDestino = new Posicion(0, 4);
+
+        Unidad mech = new Combate(origen);
 
         tablero.ocuparCasilla(origen, mech);
 
         mech.moverA(primerDestino, tablero);
         mech.moverA(segundoDestino, tablero); // Intento invalido
 
-        assertEquals(0, tablero.buscarPosicionDe(mech).getFila());
-        assertEquals(2, tablero.buscarPosicionDe(mech).getColumna());
+        assertEquals(mech.obtenerPosicion(), primerDestino);
     }
 
     @Test
     public void test02MechNoPuedeAtacarDosVecesEnElMismoTurno() {
         Tablero tablero = new Tablero(MAPA);
-        Mech mech = new Combate();
-        Unidad vek1 = new Luciernaga();
-        Unidad vek2 = new Luciernaga();
 
         Posicion posMech = new Posicion(2, 2);
         Posicion posVek1 = new Posicion(2, 3);
         Posicion posVek2 = new Posicion(3, 2);
+
+        Mech mech = new Combate(posMech);
+        Unidad vek1 = new Luciernaga(posVek1);
+        Unidad vek2 = new Luciernaga(posVek2);
 
         tablero.ocuparCasilla(posMech, mech);
         tablero.ocuparCasilla(posVek1, vek1);
@@ -59,12 +61,13 @@ public class MechTurnoTest {
     @Test
     public void test03AlReiniciarTurnoElMechPuedeVolverAMoverseYAtacar() {
         Tablero tablero = new Tablero(MAPA);
-        Mech mech = new Combate();
-        Unidad vek = new Luciernaga();
 
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 1);
         Posicion posVek = new Posicion(0, 2);
+
+        Mech mech = new Combate(origen);
+        Unidad vek = new Luciernaga(posVek);
 
         tablero.ocuparCasilla(origen, mech);
         tablero.ocuparCasilla(posVek, vek);
@@ -78,52 +81,52 @@ public class MechTurnoTest {
         Posicion nuevoDestino = new Posicion(1, 1);
         mech.moverA(nuevoDestino, tablero);
 
-        assertEquals(1, tablero.buscarPosicionDe(mech).getFila());
-        assertEquals(1, tablero.buscarPosicionDe(mech).getColumna());
+        assertEquals(mech.obtenerPosicion(), nuevoDestino);
     }
     
     @Test
     public void test04DeshacerMovimientoDeMechQueTodaviaNoAtaco() {
         Tablero tablero = new Tablero(MAPA);
-        Mech mech = new Combate();
 
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 1);
+
+        Mech mech = new Combate(origen);
 
         tablero.ocuparCasilla(origen, mech);
         mech.moverA(destino, tablero);
         
         mech.deshacerMovimiento(tablero);
-        
-        assertEquals(0, tablero.buscarPosicionDe(mech).getFila());
-        assertEquals(0, tablero.buscarPosicionDe(mech).getColumna());
+
+        assertEquals(mech.obtenerPosicion(), origen);
     }
     
     @Test
-    public void test05DeshacerMovimientoDeMechQueYaAtaco() {
+    public void test05DeshacerMovimientoDeMechQueYaMovio() {
         Tablero tablero = new Tablero(MAPA);
-        Mech mech = new Combate();
 
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 1);
+
+        Mech mech = new Combate(origen);
 
         tablero.ocuparCasilla(origen, mech);
         mech.moverA(destino, tablero);
         
         mech.deshacerMovimiento(tablero);
         
-        assertEquals(0, tablero.buscarPosicionDe(mech).getFila());
-        assertEquals(0, tablero.buscarPosicionDe(mech).getColumna());
+        assertEquals(mech.obtenerPosicion(), origen);
     }
     
     @Test
     public void test06DeshacerDosMovimientosDeMechEnElMismoTurno() {
         Tablero tablero = new Tablero(MAPA);
-        Mech mech = new Combate();
 
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 1);
         Posicion destino2 = new Posicion(0, 2);
+
+        Mech mech = new Combate(origen);
 
         tablero.ocuparCasilla(origen, mech);
         mech.moverA(destino, tablero);
@@ -134,8 +137,7 @@ public class MechTurnoTest {
         
         mech.deshacerMovimiento(tablero);
         
-        assertEquals(0, tablero.buscarPosicionDe(mech).getFila());
-        assertEquals(2, tablero.buscarPosicionDe(mech).getColumna());
+        assertEquals(mech.obtenerPosicion(), destino2);
     }
     
 }

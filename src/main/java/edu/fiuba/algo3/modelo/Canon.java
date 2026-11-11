@@ -3,14 +3,10 @@ package edu.fiuba.algo3.modelo;
 
 public class Canon extends Mech {
 
-    public Canon() {
-        super(3);
+    public Canon(Posicion posicion) {
+        super(3, posicion);
     }
 
-    @Override
-    public int obtenerRango() {
-        return 3;
-    }
 
     @Override
      protected void ejecutarAtaque(Posicion objetivo, Tablero tablero) {
@@ -38,7 +34,7 @@ public class Canon extends Mech {
             if (!casillaActual.estaLibre() || !casillaActual.esTransitable()) {
                 Unidad unidadImpactada = casillaActual.obtenerUnidad();
                 
-                if (unidadImpactada != null) {
+                if (!casillaActual.estaLibre()) {
                     unidadImpactada.recibirDanio(1);
 
                     Posicion posDestinoEmpuje = new Posicion(filaActual + cFila, colActual + cCol);

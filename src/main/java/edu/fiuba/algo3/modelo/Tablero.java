@@ -10,13 +10,13 @@ public class Tablero {
         for (int fila = 0; fila < CANTIDAD_DE_FILAS; fila++) {
             for (int columna = 0; columna < CANTIDAD_DE_COLUMNAS; columna++) {
                 char letra = mapa[fila].charAt(columna);
-                casillas[fila][columna] = new Casilla(terrenoSegun(letra));
+                casillas[fila][columna] = new Casilla(terrenoSegun(letra), new Posicion(fila, columna));
             }
         }
     }
 
     private Terreno terrenoSegun(char letra){
-        switch(letra){
+        switch(letra){ // Patron Factory
             case 'S':
                 return new Suelo();
             case 'E':
@@ -50,7 +50,7 @@ public class Tablero {
     }
 
     public void desOcuparCasilla(Posicion posicion){
-        enCasilla(posicion).desOcupar();
+        enCasilla(posicion).desOcupar(posicion);
     }
 
     public boolean estaEnRango(Posicion posicion){
@@ -65,7 +65,7 @@ public class Tablero {
         return true;
     }
 
-    public Posicion buscarPosicionDe(Unidad unidadBuscada) {
+    public Posicion buscarPosicionDe(Unidad unidadBuscada) { // Revisar
         for (int f = 0; f < CANTIDAD_DE_FILAS; f++) {
             for (int c = 0; c < CANTIDAD_DE_COLUMNAS; c++) {
                 Casilla casillaActual = casillas[f][c];

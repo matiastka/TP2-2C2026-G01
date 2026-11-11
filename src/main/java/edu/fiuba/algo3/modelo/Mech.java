@@ -5,8 +5,9 @@ public abstract class Mech extends Unidad {
 	protected Posicion posicionAnterior;
 	protected boolean deshacerMovimiento;
 	
-    protected Mech(int vida) {
-        super(vida);
+    protected Mech(int vida, Posicion posicion) {
+        super(vida, posicion);
+        this.rango = 3;
         boolean deshacerMovimiento = false;
     }
 
@@ -23,7 +24,7 @@ public abstract class Mech extends Unidad {
     
     @Override
     public void moverA(Posicion destino, Tablero tablero) {
-        this.posicionAnterior = tablero.buscarPosicionDe(this); 
+        this.posicionAnterior = posicion;
         super.moverA(destino, tablero);
     }
     
@@ -40,6 +41,7 @@ public abstract class Mech extends Unidad {
     	tablero.ocuparCasilla(posicionAnterior, this);
     	this.deshacerMovimiento = true;
     	this.yaSeMovio = false;
+        this.posicion = posicionAnterior;
     }
     
     @Override

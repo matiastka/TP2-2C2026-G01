@@ -1,12 +1,8 @@
 package edu.fiuba.algo3.modelo;
 
 public class Luciernaga extends Vek{
-    public Luciernaga(){
-        super(3);
-    }
-
-    @Override
-    protected int obtenerRango(){
-        return 2;
+    public Luciernaga(Posicion posicion){
+        super(3, posicion);
+        this.rango = 2;
     }
 }

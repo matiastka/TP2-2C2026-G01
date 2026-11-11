@@ -3,18 +3,14 @@ package edu.fiuba.algo3.modelo;
 
 public class Combate extends Mech {
 
-    public Combate(){
-        super(3);
-    }
-
-    @Override
-    protected int obtenerRango() {
-        return 3;
+    public Combate(Posicion posicion){
+        super(3, posicion);
     }
 
     @Override 
     protected void ejecutarAtaque(Posicion objetivo, Tablero tablero){
-        Posicion origen = tablero.buscarPosicionDe(this);
+        Posicion origen = tablero.buscarPosicionDe(this); // esto pierde sentido
+        // El cambio de posicion genera comportamiento a un objeto
 
         if (origen.distanciaA(objetivo) == 1) { // Toda la logica de empujar, golpear creo que se debe delegar con Polimorfismo. Esto es PROVISIONAL! (Mati)
             if (tablero.enCasilla(objetivo).estaLibre()){ // Incluso tiene sentido  que se ataque una casilla vacia. No deberia lanzar una excepcion ni fallar

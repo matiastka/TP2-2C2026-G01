@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TableroTest {
-    private static final String[] MAPA = {
+    private static final String[] MAPA = { // Pasar a ser un archivo.txt con su test
             "AMESSMSM",
             "AMSSECSA",
             "ASESSCSA",

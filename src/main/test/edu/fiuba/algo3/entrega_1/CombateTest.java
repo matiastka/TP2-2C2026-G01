@@ -22,10 +22,11 @@ public class CombateTest {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
 
-        Unidad mechCombate = new Combate();
-
         Posicion posicionMechOrigen = new Posicion(2,3);
         Posicion posicionMechDestino = new Posicion(2,4);
+
+        Unidad mechCombate = new Combate(posicionMechOrigen);
+
 
         tablero.ocuparCasilla(posicionMechOrigen,mechCombate);
 
@@ -33,7 +34,7 @@ public class CombateTest {
         mechCombate.moverA(posicionMechDestino, tablero);
 
         // Assert
-        assertTrue(tablero.enCasilla(posicionMechDestino).obtenerUnidad().esDelMismoTipoQue(new Combate()));
+        assertTrue(tablero.enCasilla(posicionMechDestino).obtenerUnidad().esDelMismoTipoQue(new Combate(posicionMechDestino)));
 
     }
 
@@ -42,10 +43,10 @@ public class CombateTest {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
 
-        Unidad mechCombate = new Combate();
-
         Posicion posicionMechOrigen = new Posicion(2,3);
         Posicion posicionMechDestino = new Posicion(1,3);
+
+        Unidad mechCombate = new Combate(posicionMechOrigen);
 
         tablero.ocuparCasilla(posicionMechOrigen, mechCombate);
 
@@ -53,7 +54,7 @@ public class CombateTest {
         mechCombate.moverA(posicionMechDestino,tablero);
 
         // Assert
-        assertTrue(tablero.enCasilla(posicionMechDestino).obtenerUnidad().esDelMismoTipoQue(new Combate()));
+        assertTrue(tablero.enCasilla(posicionMechDestino).obtenerUnidad().esDelMismoTipoQue(new Combate(posicionMechDestino)));
 
     }
     @Test
@@ -61,10 +62,10 @@ public class CombateTest {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
 
-        Unidad mechCombate = new Combate();
-
         Posicion posicionMechOrigen = new Posicion(2,3);
         Posicion posicionMechDestino = new Posicion(2,4);
+
+        Unidad mechCombate = new Combate(posicionMechOrigen);
 
         tablero.ocuparCasilla(posicionMechOrigen, mechCombate);
 
@@ -80,10 +81,10 @@ public class CombateTest {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
 
-        Unidad mechCombate = new Combate();
-
         Posicion posicionMechOrigen = new Posicion(2,3);
         Posicion posicionMechDestino = new Posicion(2,4);
+
+        Unidad mechCombate = new Combate(posicionMechOrigen);
 
         tablero.ocuparCasilla(posicionMechOrigen, mechCombate);
 
@@ -99,10 +100,10 @@ public class CombateTest {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
 
-        Unidad mechCombate = new Combate();
-
-        Posicion posicionMechOrigen = new Posicion(4,1);
         Posicion posicionMechDestino = new Posicion(4,5);
+        Posicion posicionMechOrigen = new Posicion(4,1);
+
+        Unidad mechCombate = new Combate(posicionMechOrigen);
 
         tablero.ocuparCasilla(posicionMechOrigen, mechCombate);
 
@@ -119,10 +120,10 @@ public class CombateTest {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
 
-        Unidad mechCombate = new Combate();
-
         Posicion posicionMechOrigen = new Posicion(4,1);
         Posicion posicionRangoDestino = new Posicion(4,4);
+
+        Unidad mechCombate = new Combate(posicionMechOrigen);
 
         tablero.ocuparCasilla(posicionMechOrigen, mechCombate);
 
@@ -138,12 +139,12 @@ public class CombateTest {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
 
-        Unidad mechCombate = new Combate();
-        Unidad otroMech = new Combate();
-
         Posicion posicionMech1Origen = new Posicion(4,1);
         Posicion posicionMech2Origen = new Posicion(4,2);
         Posicion posicionDestinoMech1 = new Posicion(4,3);
+
+        Unidad mechCombate = new Combate(posicionMech1Origen);
+        Unidad otroMech = new Combate(posicionMech2Origen);
 
         tablero.ocuparCasilla(posicionMech1Origen, mechCombate);
         tablero.ocuparCasilla(posicionMech2Origen, otroMech);
@@ -161,10 +162,10 @@ public class CombateTest {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
 
-        Unidad mechCombate = new Combate();
-
         Posicion posicionMechOrigen = new Posicion(2,1);
         Posicion posicionEdificio = new Posicion(2,3);
+
+        Unidad mechCombate = new Combate(posicionMechOrigen);
 
         tablero.ocuparCasilla(posicionMechOrigen, mechCombate);
 
@@ -180,11 +181,12 @@ public class CombateTest {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
 
-        Mech mechCombate = new Combate(); // Duda mia (Mati) es correcto que usemos Mech en vez de Unidad. ¿Esto no viola el principio de "programe contra interfaces"?
-        Unidad vekLuciernaga = new Luciernaga();
-
         Posicion posicionMechOrigen = new Posicion(4,2);
         Posicion posicionVekOrigen = new Posicion(4,3);
+
+        Mech mechCombate = new Combate(posicionMechOrigen); // Duda mia (Mati) es correcto que usemos Mech en vez de Unidad. ¿Esto no viola el principio de "programe contra interfaces"?
+        Unidad vekLuciernaga = new Luciernaga(posicionVekOrigen);
+
         int vidaVekEsperada = 1;
 
         tablero.ocuparCasilla(posicionMechOrigen, mechCombate);
@@ -202,12 +204,12 @@ public class CombateTest {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
 
-        Mech mechCombate = new Combate();
-        Unidad vekLuciernaga = new Luciernaga();
-
         Posicion posicionMechOrigen = new Posicion(4,2);
         Posicion posicionVekOrigen = new Posicion(4,3);
         Posicion posicionTrasEmpuje = new Posicion(4,4);
+
+        Mech mechCombate = new Combate(posicionMechOrigen);
+        Unidad vekLuciernaga = new Luciernaga(posicionVekOrigen);
 
         tablero.ocuparCasilla(posicionMechOrigen, mechCombate);
         tablero.ocuparCasilla(posicionVekOrigen, vekLuciernaga);
@@ -224,11 +226,12 @@ public class CombateTest {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
 
-        Mech mechCombate = new Combate();
-        Unidad vekLuciernaga = new Luciernaga();
-
         Posicion posicionMechOrigen = new Posicion(4,2);
         Posicion posicionVekOrigen = new Posicion(4,3);
+
+        Mech mechCombate = new Combate(posicionMechOrigen);
+        Unidad vekLuciernaga = new Luciernaga(posicionVekOrigen);
+
 
         tablero.ocuparCasilla(posicionMechOrigen, mechCombate);
         tablero.ocuparCasilla(posicionVekOrigen, vekLuciernaga);
@@ -245,11 +248,11 @@ public class CombateTest {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
 
-        Mech mechCombate = new Combate();
-        Unidad vekLuciernaga = new Luciernaga();
-
         Posicion posicionMechOrigen = new Posicion(6,4);
         Posicion posicionVekOrigen = new Posicion(7,4);
+
+        Mech mechCombate = new Combate(posicionMechOrigen);
+        Unidad vekLuciernaga = new Luciernaga(posicionVekOrigen);
 
         tablero.ocuparCasilla(posicionMechOrigen, mechCombate);
         tablero.ocuparCasilla(posicionVekOrigen, vekLuciernaga);
@@ -266,11 +269,12 @@ public class CombateTest {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
 
-        Mech mechCombate = new Combate();
-        Unidad vekLuciernaga = new Luciernaga();
-
         Posicion posicionMechOrigen = new Posicion(4,1);
         Posicion posicionVekOrigen = new Posicion(4,3);
+
+        Mech mechCombate = new Combate(posicionMechOrigen);
+        Unidad vekLuciernaga = new Luciernaga(posicionVekOrigen);
+
         int vidaEsperada = 3;
 
         tablero.ocuparCasilla(posicionMechOrigen, mechCombate);
@@ -288,11 +292,11 @@ public class CombateTest {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
 
-        Mech mechCombate = new Combate();
-        Unidad vekLuciernaga = new Luciernaga();
-
         Posicion posicionMechOrigen = new Posicion(4,1);
         Posicion posicionVekOrigen = new Posicion(4,3);
+
+        Mech mechCombate = new Combate(posicionMechOrigen);
+        Unidad vekLuciernaga = new Luciernaga(posicionVekOrigen);
 
         tablero.ocuparCasilla(posicionMechOrigen, mechCombate);
         tablero.ocuparCasilla(posicionVekOrigen, vekLuciernaga);
@@ -308,10 +312,10 @@ public class CombateTest {
     public void test15AtacarUnaCasillaVaciaNoDebeLanzarUnError(){ // Test polemico, por ahora lo dejo
         Tablero tablero = new Tablero(MAPA);
 
-        Mech mechCombate = new Combate();
-
         Posicion posicionMech = new Posicion(4,2);
         Posicion posicionVacia = new Posicion(4,3);
+
+        Mech mechCombate = new Combate(posicionMech);
 
         tablero.ocuparCasilla(posicionMech, mechCombate);
 

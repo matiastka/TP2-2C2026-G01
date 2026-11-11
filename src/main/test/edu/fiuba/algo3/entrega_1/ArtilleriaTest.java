@@ -20,11 +20,12 @@ public class ArtilleriaTest {
     @Test
     public void test01ArtilleriaNoPuedeAtacarCasillaAdyacente() {
         Tablero tablero = new Tablero(MAPA);
-        Mech artilleria = new Artilleria();
-        Combate objetivo = new Combate();
 
         Posicion posArtilleria = new Posicion(4, 4);
         Posicion posObjetivoAdyacente = new Posicion(4, 5);
+
+        Mech artilleria = new Artilleria(posArtilleria);
+        Mech objetivo = new Combate(posObjetivoAdyacente);
 
         tablero.ocuparCasilla(posArtilleria, artilleria);
         tablero.ocuparCasilla(posObjetivoAdyacente, objetivo);
@@ -38,11 +39,12 @@ public class ArtilleriaTest {
     @Test
     public void test02ArtilleriaAtacaPorEncimaDeObstaculos() {
         Tablero tablero = new Tablero(MAPA);
-        Mech artilleria = new Artilleria();
-        Combate objetivo = new Combate();
 
         Posicion posArtilleria = new Posicion(2, 0); // Fila 2 (hay montaña en 2,1)
         Posicion posObjetivo = new Posicion(2, 3);
+
+        Mech artilleria = new Artilleria(posArtilleria);
+        Mech objetivo = new Combate(posObjetivo);
 
         tablero.ocuparCasilla(posArtilleria, artilleria);
         tablero.ocuparCasilla(posObjetivo, objetivo);
@@ -53,39 +55,81 @@ public class ArtilleriaTest {
     }
 
     @Test
-    public void test03ArtilleriaDaniaObjetivoYEmpujaUnidadesAdyacentesHaciaAfuera() {
+    public void test04ArtilleriaDaniaALaUnidadDelCentro() {
         Tablero tablero = new Tablero(MAPA);
-        Mech artilleria = new Artilleria();
-        Combate centro = new Combate();
-        Combate norte = new Combate();
-        Combate sur = new Combate();
-        Combate este = new Combate();
-        Combate oeste = new Combate();
-
         Posicion posArtilleria = new Posicion(4, 0);
         Posicion posCentro = new Posicion(4, 4);
-
-        Posicion posNorte = new Posicion(3, 4);
-        Posicion posSur = new Posicion(5, 4);
-        Posicion posOeste = new Posicion(4, 3);
-        Posicion posEste = new Posicion(4, 5);
-
+        Mech artilleria = new Artilleria(posArtilleria);
+        Mech centro = new Combate(posCentro);
         tablero.ocuparCasilla(posArtilleria, artilleria);
         tablero.ocuparCasilla(posCentro, centro);
+
+        artilleria.atacarA(posCentro, tablero);
+
+        assertEquals(2, centro.obtenerVida());
+    }
+
+    @Test
+    public void test05ArtilleriaEmpujaHaciaElNorteALaUnidadDeArribaDelCentro() {
+        Tablero tablero = new Tablero(MAPA);
+        Posicion posArtilleria = new Posicion(4, 0);
+        Posicion posCentro = new Posicion(4, 4);
+        Posicion posNorte = new Posicion(3, 4);
+        Mech artilleria = new Artilleria(posArtilleria);
+        Mech norte = new Combate(posNorte);
+        tablero.ocuparCasilla(posArtilleria, artilleria);
         tablero.ocuparCasilla(posNorte, norte);
+
+        artilleria.atacarA(posCentro, tablero);
+
+        assertSame(norte, tablero.enCasilla(new Posicion(2, 4)).obtenerUnidad());
+    }
+
+    @Test
+    public void test06ArtilleriaEmpujaHaciaElSurALaUnidadDeAbajoDelCentro() {
+        Tablero tablero = new Tablero(MAPA);
+        Posicion posArtilleria = new Posicion(4, 0);
+        Posicion posCentro = new Posicion(4, 4);
+        Posicion posSur = new Posicion(5, 4);
+        Mech artilleria = new Artilleria(posArtilleria);
+        Mech sur = new Combate(posSur);
+        tablero.ocuparCasilla(posArtilleria, artilleria);
         tablero.ocuparCasilla(posSur, sur);
+
+        artilleria.atacarA(posCentro, tablero);
+
+        assertSame(sur, tablero.enCasilla(new Posicion(6, 4)).obtenerUnidad());
+    }
+
+    @Test
+    public void test07ArtilleriaEmpujaHaciaElOesteALaUnidadDeLaIzquierdaDelCentro() {
+        Tablero tablero = new Tablero(MAPA);
+        Posicion posArtilleria = new Posicion(4, 0);
+        Posicion posCentro = new Posicion(4, 4);
+        Posicion posOeste = new Posicion(4, 3);
+        Mech artilleria = new Artilleria(posArtilleria);
+        Mech oeste = new Combate(posOeste);
+        tablero.ocuparCasilla(posArtilleria, artilleria);
         tablero.ocuparCasilla(posOeste, oeste);
+
+        artilleria.atacarA(posCentro, tablero);
+
+        assertSame(oeste, tablero.enCasilla(new Posicion(4, 2)).obtenerUnidad());
+    }
+
+    @Test
+    public void test08ArtilleriaEmpujaHaciaElEsteALaUnidadDeLaDerechaDelCentro() {
+        Tablero tablero = new Tablero(MAPA);
+        Posicion posArtilleria = new Posicion(4, 0);
+        Posicion posCentro = new Posicion(4, 4);
+        Posicion posEste = new Posicion(4, 5);
+        Mech artilleria = new Artilleria(posArtilleria);
+        Mech este = new Combate(posEste);
+        tablero.ocuparCasilla(posArtilleria, artilleria);
         tablero.ocuparCasilla(posEste, este);
 
         artilleria.atacarA(posCentro, tablero);
 
-        // Daño al centro
-        assertEquals(2, centro.obtenerVida());
-
-        // Empuje hacia afuera de las 4 casillas adyacentes
-        assertEquals(new Posicion(2, 4).getFila(), tablero.buscarPosicionDe(norte).getFila());
-        assertEquals(new Posicion(6, 4).getFila(), tablero.buscarPosicionDe(sur).getFila());
-        assertEquals(new Posicion(4, 2).getColumna(), tablero.buscarPosicionDe(oeste).getColumna());
-        assertEquals(new Posicion(4, 6).getColumna(), tablero.buscarPosicionDe(este).getColumna());
+        assertSame(este, tablero.enCasilla(new Posicion(4, 6)).obtenerUnidad());
     }
 }

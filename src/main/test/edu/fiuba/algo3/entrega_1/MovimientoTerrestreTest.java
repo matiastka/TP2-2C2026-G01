@@ -70,7 +70,7 @@ public class MovimientoTerrestreTest {
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
 
         // Act
-        tablero.ocuparCasilla(destino, new Combate());
+        tablero.ocuparCasilla(destino, new Combate(origen));
 
         // Assert
         assertFalse(movimiento.puedeLlegar(origen, destino, 3, tablero));

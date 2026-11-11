@@ -2,13 +2,8 @@ package edu.fiuba.algo3.modelo;
 
 public class Artilleria extends Mech {
 
-    public Artilleria() {
-        super(2); // Vida según la consigna
-    }
-
-    @Override
-    protected int obtenerRango() {
-        return 3; // Rango de movimiento según la consigna
+    public Artilleria(Posicion posicion) {
+        super(2, posicion); // Vida según la consigna
     }
 
     @Override
