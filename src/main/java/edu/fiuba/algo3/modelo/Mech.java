@@ -21,7 +21,24 @@ public abstract class Mech extends Unidad {
     }
 
     protected abstract void ejecutarAtaque(Posicion posicion, Tablero tablero);
-    
+
+    /*
+    protected void retroceso(Direccion direccion){
+
+        if(!posicionEstaDentroDeTablero){
+            return;
+        }
+
+        if(noHayNadaIntransitable && noHayOtraUnidad){
+            SeMueveEnEsaDireccion;
+        }
+
+        else if (hayAlgoIntransitable || hayOtraUnidad){
+            RecibeElMas1DeDaño;
+        }
+
+    }
+    */
     @Override
     public void moverA(Posicion destino, Tablero tablero) {
         this.posicionAnterior = posicion;
@@ -48,6 +65,14 @@ public abstract class Mech extends Unidad {
     public void reiniciarTurno() {
     	this.deshacerMovimiento = false;
     	super.reiniciarTurno();
+    }
+
+    protected boolean calcularLineaRecta(Posicion objetivo){
+        int dFila = Math.abs(objetivo.getFila() - posicion.getFila());
+        int dCol = Math.abs(objetivo.getColumna() - posicion.getColumna());
+
+        boolean esLineaRecta = (dFila == 0 && dCol >= 2) || (dCol == 0 && dFila >= 2);
+        return esLineaRecta;
     }
 }
 

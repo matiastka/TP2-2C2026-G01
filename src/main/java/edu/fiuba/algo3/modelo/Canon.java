@@ -7,48 +7,29 @@ public class Canon extends Mech {
         super(3, posicion);
     }
 
-
     @Override
      protected void ejecutarAtaque(Posicion objetivo, Tablero tablero) {
-        Posicion origen = tablero.buscarPosicionDe(this);
-        if (origen == null) return;
+        Direccion direccion = posicion.direccionHacia(objetivo);
+        if (direccion == Direccion.NINGUNA) return;
 
-        int cFila = Integer.compare(objetivo.getFila(), origen.getFila());
-        int cCol = Integer.compare(objetivo.getColumna(), origen.getColumna());
-
-        if (cFila != 0 && cCol != 0) return;
-        if (cFila == 0 && cCol == 0) return;
-
-        int filaActual = origen.getFila() + cFila;
-        int colActual = origen.getColumna() + cCol;
-
-        while (true) {
-            Posicion posActual = new Posicion(filaActual, colActual);
-
-            if (!tablero.estaEnRango(posActual)) {
-                break;
-            }
-
+        Posicion posActual = posicion.siguienteEn(direccion);
+        while (tablero.estaEnRango(posActual)) {
             Casilla casillaActual = tablero.enCasilla(posActual);
-
             if (!casillaActual.estaLibre() || !casillaActual.esTransitable()) {
-                Unidad unidadImpactada = casillaActual.obtenerUnidad();
-                
-                if (!casillaActual.estaLibre()) {
-                    unidadImpactada.recibirDanio(1);
 
-                    Posicion posDestinoEmpuje = new Posicion(filaActual + cFila, colActual + cCol);
-                    
+                if (!casillaActual.estaLibre()) {
+                    Unidad unidadImpactada = casillaActual.obtenerUnidad();
+                    unidadImpactada.recibirDanio(1);
+                    Posicion posDestinoEmpuje = posActual.siguienteEn(direccion);
+
                     if (tablero.estaEnRango(posDestinoEmpuje)) {
                         tablero.desOcuparCasilla(posActual);
                         tablero.ocuparCasilla(posDestinoEmpuje, unidadImpactada);
                     }
                 }
-                break;
+                return;
             }
-
-            filaActual += cFila;
-            colActual += cCol;
+            posActual = posActual.siguienteEn(direccion);
         }
     }
 }

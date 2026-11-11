@@ -9,10 +9,8 @@ public class Combate extends Mech {
 
     @Override 
     protected void ejecutarAtaque(Posicion objetivo, Tablero tablero){
-        Posicion origen = tablero.buscarPosicionDe(this); // esto pierde sentido
-        // El cambio de posicion genera comportamiento a un objeto
 
-        if (origen.distanciaA(objetivo) == 1) { // Toda la logica de empujar, golpear creo que se debe delegar con Polimorfismo. Esto es PROVISIONAL! (Mati)
+        if (posicion.distanciaA(objetivo) == 1) { // Toda la logica de empujar, golpear creo que se debe delegar con Polimorfismo. Esto es PROVISIONAL! (Mati)
             if (tablero.enCasilla(objetivo).estaLibre()){ // Incluso tiene sentido  que se ataque una casilla vacia. No deberia lanzar una excepcion ni fallar
                 System.out.println("La casilla a atacar esta vacia");
             }
@@ -22,9 +20,7 @@ public class Combate extends Mech {
                 Unidad golpeada = tablero.enCasilla(objetivo).obtenerUnidad();
                 golpeada.recibirDanio(2);
 
-                int dirFila = Integer.compare(objetivo.getFila(), origen.getFila());
-                int dirColumna = Integer.compare(objetivo.getColumna(), origen.getColumna());
-                Posicion destinoEmpuje = new Posicion(objetivo.getFila() + dirFila, objetivo.getColumna() + dirColumna);
+                Posicion destinoEmpuje = objetivo.siguienteEn(posicion.direccionHacia(objetivo));
 
                 golpeada.moverA(destinoEmpuje, tablero);
             }
