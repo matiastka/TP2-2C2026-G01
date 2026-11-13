@@ -63,7 +63,7 @@ public class TableroTest {
         Posicion posicionMontana = new Posicion(0,7);
 
         // Act & Assert
-        assertTrue(tablero.enCasilla(posicionMontana).obtenerTerreno().esDelMismoTipoQue(new Montana()));
+        assertFalse(tablero.enCasilla(posicionMontana).esTransitable());
     }
 
     @Test
@@ -73,8 +73,15 @@ public class TableroTest {
 
         Posicion posicionAgua = new Posicion(0,0);
 
-        // Act & Assert
-        assertTrue(tablero.enCasilla(posicionAgua).obtenerTerreno().esDelMismoTipoQue(new Agua()));
+        Unidad luciernaga = new Luciernaga(posicionAgua);
+
+        tablero.ocuparCasilla(posicionAgua, luciernaga);
+
+        // Act
+        tablero.enCasilla(posicionAgua).aplicarEfectoA(luciernaga);
+
+        // Assert
+        assertEquals(0, luciernaga.obtenerVida());
     }
 
 
@@ -86,7 +93,7 @@ public class TableroTest {
         Posicion posicionAcido = new Posicion(1,5);
 
         // Act & Assert
-        assertTrue(tablero.enCasilla(posicionAcido).obtenerTerreno().esDelMismoTipoQue(new Acido()));
+        assertTrue(tablero.enCasilla(posicionAcido).esTransitable());
     }
 
     @Test
@@ -97,7 +104,7 @@ public class TableroTest {
         Posicion posicionEdificio = new Posicion(0,2);
 
         // Act & Assert
-        assertTrue(tablero.enCasilla(posicionEdificio).obtenerTerreno().esDelMismoTipoQue(new Edificio()));
+        assertFalse(tablero.enCasilla(posicionEdificio).esTransitable());
     }
     @Test
     public void test08UnTableroCargadoPreDefinidoTieneSueloEnUnaPosicionParticular(){
@@ -106,8 +113,15 @@ public class TableroTest {
 
         Posicion posicionSuelo = new Posicion(6,1);
 
-        // Act & Assert
-        assertTrue(tablero.enCasilla(posicionSuelo).obtenerTerreno().esDelMismoTipoQue(new Suelo()));
+        Unidad luciernaga = new Luciernaga(posicionSuelo);
+
+        tablero.ocuparCasilla(posicionSuelo, luciernaga);
+
+        // Act
+        tablero.enCasilla(posicionSuelo).aplicarEfectoA(luciernaga);
+
+        // Assert
+        assertEquals(3, luciernaga.obtenerVida());
     }
 
 }

@@ -34,7 +34,7 @@ public class CombateTest {
         mechCombate.moverA(posicionMechDestino, tablero);
 
         // Assert
-        assertTrue(tablero.enCasilla(posicionMechDestino).obtenerUnidad().esDelMismoTipoQue(new Combate(posicionMechDestino)));
+        assertSame(mechCombate, tablero.enCasilla(posicionMechDestino).obtenerUnidad());
 
     }
 
@@ -54,7 +54,7 @@ public class CombateTest {
         mechCombate.moverA(posicionMechDestino,tablero);
 
         // Assert
-        assertTrue(tablero.enCasilla(posicionMechDestino).obtenerUnidad().esDelMismoTipoQue(new Combate(posicionMechDestino)));
+        assertSame(mechCombate, tablero.enCasilla(posicionMechDestino).obtenerUnidad());
 
     }
     @Test
