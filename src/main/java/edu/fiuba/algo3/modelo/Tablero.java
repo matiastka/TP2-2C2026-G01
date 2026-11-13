@@ -1,36 +1,32 @@
 package edu.fiuba.algo3.modelo;
 
+import java.util.Map;
+
 public class Tablero {
     private static final int CANTIDAD_DE_FILAS = 8;
     private static final int CANTIDAD_DE_COLUMNAS = 8;
     private Casilla[][] casillas;
+    private static final Map<Character, FabricaDeTerreno> FABRICAS = Map.of('S', new FabricaDeSuelo(),
+            'E', new FabricaDeEdificio(),
+            'M', new FabricaDeMontana(),
+            'A', new FabricaDeAgua(),
+            'C', new FabricaDeAcido()    );
 
     public Tablero(String[] mapa){
         this.casillas = new Casilla[CANTIDAD_DE_FILAS][CANTIDAD_DE_COLUMNAS];
         for (int fila = 0; fila < CANTIDAD_DE_FILAS; fila++) {
             for (int columna = 0; columna < CANTIDAD_DE_COLUMNAS; columna++) {
                 char letra = mapa[fila].charAt(columna);
-                casillas[fila][columna] = new Casilla(terrenoSegun(letra), new Posicion(fila, columna));
+                casillas[fila][columna] = fabricaSegun(letra).crearCasilla(new Posicion(fila, columna));
             }
         }
     }
 
-    private Terreno terrenoSegun(char letra){
-        switch(letra){ // Patron Factory
-            case 'S':
-                return new Suelo();
-            case 'E':
-                return new Edificio();
-            case 'M':
-                return new Montana();
-            case 'A':
-                return new Agua();
-            case 'C':
-                return new Acido();
-            default:
-                throw new TableroInvalidoException("Letra Desconocida" + letra);
+    private FabricaDeTerreno fabricaSegun(char letra) {
+        if (!FABRICAS.containsKey(letra)) {
+            throw new TableroInvalidoException("Letra desconocida: " + letra);
         }
-
+        return FABRICAS.get(letra);
     }
 
     public Casilla enCasilla(Posicion posicion){
