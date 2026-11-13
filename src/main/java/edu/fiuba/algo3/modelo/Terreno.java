@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
-public interface Terreno {
-    boolean esTransitable();
+public abstract class Terreno {
+    public abstract boolean esTransitable();
 
-    void afectarA(Unidad unidad);
+    public abstract void afectarA(Unidad unidad);
 }

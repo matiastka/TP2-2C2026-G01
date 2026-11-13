@@ -5,4 +5,9 @@ public class Edificio extends Terreno {
     public boolean esTransitable() {
         return false;
     }
+
+    @Override
+    public void afectarA(Unidad unidad){
+
+    }
 }

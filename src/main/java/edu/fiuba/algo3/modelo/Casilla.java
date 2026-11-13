@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
-public class Casilla { // Casilla necestia Posicion donde se guarda y cada unidad tiene su posicion. Eso nos sirve para buscar un Unidad (en vez de la BS).
-                         // Va a cambiar Posicion, dejando de ser Anemica.
+public class Casilla {
     private Terreno terreno;
     private Unidad unidad;
 
@@ -32,6 +31,10 @@ public class Casilla { // Casilla necestia Posicion donde se guarda y cada unida
 
     public Unidad obtenerUnidad() {
         return unidad;
+    }
+
+    public void aplicarEfectoA(Unidad unidad) {
+        this.terreno.afectarA(unidad);
     }
 
     public boolean esTransitable() {

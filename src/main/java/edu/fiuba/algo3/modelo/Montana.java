@@ -6,4 +6,9 @@ public class Montana extends Terreno{
     public boolean esTransitable() {
         return false;
     }
+
+    @Override
+    public void afectarA(Unidad unidad){
+
+    }
 }

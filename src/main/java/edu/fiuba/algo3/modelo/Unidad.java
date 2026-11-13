@@ -13,10 +13,6 @@ public abstract class Unidad {
         this.estadoTurno = new EstadoDisponible();
     }
 
-    public boolean esDelMismoTipoQue(Unidad otro) {
-        return this.getClass() == otro.getClass();
-    }
-
     public void moverA(Posicion destino, Tablero tablero) {
         this.estadoTurno = this.estadoTurno.mover(this, destino, tablero);
     }
@@ -37,6 +33,7 @@ public abstract class Unidad {
         tablero.desOcuparCasilla(this.posicion);
         tablero.ocuparCasilla(destino, this);
         this.posicion = destino;
+        tablero.enCasilla(destino).aplicarEfectoA(this);
     }
 
     public void reiniciarTurno() {
@@ -61,5 +58,14 @@ public abstract class Unidad {
 
     public Posicion obtenerPosicion() {
         return posicion;
+    }
+
+    // Esto hay que verlo porque no tiene sentido que no implemente el contrato
+    public void caerEnAgua(){
+
+    }
+
+    public void caerEnAcido(){
+
     }
 }

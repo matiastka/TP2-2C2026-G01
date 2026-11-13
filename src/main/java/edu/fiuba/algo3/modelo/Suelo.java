@@ -5,4 +5,9 @@ public class Suelo extends Terreno {
     public boolean esTransitable() {
         return true;
     }
+
+    @Override
+    public void afectarA(Unidad unidad){
+
+    }
 }
