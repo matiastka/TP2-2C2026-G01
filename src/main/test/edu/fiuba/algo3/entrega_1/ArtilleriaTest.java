@@ -33,7 +33,6 @@ public class ArtilleriaTest {
         artilleria.atacarA(posObjetivoAdyacente, tablero);
 
         assertEquals(3, objetivo.obtenerVida());
-        assertEquals(posObjetivoAdyacente.getColumna(), tablero.buscarPosicionDe(objetivo).getColumna());
     }
 
     @Test

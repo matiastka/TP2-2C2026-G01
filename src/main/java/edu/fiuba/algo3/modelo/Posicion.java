@@ -41,9 +41,6 @@ public class Posicion {
         return distanciaA(otra) <= rango;
     }
 
-    public int getFila() { return fila; }
-    public int getColumna() { return columna; }
-
     public int distanciaA(Posicion otra) {
         return Math.abs(this.fila - otra.fila) + Math.abs(this.columna - otra.columna);
     }

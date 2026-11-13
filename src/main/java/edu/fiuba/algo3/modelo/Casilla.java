@@ -3,8 +3,10 @@ package edu.fiuba.algo3.modelo;
 public class Casilla {
     private Terreno terreno;
     private Unidad unidad;
+    private final Posicion posicion;
 
     public Casilla(Terreno terreno, Posicion posicion){
+        this.posicion = posicion;
         this.terreno = terreno;
         this.unidad = new SinUnidad(posicion);
     }
@@ -17,12 +19,8 @@ public class Casilla {
         this.unidad = unidad;
     }
 
-    public void desOcupar(Posicion posicion){
+    public void desOcupar(){
         this.unidad = new SinUnidad(posicion);
-    }
-
-    public void cambiarTerreno(Terreno terreno){
-        this.terreno = terreno;
     }
 
     public Terreno obtenerTerreno(){
@@ -40,6 +38,5 @@ public class Casilla {
     public boolean esTransitable() {
         return this.terreno.esTransitable(); 
     }
-
 
 }

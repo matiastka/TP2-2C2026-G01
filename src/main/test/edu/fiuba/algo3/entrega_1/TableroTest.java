@@ -1,20 +1,13 @@
 package edu.fiuba.algo3.entrega_1;
 
+import edu.fiuba.algo3.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.*;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TableroTest {
-    private static final String[] MAPA = { // Pasar a ser un archivo.txt con su test
-            "AMESSMSM",
-            "AMSSECSA",
-            "ASESSCSA",
-            "ASSESCSA",
-            "ASSSSCSA",
-            "ASSSECSA",
-            "ASSSSCSA",
-            "AMMMSCSA"
-    };
+    private static final String[] MAPA = new LectorDeMapa().leer("src/main/java/edu/fiuba/algo3/mapa/mapa1.txt");
 
     @Test
     public void test01UnTableroCargadoTiene8Columnas(){

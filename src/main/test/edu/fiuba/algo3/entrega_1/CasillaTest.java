@@ -27,7 +27,7 @@ public class CasillaTest {
         Casilla casilla = new Casilla(new Suelo(), new Posicion(0,0));
         casilla.ocupar(new Combate(new Posicion(0,0)));
 
-        casilla.desOcupar(new Posicion(0,0));
+        casilla.desOcupar();
 
         assertTrue(casilla.estaLibre());
     }

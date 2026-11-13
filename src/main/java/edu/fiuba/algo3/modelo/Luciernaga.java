@@ -5,8 +5,4 @@ public class Luciernaga extends Vek{
         super(3, posicion);
         this.rango = 2;
     }
-    @Override
-    public void caerEnAgua() {
-        recibirDanio(obtenerVida());
-    }
 }
