@@ -29,6 +29,18 @@ public class Posicion {
         return Direccion.NINGUNA;
     }
 
+    public boolean esAdyacente(Posicion otra){
+        return distanciaA(otra) == 1;
+    }
+
+    public boolean estaEnLineaRectaA(Posicion otra, int distanciaMinima){
+        return direccionHacia(otra) != Direccion.NINGUNA && distanciaA(otra) >= distanciaMinima;
+    }
+
+    public boolean estaAlAlcanceDe(Posicion otra, int rango) {
+        return distanciaA(otra) <= rango;
+    }
+
     public int getFila() { return fila; }
     public int getColumna() { return columna; }
 

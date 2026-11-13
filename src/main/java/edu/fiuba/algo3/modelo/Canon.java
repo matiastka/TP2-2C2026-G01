@@ -23,8 +23,7 @@ public class Canon extends Mech {
                     Posicion posDestinoEmpuje = posActual.siguienteEn(direccion);
 
                     if (tablero.estaEnRango(posDestinoEmpuje)) {
-                        tablero.desOcuparCasilla(posActual);
-                        tablero.ocuparCasilla(posDestinoEmpuje, unidadImpactada);
+                        unidadImpactada.reubicarEn(posDestinoEmpuje, tablero);
                     }
                 }
                 return;

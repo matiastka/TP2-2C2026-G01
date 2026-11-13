@@ -10,7 +10,7 @@ public class Combate extends Mech {
     @Override 
     protected void ejecutarAtaque(Posicion objetivo, Tablero tablero){
 
-        if (posicion.distanciaA(objetivo) == 1) { // Toda la logica de empujar, golpear creo que se debe delegar con Polimorfismo. Esto es PROVISIONAL! (Mati)
+        if (posicion.esAdyacente(objetivo)) { // Toda la logica de empujar, golpear creo que se debe delegar con Polimorfismo. Esto es PROVISIONAL! (Mati)
             if (tablero.enCasilla(objetivo).estaLibre()){ // Incluso tiene sentido  que se ataque una casilla vacia. No deberia lanzar una excepcion ni fallar
                 System.out.println("La casilla a atacar esta vacia");
             }

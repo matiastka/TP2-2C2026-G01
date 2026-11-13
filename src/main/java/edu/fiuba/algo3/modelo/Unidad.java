@@ -25,14 +25,18 @@ public abstract class Unidad {
         MovimientoTerrestre validador = new MovimientoTerrestre();
 
         if (validador.puedeLlegar(this.posicion, destino, this.obtenerRango(), tablero)) {
-            tablero.desOcuparCasilla(this.posicion);
-            tablero.ocuparCasilla(destino, this);
-            this.posicion = destino;
+            reubicarEn(destino, tablero);
             return true;
         } else {
             System.out.println("Movimiento inválido: fuera de rango o camino bloqueado");
             return false;
         }
+    }
+
+    protected void reubicarEn(Posicion destino, Tablero tablero) {
+        tablero.desOcuparCasilla(this.posicion);
+        tablero.ocuparCasilla(destino, this);
+        this.posicion = destino;
     }
 
     public void reiniciarTurno() {

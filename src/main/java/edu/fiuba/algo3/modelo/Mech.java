@@ -34,15 +34,10 @@ public abstract class Mech extends Unidad {
     }
 
     void ejecutarDeshacerMovimiento(Tablero tablero) {
-        tablero.desOcuparCasilla(tablero.buscarPosicionDe(this));
-        tablero.ocuparCasilla(posicionAnterior, this);
-        this.posicion = posicionAnterior;
+        reubicarEn(posicionAnterior, tablero);
     }
 
     protected boolean calcularLineaRecta(Posicion objetivo) {
-        int dFila = Math.abs(objetivo.getFila() - posicion.getFila());
-        int dCol = Math.abs(objetivo.getColumna() - posicion.getColumna());
-
-        return (dFila == 0 && dCol >= 2) || (dCol == 0 && dFila >= 2);
+        return posicion.estaEnLineaRectaA(objetivo, 2);
     }
 }

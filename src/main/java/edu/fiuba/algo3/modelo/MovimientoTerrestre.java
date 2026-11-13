@@ -6,7 +6,7 @@ public class MovimientoTerrestre {
     public boolean puedeLlegar(Posicion origen, Posicion destino, int rango, Tablero tablero) {
         if (origen.direccionHacia(destino) == Direccion.NINGUNA) return false;
         if (!tablero.estaEnRango(destino)) return false;
-        if (origen.distanciaA(destino) > rango) return false;
+        if (!origen.estaAlAlcanceDe(destino, rango)) return false;
         return caminoDespejado(origen, destino, tablero);
     }
 

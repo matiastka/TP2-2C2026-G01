@@ -3,7 +3,7 @@ package edu.fiuba.algo3.modelo;
 public class Artilleria extends Mech {
 
     public Artilleria(Posicion posicion) {
-        super(2, posicion); // Vida según la consigna
+        super(2, posicion);
     }
 
     @Override
@@ -28,8 +28,7 @@ public class Artilleria extends Mech {
                     Posicion posicionDestinoEmpuje = posAdyacente.siguienteEn(direccion);
 
                     if (tablero.estaEnRango(posicionDestinoEmpuje) && tablero.enCasilla(posicionDestinoEmpuje).estaLibre()) {
-                        tablero.desOcuparCasilla(posAdyacente);
-                        tablero.ocuparCasilla(posicionDestinoEmpuje, unidadEmpujada);
+                        unidadEmpujada.reubicarEn(posicionDestinoEmpuje, tablero);
                     }
                 }
             }
