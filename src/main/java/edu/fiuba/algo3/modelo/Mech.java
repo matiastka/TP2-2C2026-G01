@@ -20,6 +20,43 @@ public abstract class Mech extends Unidad {
 
     protected abstract void ejecutarAtaque(Posicion posicion, Tablero tablero);
 
+    protected final boolean hayUnidadEn(Posicion posicion, Tablero tablero) {
+        return tablero.estaEnRango(posicion) && !tablero.enCasilla(posicion).estaLibre();
+    }
+
+    protected final void aplicarDanioEn(Posicion posicion, int danio, Tablero tablero) {
+        if (hayUnidadEn(posicion, tablero)) {
+            tablero.enCasilla(posicion).obtenerUnidad().recibirDanio(danio);
+        }
+    }
+
+    protected final void empujarUnidadDesde(Posicion origen, Direccion direccion, Tablero tablero) {
+        if (direccion == Direccion.NINGUNA || !hayUnidadEn(origen, tablero)) {
+            return;
+        }
+
+        Posicion destino = origen.siguienteEn(direccion);
+        if (!tablero.estaEnRango(destino) || !tablero.enCasilla(destino).estaLibre()) {
+            return;
+        }
+
+        Unidad unidad = tablero.enCasilla(origen).obtenerUnidad();
+        unidad.reubicarEn(destino, tablero);
+    }
+
+    protected final void golpearYEmpujar(Posicion objetivo, int danio, Direccion direccion, Tablero tablero) {
+        if (!hayUnidadEn(objetivo, tablero)) {
+            return;
+        }
+
+        Unidad unidad = tablero.enCasilla(objetivo).obtenerUnidad();
+        unidad.recibirDanio(danio);
+
+        if (direccion != Direccion.NINGUNA) {
+            empujarUnidadDesde(objetivo, direccion, tablero);
+        }
+    }
+
     @Override
     public void moverA(Posicion destino, Tablero tablero) {
         Posicion posibleAnterior = this.posicion;

@@ -7,31 +7,16 @@ public class Artilleria extends Mech {
     }
 
     @Override
-     protected void ejecutarAtaque(Posicion objetivo, Tablero tablero) {
-        if (!calcularLineaRecta(objetivo)){
+    protected void ejecutarAtaque(Posicion objetivo, Tablero tablero) {
+        if (!calcularLineaRecta(objetivo)) {
             return;
         }
 
-        Casilla casillaCentro = tablero.enCasilla(objetivo);
-        if (!casillaCentro.estaLibre()) {
-            casillaCentro.obtenerUnidad().recibirDanio(1);
-        }
+        aplicarDanioEn(objetivo, 1, tablero);
 
         for (Direccion direccion : Direccion.cardinales()) {
             Posicion posAdyacente = objetivo.siguienteEn(direccion);
-            
-            if (tablero.estaEnRango(posAdyacente)) {
-                Casilla casillaAdyacente = tablero.enCasilla(posAdyacente);
-                
-                if (!casillaAdyacente.estaLibre()) {
-                    Unidad unidadEmpujada = casillaAdyacente.obtenerUnidad();
-                    Posicion posicionDestinoEmpuje = posAdyacente.siguienteEn(direccion);
-
-                    if (tablero.estaEnRango(posicionDestinoEmpuje) && tablero.enCasilla(posicionDestinoEmpuje).estaLibre()) {
-                        unidadEmpujada.reubicarEn(posicionDestinoEmpuje, tablero);
-                    }
-                }
-            }
+            empujarUnidadDesde(posAdyacente, direccion, tablero);
         }
     }
 }

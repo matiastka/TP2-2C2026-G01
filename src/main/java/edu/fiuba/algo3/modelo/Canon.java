@@ -8,26 +8,25 @@ public class Canon extends Mech {
     }
 
     @Override
-     protected void ejecutarAtaque(Posicion objetivo, Tablero tablero) {
+    protected void ejecutarAtaque(Posicion objetivo, Tablero tablero) {
         Direccion direccion = posicion.direccionHacia(objetivo);
-        if (direccion == Direccion.NINGUNA) return;
+        if (direccion == Direccion.NINGUNA) {
+            return;
+        }
 
         Posicion posActual = posicion.siguienteEn(direccion);
         while (tablero.estaEnRango(posActual)) {
             Casilla casillaActual = tablero.enCasilla(posActual);
-            if (!casillaActual.estaLibre() || !casillaActual.esTransitable()) {
 
-                if (!casillaActual.estaLibre()) {
-                    Unidad unidadImpactada = casillaActual.obtenerUnidad();
-                    unidadImpactada.recibirDanio(1);
-                    Posicion posDestinoEmpuje = posActual.siguienteEn(direccion);
-
-                    if (tablero.estaEnRango(posDestinoEmpuje)) {
-                        unidadImpactada.reubicarEn(posDestinoEmpuje, tablero);
-                    }
-                }
+            if (!casillaActual.estaLibre()) {
+                golpearYEmpujar(posActual, 1, direccion, tablero);
                 return;
             }
+
+            if (!casillaActual.esTransitable()) {
+                return;
+            }
+
             posActual = posActual.siguienteEn(direccion);
         }
     }
