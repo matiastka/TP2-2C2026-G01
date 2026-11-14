@@ -369,5 +369,45 @@ public class CombateTest {
         // Assert
         assertSame(vekLuciernaga, tablero.enCasilla(posicionVekOrigen).obtenerUnidad());
     }
+    @Test
+    public void test18CombateEmpiezaCon3DeVida() {
+        // Arrange
+        Combate combate = new Combate(new Posicion(0, 0));
+        int vidaEsperada = 3;
+
+        // Act
+        int vidaActual = combate.obtenerVida();
+
+        // Assert
+        assertEquals(vidaEsperada, vidaActual);
+    }
+
+    @Test
+    public void test19CombateTieneRango3() {
+        // Arrange
+        Combate combate = new Combate(new Posicion(0, 0));
+        int rangoEsperado = 3;
+
+        // Act
+        int rangoActual = combate.obtenerRango();
+
+        // Assert
+        assertEquals(rangoEsperado, rangoActual);
+    }
+
+    @Test
+    public void test20Recibir2DeDanioLoDejaCon1DeVida() {
+        // Arrange
+        Combate combate = new Combate(new Posicion(0, 0));
+        int danioARecibir = 2;
+        int vidaEsperada = 1;
+        
+        // Act
+        combate.recibirDanio(danioARecibir);
+        int vidaActual = combate.obtenerVida();
+        
+        // Assert
+        assertEquals(vidaEsperada, vidaActual);
+    }
 
 }

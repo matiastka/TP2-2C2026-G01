@@ -171,5 +171,29 @@ public class CanonTest {
         // Assert
         assertSame(blanco2, tablero.enCasilla(posicionBlanco2).obtenerUnidad());
     }
+    @Test
+    public void test09CanonEmpiezaCon3DeVida() {
+        // Arrange
+        Canon canon = new Canon(new Posicion(0, 0));
+        int vidaEsperada = 3;
 
+        // Act
+        int vidaActual = canon.obtenerVida();
+
+        // Assert
+        assertEquals(vidaEsperada, vidaActual);
+    }
+
+    @Test
+    public void test10CanonTieneRango3() {
+        // Arrange
+        Canon canon = new Canon(new Posicion(0, 0));
+        int rangoEsperado = 3;
+
+        // Act
+        int rangoActual = canon.obtenerRango();
+
+        // Assert
+        assertEquals(rangoEsperado, rangoActual);
+    }
 }

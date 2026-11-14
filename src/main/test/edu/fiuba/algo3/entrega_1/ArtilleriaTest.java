@@ -131,4 +131,29 @@ public class ArtilleriaTest {
 
         assertSame(este, tablero.enCasilla(new Posicion(4, 6)).obtenerUnidad());
     }
+    @Test
+    public void test09ArtilleriaEmpiezaCon2DeVida() {
+        // Arrange
+        Artilleria artilleria = new Artilleria(new Posicion(0, 0));
+        int vidaEsperada = 2;
+
+        // Act
+        int vidaActual = artilleria.obtenerVida();
+
+        // Assert
+        assertEquals(vidaEsperada, vidaActual);
+    }
+
+    @Test
+    public void test10ArtilleriaTieneRango3() {
+        // Arrange
+        Artilleria artilleria = new Artilleria(new Posicion(0, 0));
+        int rangoEsperado = 3;
+
+        // Act
+        int rangoActual = artilleria.obtenerRango();
+
+        // Assert
+        assertEquals(rangoEsperado, rangoActual);
+    }
 }
