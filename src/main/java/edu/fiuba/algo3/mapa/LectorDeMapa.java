@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.mapa;
 
-import edu.fiuba.algo3.modelo.TableroInvalidoException;
+import edu.fiuba.algo3.modelo.tablero.TableroInvalidoException;
 
 import java.io.IOException;
 import java.nio.file.Files;
