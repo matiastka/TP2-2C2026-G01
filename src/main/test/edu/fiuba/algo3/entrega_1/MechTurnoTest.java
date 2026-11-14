@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.entrega_1;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
@@ -64,7 +64,7 @@ public class MechTurnoTest {
     }
 
     @Test
-    public void test03AlReiniciarTurnoElMechPuedeVolverAMoverseYAtacar() {
+    public void test03AlReiniciarTurnoElMechPuedeVolverAMoverse() {
         Tablero tablero = new Tablero(MAPA);
 
         Posicion origen = new Posicion(0, 0);
@@ -80,7 +80,6 @@ public class MechTurnoTest {
         mech.moverA(destino, tablero);
         mech.atacarA(posVek, tablero);
 
-        // Iniciar nuevo turno
         mech.reiniciarTurno();
 
         Posicion nuevoDestino = new Posicion(1, 1);
@@ -107,7 +106,7 @@ public class MechTurnoTest {
     }
     
     @Test
-    public void test05DeshacerMovimientoDeMechQueYaMovio() {
+    public void test05DeshacerDejaLaCasillaDestinoLibre() {
         Tablero tablero = new Tablero(MAPA);
 
         Posicion origen = new Posicion(0, 0);
@@ -119,8 +118,8 @@ public class MechTurnoTest {
         mech.moverA(destino, tablero);
         
         mech.deshacerMovimiento(tablero);
-        
-        assertEquals(mech.obtenerPosicion(), origen);
+
+        assertTrue(tablero.enCasilla(destino).estaLibre());
     }
     
     @Test
@@ -144,5 +143,30 @@ public class MechTurnoTest {
         
         assertEquals(mech.obtenerPosicion(), destino2);
     }
-    
+
+    @Test
+    public void test07NoSePuedeDeshacerElMovimientoDespuesDeAtacar() {
+        // Arrange
+        Tablero tablero = new Tablero(MAPA);
+
+        Posicion origen = new Posicion(0, 0);
+        Posicion destino = new Posicion(0, 1);
+        Posicion posicionVek = new Posicion(0, 2);
+
+        Mech mech = new Combate(origen);
+        Unidad vek = new Luciernaga(posicionVek);
+
+        tablero.ocuparCasilla(origen, mech);
+        tablero.ocuparCasilla(posicionVek, vek);
+
+        mech.moverA(destino, tablero);
+        mech.atacarA(posicionVek, tablero);
+
+        // Act
+        mech.deshacerMovimiento(tablero);
+
+        // Assert
+        assertEquals(destino, mech.obtenerPosicion());
+    }
+
 }
