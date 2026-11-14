@@ -19,13 +19,18 @@ public class Combate extends Mech {
             return;
         }
 
-        if (tablero.enCasilla(objetivo).estaLibre()) {
-            System.out.println("La casilla a atacar esta vacia");
+        if (!tablero.enCasilla(objetivo).estaLibre()) {
+            Direccion direccion = posicion.direccionHacia(objetivo);
+            golpearYEmpujar(objetivo, 2, direccion, tablero);
             return;
         }
 
-        Direccion direccion = posicion.direccionHacia(objetivo);
-        golpearYEmpujar(objetivo, 2, direccion, tablero);
+        if (!tablero.enCasilla(objetivo).esTransitable()) {
+            tablero.enCasilla(objetivo).obtenerTerreno().recibirDanio(1);
+            return;
+        }
+
+        System.out.println("La casilla a atacar esta vacia");
     }
 
 }

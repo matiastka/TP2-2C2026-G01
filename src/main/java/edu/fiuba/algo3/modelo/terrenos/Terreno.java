@@ -6,4 +6,8 @@ public abstract class Terreno {
     public abstract boolean esTransitable();
 
     public abstract void afectarA(Unidad unidad);
+
+    public void recibirDanio(int danio) {
+        // Por defecto, los terrenos no reciben daño.
+    }
 }

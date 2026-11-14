@@ -40,11 +40,13 @@ public abstract class Mech extends Unidad {
         }
 
         Posicion destino = origen.siguienteEn(direccion);
+        Unidad unidad = tablero.enCasilla(origen).obtenerUnidad();
+
         if (!tablero.estaEnRango(destino) || !tablero.enCasilla(destino).estaLibre() || !tablero.enCasilla(destino).esTransitable()) {
+            unidad.recibirDanio(1);
             return;
         }
 
-        Unidad unidad = tablero.enCasilla(origen).obtenerUnidad();
         unidad.reubicarEn(destino, tablero);
     }
 
