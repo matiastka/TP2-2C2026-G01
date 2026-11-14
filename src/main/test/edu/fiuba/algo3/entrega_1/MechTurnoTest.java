@@ -1,9 +1,14 @@
 package edu.fiuba.algo3.entrega_1;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.Test;
 
-import edu.fiuba.algo3.modelo.*;
+import edu.fiuba.algo3.modelo.tablero.Posicion;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
+import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
+import edu.fiuba.algo3.modelo.unidades.Mech;
+import edu.fiuba.algo3.modelo.unidades.Unidad;
+import org.junit.jupiter.api.Test;
 
 public class MechTurnoTest {
 
