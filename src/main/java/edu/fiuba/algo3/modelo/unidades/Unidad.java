@@ -69,7 +69,7 @@ public abstract class Unidad {
         this.estadoSalud = new EstadoContaminado();
     }
 
-    public abstract void hundirse();
+    protected abstract void hundirse();
 
     // Esto hay que verlo porque no tiene sentido que no implemente el contrato (Mati)
     // Ahi esta tomando forma (Mati 2)
