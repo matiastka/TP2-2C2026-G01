@@ -1,7 +1,5 @@
-package edu.fiuba.algo3.entrega_1;
+package edu.fiuba.algo3.modelo.tablero;
 
-import edu.fiuba.algo3.modelo.tablero.Direccion;
-import edu.fiuba.algo3.modelo.tablero.Posicion;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

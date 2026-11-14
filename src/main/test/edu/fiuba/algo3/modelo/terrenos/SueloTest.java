@@ -1,7 +1,6 @@
 
-package edu.fiuba.algo3.entrega_1;
+package edu.fiuba.algo3.modelo.terrenos;
 
-import edu.fiuba.algo3.modelo.terrenos.Suelo;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
 import org.junit.jupiter.api.Test;
