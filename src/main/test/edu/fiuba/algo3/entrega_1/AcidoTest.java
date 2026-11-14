@@ -1,7 +1,7 @@
 
 package edu.fiuba.algo3.entrega_1;
 
-import edu.fiuba.algo3.modelo.Acido;
+import edu.fiuba.algo3.modelo.terrenos.Acido;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

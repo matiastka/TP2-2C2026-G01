@@ -1,10 +1,10 @@
 
 package edu.fiuba.algo3.entrega_1;
 
-import edu.fiuba.algo3.modelo.Agua;
-import edu.fiuba.algo3.modelo.Luciernaga;
-import edu.fiuba.algo3.modelo.Combate;
-import edu.fiuba.algo3.modelo.Posicion;
+import edu.fiuba.algo3.modelo.terrenos.Agua;
+import edu.fiuba.algo3.modelo.tablero.Posicion;
+import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
+import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

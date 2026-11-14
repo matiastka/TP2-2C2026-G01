@@ -1,5 +1,5 @@
 package edu.fiuba.algo3.entrega_1;
-
+import edu.fiuba.algo3.modelo.tablero.TableroInvalidoException;
 import edu.fiuba.algo3.mapa.LectorDeMapa;
 
 import edu.fiuba.algo3.modelo.tablero.Posicion;
