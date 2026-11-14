@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class EdificioEntrega2Test {
+public class EdificioTest {
     private static final String[] MAPA_CON_EDIFICIO = {
             "SSSSSSSS",
             "SSSSSSSS",

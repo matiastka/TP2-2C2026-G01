@@ -11,23 +11,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class Entrega2Test {
+public class EmpujeTest {
     private static final String[] MAPA_BASE = {
             "SSSSSSSS",
             "SSSSSSSS",
             "SSSSSSSS",
             "SSSSSSSS",
-            "SSSSSSSS",
-            "SSSSSSSS",
-            "SSSSSSSS",
-            "SSSSSSSS"
-    };
-
-    private static final String[] MAPA_CON_EDIFICIO = {
-            "SSSSSSSS",
-            "SSSSSSSS",
-            "SSSSSSSS",
-            "SSSESSSS",
             "SSSSSSSS",
             "SSSSSSSS",
             "SSSSSSSS",
@@ -55,21 +44,5 @@ public class Entrega2Test {
 
         assertSame(objetivoVek, tablero.enCasilla(objetivo).obtenerUnidad());
         assertEquals(0, objetivoVek.obtenerVida());
-    }
-
-    @Test
-    public void test02ElDanioAUnEdificioReduceLaRedElectricaEn1() {
-        RedElectrica.getInstancia().reiniciar();
-        Tablero tablero = new Tablero(MAPA_CON_EDIFICIO);
-
-        Posicion origen = new Posicion(3, 2);
-        Posicion edificio = new Posicion(3, 3);
-
-        Mech mech = new Combate(origen);
-        tablero.ocuparCasilla(origen, mech);
-
-        mech.atacarA(edificio, tablero);
-
-        assertEquals(2, tablero.obtenerRedElectrica());
     }
 }
