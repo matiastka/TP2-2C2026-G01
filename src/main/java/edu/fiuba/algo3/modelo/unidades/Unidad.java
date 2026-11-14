@@ -9,11 +9,13 @@ public abstract class Unidad {
     protected int rango;
     protected Posicion posicion;
     protected EstadoTurno estadoTurno;
+    private EstadoSalud estadoSalud;
 
     protected Unidad(int vida, Posicion posicion) {
         this.vida = vida;
         this.posicion = posicion;
         this.estadoTurno = new EstadoDisponible();
+        this.estadoSalud = new EstadoSano();
     }
 
     public void moverA(Posicion destino, Tablero tablero) {
@@ -48,7 +50,7 @@ public abstract class Unidad {
     }
 
     public void recibirDanio(int danio) {
-        this.vida -= danio;
+        this.vida -= this.estadoSalud.calcularDanio(danio);
     }
 
     public int obtenerVida() {
@@ -63,12 +65,16 @@ public abstract class Unidad {
         return posicion;
     }
 
+    public void contaminar(){
+        this.estadoSalud = new EstadoContaminado();
+    }
+
     // Esto hay que verlo porque no tiene sentido que no implemente el contrato (Mati)
     public void caerEnAgua(){
 
     }
 
     public void caerEnAcido(){
-
+        contaminar();
     }
 }
