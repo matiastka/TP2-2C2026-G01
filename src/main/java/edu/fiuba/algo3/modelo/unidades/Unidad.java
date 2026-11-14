@@ -10,12 +10,14 @@ public abstract class Unidad {
     protected Posicion posicion;
     protected EstadoTurno estadoTurno;
     private EstadoSalud estadoSalud;
+    private Movimiento movimiento;
 
-    protected Unidad(int vida, Posicion posicion) {
+    protected Unidad(int vida, Posicion posicion, Movimiento movimiento) {
         this.vida = vida;
         this.posicion = posicion;
         this.estadoTurno = new EstadoDisponible();
         this.estadoSalud = new EstadoSano();
+        this.movimiento = movimiento;
     }
 
     public void moverA(Posicion destino, Tablero tablero) {
@@ -23,9 +25,7 @@ public abstract class Unidad {
     }
 
     boolean ejecutarMovimiento(Posicion destino, Tablero tablero) {
-        MovimientoTerrestre validador = new MovimientoTerrestre();
-
-        if (validador.puedeLlegar(this.posicion, destino, this.obtenerRango(), tablero)) {
+        if (this.movimiento.puedeLlegar(this.posicion, destino, this.obtenerRango(), tablero)) {
             reubicarEn(destino, tablero);
             return true;
         } else {
@@ -65,16 +65,19 @@ public abstract class Unidad {
         return posicion;
     }
 
-    public void contaminar(){
+    public void contaminarse(){
         this.estadoSalud = new EstadoContaminado();
     }
 
-    // Esto hay que verlo porque no tiene sentido que no implemente el contrato (Mati)
-    public void caerEnAgua(){
+    public abstract void hundirse();
 
+    // Esto hay que verlo porque no tiene sentido que no implemente el contrato (Mati)
+    // Ahi esta tomando forma (Mati 2)
+    public void caerEnAgua(){
+        movimiento.caerEnAgua(this);
     }
 
     public void caerEnAcido(){
-        contaminar();
+        movimiento.caerEnAcido(this);
     }
 }

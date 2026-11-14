@@ -6,7 +6,7 @@ import edu.fiuba.algo3.modelo.tablero.Direccion;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 
-public class MovimientoTerrestre {
+public class MovimientoTerrestre implements Movimiento {
 
     public boolean puedeLlegar(Posicion origen, Posicion destino, int rango, Tablero tablero) {
         if (origen.direccionHacia(destino) == Direccion.NINGUNA) return false;
@@ -24,5 +24,15 @@ public class MovimientoTerrestre {
             if (!casilla.esTransitable() || !casilla.estaLibre()) return false;
         } while (!actual.equals(destino));
         return true;
+    }
+
+    @Override
+    public void caerEnAcido(Unidad unidad){
+        unidad.contaminarse();
+    }
+
+    @Override
+    public void caerEnAgua(Unidad unidad){
+        unidad.hundirse();
     }
 }

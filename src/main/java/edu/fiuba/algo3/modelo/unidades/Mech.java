@@ -9,7 +9,7 @@ public abstract class Mech extends Unidad {
     protected Posicion posicionAnterior;
 
     protected Mech(int vida, Posicion posicion) {
-        super(vida, posicion);
+        super(vida, posicion, new MovimientoTerrestre());
         this.rango = 3;
     }
 
@@ -83,4 +83,11 @@ public abstract class Mech extends Unidad {
     protected boolean calcularLineaRecta(Posicion objetivo) {
         return posicion.estaEnLineaRectaA(objetivo, 2);
     }
+
+    // Todavia no hace nada, se debe hacer en la verificacion 3 (Mati)
+    @Override
+    public void hundirse(){
+
+    }
+
 }

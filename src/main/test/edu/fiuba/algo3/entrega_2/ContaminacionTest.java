@@ -4,8 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.Mech;
-import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
+import edu.fiuba.algo3.modelo.unidades.*;
+import edu.fiuba.algo3.modelo.unidades.mechs.*;
+import edu.fiuba.algo3.modelo.unidades.veks.*;
 import org.junit.jupiter.api.Test;
 
 public class ContaminacionTest {
@@ -21,12 +22,12 @@ public class ContaminacionTest {
     };
 
     @Test
-    public void test01UnMechSeMueveAUnaCasillaConAcidoYAlRecibirDanioPierdeElDobleDeVida(){
+    public void test01UnMechSeMueveAUnaCasillaConAcidoYAlRecibirDanioPierdeElDobleDeVida() {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
 
-        Posicion posicionMech = new Posicion(2,3);
-        Posicion posicionAcido = new Posicion(2,4);
+        Posicion posicionMech = new Posicion(2, 3);
+        Posicion posicionAcido = new Posicion(2, 4);
 
         Mech mechCombate = new Combate(posicionMech);
 
@@ -37,8 +38,98 @@ public class ContaminacionTest {
         mechCombate.recibirDanio(1);
 
         // Assert
-        assertEquals(vidaEsperada,mechCombate.obtenerVida());
+        assertEquals(vidaEsperada, mechCombate.obtenerVida());
     }
 
+    @Test
+    public void test02UnMechQueNuncaPisaAcidoRecibeDanioNormal() {
+        // Arrange
+        Tablero tablero = new Tablero(MAPA);
+        Posicion posicionMech = new Posicion(2, 2);
+        Posicion posicionSuelo = new Posicion(2, 3);
+
+        Mech mechCombate = new Combate(posicionMech);
+
+        int vidaEsperada = 2;
+
+        mechCombate.moverA(posicionSuelo, tablero);
+
+        // Act
+        mechCombate.recibirDanio(1);
+
+        // Assert
+        assertEquals(vidaEsperada, mechCombate.obtenerVida());
+    }
+
+    @Test
+    public void test03UnMechQueSaleDelAcidoSigueContaminado() {
+        // Arrange
+        Tablero tablero = new Tablero(MAPA);
+        Posicion posicionMech = new Posicion(2, 2);
+        Posicion posicionAcido = new Posicion(2, 4);
+        Posicion posicionSuelo = new Posicion(2, 5);
+
+        Mech mechCombate = new Combate(posicionMech);
+
+        int vidaEsperada = 1;
+
+        mechCombate.moverA(posicionAcido, tablero);
+        mechCombate.reiniciarTurno();
+        mechCombate.moverA(posicionSuelo, tablero);
+
+        // Act
+        mechCombate.recibirDanio(1);
+
+        // Assert
+        assertEquals(vidaEsperada, mechCombate.obtenerVida());
+    }
+
+    @Test
+    public void test04UnaLucierganaEmpujadaAlAcidoQuedaContaminada() {
+        // Arrange
+        Tablero tablero = new Tablero(MAPA);
+        Posicion posicionMech = new Posicion(2, 2);
+        Posicion posicionVek = new Posicion(2, 3);
+
+        Mech mechCanon = new Canon(posicionMech);
+        Unidad vekLuciernaga = new Luciernaga(posicionVek);
+
+        tablero.ocuparCasilla(posicionMech, mechCanon);
+        tablero.ocuparCasilla(posicionVek, vekLuciernaga);
+
+        mechCanon.atacarA(posicionVek, tablero);
+
+        int vidaEsperada = 0;
+
+        mechCanon.reiniciarTurno();
+
+        // Act
+        mechCanon.atacarA(posicionVek, tablero);
+
+        // Assert
+        assertEquals(vidaEsperada, vekLuciernaga.obtenerVida());
+    }
+
+    @Test
+    public void test05UnAvisponQueTerminaSobreAcidoNoQuedaContaminado() {
+        // Arrange
+        Tablero tablero = new Tablero(MAPA);
+        Posicion posicionVek = new Posicion(2, 3);
+        Posicion posicionAcido = new Posicion(2, 4);
+
+        Unidad vekAvispon = new Avispon(posicionVek);
+
+        tablero.ocuparCasilla(posicionVek, vekAvispon);
+
+        vekAvispon.moverA(posicionAcido, tablero);
+
+        int vidaEsperada = 1;
+
+        // Act
+        vekAvispon.recibirDanio(1);
+
+        // Assert
+        assertEquals(vidaEsperada, vekAvispon.obtenerVida());
+    }
 
 }
