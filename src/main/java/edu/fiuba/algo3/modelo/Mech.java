@@ -36,7 +36,7 @@ public abstract class Mech extends Unidad {
         }
 
         Posicion destino = origen.siguienteEn(direccion);
-        if (!tablero.estaEnRango(destino) || !tablero.enCasilla(destino).estaLibre()) {
+        if (!tablero.estaEnRango(destino) || !tablero.enCasilla(destino).estaLibre() || !tablero.enCasilla(destino).esTransitable()) {
             return;
         }
 

@@ -310,6 +310,7 @@ public class CombateTest {
 
     @Test
     public void test15AtacarUnaCasillaVaciaNoDebeLanzarUnError(){ // Test polemico, por ahora lo dejo
+        // Arrange
         Tablero tablero = new Tablero(MAPA);
 
         Posicion posicionMech = new Posicion(4,2);
@@ -319,6 +320,54 @@ public class CombateTest {
 
         tablero.ocuparCasilla(posicionMech, mechCombate);
 
+        // Act & Assert
         assertDoesNotThrow(() -> mechCombate.atacarA(posicionVacia, tablero));
     }
+
+    @Test
+    public void test16ElPunioNoEmpujaAUnaUnidadContraUnEdificio(){
+        // Arrange
+        Tablero tablero = new Tablero(MAPA);
+
+        Posicion posicionMech = new Posicion(3,1);
+        Posicion posicionVek = new Posicion(3,2); // en (3,3) hay un Edificio
+
+        Mech mechCombate = new Combate(posicionMech);
+        Unidad vekLuciernaga = new Luciernaga(posicionVek);
+
+        tablero.ocuparCasilla(posicionMech, mechCombate);
+        tablero.ocuparCasilla(posicionVek, vekLuciernaga);
+
+        // Act
+        mechCombate.atacarA(posicionVek, tablero);
+
+        // Assert
+        assertSame(vekLuciernaga, tablero.enCasilla(posicionVek).obtenerUnidad());
+
+    }
+
+    @Test
+    public void test17ElPunioEmpujaAUnaUnidadQueYaSeMovioEnElTurno(){
+        // Arrange
+        Tablero tablero = new Tablero(MAPA);
+
+        Posicion posicionMech = new Posicion(4,2);
+        Posicion posicionVekOrigen = new Posicion(4,4);
+        Posicion posicionVekDestino = new Posicion(4,3);
+
+        Mech mechCombate = new Combate(posicionMech);
+        Unidad vekLuciernaga = new Luciernaga(posicionVekOrigen);
+
+        tablero.ocuparCasilla(posicionMech, mechCombate);
+        tablero.ocuparCasilla(posicionVekOrigen, vekLuciernaga);
+
+        vekLuciernaga.moverA(posicionVekDestino, tablero);
+
+        // Act
+        mechCombate.atacarA(posicionVekDestino, tablero);
+
+        // Assert
+        assertSame(vekLuciernaga, tablero.enCasilla(posicionVekOrigen).obtenerUnidad());
+    }
+
 }

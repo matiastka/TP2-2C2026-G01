@@ -36,7 +36,7 @@ public class CanonTest {
 
         canon.atacarA(posBlanco1, tablero);
 
-        assertEquals(2, blanco1.obtenerVida()); // 3 - 1 = 2
+        assertEquals(2, blanco1.obtenerVida());
     }
 
     @Test
@@ -147,4 +147,29 @@ public class CanonTest {
 
         assertSame(blanco, tablero.enCasilla(new Posicion(4, 2)).obtenerUnidad());
     }
+
+    @Test
+    public void test08ElCanonNoEmpujaAUnaUnidadContraOtraYLaDeAtrasSigueEnSuLugar(){
+        // Arrange
+        Tablero tablero = new Tablero(MAPA);
+
+        Posicion posicionCanon = new Posicion(4,1);
+        Posicion posicionBlanco1 = new Posicion(4,3);
+        Posicion posicionBlanco2 = new Posicion(4,4);
+
+        Mech canon = new Canon(posicionCanon);
+        Unidad blanco1 = new Luciernaga(posicionBlanco1);
+        Unidad blanco2 = new Luciernaga(posicionBlanco2);
+
+        tablero.ocuparCasilla(posicionCanon, canon);
+        tablero.ocuparCasilla(posicionBlanco1, blanco1);
+        tablero.ocuparCasilla(posicionBlanco2, blanco2);
+
+        // Act
+        canon.atacarA(posicionBlanco1, tablero);
+
+        // Assert
+        assertSame(blanco2, tablero.enCasilla(posicionBlanco2).obtenerUnidad());
+    }
+
 }
