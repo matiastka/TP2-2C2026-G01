@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.modelo.terrenos;
 
 import edu.fiuba.algo3.modelo.RedElectrica;
-import edu.fiuba.algo3.modelo.unidades.Unidad;
+import edu.fiuba.algo3.modelo.tablero.Ocupante;
 
 public class Edificio extends Terreno {
     private final RedElectrica redElectrica = RedElectrica.getInstancia();
@@ -12,7 +12,7 @@ public class Edificio extends Terreno {
     }
 
     @Override
-    public void afectarA(Unidad unidad) {
+    public void afectarA(Ocupante ocupante) {
 
     }
 

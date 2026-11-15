@@ -7,8 +7,8 @@ import edu.fiuba.algo3.modelo.unidades.Mech;
 
 public class Artilleria extends Mech {
 
-    public Artilleria(Posicion posicion) {
-        super(2, posicion);
+    public Artilleria() {
+        super(2);
     }
 
     @Override

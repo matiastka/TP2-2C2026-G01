@@ -25,8 +25,11 @@ public class EstadoTurnoTest {
     public void test01EstadoDisponibleAlMoverseExitosamenteRetornaEstadoYaSeMovio() {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
-        Combate mech = new Combate(new Posicion(0, 0));
-        tablero.ocuparCasilla(new Posicion(0, 0), mech);
+
+        Combate mech = new Combate();
+
+        mech.colocarseEn(new Posicion(0, 0), tablero);
+
         EstadoTurno estado = new EstadoDisponible();
 
         // Act
@@ -40,10 +43,13 @@ public class EstadoTurnoTest {
     public void test02EstadoDisponibleAlAtacarExitosamenteRetornaEstadoTurnoAgotado() {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
-        Combate mech = new Combate(new Posicion(0, 0));
-        Luciernaga vek = new Luciernaga(new Posicion(0, 1));
-        tablero.ocuparCasilla(new Posicion(0, 0), mech);
-        tablero.ocuparCasilla(new Posicion(0, 1), vek);
+
+        Combate mech = new Combate();
+        Luciernaga vek = new Luciernaga();
+
+        mech.colocarseEn(new Posicion(0, 0), tablero);
+        vek.colocarseEn(new Posicion(0, 1), tablero);
+
         EstadoTurno estado = new EstadoDisponible();
 
         // Act
@@ -57,10 +63,13 @@ public class EstadoTurnoTest {
     public void test03EstadoYaSeMovioAlAtacarRetornaEstadoTurnoAgotado() {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
-        Combate mech = new Combate(new Posicion(0, 0));
-        Luciernaga vek = new Luciernaga(new Posicion(0, 1));
-        tablero.ocuparCasilla(new Posicion(0, 0), mech);
-        tablero.ocuparCasilla(new Posicion(0, 1), vek);
+
+        Combate mech = new Combate();
+        Luciernaga vek = new Luciernaga();
+
+        mech.colocarseEn(new Posicion(0, 0), tablero);
+        vek.colocarseEn(new Posicion(0, 1), tablero);
+
         EstadoTurno estado = new EstadoYaSeMovio();
 
         // Act
@@ -74,8 +83,11 @@ public class EstadoTurnoTest {
     public void test04EstadoYaSeMovioAlIntentarMoverseNuevamenteDevuelveElMismoEstado() {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
-        Combate mech = new Combate(new Posicion(0, 0));
-        tablero.ocuparCasilla(new Posicion(0, 0), mech);
+
+        Combate mech = new Combate();
+
+        mech.colocarseEn(new Posicion(0, 0), tablero);
+
         EstadoTurno estado = new EstadoYaSeMovio();
 
         // Act
@@ -89,8 +101,11 @@ public class EstadoTurnoTest {
     public void test05EstadoTurnoAgotadoAlIntentarMoverseDevuelveElMismoEstado() {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
-        Combate mech = new Combate(new Posicion(0, 0));
-        tablero.ocuparCasilla(new Posicion(0, 0), mech);
+
+        Combate mech = new Combate();
+
+        mech.colocarseEn(new Posicion(0, 0), tablero);
+
         EstadoTurno estado = new EstadoTurnoAgotado();
 
         // Act
@@ -104,8 +119,11 @@ public class EstadoTurnoTest {
     public void test06EstadoTurnoAgotadoAlIntentarAtacarNuevamenteDevuelveElMismoEstado() {
         // Arrange
         Tablero tablero = new Tablero(MAPA);
-        Combate mech = new Combate(new Posicion(0, 0));
-        tablero.ocuparCasilla(new Posicion(0, 0), mech);
+
+        Combate mech = new Combate();
+
+        mech.colocarseEn(new Posicion(0, 0), tablero);
+
         EstadoTurno estado = new EstadoTurnoAgotado();
 
         // Act

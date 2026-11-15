@@ -30,16 +30,16 @@ public class CombateTest {
         Posicion posicionMechOrigen = new Posicion(2,3);
         Posicion posicionMechDestino = new Posicion(2,4);
 
-        Unidad mechCombate = new Combate(posicionMechOrigen);
+        Unidad mechCombate = new Combate();
 
 
-        tablero.ocuparCasilla(posicionMechOrigen,mechCombate);
+        mechCombate.colocarseEn(posicionMechOrigen, tablero);
 
         // Act
         mechCombate.moverA(posicionMechDestino, tablero);
 
         // Assert
-        assertSame(mechCombate, tablero.enCasilla(posicionMechDestino).obtenerUnidad());
+        assertSame(mechCombate, tablero.enCasilla(posicionMechDestino).obtenerOcupante());
 
     }
 
@@ -51,15 +51,15 @@ public class CombateTest {
         Posicion posicionMechOrigen = new Posicion(2,3);
         Posicion posicionMechDestino = new Posicion(1,3);
 
-        Unidad mechCombate = new Combate(posicionMechOrigen);
+        Unidad mechCombate = new Combate();
 
-        tablero.ocuparCasilla(posicionMechOrigen, mechCombate);
+        mechCombate.colocarseEn(posicionMechOrigen, tablero);
 
         // Act
         mechCombate.moverA(posicionMechDestino,tablero);
 
         // Assert
-        assertSame(mechCombate, tablero.enCasilla(posicionMechDestino).obtenerUnidad());
+        assertSame(mechCombate, tablero.enCasilla(posicionMechDestino).obtenerOcupante());
 
     }
     @Test
@@ -70,9 +70,9 @@ public class CombateTest {
         Posicion posicionMechOrigen = new Posicion(2,3);
         Posicion posicionMechDestino = new Posicion(2,4);
 
-        Unidad mechCombate = new Combate(posicionMechOrigen);
+        Unidad mechCombate = new Combate();
 
-        tablero.ocuparCasilla(posicionMechOrigen, mechCombate);
+        mechCombate.colocarseEn(posicionMechOrigen, tablero);
 
         // Act
         mechCombate.moverA(posicionMechDestino, tablero);
@@ -89,15 +89,15 @@ public class CombateTest {
         Posicion posicionMechOrigen = new Posicion(2,3);
         Posicion posicionMechDestino = new Posicion(2,4);
 
-        Unidad mechCombate = new Combate(posicionMechOrigen);
+        Unidad mechCombate = new Combate();
 
-        tablero.ocuparCasilla(posicionMechOrigen, mechCombate);
+        mechCombate.colocarseEn(posicionMechOrigen, tablero);
 
         // Act
         mechCombate.moverA(posicionMechDestino, tablero);
 
         // Assert
-        assertSame(mechCombate, tablero.enCasilla(posicionMechDestino).obtenerUnidad());
+        assertSame(mechCombate, tablero.enCasilla(posicionMechDestino).obtenerOcupante());
     }
 
     @Test
@@ -108,16 +108,16 @@ public class CombateTest {
         Posicion posicionMechDestino = new Posicion(4,5);
         Posicion posicionMechOrigen = new Posicion(4,1);
 
-        Unidad mechCombate = new Combate(posicionMechOrigen);
+        Unidad mechCombate = new Combate();
 
-        tablero.ocuparCasilla(posicionMechOrigen, mechCombate);
+        mechCombate.colocarseEn(posicionMechOrigen, tablero);
 
         // Act
         // Se intenta mover 4 casillas a la derecha, cuando su rango es 3
         mechCombate.moverA(posicionMechDestino, tablero);
 
         // Assert
-        assertSame(mechCombate, tablero.enCasilla(posicionMechOrigen).obtenerUnidad()); // Esto podria directamente comparar cuando salga la exepcion
+        assertSame(mechCombate, tablero.enCasilla(posicionMechOrigen).obtenerOcupante()); // Esto podria directamente comparar cuando salga la exepcion
     }
 
     @Test
@@ -128,15 +128,15 @@ public class CombateTest {
         Posicion posicionMechOrigen = new Posicion(4,1);
         Posicion posicionRangoDestino = new Posicion(4,4);
 
-        Unidad mechCombate = new Combate(posicionMechOrigen);
+        Unidad mechCombate = new Combate();
 
-        tablero.ocuparCasilla(posicionMechOrigen, mechCombate);
+        mechCombate.colocarseEn(posicionMechOrigen, tablero);
 
         // Act
         mechCombate.moverA(posicionRangoDestino, tablero);
 
         // Assert
-        assertSame(mechCombate, tablero.enCasilla(posicionRangoDestino).obtenerUnidad());
+        assertSame(mechCombate, tablero.enCasilla(posicionRangoDestino).obtenerOcupante());
     }
 
     @Test
@@ -148,18 +148,18 @@ public class CombateTest {
         Posicion posicionMech2Origen = new Posicion(4,2);
         Posicion posicionDestinoMech1 = new Posicion(4,3);
 
-        Unidad mechCombate = new Combate(posicionMech1Origen);
-        Unidad otroMech = new Combate(posicionMech2Origen);
+        Unidad mechCombate = new Combate();
+        Unidad otroMech = new Combate();
 
-        tablero.ocuparCasilla(posicionMech1Origen, mechCombate);
-        tablero.ocuparCasilla(posicionMech2Origen, otroMech);
+        mechCombate.colocarseEn(posicionMech1Origen, tablero);
+        otroMech.colocarseEn(posicionMech2Origen, tablero);
 
         // Act
         // mech intentar ir al (4,3) cuando tiene un mech en (4,2). Por ende no se moverá
         mechCombate.moverA(posicionDestinoMech1, tablero);
 
         // Assert
-        assertSame(mechCombate, tablero.enCasilla(posicionMech1Origen).obtenerUnidad()); // Esto podria directamente comparar cuando salga la exepcion
+        assertSame(mechCombate, tablero.enCasilla(posicionMech1Origen).obtenerOcupante()); // Esto podria directamente comparar cuando salga la exepcion
     }
 
     @Test
@@ -170,15 +170,15 @@ public class CombateTest {
         Posicion posicionMechOrigen = new Posicion(2,1);
         Posicion posicionEdificio = new Posicion(2,3);
 
-        Unidad mechCombate = new Combate(posicionMechOrigen);
+        Unidad mechCombate = new Combate();
 
-        tablero.ocuparCasilla(posicionMechOrigen, mechCombate);
+        mechCombate.colocarseEn(posicionMechOrigen, tablero);
 
         // Act
         mechCombate.moverA(posicionEdificio, tablero);
 
         // Assert
-        assertSame(mechCombate, tablero.enCasilla(posicionMechOrigen).obtenerUnidad());
+        assertSame(mechCombate, tablero.enCasilla(posicionMechOrigen).obtenerOcupante());
     }
 
     @Test
@@ -189,13 +189,13 @@ public class CombateTest {
         Posicion posicionMechOrigen = new Posicion(4,2);
         Posicion posicionVekOrigen = new Posicion(4,3);
 
-        Mech mechCombate = new Combate(posicionMechOrigen); // Duda mia (Mati) es correcto que usemos Mech en vez de Unidad. ¿Esto no viola el principio de "programe contra interfaces"?
-        Unidad vekLuciernaga = new Luciernaga(posicionVekOrigen);
+        Mech mechCombate = new Combate(); // Duda mia (Mati) es correcto que usemos Mech en vez de Unidad. ¿Esto no viola el principio de "programe contra interfaces"?
+        Unidad vekLuciernaga = new Luciernaga();
 
         int vidaVekEsperada = 1;
 
-        tablero.ocuparCasilla(posicionMechOrigen, mechCombate);
-        tablero.ocuparCasilla(posicionVekOrigen, vekLuciernaga);
+        mechCombate.colocarseEn(posicionMechOrigen, tablero);
+        vekLuciernaga.colocarseEn(posicionVekOrigen, tablero);
 
         // Act
         mechCombate.atacarA(posicionVekOrigen, tablero);
@@ -213,17 +213,17 @@ public class CombateTest {
         Posicion posicionVekOrigen = new Posicion(4,3);
         Posicion posicionTrasEmpuje = new Posicion(4,4);
 
-        Mech mechCombate = new Combate(posicionMechOrigen);
-        Unidad vekLuciernaga = new Luciernaga(posicionVekOrigen);
+        Mech mechCombate = new Combate();
+        Unidad vekLuciernaga = new Luciernaga();
 
-        tablero.ocuparCasilla(posicionMechOrigen, mechCombate);
-        tablero.ocuparCasilla(posicionVekOrigen, vekLuciernaga);
+        mechCombate.colocarseEn(posicionMechOrigen, tablero);
+        vekLuciernaga.colocarseEn(posicionVekOrigen, tablero);
 
         // Act
         mechCombate.atacarA(posicionVekOrigen, tablero);
 
         // Assert
-        assertSame(vekLuciernaga, tablero.enCasilla(posicionTrasEmpuje).obtenerUnidad());
+        assertSame(vekLuciernaga, tablero.enCasilla(posicionTrasEmpuje).obtenerOcupante());
     }
 
     @Test
@@ -234,12 +234,12 @@ public class CombateTest {
         Posicion posicionMechOrigen = new Posicion(4,2);
         Posicion posicionVekOrigen = new Posicion(4,3);
 
-        Mech mechCombate = new Combate(posicionMechOrigen);
-        Unidad vekLuciernaga = new Luciernaga(posicionVekOrigen);
+        Mech mechCombate = new Combate();
+        Unidad vekLuciernaga = new Luciernaga();
 
 
-        tablero.ocuparCasilla(posicionMechOrigen, mechCombate);
-        tablero.ocuparCasilla(posicionVekOrigen, vekLuciernaga);
+        mechCombate.colocarseEn(posicionMechOrigen, tablero);
+        vekLuciernaga.colocarseEn(posicionVekOrigen, tablero);
 
         // Act
         mechCombate.atacarA(posicionVekOrigen, tablero);
@@ -256,17 +256,17 @@ public class CombateTest {
         Posicion posicionMechOrigen = new Posicion(6,4);
         Posicion posicionVekOrigen = new Posicion(7,4);
 
-        Mech mechCombate = new Combate(posicionMechOrigen);
-        Unidad vekLuciernaga = new Luciernaga(posicionVekOrigen);
+        Mech mechCombate = new Combate();
+        Unidad vekLuciernaga = new Luciernaga();
 
-        tablero.ocuparCasilla(posicionMechOrigen, mechCombate);
-        tablero.ocuparCasilla(posicionVekOrigen, vekLuciernaga);
+        mechCombate.colocarseEn(posicionMechOrigen, tablero);
+        vekLuciernaga.colocarseEn(posicionVekOrigen, tablero);
 
         // Act
         mechCombate.atacarA(posicionVekOrigen, tablero);
 
         // Assert
-        assertSame(vekLuciernaga, tablero.enCasilla(posicionVekOrigen).obtenerUnidad());
+        assertSame(vekLuciernaga, tablero.enCasilla(posicionVekOrigen).obtenerOcupante());
     }
 
     @Test
@@ -277,13 +277,13 @@ public class CombateTest {
         Posicion posicionMechOrigen = new Posicion(4,1);
         Posicion posicionVekOrigen = new Posicion(4,3);
 
-        Mech mechCombate = new Combate(posicionMechOrigen);
-        Unidad vekLuciernaga = new Luciernaga(posicionVekOrigen);
+        Mech mechCombate = new Combate();
+        Unidad vekLuciernaga = new Luciernaga();
 
         int vidaEsperada = 3;
 
-        tablero.ocuparCasilla(posicionMechOrigen, mechCombate);
-        tablero.ocuparCasilla(posicionVekOrigen, vekLuciernaga);
+        mechCombate.colocarseEn(posicionMechOrigen, tablero);
+        vekLuciernaga.colocarseEn(posicionVekOrigen, tablero);
 
         // Act
         mechCombate.atacarA(posicionVekOrigen, tablero);
@@ -300,17 +300,17 @@ public class CombateTest {
         Posicion posicionMechOrigen = new Posicion(4,1);
         Posicion posicionVekOrigen = new Posicion(4,3);
 
-        Mech mechCombate = new Combate(posicionMechOrigen);
-        Unidad vekLuciernaga = new Luciernaga(posicionVekOrigen);
+        Mech mechCombate = new Combate();
+        Unidad vekLuciernaga = new Luciernaga();
 
-        tablero.ocuparCasilla(posicionMechOrigen, mechCombate);
-        tablero.ocuparCasilla(posicionVekOrigen, vekLuciernaga);
+        mechCombate.colocarseEn(posicionMechOrigen, tablero);
+        vekLuciernaga.colocarseEn(posicionVekOrigen, tablero);
 
         // Act
         mechCombate.atacarA(posicionVekOrigen, tablero);
 
         // Assert
-        assertSame(vekLuciernaga, tablero.enCasilla(posicionVekOrigen).obtenerUnidad());
+        assertSame(vekLuciernaga, tablero.enCasilla(posicionVekOrigen).obtenerOcupante());
     }
 
     @Test
@@ -321,9 +321,9 @@ public class CombateTest {
         Posicion posicionMech = new Posicion(4,2);
         Posicion posicionVacia = new Posicion(4,3);
 
-        Mech mechCombate = new Combate(posicionMech);
+        Mech mechCombate = new Combate();
 
-        tablero.ocuparCasilla(posicionMech, mechCombate);
+        mechCombate.colocarseEn(posicionMech, tablero);
 
         // Act & Assert
         assertDoesNotThrow(() -> mechCombate.atacarA(posicionVacia, tablero));
@@ -337,17 +337,17 @@ public class CombateTest {
         Posicion posicionMech = new Posicion(3,1);
         Posicion posicionVek = new Posicion(3,2); // en (3,3) hay un Edificio
 
-        Mech mechCombate = new Combate(posicionMech);
-        Unidad vekLuciernaga = new Luciernaga(posicionVek);
+        Mech mechCombate = new Combate();
+        Unidad vekLuciernaga = new Luciernaga();
 
-        tablero.ocuparCasilla(posicionMech, mechCombate);
-        tablero.ocuparCasilla(posicionVek, vekLuciernaga);
+        mechCombate.colocarseEn(posicionMech, tablero);
+        vekLuciernaga.colocarseEn(posicionVek, tablero);
 
         // Act
         mechCombate.atacarA(posicionVek, tablero);
 
         // Assert
-        assertSame(vekLuciernaga, tablero.enCasilla(posicionVek).obtenerUnidad());
+        assertSame(vekLuciernaga, tablero.enCasilla(posicionVek).obtenerOcupante());
 
     }
 
@@ -360,11 +360,11 @@ public class CombateTest {
         Posicion posicionVekOrigen = new Posicion(4,4);
         Posicion posicionVekDestino = new Posicion(4,3);
 
-        Mech mechCombate = new Combate(posicionMech);
-        Unidad vekLuciernaga = new Luciernaga(posicionVekOrigen);
+        Mech mechCombate = new Combate();
+        Unidad vekLuciernaga = new Luciernaga();
 
-        tablero.ocuparCasilla(posicionMech, mechCombate);
-        tablero.ocuparCasilla(posicionVekOrigen, vekLuciernaga);
+        mechCombate.colocarseEn(posicionMech, tablero);
+        vekLuciernaga.colocarseEn(posicionVekOrigen, tablero);
 
         vekLuciernaga.moverA(posicionVekDestino, tablero);
 
@@ -372,12 +372,12 @@ public class CombateTest {
         mechCombate.atacarA(posicionVekDestino, tablero);
 
         // Assert
-        assertSame(vekLuciernaga, tablero.enCasilla(posicionVekOrigen).obtenerUnidad());
+        assertSame(vekLuciernaga, tablero.enCasilla(posicionVekOrigen).obtenerOcupante());
     }
     @Test
     public void test18CombateEmpiezaCon3DeVida() {
         // Arrange
-        Combate combate = new Combate(new Posicion(0, 0));
+        Combate combate = new Combate();
         int vidaEsperada = 3;
 
         // Act
@@ -390,7 +390,7 @@ public class CombateTest {
     @Test
     public void test19CombateTieneRango3() {
         // Arrange
-        Combate combate = new Combate(new Posicion(0, 0));
+        Combate combate = new Combate();
         int rangoEsperado = 3;
 
         // Act
@@ -403,7 +403,7 @@ public class CombateTest {
     @Test
     public void test20Recibir2DeDanioLoDejaCon1DeVida() {
         // Arrange
-        Combate combate = new Combate(new Posicion(0, 0));
+        Combate combate = new Combate();
         int danioARecibir = 2;
         int vidaEsperada = 1;
         

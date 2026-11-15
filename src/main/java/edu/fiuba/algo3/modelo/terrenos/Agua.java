@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.terrenos;
 
-import edu.fiuba.algo3.modelo.unidades.Unidad;
+
+import edu.fiuba.algo3.modelo.tablero.Ocupante;
 
 public class Agua extends Terreno {
 
@@ -10,7 +11,7 @@ public class Agua extends Terreno {
     }
 
     @Override
-    public void afectarA(Unidad unidad){
-        unidad.caerEnAgua();
+    public void afectarA(Ocupante ocupante){
+        ocupante.caerEnAgua();
     }
 }

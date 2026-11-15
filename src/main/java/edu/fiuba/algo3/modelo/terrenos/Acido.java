@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.terrenos;
 
-import edu.fiuba.algo3.modelo.unidades.Unidad;
+import edu.fiuba.algo3.modelo.tablero.Ocupante;
 
 public class Acido extends Terreno{
     @Override
@@ -9,7 +9,7 @@ public class Acido extends Terreno{
     }
 
     @Override
-    public void afectarA(Unidad unidad) {
-        unidad.caerEnAcido();
+    public void afectarA(Ocupante ocupante) {
+        ocupante.caerEnAcido();
     }
 }

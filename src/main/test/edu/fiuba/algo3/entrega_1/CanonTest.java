@@ -31,13 +31,13 @@ public class CanonTest {
         Posicion posBlanco1 = new Posicion(0, 2);
         Posicion posBlanco2 = new Posicion(0, 4);
 
-        Mech canon = new Canon(posCanon);
-        Mech blanco1 = new Combate(posBlanco1);
-        Mech blanco2 = new Combate(posBlanco2);
+        Mech canon = new Canon();
+        Mech blanco1 = new Combate();
+        Mech blanco2 = new Combate();
 
-        tablero.ocuparCasilla(posCanon, canon);
-        tablero.ocuparCasilla(posBlanco1, blanco1);
-        tablero.ocuparCasilla(posBlanco2, blanco2);
+        canon.colocarseEn(posCanon, tablero);
+        blanco1.colocarseEn(posBlanco1, tablero);
+        blanco2.colocarseEn(posBlanco2, tablero);
 
         canon.atacarA(posBlanco1, tablero);
 
@@ -52,13 +52,13 @@ public class CanonTest {
         Posicion posBlanco1 = new Posicion(0, 2);
         Posicion posBlanco2 = new Posicion(0, 4);
 
-        Mech canon = new Canon(posCanon);
-        Mech blanco1 = new Combate(posBlanco1);
-        Mech blanco2 = new Combate(posBlanco2);
+        Mech canon = new Canon();
+        Mech blanco1 = new Combate();
+        Mech blanco2 = new Combate();
 
-        tablero.ocuparCasilla(posCanon, canon);
-        tablero.ocuparCasilla(posBlanco1, blanco1);
-        tablero.ocuparCasilla(posBlanco2, blanco2);
+        canon.colocarseEn(posCanon, tablero);
+        blanco1.colocarseEn(posBlanco1, tablero);
+        blanco2.colocarseEn(posBlanco2, tablero);
 
         canon.atacarA(posBlanco1, tablero);
 
@@ -73,17 +73,17 @@ public class CanonTest {
         Posicion posBlanco1 = new Posicion(0, 2);
         Posicion posBlanco2 = new Posicion(0, 4);
 
-        Mech canon = new Canon(posCanon);
-        Mech blanco1 = new Combate(posBlanco1);
-        Mech blanco2 = new Combate(posBlanco2);
+        Mech canon = new Canon();
+        Mech blanco1 = new Combate();
+        Mech blanco2 = new Combate();
 
-        tablero.ocuparCasilla(posCanon, canon);
-        tablero.ocuparCasilla(posBlanco1, blanco1);
-        tablero.ocuparCasilla(posBlanco2, blanco2);
+        canon.colocarseEn(posCanon, tablero);
+        blanco1.colocarseEn(posBlanco1, tablero);
+        blanco2.colocarseEn(posBlanco2, tablero);
 
         canon.atacarA(posBlanco1, tablero);
 
-        assertSame(blanco1, tablero.enCasilla(new Posicion(0, 3)).obtenerUnidad());
+        assertSame(blanco1, tablero.enCasilla(new Posicion(0, 3)).obtenerOcupante());
     }
 
     @Test
@@ -94,11 +94,11 @@ public class CanonTest {
         Posicion posCanon = new Posicion(2, 0);
         Posicion posBlanco = new Posicion(2, 2);
 
-        Mech canon = new Canon(posCanon);
-        Mech blancoAtras = new Combate(posBlanco);
+        Mech canon = new Canon();
+        Mech blancoAtras = new Combate();
         
-        tablero.ocuparCasilla(posCanon, canon);
-        tablero.ocuparCasilla(posBlanco, blancoAtras);
+        canon.colocarseEn(posCanon, tablero);
+        blancoAtras.colocarseEn(posBlanco, tablero);
 
         // Act
         Posicion posMontana = new Posicion(2, 1);
@@ -117,23 +117,26 @@ public class CanonTest {
         Posicion posCanon = new Posicion(2, 0);
         Posicion posDetras = new Posicion(2, 2); // Montaña en (2,1)
 
-        Mech canon = new Canon(posCanon);
-        Mech unidadDetras = new Combate(posDetras);
+        Mech canon = new Canon();
+        Mech unidadDetras = new Combate();
 
-        tablero.ocuparCasilla(posCanon, canon);
-        tablero.ocuparCasilla(posDetras, unidadDetras);
+        canon.colocarseEn(posCanon, tablero);
+        unidadDetras.colocarseEn(posDetras, tablero);
 
         canon.atacarA(new Posicion(2, 5), tablero);
 
-        assertSame(unidadDetras, tablero.enCasilla(posDetras).obtenerUnidad());
+        assertSame(unidadDetras, tablero.enCasilla(posDetras).obtenerOcupante());
     }
 
     @Test
     public void test06CanonDisparaEnLineaLibreSinErrores() {
         Tablero tablero = new Tablero(MAPA);
+
         Posicion posCanon = new Posicion(1, 0);
-        Mech canon = new Canon(posCanon);
-        tablero.ocuparCasilla(posCanon, canon);
+
+        Mech canon = new Canon();
+
+        canon.colocarseEn(posCanon, tablero);
 
         assertDoesNotThrow(() -> canon.atacarA(new Posicion(1, 5), tablero));
     }
@@ -143,14 +146,16 @@ public class CanonTest {
         Tablero tablero = new Tablero(MAPA);
         Posicion posCanon = new Posicion(4, 0);
         Posicion posBlanco = new Posicion(4, 1);
-        Mech canon = new Canon(posCanon);
-        Mech blanco = new Combate(posBlanco);
-        tablero.ocuparCasilla(posCanon, canon);
-        tablero.ocuparCasilla(posBlanco, blanco);
+
+        Mech canon = new Canon();
+        Mech blanco = new Combate();
+
+        canon.colocarseEn(posCanon, tablero);
+        blanco.colocarseEn(posBlanco, tablero);
 
         canon.atacarA(posBlanco, tablero);
 
-        assertSame(blanco, tablero.enCasilla(new Posicion(4, 2)).obtenerUnidad());
+        assertSame(blanco, tablero.enCasilla(new Posicion(4, 2)).obtenerOcupante());
     }
 
     @Test
@@ -162,24 +167,24 @@ public class CanonTest {
         Posicion posicionBlanco1 = new Posicion(4,3);
         Posicion posicionBlanco2 = new Posicion(4,4);
 
-        Mech canon = new Canon(posicionCanon);
-        Unidad blanco1 = new Luciernaga(posicionBlanco1);
-        Unidad blanco2 = new Luciernaga(posicionBlanco2);
+        Mech canon = new Canon();
+        Unidad blanco1 = new Luciernaga();
+        Unidad blanco2 = new Luciernaga();
 
-        tablero.ocuparCasilla(posicionCanon, canon);
-        tablero.ocuparCasilla(posicionBlanco1, blanco1);
-        tablero.ocuparCasilla(posicionBlanco2, blanco2);
+        canon.colocarseEn(posicionCanon, tablero);
+        blanco1.colocarseEn(posicionBlanco1, tablero);
+        blanco2.colocarseEn(posicionBlanco2, tablero);
 
         // Act
         canon.atacarA(posicionBlanco1, tablero);
 
         // Assert
-        assertSame(blanco2, tablero.enCasilla(posicionBlanco2).obtenerUnidad());
+        assertSame(blanco2, tablero.enCasilla(posicionBlanco2).obtenerOcupante());
     }
     @Test
     public void test09CanonEmpiezaCon3DeVida() {
         // Arrange
-        Canon canon = new Canon(new Posicion(0, 0));
+        Canon canon = new Canon();
         int vidaEsperada = 3;
 
         // Act
@@ -192,7 +197,7 @@ public class CanonTest {
     @Test
     public void test10CanonTieneRango3() {
         // Arrange
-        Canon canon = new Canon(new Posicion(0, 0));
+        Canon canon = new Canon();
         int rangoEsperado = 3;
 
         // Act

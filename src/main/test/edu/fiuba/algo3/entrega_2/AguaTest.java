@@ -28,11 +28,11 @@ public class AguaTest {
         Posicion posicionVek = new Posicion(2,3);
         Posicion posicionMech = new Posicion(2,0);
 
-        Vek luciernagaVek = new Luciernaga(posicionVek);
-        Mech canonMech = new Canon(posicionMech);
+        Vek luciernagaVek = new Luciernaga();
+        Mech canonMech = new Canon();
 
-        tablero.ocuparCasilla(posicionVek, luciernagaVek);
-        tablero.ocuparCasilla(posicionMech, canonMech);
+        luciernagaVek.colocarseEn(posicionVek, tablero);
+        canonMech.colocarseEn(posicionMech, tablero);
 
         canonMech.atacarA(posicionVek, tablero);
 

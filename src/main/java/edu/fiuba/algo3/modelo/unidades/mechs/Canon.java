@@ -9,18 +9,18 @@ import edu.fiuba.algo3.modelo.unidades.Mech;
 
 public class Canon extends Mech {
 
-    public Canon(Posicion posicion) {
-        super(3, posicion);
+    public Canon() {
+        super(3);
     }
 
     @Override
     protected void ejecutarAtaque(Posicion objetivo, Tablero tablero) {
-        Direccion direccion = posicion.direccionHacia(objetivo);
+        Direccion direccion = obtenerPosicion().direccionHacia(objetivo);
         if (direccion == Direccion.NINGUNA) {
             return;
         }
 
-        Posicion posActual = posicion.siguienteEn(direccion);
+        Posicion posActual = obtenerPosicion().siguienteEn(direccion);
         while (tablero.estaEnRango(posActual)) {
             Casilla casillaActual = tablero.enCasilla(posActual);
 

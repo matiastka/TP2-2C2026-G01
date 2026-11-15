@@ -10,7 +10,7 @@ public class LuciernagaTest {
     @Test
     public void test01LuciernagaEmpiezaCon3DeVida() {
         // Arrange
-        Luciernaga luciernaga = new Luciernaga(new Posicion(0, 0));
+        Luciernaga luciernaga = new Luciernaga();
         int vidaEsperada = 3;
 
         // Act
@@ -23,7 +23,7 @@ public class LuciernagaTest {
     @Test
     public void test02LuciernagaTieneRango2() {
         // Arrange
-        Luciernaga luciernaga = new Luciernaga(new Posicion(0, 0));
+        Luciernaga luciernaga = new Luciernaga();
         int rangoEsperado = 2;
 
         // Act

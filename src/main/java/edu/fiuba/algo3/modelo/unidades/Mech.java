@@ -1,16 +1,16 @@
 package edu.fiuba.algo3.modelo.unidades;
 
 import edu.fiuba.algo3.modelo.tablero.Direccion;
+import edu.fiuba.algo3.modelo.tablero.Ocupante;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 
 public abstract class Mech extends Unidad {
 
-    protected Posicion posicionAnterior;
+    private Posicion posicionAnterior;
 
-    protected Mech(int vida, Posicion posicion) {
-        super(vida, posicion, new MovimientoTerrestre());
-        this.rango = 3;
+    protected Mech(int vida) {
+        super(vida, 3, new MovimientoTerrestre());
     }
 
     public void atacarA(Posicion posicion, Tablero tablero) {
@@ -30,7 +30,7 @@ public abstract class Mech extends Unidad {
 
     protected final void aplicarDanioEn(Posicion posicion, int danio, Tablero tablero) {
         if (hayUnidadEn(posicion, tablero)) {
-            tablero.enCasilla(posicion).obtenerUnidad().recibirDanio(danio);
+            tablero.enCasilla(posicion).obtenerOcupante().recibirDanio(danio);
         }
     }
 
@@ -40,14 +40,14 @@ public abstract class Mech extends Unidad {
         }
 
         Posicion destino = origen.siguienteEn(direccion);
-        Unidad unidad = tablero.enCasilla(origen).obtenerUnidad();
+        Ocupante ocupante = tablero.enCasilla(origen).obtenerOcupante();
 
         if (!tablero.estaEnRango(destino) || !tablero.enCasilla(destino).estaLibre() || !tablero.enCasilla(destino).esTransitable()) {
-            unidad.recibirDanio(1);
+            ocupante.recibirDanio(1);
             return;
         }
 
-        unidad.reubicarEn(destino, tablero);
+        ocupante.serEmpujadoA(destino, tablero);
     }
 
     protected final void golpearYEmpujar(Posicion objetivo, int danio, Direccion direccion, Tablero tablero) {
@@ -55,8 +55,8 @@ public abstract class Mech extends Unidad {
             return;
         }
 
-        Unidad unidad = tablero.enCasilla(objetivo).obtenerUnidad();
-        unidad.recibirDanio(danio);
+        Ocupante ocupante = tablero.enCasilla(objetivo).obtenerOcupante();
+        ocupante.recibirDanio(danio);
 
         if (direccion != Direccion.NINGUNA) {
             empujarUnidadDesde(objetivo, direccion, tablero);
@@ -65,9 +65,9 @@ public abstract class Mech extends Unidad {
 
     @Override
     public void moverA(Posicion destino, Tablero tablero) {
-        Posicion posibleAnterior = this.posicion;
+        Posicion posibleAnterior = this.obtenerPosicion();
         super.moverA(destino, tablero);
-        if (!this.posicion.equals(posibleAnterior)) {
+        if (!this.obtenerPosicion().equals(posibleAnterior)) {
             this.posicionAnterior = posibleAnterior;
         }
     }
@@ -81,12 +81,12 @@ public abstract class Mech extends Unidad {
     }
 
     protected boolean calcularLineaRecta(Posicion objetivo) {
-        return posicion.estaEnLineaRectaA(objetivo, 2);
+        return obtenerPosicion().estaEnLineaRectaA(objetivo, 2);
     }
 
     // Todavia no hace nada, se debe hacer en la verificacion 3 (Mati)
     @Override
-    public void hundirse(){
+    protected void hundirse(){
 
     }
 

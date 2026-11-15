@@ -24,7 +24,7 @@ public class AguaTest {
     @Test
     public void test02UnaLuciernagaQueCaeAlAguaMuere() {
         // Arrange
-        Luciernaga luciernaga = new Luciernaga(new Posicion(0, 0));
+        Luciernaga luciernaga = new Luciernaga();
         Agua agua = new Agua();
         int vidaEsperada = 0;
         
@@ -39,7 +39,7 @@ public class AguaTest {
     @Test
     public void test03UnMechCombateQueCaeAlAguaNoPierdeVida() {
         // Arrange
-        Combate combate = new Combate(new Posicion(0, 0));
+        Combate combate = new Combate();
         Agua agua = new Agua();
         int vidaEsperada = 3;
         

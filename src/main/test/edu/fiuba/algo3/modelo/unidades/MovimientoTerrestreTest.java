@@ -72,7 +72,7 @@ public class MovimientoTerrestreTest {
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
 
         // Act
-        tablero.ocuparCasilla(destino, new Combate(origen));
+        tablero.ocuparCasilla(destino, new Combate());
 
         // Assert
         assertFalse(movimiento.puedeLlegar(origen, destino, 3, tablero));
@@ -81,7 +81,9 @@ public class MovimientoTerrestreTest {
     @Test
     public void test05AunqueTengaRangoNoPuedeRodearLaMontana() {
         Tablero tablero = new Tablero(MAPA_CON_MONTANA);
+
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
+
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 2);
 
@@ -91,7 +93,9 @@ public class MovimientoTerrestreTest {
     @Test
     public void test06DestinoQueNoEstaEnLaMismaFilaNiColumnaDevuelveFalse() {
         Tablero tablero = new Tablero(MAPA_BASE);
+
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
+
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(1, 2);
 
@@ -101,7 +105,9 @@ public class MovimientoTerrestreTest {
     @Test
     public void test07NoPuedeTerminarSobreUnaMontana() {
         Tablero tablero = new Tablero(MAPA_CON_MONTANA);
+
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
+
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 1);
 

@@ -29,7 +29,9 @@ public class ContaminacionTest {
         Posicion posicionMech = new Posicion(2, 3);
         Posicion posicionAcido = new Posicion(2, 4);
 
-        Mech mechCombate = new Combate(posicionMech);
+        Mech mechCombate = new Combate();
+
+        mechCombate.colocarseEn(posicionMech, tablero);
 
         int vidaEsperada = 1;
 
@@ -48,7 +50,9 @@ public class ContaminacionTest {
         Posicion posicionMech = new Posicion(2, 2);
         Posicion posicionSuelo = new Posicion(2, 3);
 
-        Mech mechCombate = new Combate(posicionMech);
+        Mech mechCombate = new Combate();
+
+        mechCombate.colocarseEn(posicionMech, tablero);
 
         int vidaEsperada = 2;
 
@@ -69,7 +73,9 @@ public class ContaminacionTest {
         Posicion posicionAcido = new Posicion(2, 4);
         Posicion posicionSuelo = new Posicion(2, 5);
 
-        Mech mechCombate = new Combate(posicionMech);
+        Mech mechCombate = new Combate();
+
+        mechCombate.colocarseEn(posicionMech, tablero);
 
         int vidaEsperada = 1;
 
@@ -91,11 +97,11 @@ public class ContaminacionTest {
         Posicion posicionMech = new Posicion(2, 2);
         Posicion posicionVek = new Posicion(2, 3);
 
-        Mech mechCanon = new Canon(posicionMech);
-        Unidad vekLuciernaga = new Luciernaga(posicionVek);
+        Mech mechCanon = new Canon();
+        Unidad vekLuciernaga = new Luciernaga();
 
-        tablero.ocuparCasilla(posicionMech, mechCanon);
-        tablero.ocuparCasilla(posicionVek, vekLuciernaga);
+        mechCanon.colocarseEn(posicionMech, tablero);
+        vekLuciernaga.colocarseEn(posicionVek, tablero);
 
         mechCanon.atacarA(posicionVek, tablero);
 
@@ -117,9 +123,9 @@ public class ContaminacionTest {
         Posicion posicionVek = new Posicion(2, 3);
         Posicion posicionAcido = new Posicion(2, 4);
 
-        Unidad vekAvispon = new Avispon(posicionVek);
+        Unidad vekAvispon = new Avispon();
 
-        tablero.ocuparCasilla(posicionVek, vekAvispon);
+        vekAvispon.colocarseEn(posicionVek, tablero);
 
         vekAvispon.moverA(posicionAcido, tablero);
 

@@ -2,7 +2,6 @@ package edu.fiuba.algo3.modelo.tablero;
 
 import edu.fiuba.algo3.modelo.RedElectrica;
 import edu.fiuba.algo3.modelo.terrenos.*;
-import edu.fiuba.algo3.modelo.unidades.Unidad;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,8 +46,8 @@ public class Tablero {
         return CANTIDAD_DE_COLUMNAS;
     }
 
-    public void ocuparCasilla(Posicion posicion, Unidad unidad){
-        enCasilla(posicion).ocupar(unidad);
+    public void ocuparCasilla(Posicion posicion, Ocupante ocupante){
+        enCasilla(posicion).ocupar(ocupante);
     }
 
     public void desOcuparCasilla(Posicion posicion){

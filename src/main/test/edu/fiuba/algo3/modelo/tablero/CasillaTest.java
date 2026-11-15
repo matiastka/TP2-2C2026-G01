@@ -18,7 +18,7 @@ public class CasillaTest {
     public void test02UnaCasillaOcupadaNoEstaLibre() {
         Casilla casilla = new Casilla(new Suelo(), new Posicion(0,0));
 
-        casilla.ocupar(new Combate(new Posicion(0,0)));
+        casilla.ocupar(new Combate());
 
         assertFalse(casilla.estaLibre());
     }
@@ -26,7 +26,8 @@ public class CasillaTest {
     @Test
     public void test03UnaCasillaDesocupadaVuelveAEstarLibre() {
         Casilla casilla = new Casilla(new Suelo(), new Posicion(0,0));
-        casilla.ocupar(new Combate(new Posicion(0,0)));
+
+        casilla.ocupar(new Combate());
 
         casilla.desOcupar();
 
@@ -37,7 +38,7 @@ public class CasillaTest {
     public void test04UnaCasillaLibreNoDevuelveNull() {
         Casilla casilla = new Casilla(new Suelo(), new Posicion(0,0));
 
-        assertNotNull(casilla.obtenerUnidad());
+        assertNotNull(casilla.obtenerOcupante());
     }
 
 }

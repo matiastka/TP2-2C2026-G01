@@ -8,19 +8,19 @@ import edu.fiuba.algo3.modelo.unidades.Mech;
 
 public class Combate extends Mech {
 
-    public Combate(Posicion posicion){
-        super(3, posicion);
+    public Combate(){
+        super(3);
     }
 
     @Override
     protected void ejecutarAtaque(Posicion objetivo, Tablero tablero) {
-        if (!posicion.esAdyacente(objetivo)) {
+        if (!obtenerPosicion().esAdyacente(objetivo)) {
             System.out.println("El objetivo a atacar no es adyacente.\nPor ende no se aplica el danio ni el empuje");
             return;
         }
 
         if (!tablero.enCasilla(objetivo).estaLibre()) {
-            Direccion direccion = posicion.direccionHacia(objetivo);
+            Direccion direccion = obtenerPosicion().direccionHacia(objetivo);
             golpearYEmpujar(objetivo, 2, direccion, tablero);
             return;
         }

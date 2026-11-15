@@ -32,17 +32,17 @@ public class EmpujeTest {
         Posicion objetivo = new Posicion(3, 3);
         Posicion bloqueo = new Posicion(3, 4);
 
-        Mech mech = new Combate(origen);
-        Unidad objetivoVek = new Luciernaga(objetivo);
-        Unidad bloqueador = new Luciernaga(bloqueo);
+        Mech mech = new Combate();
+        Unidad objetivoVek = new Luciernaga();
+        Unidad bloqueador = new Luciernaga();
 
-        tablero.ocuparCasilla(origen, mech);
-        tablero.ocuparCasilla(objetivo, objetivoVek);
-        tablero.ocuparCasilla(bloqueo, bloqueador);
+        mech.colocarseEn(origen, tablero);
+        objetivoVek.colocarseEn(objetivo, tablero);
+        bloqueador.colocarseEn(bloqueo, tablero);
 
         mech.atacarA(objetivo, tablero);
 
-        assertSame(objetivoVek, tablero.enCasilla(objetivo).obtenerUnidad());
+        assertSame(objetivoVek, tablero.enCasilla(objetivo).obtenerOcupante());
         assertEquals(0, objetivoVek.obtenerVida());
     }
 }

@@ -1,42 +1,40 @@
 package edu.fiuba.algo3.modelo.tablero;
 
-import edu.fiuba.algo3.modelo.unidades.SinUnidad;
 import edu.fiuba.algo3.modelo.terrenos.Terreno;
-import edu.fiuba.algo3.modelo.unidades.Unidad;
 
 public class Casilla {
     private Terreno terreno;
-    private Unidad unidad;
+    private Ocupante ocupante;
     private final Posicion posicion;
 
     public Casilla(Terreno terreno, Posicion posicion){
         this.posicion = posicion;
         this.terreno = terreno;
-        this.unidad = new SinUnidad(posicion);
+        this.ocupante = new SinOcupante();
     }
 
     public boolean estaLibre(){
-        return !this.unidad.ocupaCasilla();
+        return !this.ocupante.ocupaCasilla();
     }
 
-    public void ocupar(Unidad unidad){
-        this.unidad = unidad;
+    public void ocupar(Ocupante ocupante){
+        this.ocupante = ocupante;
     }
 
     public void desOcupar(){
-        this.unidad = new SinUnidad(posicion);
+        this.ocupante = new SinOcupante();
     }
 
     public Terreno obtenerTerreno(){
         return terreno;
     }
 
-    public Unidad obtenerUnidad() {
-        return unidad;
+    public Ocupante obtenerOcupante() {
+        return ocupante;
     }
 
-    public void aplicarEfectoA(Unidad unidad) {
-        this.terreno.afectarA(unidad);
+    public void aplicarEfectoA(Ocupante ocupante) {
+        this.terreno.afectarA(ocupante);
     }
 
     public boolean esTransitable() {

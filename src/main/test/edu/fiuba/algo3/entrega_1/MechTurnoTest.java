@@ -31,9 +31,9 @@ public class MechTurnoTest {
         Posicion primerDestino = new Posicion(0, 2);
         Posicion segundoDestino = new Posicion(0, 4);
 
-        Unidad mech = new Combate(origen);
+        Unidad mech = new Combate();
 
-        tablero.ocuparCasilla(origen, mech);
+        mech.colocarseEn(origen, tablero);
 
         mech.moverA(primerDestino, tablero);
         mech.moverA(segundoDestino, tablero); // Intento invalido
@@ -49,13 +49,13 @@ public class MechTurnoTest {
         Posicion posVek1 = new Posicion(2, 3);
         Posicion posVek2 = new Posicion(3, 2);
 
-        Mech mech = new Combate(posMech);
-        Unidad vek1 = new Luciernaga(posVek1);
-        Unidad vek2 = new Luciernaga(posVek2);
+        Mech mech = new Combate();
+        Unidad vek1 = new Luciernaga();
+        Unidad vek2 = new Luciernaga();
 
-        tablero.ocuparCasilla(posMech, mech);
-        tablero.ocuparCasilla(posVek1, vek1);
-        tablero.ocuparCasilla(posVek2, vek2);
+        mech.colocarseEn(posMech, tablero);
+        vek1.colocarseEn(posVek1, tablero);
+        vek2.colocarseEn(posVek2, tablero);
 
         mech.atacarA(posVek1, tablero);
         mech.atacarA(posVek2, tablero); // Segundo ataque en el mismo turno
@@ -71,11 +71,11 @@ public class MechTurnoTest {
         Posicion destino = new Posicion(0, 1);
         Posicion posVek = new Posicion(0, 2);
 
-        Mech mech = new Combate(origen);
-        Unidad vek = new Luciernaga(posVek);
+        Mech mech = new Combate();
+        Unidad vek = new Luciernaga();
 
-        tablero.ocuparCasilla(origen, mech);
-        tablero.ocuparCasilla(posVek, vek);
+        mech.colocarseEn(origen, tablero);
+        vek.colocarseEn(posVek, tablero);
 
         mech.moverA(destino, tablero);
         mech.atacarA(posVek, tablero);
@@ -95,9 +95,9 @@ public class MechTurnoTest {
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 1);
 
-        Mech mech = new Combate(origen);
+        Mech mech = new Combate();
 
-        tablero.ocuparCasilla(origen, mech);
+        mech.colocarseEn(origen, tablero);
         mech.moverA(destino, tablero);
         
         mech.deshacerMovimiento(tablero);
@@ -112,9 +112,9 @@ public class MechTurnoTest {
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 1);
 
-        Mech mech = new Combate(origen);
+        Mech mech = new Combate();
 
-        tablero.ocuparCasilla(origen, mech);
+        mech.colocarseEn(origen, tablero);
         mech.moverA(destino, tablero);
         
         mech.deshacerMovimiento(tablero);
@@ -130,9 +130,9 @@ public class MechTurnoTest {
         Posicion destino = new Posicion(0, 1);
         Posicion destino2 = new Posicion(0, 2);
 
-        Mech mech = new Combate(origen);
+        Mech mech = new Combate();
 
-        tablero.ocuparCasilla(origen, mech);
+        mech.colocarseEn(origen, tablero);
         mech.moverA(destino, tablero);
         
         mech.deshacerMovimiento(tablero);
@@ -153,11 +153,11 @@ public class MechTurnoTest {
         Posicion destino = new Posicion(0, 1);
         Posicion posicionVek = new Posicion(0, 2);
 
-        Mech mech = new Combate(origen);
-        Unidad vek = new Luciernaga(posicionVek);
+        Mech mech = new Combate();
+        Unidad vek = new Luciernaga();
 
-        tablero.ocuparCasilla(origen, mech);
-        tablero.ocuparCasilla(posicionVek, vek);
+        mech.colocarseEn(origen, tablero);
+        vek.colocarseEn(posicionVek, tablero);
 
         mech.moverA(destino, tablero);
         mech.atacarA(posicionVek, tablero);

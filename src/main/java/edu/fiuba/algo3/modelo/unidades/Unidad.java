@@ -1,20 +1,21 @@
 package edu.fiuba.algo3.modelo.unidades;
 
+import edu.fiuba.algo3.modelo.tablero.Ocupante;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 
-public abstract class Unidad {
+public abstract class Unidad implements Ocupante {
 
     private int vida;
-    protected int rango;
-    protected Posicion posicion;
+    private int rango;
+    private Posicion posicion;
     protected EstadoTurno estadoTurno;
     private EstadoSalud estadoSalud;
     private Movimiento movimiento;
 
-    protected Unidad(int vida, Posicion posicion, Movimiento movimiento) {
+    protected Unidad(int vida, int rango, Movimiento movimiento) {
         this.vida = vida;
-        this.posicion = posicion;
+        this.rango = rango;
         this.estadoTurno = new EstadoDisponible();
         this.estadoSalud = new EstadoSano();
         this.movimiento = movimiento;
@@ -41,6 +42,11 @@ public abstract class Unidad {
         tablero.enCasilla(destino).aplicarEfectoA(this);
     }
 
+    public void colocarseEn(Posicion posicion, Tablero tablero) {
+        tablero.ocuparCasilla(posicion, this);
+        this.posicion = posicion;
+    }
+
     public void reiniciarTurno() {
         this.estadoTurno = new EstadoDisponible();
     }
@@ -49,6 +55,7 @@ public abstract class Unidad {
         return rango;
     }
 
+    @Override
     public void recibirDanio(int danio) {
         this.vida -= this.estadoSalud.calcularDanio(danio);
     }
@@ -57,6 +64,7 @@ public abstract class Unidad {
         return vida;
     }
 
+    @Override
     public boolean ocupaCasilla() {
         return true;
     }
@@ -73,11 +81,18 @@ public abstract class Unidad {
 
     // Esto hay que verlo porque no tiene sentido que no implemente el contrato (Mati)
     // Ahi esta tomando forma (Mati 2)
+    @Override
     public void caerEnAgua(){
         movimiento.caerEnAgua(this);
     }
 
+    @Override
     public void caerEnAcido(){
         movimiento.caerEnAcido(this);
+    }
+
+    @Override
+    public void serEmpujadoA(Posicion destino, Tablero tablero) {
+        reubicarEn(destino, tablero);
     }
 }

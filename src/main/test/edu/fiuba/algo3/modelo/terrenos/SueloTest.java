@@ -23,7 +23,7 @@ public class SueloTest {
     @Test
     public void test02SueloNoLeHaceNadaAUnaLuciernaga() {
         // Arrange
-        Luciernaga luciernaga = new Luciernaga(new Posicion(0, 0));
+        Luciernaga luciernaga = new Luciernaga();
         Suelo suelo = new Suelo();
         int vidaEsperada = 3;
         

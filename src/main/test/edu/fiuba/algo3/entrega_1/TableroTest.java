@@ -69,9 +69,9 @@ public class TableroTest {
 
         Posicion posicionAgua = new Posicion(0,0);
 
-        Unidad luciernaga = new Luciernaga(posicionAgua);
+        Unidad luciernaga = new Luciernaga();
 
-        tablero.ocuparCasilla(posicionAgua, luciernaga);
+        luciernaga.colocarseEn(posicionAgua, tablero);
 
         // Act
         tablero.enCasilla(posicionAgua).aplicarEfectoA(luciernaga);
@@ -109,9 +109,9 @@ public class TableroTest {
 
         Posicion posicionSuelo = new Posicion(6,1);
 
-        Unidad luciernaga = new Luciernaga(posicionSuelo);
+        Unidad luciernaga = new Luciernaga();
 
-        tablero.ocuparCasilla(posicionSuelo, luciernaga);
+        luciernaga.colocarseEn(posicionSuelo, tablero);
 
         // Act
         tablero.enCasilla(posicionSuelo).aplicarEfectoA(luciernaga);

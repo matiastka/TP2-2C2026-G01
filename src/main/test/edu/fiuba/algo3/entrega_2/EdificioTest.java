@@ -29,8 +29,8 @@ public class EdificioTest {
         Posicion origen = new Posicion(3, 2);
         Posicion edificio = new Posicion(3, 3);
 
-        Mech mech = new Combate(origen);
-        tablero.ocuparCasilla(origen, mech);
+        Mech mech = new Combate();
+        mech.colocarseEn(origen, tablero);
 
         mech.atacarA(edificio, tablero);
 
