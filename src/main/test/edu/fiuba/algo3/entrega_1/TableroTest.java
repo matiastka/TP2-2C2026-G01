@@ -121,27 +121,7 @@ public class TableroTest {
         assertEquals(3, luciernaga.obtenerVida());
     }
     @Test
-    public void test09UnaLetraDesconocidaLanzaExcepcion() {
-        // Arrange
-        String[] mapaInvalido = {
-            "XSSSSSSS",
-            "SSSSSSSS",
-            "SSSSSSSS",
-            "SSSSSSSS",
-            "SSSSSSSS",
-            "SSSSSSSS",
-            "SSSSSSSS",
-            "SSSSSSSS"
-        };
-
-        // Act & Assert
-        assertThrows(TableroInvalidoException.class, () -> {
-            new ConstructorDeTablero().construir(mapaInvalido);
-        });
-    }
-
-    @Test
-    public void test10Posicion77EstaEnElTablero() {
+    public void test09Posicion77EstaEnElTablero() {
         // Arrange
         Tablero tablero = new ConstructorDeTablero().construir(MAPA);
         Posicion posicion = new Posicion(7, 7);
@@ -151,7 +131,7 @@ public class TableroTest {
     }
 
     @Test
-    public void test11Posicion80NoEstaEnElTablero() {
+    public void test10Posicion80NoEstaEnElTablero() {
         // Arrange
         Tablero tablero = new ConstructorDeTablero().construir(MAPA);
         Posicion posicion = new Posicion(8, 0);

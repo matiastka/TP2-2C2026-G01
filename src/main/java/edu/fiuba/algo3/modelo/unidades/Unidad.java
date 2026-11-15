@@ -79,8 +79,6 @@ public abstract class Unidad implements Ocupante {
 
     protected abstract void hundirse();
 
-    // Esto hay que verlo porque no tiene sentido que no implemente el contrato (Mati)
-    // Ahi esta tomando forma (Mati 2)
     @Override
     public void caerEnAgua(){
         movimiento.caerEnAgua(this);

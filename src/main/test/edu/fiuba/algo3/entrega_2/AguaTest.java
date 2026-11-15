@@ -24,6 +24,7 @@ public class AguaTest {
 
     @Test
     public void test01UnaLuciernagaEmpujadaAlAguaPorElCanonMuere(){
+        // Arrange
         Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion posicionVek = new Posicion(2,3);
@@ -35,12 +36,93 @@ public class AguaTest {
         luciernagaVek.colocarseEn(posicionVek, tablero);
         canonMech.colocarseEn(posicionMech, tablero);
 
-        canonMech.atacarA(posicionVek, tablero);
-
         int vidaEsperada = 0;
 
+        // Act
+        canonMech.atacarA(posicionVek, tablero);
+
+        // Assert
         assertEquals(vidaEsperada, luciernagaVek.obtenerVida());
-
-
     }
+
+    @Test
+    public void test02UnAvisponEmpujadoAlAguaPorElCanonNoMuere(){
+        // Arrange
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+
+        Posicion posicionVek = new Posicion(2,3);
+        Posicion posicionMech = new Posicion(2,0);
+
+        Vek avisponVek = new Avispon();
+        Mech canonMech = new Canon();
+
+        avisponVek.colocarseEn(posicionVek, tablero);
+        canonMech.colocarseEn(posicionMech, tablero);
+
+        int vidaEsperada = 1;
+
+        // Act
+        canonMech.atacarA(posicionVek, tablero);
+
+        // Assert
+        assertEquals(vidaEsperada, avisponVek.obtenerVida());
+    }
+
+    @Test
+    public void test03UnMechEnElAguaNoPuedeAtacar(){
+        // Arrange
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+
+        Posicion posicionVek = new Posicion(2,5);
+        Posicion posicionMech = new Posicion(2,3);
+        Posicion posicionAgua = new Posicion(2,4);
+
+        Vek avisponVek = new Avispon();
+        Mech canonMech = new Canon();
+
+        avisponVek.colocarseEn(posicionVek, tablero);
+        canonMech.colocarseEn(posicionMech, tablero);
+
+        canonMech.moverA(posicionAgua, tablero);
+
+        int vidaEsperada = 2;
+
+        // Act
+        canonMech.atacarA(posicionVek, tablero);
+
+        // Assert
+        assertEquals(vidaEsperada, avisponVek.obtenerVida());
+    }
+
+    @Test
+    public void test04UnMechSeMueveAlAguaSaleDelAguaYAtacaAUnVek(){
+        // Arrange
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+
+        Posicion posicionVek = new Posicion(2,6);
+        Posicion posicionMech = new Posicion(2,3);
+        Posicion posicionAgua = new Posicion(2,4);
+        Posicion posicionSuelo = new Posicion(2,5);
+
+        Vek avisponVek = new Avispon();
+        Mech canonMech = new Canon();
+
+        avisponVek.colocarseEn(posicionVek, tablero);
+        canonMech.colocarseEn(posicionMech, tablero);
+
+        canonMech.moverA(posicionAgua, tablero);
+
+        canonMech.reiniciarTurno();
+
+        canonMech.moverA(posicionSuelo, tablero);
+
+        int vidaEsperada = 1;
+
+        // Act
+        canonMech.atacarA(posicionVek, tablero);
+
+        // Assert
+        assertEquals(vidaEsperada, avisponVek.obtenerVida());
+    }
+
 }

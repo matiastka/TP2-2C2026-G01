@@ -8,9 +8,11 @@ import edu.fiuba.algo3.modelo.tablero.Tablero;
 public abstract class Mech extends Unidad {
 
     private Posicion posicionAnterior;
+    private EstadoArma estadoArma;
 
     protected Mech(int vida) {
         super(vida, 3, new MovimientoTerrestre());
+        this.estadoArma = new EstadoArmaOperativa();
     }
 
     public void atacarA(Posicion posicion, Tablero tablero) {
@@ -18,8 +20,7 @@ public abstract class Mech extends Unidad {
     }
 
     boolean ejecutarAtaqueValidado(Posicion posicion, Tablero tablero) {
-        ejecutarAtaque(posicion, tablero);
-        return true;
+        return estadoArma.usar(this, posicion, tablero);
     }
 
     protected abstract void ejecutarAtaque(Posicion posicion, Tablero tablero);
@@ -84,10 +85,15 @@ public abstract class Mech extends Unidad {
         return obtenerPosicion().estaEnLineaRectaA(objetivo, 2);
     }
 
-    // Todavia no hace nada, se debe hacer en la verificacion 3 (Mati)
+    @Override
+    protected void reubicarEn(Posicion destino, Tablero tablero) {
+        this.estadoArma = new EstadoArmaOperativa();
+        super.reubicarEn(destino, tablero);
+    }
+
     @Override
     protected void hundirse(){
-
+        this.estadoArma = new EstadoArmaSumergida();
     }
 
 }
