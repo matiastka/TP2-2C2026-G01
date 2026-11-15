@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.entrega_2;
 
+import edu.fiuba.algo3.mapa.ConstructorDeTablero;
 import edu.fiuba.algo3.modelo.RedElectrica;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
@@ -26,7 +27,7 @@ public class EmpujeTest {
     @Test
     public void test01AlEmpujarUnaUnidadContraOtraNoSeMueveYRecibeDanioDeColision() {
         RedElectrica.getInstancia().reiniciar();
-        Tablero tablero = new Tablero(MAPA_BASE);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA_BASE);
 
         Posicion origen = new Posicion(3, 2);
         Posicion objetivo = new Posicion(3, 3);

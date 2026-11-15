@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.terrenos;
 
 import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
+import edu.fiuba.algo3.modelo.tablero.Terreno;
 
 public abstract class FabricaDeTerreno {
     public abstract Terreno crear();

@@ -1,6 +1,7 @@
 
 package edu.fiuba.algo3.modelo.unidades;
 
+import edu.fiuba.algo3.mapa.ConstructorDeTablero;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
@@ -24,7 +25,7 @@ public class EstadoTurnoTest {
     @Test
     public void test01EstadoDisponibleAlMoverseExitosamenteRetornaEstadoYaSeMovio() {
         // Arrange
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Combate mech = new Combate();
 
@@ -42,7 +43,7 @@ public class EstadoTurnoTest {
     @Test
     public void test02EstadoDisponibleAlAtacarExitosamenteRetornaEstadoTurnoAgotado() {
         // Arrange
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Combate mech = new Combate();
         Luciernaga vek = new Luciernaga();
@@ -62,7 +63,7 @@ public class EstadoTurnoTest {
     @Test
     public void test03EstadoYaSeMovioAlAtacarRetornaEstadoTurnoAgotado() {
         // Arrange
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Combate mech = new Combate();
         Luciernaga vek = new Luciernaga();
@@ -82,7 +83,7 @@ public class EstadoTurnoTest {
     @Test
     public void test04EstadoYaSeMovioAlIntentarMoverseNuevamenteDevuelveElMismoEstado() {
         // Arrange
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Combate mech = new Combate();
 
@@ -100,7 +101,7 @@ public class EstadoTurnoTest {
     @Test
     public void test05EstadoTurnoAgotadoAlIntentarMoverseDevuelveElMismoEstado() {
         // Arrange
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Combate mech = new Combate();
 
@@ -118,7 +119,7 @@ public class EstadoTurnoTest {
     @Test
     public void test06EstadoTurnoAgotadoAlIntentarAtacarNuevamenteDevuelveElMismoEstado() {
         // Arrange
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Combate mech = new Combate();
 

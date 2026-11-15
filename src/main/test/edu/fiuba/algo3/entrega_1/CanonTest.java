@@ -1,6 +1,7 @@
 
 package edu.fiuba.algo3.entrega_1;
 
+import edu.fiuba.algo3.mapa.ConstructorDeTablero;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.*;
@@ -25,7 +26,7 @@ public class CanonTest {
 
     @Test
     public void test01CanonDaniaALaPrimeraUnidadEnLineaRecta() {
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion posCanon = new Posicion(0, 0);
         Posicion posBlanco1 = new Posicion(0, 2);
@@ -46,7 +47,7 @@ public class CanonTest {
 
     @Test
     public void test02CanonNoDaniaALaSegundaUnidadEnLineaRecta() {
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion posCanon = new Posicion(0, 0);
         Posicion posBlanco1 = new Posicion(0, 2);
@@ -67,7 +68,7 @@ public class CanonTest {
 
     @Test
     public void test03CanonEmpujaALaPrimeraUnidadUnaCasillaEnLaDireccionDelDisparo() {
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion posCanon = new Posicion(0, 0);
         Posicion posBlanco1 = new Posicion(0, 2);
@@ -89,7 +90,7 @@ public class CanonTest {
     @Test
     public void test04CanonImpactaContraObstaculoYNoALaUnidadDeAtras() {
         // Arrange
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion posCanon = new Posicion(2, 0);
         Posicion posBlanco = new Posicion(2, 2);
@@ -112,7 +113,7 @@ public class CanonTest {
 
     @Test
     public void test05CanonQueFrenaEnUnaMontanaVaciaNoPisaALaUnidadDeAtras() {
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion posCanon = new Posicion(2, 0);
         Posicion posDetras = new Posicion(2, 2); // Montaña en (2,1)
@@ -130,7 +131,7 @@ public class CanonTest {
 
     @Test
     public void test06CanonDisparaEnLineaLibreSinErrores() {
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion posCanon = new Posicion(1, 0);
 
@@ -143,7 +144,7 @@ public class CanonTest {
 
     @Test
     public void test07CasoBordeImpactaAUnidadAdyacenteYLaEmpuja() {
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
         Posicion posCanon = new Posicion(4, 0);
         Posicion posBlanco = new Posicion(4, 1);
 
@@ -161,7 +162,7 @@ public class CanonTest {
     @Test
     public void test08ElCanonNoEmpujaAUnaUnidadContraOtraYLaDeAtrasSigueEnSuLugar(){
         // Arrange
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion posicionCanon = new Posicion(4,1);
         Posicion posicionBlanco1 = new Posicion(4,3);

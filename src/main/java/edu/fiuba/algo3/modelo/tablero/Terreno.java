@@ -1,6 +1,4 @@
-package edu.fiuba.algo3.modelo.terrenos;
-
-import edu.fiuba.algo3.modelo.tablero.Ocupante;
+package edu.fiuba.algo3.modelo.tablero;
 
 public abstract class Terreno {
     public abstract boolean esTransitable();

@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.entrega_2;
 
+import edu.fiuba.algo3.mapa.ConstructorDeTablero;
 import edu.fiuba.algo3.modelo.RedElectrica;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
@@ -24,7 +25,7 @@ public class EdificioTest {
     @Test
     public void test02ElDanioAUnEdificioReduceLaRedElectricaEn1() {
         RedElectrica.getInstancia().reiniciar();
-        Tablero tablero = new Tablero(MAPA_CON_EDIFICIO);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA_CON_EDIFICIO);
 
         Posicion origen = new Posicion(3, 2);
         Posicion edificio = new Posicion(3, 3);

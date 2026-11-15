@@ -1,7 +1,5 @@
 package edu.fiuba.algo3.modelo.tablero;
 
-import edu.fiuba.algo3.modelo.terrenos.Terreno;
-
 public class Casilla {
     private Terreno terreno;
     private Ocupante ocupante;

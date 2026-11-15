@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo.terrenos;
 
+import edu.fiuba.algo3.modelo.tablero.Terreno;
+
 public class FabricaDeEdificio extends FabricaDeTerreno {
     @Override
     public Terreno crear() {

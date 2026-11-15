@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.entrega_1;
 
+import edu.fiuba.algo3.mapa.ConstructorDeTablero;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
@@ -25,7 +26,7 @@ public class CombateTest {
     @Test
     public void test01UnMechCombateSeMueve1ALaDerecha(){
         // Arrange
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion posicionMechOrigen = new Posicion(2,3);
         Posicion posicionMechDestino = new Posicion(2,4);
@@ -46,7 +47,7 @@ public class CombateTest {
     @Test
     public void test02UnMechCombateSeMueve1Arriba(){
         // Arrange
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion posicionMechOrigen = new Posicion(2,3);
         Posicion posicionMechDestino = new Posicion(1,3);
@@ -65,7 +66,7 @@ public class CombateTest {
     @Test
     public void test03AlMoverseElMechLaCasillaDeOrigenQuedaLibre() {
         // Arrange
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion posicionMechOrigen = new Posicion(2,3);
         Posicion posicionMechDestino = new Posicion(2,4);
@@ -84,7 +85,7 @@ public class CombateTest {
     @Test
     public void test04AlMoverseElMechQuedaEnLaCasillaDestino() {
         // Arrange
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion posicionMechOrigen = new Posicion(2,3);
         Posicion posicionMechDestino = new Posicion(2,4);
@@ -103,7 +104,7 @@ public class CombateTest {
     @Test
     public void test05UnMechNoSeMueveFueraDeSuRango() {
         // Arrange
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion posicionMechDestino = new Posicion(4,5);
         Posicion posicionMechOrigen = new Posicion(4,1);
@@ -123,7 +124,7 @@ public class CombateTest {
     @Test
     public void test06UnMechCombatePuedeMoverseExactamenteSuRangoMaximo() {
         // Arrange
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion posicionMechOrigen = new Posicion(4,1);
         Posicion posicionRangoDestino = new Posicion(4,4);
@@ -142,7 +143,7 @@ public class CombateTest {
     @Test
     public void test07UnMechNoPuedeAtravesarAOtroMech() {
         // Arrange
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion posicionMech1Origen = new Posicion(4,1);
         Posicion posicionMech2Origen = new Posicion(4,2);
@@ -165,7 +166,7 @@ public class CombateTest {
     @Test
     public void test08UnMechNoPuedeAtravesarUnEdificioYSeQuedaEnElMismoLugar() {
         // Arrange
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion posicionMechOrigen = new Posicion(2,1);
         Posicion posicionEdificio = new Posicion(2,3);
@@ -184,7 +185,7 @@ public class CombateTest {
     @Test
     public void test09ElPunioHace2DeDanioAUnaLucierganaAdyacente(){
         // Arrange
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion posicionMechOrigen = new Posicion(4,2);
         Posicion posicionVekOrigen = new Posicion(4,3);
@@ -207,7 +208,7 @@ public class CombateTest {
     @Test
     public void test10ElPunioEmpujaAlObjetivoUnaCasillaEnDireccionAlGolpe(){
         // Arrange
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion posicionMechOrigen = new Posicion(4,2);
         Posicion posicionVekOrigen = new Posicion(4,3);
@@ -229,7 +230,7 @@ public class CombateTest {
     @Test
     public void test11TrasSerEmpujadoLaCasillaDondeEstabaQuedaLibre(){
         // Arrange
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion posicionMechOrigen = new Posicion(4,2);
         Posicion posicionVekOrigen = new Posicion(4,3);
@@ -251,7 +252,7 @@ public class CombateTest {
     @Test
     public void test12SeEmpujaAUnVekAlLimiteDelMapaElMismoQuedaEnElBorde(){
         // Arrange
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion posicionMechOrigen = new Posicion(6,4);
         Posicion posicionVekOrigen = new Posicion(7,4);
@@ -272,7 +273,7 @@ public class CombateTest {
     @Test
     public void test13AtacarAUnVekNoAdyacenteNoLeQuitaVida(){
         // Arrange
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion posicionMechOrigen = new Posicion(4,1);
         Posicion posicionVekOrigen = new Posicion(4,3);
@@ -295,7 +296,7 @@ public class CombateTest {
     @Test
     public void test14AtacarAUnVekNoAdyacenteNoLoEmpuja(){
         // Arrange
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion posicionMechOrigen = new Posicion(4,1);
         Posicion posicionVekOrigen = new Posicion(4,3);
@@ -316,7 +317,7 @@ public class CombateTest {
     @Test
     public void test15AtacarUnaCasillaVaciaNoDebeLanzarUnError(){ // Test polemico, por ahora lo dejo
         // Arrange
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion posicionMech = new Posicion(4,2);
         Posicion posicionVacia = new Posicion(4,3);
@@ -332,7 +333,7 @@ public class CombateTest {
     @Test
     public void test16ElPunioNoEmpujaAUnaUnidadContraUnEdificio(){
         // Arrange
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion posicionMech = new Posicion(3,1);
         Posicion posicionVek = new Posicion(3,2); // en (3,3) hay un Edificio
@@ -354,7 +355,7 @@ public class CombateTest {
     @Test
     public void test17ElPunioEmpujaAUnaUnidadQueYaSeMovioEnElTurno(){
         // Arrange
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion posicionMech = new Posicion(4,2);
         Posicion posicionVekOrigen = new Posicion(4,4);
