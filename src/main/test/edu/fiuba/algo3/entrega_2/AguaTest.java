@@ -69,7 +69,7 @@ public class AguaTest {
     }
 
     @Test
-    public void test03UnMechEnElAguaNoPuedeAtacar(){
+    public void test03UnMechCanonEnElAguaNoPuedeAtacar(){
         // Arrange
         Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
@@ -124,5 +124,32 @@ public class AguaTest {
         // Assert
         assertEquals(vidaEsperada, avisponVek.obtenerVida());
     }
+
+    @Test
+    public void test05UnMechCombateEnElAguaNoPuedeAtacar(){
+        // Arrange
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+
+        Posicion posicionVek = new Posicion(2,5);
+        Posicion posicionMech = new Posicion(2,3);
+        Posicion posicionAgua = new Posicion(2,4);
+
+        Vek avisponVek = new Avispon();
+        Mech combateMech = new Combate();
+
+        avisponVek.colocarseEn(posicionVek, tablero);
+        combateMech.colocarseEn(posicionMech, tablero);
+
+        combateMech.moverA(posicionAgua, tablero);
+
+        int vidaEsperada = 2;
+
+        // Act
+        combateMech.atacarA(posicionVek, tablero);
+
+        // Assert
+        assertEquals(vidaEsperada, avisponVek.obtenerVida());
+    }
+
 
 }
