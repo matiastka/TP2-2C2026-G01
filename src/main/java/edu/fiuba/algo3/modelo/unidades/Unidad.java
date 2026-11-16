@@ -9,23 +9,17 @@ public abstract class Unidad implements Ocupante {
     private int vida;
     private int rango;
     private Posicion posicion;
-    protected EstadoTurno estadoTurno;
     private EstadoSalud estadoSalud;
     private Movimiento movimiento;
 
     protected Unidad(int vida, int rango, Movimiento movimiento) {
         this.vida = vida;
         this.rango = rango;
-        this.estadoTurno = new EstadoDisponible();
         this.estadoSalud = new EstadoSano();
         this.movimiento = movimiento;
     }
 
-    public void moverA(Posicion destino, Tablero tablero) {
-        this.estadoTurno = this.estadoTurno.mover(this, destino, tablero);
-    }
-
-    boolean ejecutarMovimiento(Posicion destino, Tablero tablero) {
+    protected boolean ejecutarMovimiento(Posicion destino, Tablero tablero) {
         if (this.movimiento.puedeLlegar(this.posicion, destino, this.obtenerRango(), tablero)) {
             reubicarEn(destino, tablero);
             return true;
@@ -45,10 +39,6 @@ public abstract class Unidad implements Ocupante {
     public void colocarseEn(Posicion posicion, Tablero tablero) {
         tablero.ocuparCasilla(posicion, this);
         this.posicion = posicion;
-    }
-
-    public void reiniciarTurno() {
-        this.estadoTurno = new EstadoDisponible();
     }
 
     public int obtenerRango() {
@@ -77,6 +67,10 @@ public abstract class Unidad implements Ocupante {
         this.estadoSalud = new EstadoContaminado();
     }
 
+    public void descontaminarse(){
+        this.estadoSalud = new EstadoSano();
+    }
+
     protected abstract void hundirse();
 
     @Override
@@ -93,4 +87,6 @@ public abstract class Unidad implements Ocupante {
     public void serEmpujadoA(Posicion destino, Tablero tablero) {
         reubicarEn(destino, tablero);
     }
+
+    public abstract void moverA(Posicion destino, Tablero tablero);
 }

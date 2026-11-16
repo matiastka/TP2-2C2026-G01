@@ -9,10 +9,12 @@ public abstract class Mech extends Unidad {
 
     private Posicion posicionAnterior;
     private EstadoArma estadoArma;
+    private EstadoTurnoMech estadoTurno;
 
     protected Mech(int vida) {
         super(vida, 3, new MovimientoTerrestre());
         this.estadoArma = new EstadoArmaOperativa();
+        this.estadoTurno = new EstadoDisponible();
     }
 
     public void atacarA(Posicion posicion, Tablero tablero) {
@@ -63,14 +65,18 @@ public abstract class Mech extends Unidad {
             empujarUnidadDesde(objetivo, direccion, tablero);
         }
     }
-
+ 
     @Override
     public void moverA(Posicion destino, Tablero tablero) {
         Posicion posibleAnterior = this.obtenerPosicion();
-        super.moverA(destino, tablero);
+        this.estadoTurno = this.estadoTurno.mover(this, destino, tablero);
         if (!this.obtenerPosicion().equals(posibleAnterior)) {
             this.posicionAnterior = posibleAnterior;
         }
+    }
+
+    public void reiniciarTurno(){
+        this.estadoTurno = new EstadoDisponible();
     }
 
     public void deshacerMovimiento(Tablero tablero) {
@@ -95,5 +101,4 @@ public abstract class Mech extends Unidad {
     protected void hundirse(){
         this.estadoArma = new EstadoArmaSumergida();
     }
-
 }

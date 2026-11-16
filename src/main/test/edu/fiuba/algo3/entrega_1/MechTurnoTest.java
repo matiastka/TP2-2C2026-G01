@@ -1,15 +1,16 @@
 package edu.fiuba.algo3.entrega_1;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
 import edu.fiuba.algo3.mapa.ConstructorDeTablero;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
-import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
 import edu.fiuba.algo3.modelo.unidades.Mech;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
-import org.junit.jupiter.api.Test;
+import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
+import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
 
 public class MechTurnoTest {
 
@@ -32,7 +33,7 @@ public class MechTurnoTest {
         Posicion primerDestino = new Posicion(0, 2);
         Posicion segundoDestino = new Posicion(0, 4);
 
-        Unidad mech = new Combate();
+        Mech mech = new Combate();
 
         mech.colocarseEn(origen, tablero);
 
