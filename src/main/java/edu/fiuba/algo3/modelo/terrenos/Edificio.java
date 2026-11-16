@@ -10,7 +10,7 @@ public class Edificio extends Terreno {
 
     @Override
     public boolean esTransitable() {
-        return false;
+        return destruido;
     }
 
     @Override
