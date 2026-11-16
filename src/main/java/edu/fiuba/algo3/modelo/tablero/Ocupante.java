@@ -6,4 +6,6 @@ public interface Ocupante {
     void caerEnAgua();
     void caerEnAcido();
     void serEmpujadoA(Posicion destino, Tablero tablero);
+    void contaminarse();
 }
+

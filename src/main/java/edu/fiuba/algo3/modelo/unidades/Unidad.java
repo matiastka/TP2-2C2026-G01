@@ -63,6 +63,7 @@ public abstract class Unidad implements Ocupante {
         return posicion;
     }
 
+    @Override 
     public void contaminarse(){
         this.estadoSalud = new EstadoContaminado();
     }

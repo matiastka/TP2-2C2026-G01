@@ -9,7 +9,7 @@ import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class EstadoTurnoTest {
+public class EstadoTurnoMechTest {
 
     private static final String[] MAPA = {
             "SSSSSSSS",
@@ -27,14 +27,14 @@ public class EstadoTurnoTest {
         // Arrange
         Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
-        Combate mech = new Combate();
+        Mech mech = new Combate();
 
         mech.colocarseEn(new Posicion(0, 0), tablero);
 
-        EstadoTurno estado = new EstadoDisponible();
+        EstadoTurnoMech estado = new EstadoDisponible();
 
         // Act
-        EstadoTurno nuevoEstado = estado.mover(mech, new Posicion(0, 1), tablero);
+        EstadoTurnoMech nuevoEstado = estado.mover(mech, new Posicion(0, 1), tablero);
 
         // Assert
         assertEquals(EstadoYaSeMovio.class, nuevoEstado.getClass());
@@ -45,16 +45,16 @@ public class EstadoTurnoTest {
         // Arrange
         Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
-        Combate mech = new Combate();
+        Mech mech = new Combate();
         Luciernaga vek = new Luciernaga();
 
         mech.colocarseEn(new Posicion(0, 0), tablero);
         vek.colocarseEn(new Posicion(0, 1), tablero);
 
-        EstadoTurno estado = new EstadoDisponible();
+        EstadoTurnoMech estado = new EstadoDisponible();
 
         // Act
-        EstadoTurno nuevoEstado = estado.atacar(mech, new Posicion(0, 1), tablero);
+        EstadoTurnoMech nuevoEstado = estado.atacar(mech, new Posicion(0, 1), tablero);
 
         // Assert
         assertEquals(EstadoTurnoAgotado.class, nuevoEstado.getClass());
@@ -71,10 +71,10 @@ public class EstadoTurnoTest {
         mech.colocarseEn(new Posicion(0, 0), tablero);
         vek.colocarseEn(new Posicion(0, 1), tablero);
 
-        EstadoTurno estado = new EstadoYaSeMovio();
+        EstadoTurnoMech estado = new EstadoYaSeMovio();
 
         // Act
-        EstadoTurno nuevoEstado = estado.atacar(mech, new Posicion(0, 1), tablero);
+        EstadoTurnoMech nuevoEstado = estado.atacar(mech, new Posicion(0, 1), tablero);
 
         // Assert
         assertEquals(EstadoTurnoAgotado.class, nuevoEstado.getClass());
@@ -89,10 +89,10 @@ public class EstadoTurnoTest {
 
         mech.colocarseEn(new Posicion(0, 0), tablero);
 
-        EstadoTurno estado = new EstadoYaSeMovio();
+        EstadoTurnoMech estado = new EstadoYaSeMovio();
 
         // Act
-        EstadoTurno nuevoEstado = estado.mover(mech, new Posicion(0, 1), tablero);
+        EstadoTurnoMech nuevoEstado = estado.mover(mech, new Posicion(0, 1), tablero);
 
         // Assert
         assertSame(estado, nuevoEstado);
@@ -107,10 +107,10 @@ public class EstadoTurnoTest {
 
         mech.colocarseEn(new Posicion(0, 0), tablero);
 
-        EstadoTurno estado = new EstadoTurnoAgotado();
+        EstadoTurnoMech estado = new EstadoTurnoAgotado();
 
         // Act
-        EstadoTurno nuevoEstado = estado.mover(mech, new Posicion(0, 1), tablero);
+        EstadoTurnoMech nuevoEstado = estado.mover(mech, new Posicion(0, 1), tablero);
 
         // Assert
         assertSame(estado, nuevoEstado);
@@ -125,10 +125,10 @@ public class EstadoTurnoTest {
 
         mech.colocarseEn(new Posicion(0, 0), tablero);
 
-        EstadoTurno estado = new EstadoTurnoAgotado();
+        EstadoTurnoMech estado = new EstadoTurnoAgotado();
 
         // Act
-        EstadoTurno nuevoEstado = estado.atacar(mech, new Posicion(0, 1), tablero);
+        EstadoTurnoMech nuevoEstado = estado.atacar(mech, new Posicion(0, 1), tablero);
 
         // Assert
         assertSame(estado, nuevoEstado);

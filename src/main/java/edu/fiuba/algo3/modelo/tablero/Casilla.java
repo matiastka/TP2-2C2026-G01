@@ -39,4 +39,7 @@ public class Casilla {
         return this.terreno.esTransitable(); 
     }
 
+    public void cambiarTerreno(Terreno nuevoTerreno){
+        this.terreno = nuevoTerreno;
+    }
 }

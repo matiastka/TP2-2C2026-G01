@@ -27,5 +27,9 @@ public class SinOcupante implements Ocupante {
 
     }
 
+    @Override
+    public void contaminarse() {
+    }
+
 
 }
