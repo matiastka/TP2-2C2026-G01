@@ -27,12 +27,16 @@ public abstract class Mech extends Unidad {
 
     @Override
     public void moverA(Posicion destino, Tablero tablero) {
-        Posicion posibleAnterior = this.obtenerPosicion();
-        this.estadoTurno = this.estadoTurno.mover(this, destino, tablero);
-        if (!this.obtenerPosicion().equals(posibleAnterior)) {
-            this.posicionAnterior = posibleAnterior;
-        }
+    Posicion posibleAnterior = this.obtenerPosicion();
+    EstadoSalud posibleSaludAnterior = this.obtenerEstadoSalud();
+    
+    this.estadoTurno = this.estadoTurno.mover(this, destino, tablero);
+    
+    if (!this.obtenerPosicion().equals(posibleAnterior)) {
+        this.posicionAnterior = posibleAnterior;
+        this.estadoSaludAnterior = posibleSaludAnterior;
     }
+}
 
     public void reiniciarTurno() {
         this.estadoTurno = new EstadoDisponible();
@@ -43,7 +47,8 @@ public abstract class Mech extends Unidad {
     }
 
     void ejecutarDeshacerMovimiento(Tablero tablero) {
-        reubicarEn(posicionAnterior, tablero);
+    this.establecerEstadoSalud(this.estadoSaludAnterior);
+    reubicarEn(posicionAnterior, tablero);
     }
 
     @Override
@@ -56,4 +61,5 @@ public abstract class Mech extends Unidad {
     protected void hundirse() {
         this.estadoArma = new EstadoArmaSumergida();
     }
+    private EstadoSalud estadoSaludAnterior;
 }

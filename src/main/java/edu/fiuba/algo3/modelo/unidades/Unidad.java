@@ -90,4 +90,10 @@ public abstract class Unidad implements Ocupante {
     }
 
     public abstract void moverA(Posicion destino, Tablero tablero);
+    protected EstadoSalud obtenerEstadoSalud() {
+    return this.estadoSalud;
+    }
+    protected void establecerEstadoSalud(EstadoSalud estado) {
+        this.estadoSalud = estado;
+    }
 }
