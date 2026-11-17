@@ -52,4 +52,7 @@ public abstract class Vek extends Unidad {
     protected void hundirse() {
         recibirDanio(obtenerVida()); //[cite: 27]
     }
+    public AtaqueAnunciado generarAtaqueAnunciado() {
+        return new AtaqueAnunciado(this);
+    }
 }
