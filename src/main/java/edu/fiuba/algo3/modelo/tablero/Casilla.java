@@ -1,14 +1,18 @@
 package edu.fiuba.algo3.modelo.tablero;
 
+import edu.fiuba.algo3.modelo.unidades.Unidad;
+
 public class Casilla {
     private Terreno terreno;
     private Ocupante ocupante;
     private final Posicion posicion;
+    private Emergencia emergencia;
 
     public Casilla(Terreno terreno, Posicion posicion){
         this.posicion = posicion;
         this.terreno = terreno;
         this.ocupante = new SinOcupante();
+        this.emergencia = new SinEmergencia();
     }
 
     public boolean estaLibre(){
@@ -21,6 +25,26 @@ public class Casilla {
 
     public void desOcupar(){
         this.ocupante = new SinOcupante();
+    }
+
+    public void activarEmergencia(Unidad unidad) {
+        this.emergencia = new EmergenciaVek(unidad);
+    }
+
+    public boolean tieneEmergenciaActiva() {
+        return this.emergencia.estaActiva();
+    }
+
+    public void resolverEmergencia(Tablero tablero) {
+        this.emergencia.resolver(this, tablero);
+    }
+
+    public void setEmergencia(Emergencia emergencia) {
+        this.emergencia = emergencia;
+    }
+
+    public Posicion obtenerPosicion() {
+        return posicion;
     }
 
     public Terreno obtenerTerreno(){

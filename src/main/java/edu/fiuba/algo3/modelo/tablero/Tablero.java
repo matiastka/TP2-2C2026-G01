@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.tablero;
 
 import edu.fiuba.algo3.modelo.RedElectrica;
+import edu.fiuba.algo3.modelo.unidades.Unidad;
 
 import java.util.Map;
 
@@ -32,6 +33,23 @@ public class Tablero {
 
     public void desOcuparCasilla(Posicion posicion){
         enCasilla(posicion).desOcupar();
+    }
+
+    public void anunciarEmergencia(Posicion posicion, Unidad unidad) {
+        if (!casillas.containsKey(posicion)) {
+            throw new IllegalArgumentException("La posición de emergencia no pertenece al tablero.");
+        }
+        enCasilla(posicion).activarEmergencia(unidad);
+    }
+
+    public void resolverEmergencia(Posicion posicion) {
+        enCasilla(posicion).resolverEmergencia(this);
+    }
+
+    public void avanzarTurno() {
+        for (Casilla casilla : casillas.values()) {
+            casilla.resolverEmergencia(this);
+        }
     }
 
     public boolean estaEnRango(Posicion posicion){
