@@ -20,9 +20,6 @@ public class AtaqueCuerpoACuerpo implements Ataque {
 
     @Override 
     public Optional<Casilla> casillaImpactadaDesde(Posicion origen, Direccion direccion, Tablero tablero) {
-        if (direccion == Direccion.NINGUNA) {
-            return Optional.empty();
-        }
         Posicion objetivo = origen.siguienteEn(direccion);
         if (!tablero.estaEnRango(objetivo)) {
             return Optional.empty();
@@ -32,9 +29,6 @@ public class AtaqueCuerpoACuerpo implements Ataque {
 
     @Override
     public void ejecutar(Posicion origen, Direccion direccion, Tablero tablero) {
-        if (direccion == Direccion.NINGUNA) {
-            return;
-        }
 
         Posicion objetivo = origen.siguienteEn(direccion);
         if (!tablero.estaEnRango(objetivo)) {

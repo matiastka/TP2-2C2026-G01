@@ -2,9 +2,7 @@
 package edu.fiuba.algo3.entrega_2;
 
 import edu.fiuba.algo3.mapa.ConstructorDeTablero;
-import edu.fiuba.algo3.modelo.tablero.Direccion;
-import edu.fiuba.algo3.modelo.tablero.Posicion;
-import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.tablero.*;
 import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
 import edu.fiuba.algo3.modelo.unidades.veks.GestorDeAtaques;
 import edu.fiuba.algo3.modelo.unidades.veks.Saltador;
@@ -41,10 +39,10 @@ public class AtaqueAnunciadoTest {
         vek2.colocarseEn(posVek2, tablero);
 
         // Act
-        vek1.prepararAtaque(Direccion.ESTE);
+        vek1.prepararAtaque(new Este());
         gestor.encolar(vek1.generarAtaqueAnunciado());
 
-        vek2.prepararAtaque(Direccion.OESTE); 
+        vek2.prepararAtaque(new Oeste());
         gestor.encolar(vek2.generarAtaqueAnunciado());
 
         gestor.ejecutarFase(tablero);
@@ -72,10 +70,10 @@ public class AtaqueAnunciadoTest {
         mech.colocarseEn(posMech, tablero);
 
         // Act
-        vek1.prepararAtaque(Direccion.ESTE);
+        vek1.prepararAtaque(new Este());
         gestor.encolar(vek1.generarAtaqueAnunciado());
 
-        vek2.prepararAtaque(Direccion.ESTE);
+        vek2.prepararAtaque(new Este());
         gestor.encolar(vek2.generarAtaqueAnunciado());
 
         gestor.ejecutarFase(tablero);

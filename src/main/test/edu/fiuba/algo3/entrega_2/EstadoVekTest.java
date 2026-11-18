@@ -4,6 +4,7 @@ package edu.fiuba.algo3.entrega_2;
 import edu.fiuba.algo3.mapa.ConstructorDeTablero;
 import edu.fiuba.algo3.modelo.tablero.Direccion;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
+import edu.fiuba.algo3.modelo.tablero.Sur;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.veks.EstadoTurnoVek;
 import edu.fiuba.algo3.modelo.unidades.veks.EstadoVekConAtaquePreparado;
@@ -52,7 +53,7 @@ public class EstadoVekTest {
         EstadoTurnoVek estadoInicial = new EstadoVekDisponible();
 
         // Act
-        EstadoTurnoVek nuevoEstado = estadoInicial.prepararAtaque(vek, Direccion.SUR);
+        EstadoTurnoVek nuevoEstado = estadoInicial.prepararAtaque(vek, new Sur());
 
         // Assert
         assertEquals(EstadoVekConAtaquePreparado.class, nuevoEstado.getClass());

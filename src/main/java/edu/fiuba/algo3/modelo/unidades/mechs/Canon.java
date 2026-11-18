@@ -18,6 +18,10 @@ public class Canon extends Mech {
 
     @Override
     protected void ejecutarAtaque(Posicion objetivo, Tablero tablero) {
+
+        if (!obtenerPosicion().estaEnLineaRectaA(objetivo, 1))
+            return;
+
         Direccion direccion = obtenerPosicion().direccionHacia(objetivo);
         ataque.ejecutar(obtenerPosicion(), direccion, tablero);
     }

@@ -1,12 +1,11 @@
 package edu.fiuba.algo3.modelo.unidades.veks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import edu.fiuba.algo3.modelo.tablero.*;
 import org.junit.jupiter.api.Test;
 
 import edu.fiuba.algo3.mapa.ConstructorDeTablero;
-import edu.fiuba.algo3.modelo.tablero.Direccion;
-import edu.fiuba.algo3.modelo.tablero.Posicion;
-import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.Mech;
 import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
 
@@ -56,7 +55,7 @@ public class EstadoTurnoVekTest {
         int vidaInicialMech = mech.obtenerVida();
 
         // Fase 1: El Vek telegrafía/prepara el ataque
-        vek.prepararAtaque(Direccion.ESTE);
+        vek.prepararAtaque(new Este());
 
         // El daño NO debe aplicarse todavía
         assertEquals(vidaInicialMech, mech.obtenerVida());
@@ -77,7 +76,7 @@ public class EstadoTurnoVekTest {
         Vek vek = new Luciernaga();
         vek.colocarseEn(origen, tablero);
 
-        vek.prepararAtaque(Direccion.SUR);
+        vek.prepararAtaque(new Sur());
         vek.moverA(destino, tablero); // Intento inválido: ya fijó su ataque
 
         assertEquals(origen, vek.obtenerPosicion());
@@ -94,7 +93,7 @@ public class EstadoTurnoVekTest {
         vek.colocarseEn(origen, tablero);
 
         // Turno 1: prepara ataque
-        vek.prepararAtaque(Direccion.ESTE);
+        vek.prepararAtaque(new Este());
 
         // Turno 2: resuelve ataque y recupera capacidad de movimiento
         vek.resolverAtaque(tablero);
@@ -124,7 +123,7 @@ public class EstadoTurnoVekTest {
         int vidaInicialMech2 = mech2.obtenerVida();
 
         // El Vek prepara ataque hacia la derecha (apuntando originalmente a mech1)
-        vek.prepararAtaque(Direccion.ESTE);
+        vek.prepararAtaque(new Este());
 
         // Un Mech empuja al Vek una casilla hacia abajo
         vek.serEmpujadoA(posVekEmpujado, tablero);

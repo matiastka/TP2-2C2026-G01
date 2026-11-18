@@ -4,6 +4,7 @@ package edu.fiuba.algo3.entrega_2;
 import edu.fiuba.algo3.mapa.ConstructorDeTablero;
 import edu.fiuba.algo3.modelo.tablero.Direccion;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
+import edu.fiuba.algo3.modelo.tablero.Sur;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.mechs.Canon;
 import edu.fiuba.algo3.modelo.unidades.veks.Avispon;
@@ -45,7 +46,7 @@ public class AtaqueDesplazadoTest {
         vek2.colocarseEn(posNuevoObjetivo, tablero);
 
         // Act
-        vek1.prepararAtaque(Direccion.SUR);
+        vek1.prepararAtaque(new Sur());
         gestor.encolar(vek1.generarAtaqueAnunciado());
 
         mechCanon.atacarA(posVek1, tablero);

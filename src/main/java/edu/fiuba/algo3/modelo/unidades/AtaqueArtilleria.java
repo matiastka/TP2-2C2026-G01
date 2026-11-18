@@ -22,9 +22,6 @@ public class AtaqueArtilleria implements Ataque {
 
     @Override
     public Optional<Casilla> casillaImpactadaDesde(Posicion origen, Direccion direccion, Tablero tablero) {
-        if (direccion == Direccion.NINGUNA) {
-            return Optional.empty();
-        }
 
         Posicion objetivo = origen;
         for (int i = 0; i < distancia; i++) {
@@ -40,9 +37,6 @@ public class AtaqueArtilleria implements Ataque {
 
     @Override
     public void ejecutar(Posicion origen, Direccion direccion, Tablero tablero) {
-        if (direccion == Direccion.NINGUNA) {
-            return;
-        }
 
         Posicion objetivo = origen;
         for (int i = 0; i < distancia; i++) {

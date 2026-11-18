@@ -10,10 +10,6 @@ public class EfectoEmpujar implements EfectoImpacto {
 
     @Override
     public void aplicar(Ocupante ocupante, Posicion posicionImpacto, Direccion direccion, Tablero tablero) {
-        if (direccion == Direccion.NINGUNA) {
-            return;
-        }
-
         Posicion destino = posicionImpacto.siguienteEn(direccion);
 
         // Regla 3: Fuera del tablero -> no se mueve y no recibe daño de colisión

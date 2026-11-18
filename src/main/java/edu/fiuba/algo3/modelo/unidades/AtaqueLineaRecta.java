@@ -20,9 +20,6 @@ public class AtaqueLineaRecta implements Ataque {
 
     @Override 
     public Optional<Casilla> casillaImpactadaDesde(Posicion origen, Direccion direccion, Tablero tablero) {
-        if (direccion == Direccion.NINGUNA) {
-            return Optional.empty();
-        }
         Posicion posActual = origen.siguienteEn(direccion);
         while (tablero.estaEnRango(posActual)) {
             Casilla casillaActual = tablero.enCasilla(posActual);
@@ -36,9 +33,6 @@ public class AtaqueLineaRecta implements Ataque {
 
     @Override
     public void ejecutar(Posicion origen, Direccion direccion, Tablero tablero) {
-        if (direccion == Direccion.NINGUNA) {
-            return;
-        }
 
         Posicion posActual = origen.siguienteEn(direccion);
         while (tablero.estaEnRango(posActual)) {

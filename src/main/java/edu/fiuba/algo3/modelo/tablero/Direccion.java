@@ -1,20 +1,23 @@
 package edu.fiuba.algo3.modelo.tablero;
 
-public enum Direccion {
-    NORTE(-1, 0), SUR(1, 0), ESTE(0, 1), OESTE(0, -1), NINGUNA(0,0);
-    private final int diferenciaFila, diferenciaColumna;
+import java.util.List;
 
-    Direccion(int fila, int columna){
-        this.diferenciaFila = fila;
-        this.diferenciaColumna = columna;
+public abstract class Direccion {
+    public abstract Posicion desplazar(int fila, int columna);
+
+    public static List<Direccion> cardinales() {
+        return List.of(new Norte(), new Sur(), new Este(), new Oeste());
     }
 
-    public Posicion desplazar(int posicionFila, int posicionColumna){
-        return new Posicion(posicionFila + diferenciaFila, posicionColumna + diferenciaColumna);
+    @Override
+    public boolean equals(Object otra) {
+        return otra != null && this.getClass() == otra.getClass();
     }
 
-    public static Direccion[] cardinales(){
-            return new Direccion[]{NORTE, SUR, ESTE, OESTE};
+    @Override
+    public int hashCode() {
+        return this.getClass().hashCode();
     }
+
 
 }

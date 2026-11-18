@@ -9,7 +9,7 @@ public class MovimientoVolador implements Movimiento{
 
     @Override
     public boolean puedeLlegar(Posicion origen, Posicion destino, int rango, Tablero tablero){
-        return origen.direccionHacia(destino) != Direccion.NINGUNA &&
+        return (origen.estaEnLineaRectaA(destino, 1)) &&
                 tablero.estaEnRango(destino)
                 && origen.estaAlAlcanceDe(destino, rango)
                 && tablero.enCasilla(destino).estaLibre()
