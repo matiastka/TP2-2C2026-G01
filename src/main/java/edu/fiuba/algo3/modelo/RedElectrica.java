@@ -16,8 +16,8 @@ public class RedElectrica {
         return this.nivel;
     }
 
-    public void reducir(int danio) {
-        this.nivel = Math.max(0, this.nivel - danio);
+    public void reducir() {
+        this.nivel = Math.max(0, this.nivel - 1);
     }
 
     public void reiniciar() {

@@ -8,4 +8,12 @@ public abstract class Terreno {
     public void recibirDanio(int danio) {
         // Por defecto, los terrenos no reciben daño.
     }
+
+    public boolean esEdificio() {
+        return false;
+    }
+
+    public boolean esPeligrosoParaTerrestres() {
+        return false;
+    }
 }

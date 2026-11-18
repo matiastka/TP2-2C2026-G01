@@ -72,6 +72,13 @@ public abstract class Unidad implements Ocupante {
         this.estadoSalud = new EstadoSano();
     }
 
+    public boolean puedeMoverseYTerminarEn(Posicion destino, Tablero tablero) {
+        if (this.posicion.equals(destino)) {
+            return true;
+        }
+        return this.movimiento.puedeLlegar(this.posicion, destino, this.rango, tablero)&& this.movimiento.esSeguroTerminarEn(tablero.enCasilla(destino).obtenerTerreno());
+    }
+
     protected abstract void hundirse();
 
     @Override

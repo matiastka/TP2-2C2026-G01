@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo.unidades;
 
+import java.util.Optional;
+
 import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Direccion;
 import edu.fiuba.algo3.modelo.tablero.Ocupante;
@@ -16,6 +18,24 @@ public class AtaqueArtilleria implements Ataque {
         this.danio = danio;
         this.distancia = distancia;
         this.efectoAdyacente = efectoAdyacente;
+    }
+
+    @Override
+    public Optional<Casilla> casillaImpactadaDesde(Posicion origen, Direccion direccion, Tablero tablero) {
+        if (direccion == Direccion.NINGUNA) {
+            return Optional.empty();
+        }
+
+        Posicion objetivo = origen;
+        for (int i = 0; i < distancia; i++) {
+            objetivo = objetivo.siguienteEn(direccion);
+        }
+
+        if (!tablero.estaEnRango(objetivo)) {
+            return Optional.empty();
+        }
+
+        return Optional.of(tablero.enCasilla(objetivo));
     }
 
     @Override

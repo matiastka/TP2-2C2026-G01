@@ -15,4 +15,9 @@ public class Agua extends Terreno {
     public void afectarA(Ocupante ocupante){
         ocupante.caerEnAgua();
     }
+
+    @Override
+    public boolean esPeligrosoParaTerrestres() {
+        return true;
+    }
 }

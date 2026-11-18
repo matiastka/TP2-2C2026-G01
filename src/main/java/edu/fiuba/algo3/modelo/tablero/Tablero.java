@@ -1,9 +1,9 @@
 package edu.fiuba.algo3.modelo.tablero;
 
+import java.util.Map;
+
 import edu.fiuba.algo3.modelo.RedElectrica;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
-
-import java.util.Map;
 
 public class Tablero {
     private static final int CANTIDAD_DE_FILAS = 8;
@@ -60,8 +60,7 @@ public class Tablero {
         return this.redElectrica.obtenerNivel();
     }
 
-    public void reducirRedElectrica(int danio) {
-        this.redElectrica.reducir(danio);
+    public void reducirRedElectrica() {
+        this.redElectrica.reducir();
     }
-
 }

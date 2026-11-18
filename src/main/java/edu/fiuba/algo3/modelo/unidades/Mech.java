@@ -61,5 +61,11 @@ public abstract class Mech extends Unidad {
     protected void hundirse() {
         this.estadoArma = new EstadoArmaSumergida();
     }
+
     private EstadoSalud estadoSaludAnterior;
+
+    @Override
+    public boolean esMech() {
+        return true;
+    }
 }

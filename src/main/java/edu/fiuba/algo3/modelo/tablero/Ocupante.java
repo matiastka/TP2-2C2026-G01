@@ -7,5 +7,8 @@ public interface Ocupante {
     void caerEnAcido();
     void serEmpujadoA(Posicion destino, Tablero tablero);
     void contaminarse();
-}
 
+    default boolean esMech() {
+        return false;
+    }
+}

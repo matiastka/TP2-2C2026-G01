@@ -18,10 +18,16 @@ public class Edificio extends Terreno {
 
     }
 
+    @Override 
     public void recibirDanio(int danio) {
         if (!destruido && danio > 0) {
             this.destruido = true;
-            this.redElectrica.reducir(1);
+            this.redElectrica.reducir();
         }
+    }
+
+    @Override
+    public boolean esEdificio() {
+        return !destruido;
     }
 }

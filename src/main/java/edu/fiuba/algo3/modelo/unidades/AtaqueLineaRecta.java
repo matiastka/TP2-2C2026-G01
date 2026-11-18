@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo.unidades;
 
+import java.util.Optional;
+
 import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Direccion;
 import edu.fiuba.algo3.modelo.tablero.Ocupante;
@@ -14,6 +16,22 @@ public class AtaqueLineaRecta implements Ataque {
     public AtaqueLineaRecta(int danio, EfectoImpacto efecto) {
         this.danio = danio;
         this.efecto = efecto;
+    }
+
+    @Override 
+    public Optional<Casilla> casillaImpactadaDesde(Posicion origen, Direccion direccion, Tablero tablero) {
+        if (direccion == Direccion.NINGUNA) {
+            return Optional.empty();
+        }
+        Posicion posActual = origen.siguienteEn(direccion);
+        while (tablero.estaEnRango(posActual)) {
+            Casilla casillaActual = tablero.enCasilla(posActual);
+            if (!casillaActual.estaLibre() || !casillaActual.esTransitable()) {
+                return Optional.of(casillaActual);
+            }
+            posActual = posActual.siguienteEn(direccion);
+        }
+        return Optional.empty();
     }
 
     @Override

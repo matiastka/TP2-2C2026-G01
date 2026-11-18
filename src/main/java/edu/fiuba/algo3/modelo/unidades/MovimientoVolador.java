@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo.unidades;
 import edu.fiuba.algo3.modelo.tablero.Direccion;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.tablero.Terreno;
 
 public class MovimientoVolador implements Movimiento{
 
@@ -13,6 +14,11 @@ public class MovimientoVolador implements Movimiento{
                 && origen.estaAlAlcanceDe(destino, rango)
                 && tablero.enCasilla(destino).estaLibre()
                 && tablero.enCasilla(destino).esTransitable();
+    }
+
+    @Override
+    public boolean esSeguroTerminarEn(Terreno terreno) {
+        return true;
     }
 
     /* Duda de Mati: Es correcto que MovimientoVolador no haga nada?

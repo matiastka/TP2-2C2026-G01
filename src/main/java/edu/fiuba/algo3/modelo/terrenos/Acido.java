@@ -13,4 +13,9 @@ public class Acido extends Terreno {
     public void afectarA(Ocupante ocupante) {
         ocupante.caerEnAcido();
     }
+
+    @Override
+    public boolean esPeligrosoParaTerrestres() {
+        return true;
+    }
 }
