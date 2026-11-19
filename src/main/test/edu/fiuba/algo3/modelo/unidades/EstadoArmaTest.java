@@ -30,10 +30,8 @@ public class EstadoArmaTest {
         EstadoArma estadoArma = new EstadoArmaOperativa();
 
         // Act
-        boolean seUso = estadoArma.usar(canonMech, new Posicion(2, 3), tablero);
-
-        // Assert
-        assertTrue(seUso);
+        ResultadoAccion<Void> resultado = estadoArma.usar(canonMech, new Posicion(2, 3), tablero);
+        assertEquals(ResultadoAccion.Exito.class, resultado.getClass());
     }
 
     @Test
@@ -46,9 +44,9 @@ public class EstadoArmaTest {
         EstadoArma estadoArma = new EstadoArmaSumergida();
 
         // Act
-        boolean seUso = estadoArma.usar(canonMech, new Posicion(2, 3), tablero);
-
-        // Assert
-        assertFalse(seUso);
+        ResultadoAccion<Void> resultado = estadoArma.usar(canonMech, new Posicion(2, 3), tablero);
+        assertEquals(ResultadoAccion.Rechazo.class, resultado.getClass());
+        assertEquals(MotivoRechazoAccion.ARMA_SUMERGIDA,
+                ((ResultadoAccion.Rechazo<?>) resultado).motivo());
     }
 }

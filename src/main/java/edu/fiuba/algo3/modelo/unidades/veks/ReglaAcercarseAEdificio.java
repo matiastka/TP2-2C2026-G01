@@ -5,6 +5,7 @@ import java.util.List;
 
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.unidades.ResultadoAccion;
 
 public class ReglaAcercarseAEdificio implements ReglaPrioridadVek {
 
@@ -36,7 +37,10 @@ public class ReglaAcercarseAEdificio implements ReglaPrioridadVek {
         }
 
         if (!vek.obtenerPosicion().equals(mejorDestino)) {
-            vek.moverA(mejorDestino, tablero);
+            ResultadoAccion<Void> resultadoMovimiento = vek.moverA(mejorDestino, tablero);
+            if (resultadoMovimiento instanceof ResultadoAccion.Rechazo<?>) {
+                return false;
+            }
         }
         // Prioridad 3: se acerca sin anunciar ataque.
         return true;

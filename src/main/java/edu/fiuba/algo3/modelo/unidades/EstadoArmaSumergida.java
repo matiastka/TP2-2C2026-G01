@@ -6,8 +6,7 @@ import edu.fiuba.algo3.modelo.tablero.Tablero;
 public class EstadoArmaSumergida implements EstadoArma{
 
     @Override
-    public boolean usar(Mech mech, Posicion objetivo, Tablero tablero){
-        System.out.println("Un Mech no puede atacar debajo del agua");
-        return false;
+    public ResultadoAccion<Void> usar(Mech mech, Posicion objetivo, Tablero tablero){
+        return ResultadoAccion.rechazo(MotivoRechazoAccion.ARMA_SUMERGIDA);
     }
 }

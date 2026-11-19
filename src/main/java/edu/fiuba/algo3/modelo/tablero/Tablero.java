@@ -35,6 +35,11 @@ public class Tablero {
         enCasilla(posicion).desOcupar();
     }
 
+    public void trasladar(Ocupante ocupante, Posicion origen, Posicion destino) {
+        desOcuparCasilla(origen);
+        ocuparCasilla(destino, ocupante);
+    }
+
     public void anunciarEmergencia(Posicion posicion, Unidad unidad) {
         if (!casillas.containsKey(posicion)) {
             throw new IllegalArgumentException("La posición de emergencia no pertenece al tablero.");

@@ -19,21 +19,27 @@ public abstract class Unidad implements Ocupante {
         this.movimiento = movimiento;
     }
 
-    protected boolean ejecutarMovimiento(Posicion destino, Tablero tablero) {
-        if (this.movimiento.puedeLlegar(this.posicion, destino, this.obtenerRango(), tablero)) {
-            reubicarEn(destino, tablero);
-            return true;
-        } else {
-            System.out.println("Movimiento inválido: fuera de rango o camino bloqueado");
-            return false;
-        }
+    protected ResultadoAccion<Void> ejecutarMovimiento(Posicion destino, Tablero tablero) {
+        return this.movimiento.validarCamino(this.posicion, destino, this.obtenerRango(), tablero)
+                .map(ignorado -> {
+                    reubicarEn(destino, tablero);
+                    return null;
+                });
     }
 
     protected void reubicarEn(Posicion destino, Tablero tablero) {
-        tablero.desOcuparCasilla(this.posicion);
-        tablero.ocuparCasilla(destino, this);
-        this.posicion = destino;
+        tablero.enCasilla(this.posicion).abandonar(this);
+        trasladarA(destino, tablero);
         tablero.enCasilla(destino).aplicarEfectoA(this);
+    }
+
+    protected void reubicarSinEfectoEn(Posicion destino, Tablero tablero) {
+        trasladarA(destino, tablero);
+    }
+
+    private void trasladarA(Posicion destino, Tablero tablero) {
+        tablero.trasladar(this, this.posicion, destino);
+        this.posicion = destino;
     }
 
     public void colocarseEn(Posicion posicion, Tablero tablero) {
@@ -76,7 +82,11 @@ public abstract class Unidad implements Ocupante {
         if (this.posicion.equals(destino)) {
             return true;
         }
-        return this.movimiento.puedeLlegar(this.posicion, destino, this.rango, tablero)&& this.movimiento.esSeguroTerminarEn(tablero.enCasilla(destino).obtenerTerreno());
+        ResultadoAccion<Void> resultado = this.movimiento.validarCamino(this.posicion, destino, this.rango, tablero);
+        if (resultado instanceof ResultadoAccion.Rechazo<?>) {
+            return false;
+        }
+        return this.movimiento.esSeguroTerminarEn(tablero.enCasilla(destino).obtenerTerreno());
     }
 
     protected abstract void hundirse();
@@ -96,7 +106,7 @@ public abstract class Unidad implements Ocupante {
         reubicarEn(destino, tablero);
     }
 
-    public abstract void moverA(Posicion destino, Tablero tablero);
+    public abstract ResultadoAccion<Void> moverA(Posicion destino, Tablero tablero);
     protected EstadoSalud obtenerEstadoSalud() {
     return this.estadoSalud;
     }

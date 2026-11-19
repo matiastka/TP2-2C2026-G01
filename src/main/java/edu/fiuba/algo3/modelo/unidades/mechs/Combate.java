@@ -7,6 +7,8 @@ import edu.fiuba.algo3.modelo.unidades.Ataque;
 import edu.fiuba.algo3.modelo.unidades.AtaqueCuerpoACuerpo;
 import edu.fiuba.algo3.modelo.unidades.EfectoEmpujar;
 import edu.fiuba.algo3.modelo.unidades.Mech;
+import edu.fiuba.algo3.modelo.unidades.MotivoRechazoAccion;
+import edu.fiuba.algo3.modelo.unidades.ResultadoAccion;
 
 public class Combate extends Mech {
 
@@ -17,11 +19,15 @@ public class Combate extends Mech {
     }
 
     @Override
-    protected void ejecutarAtaque(Posicion objetivo, Tablero tablero) {
+    protected ResultadoAccion<Void> ejecutarAtaque(Posicion objetivo, Tablero tablero) {
+        if (!tablero.estaEnRango(objetivo)) {
+            return ResultadoAccion.rechazo(MotivoRechazoAccion.DESTINO_FUERA_DEL_TABLERO);
+        }
         if (!obtenerPosicion().esAdyacente(objetivo)) {
-            return;
+            return ResultadoAccion.rechazo(MotivoRechazoAccion.DESTINO_NO_ALCANZABLE);
         }
         Direccion direccion = obtenerPosicion().direccionHacia(objetivo);
         ataque.ejecutar(obtenerPosicion(), direccion, tablero);
+        return ResultadoAccion.exito(null);
     }
 }

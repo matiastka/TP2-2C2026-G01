@@ -8,6 +8,8 @@ import edu.fiuba.algo3.mapa.ConstructorDeTablero;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.Mech;
+import edu.fiuba.algo3.modelo.unidades.MotivoRechazoAccion;
+import edu.fiuba.algo3.modelo.unidades.ResultadoAccion;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
 import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
 import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
@@ -38,13 +40,27 @@ public class MechTurnoTest {
         mech.colocarseEn(origen, tablero);
 
         mech.moverA(primerDestino, tablero);
-        mech.moverA(segundoDestino, tablero); // Intento invalido
+        assertRejected(mech.moverA(segundoDestino, tablero), MotivoRechazoAccion.MOVIMIENTO_YA_REALIZADO);
 
         assertEquals(mech.obtenerPosicion(), primerDestino);
     }
 
     @Test
-    public void test02MechNoPuedeAtacarDosVecesEnElMismoTurno() {
+    public void test02MovimientoInvalidoNoConsumeLaAccionDelMech() {
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Posicion origen = new Posicion(0, 0);
+        Mech mech = new Combate();
+        mech.colocarseEn(origen, tablero);
+
+        assertRejected(mech.moverA(new Posicion(0, 4), tablero), MotivoRechazoAccion.DESTINO_NO_ALCANZABLE);
+        ResultadoAccion<Void> resultadoMovimiento = mech.moverA(new Posicion(0, 1), tablero);
+
+        assertEquals(ResultadoAccion.Exito.class, resultadoMovimiento.getClass());
+        assertEquals(new Posicion(0, 1), mech.obtenerPosicion());
+    }
+
+    @Test
+    public void test03MechNoPuedeAtacarDosVecesEnElMismoTurno() {
         Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion posMech = new Posicion(2, 2);
@@ -60,13 +76,13 @@ public class MechTurnoTest {
         vek2.colocarseEn(posVek2, tablero);
 
         mech.atacarA(posVek1, tablero);
-        mech.atacarA(posVek2, tablero); // Segundo ataque en el mismo turno
+        assertRejected(mech.atacarA(posVek2, tablero), MotivoRechazoAccion.TURNO_AGOTADO);
 
         assertEquals(3, vek2.obtenerVida()); // No debe recibir daño
     }
 
     @Test
-    public void test03AlReiniciarTurnoElMechPuedeVolverAMoverse() {
+    public void test04AlReiniciarTurnoElMechPuedeVolverAMoverse() {
         Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion origen = new Posicion(0, 0);
@@ -91,7 +107,7 @@ public class MechTurnoTest {
     }
     
     @Test
-    public void test04DeshacerMovimientoDeMechQueTodaviaNoAtaco() {
+    public void test05DeshacerMovimientoDeMechQueTodaviaNoAtaco() {
         Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion origen = new Posicion(0, 0);
@@ -108,7 +124,7 @@ public class MechTurnoTest {
     }
     
     @Test
-    public void test05DeshacerDejaLaCasillaDestinoLibre() {
+    public void test06DeshacerDejaLaCasillaDestinoLibre() {
         Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion origen = new Posicion(0, 0);
@@ -125,7 +141,7 @@ public class MechTurnoTest {
     }
     
     @Test
-    public void test06DeshacerDosMovimientosDeMechEnElMismoTurno() {
+    public void test07DeshacerDosMovimientosDeMechEnElMismoTurno() {
         Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
         Posicion origen = new Posicion(0, 0);
@@ -141,13 +157,13 @@ public class MechTurnoTest {
         
         mech.moverA(destino2, tablero);
         
-        mech.deshacerMovimiento(tablero);
+        assertRejected(mech.deshacerMovimiento(tablero), MotivoRechazoAccion.ACCION_NO_DISPONIBLE);
         
         assertEquals(mech.obtenerPosicion(), destino2);
     }
 
     @Test
-    public void test07NoSePuedeDeshacerElMovimientoDespuesDeAtacar() {
+    public void test08NoSePuedeDeshacerElMovimientoDespuesDeAtacar() {
         // Arrange
         Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
@@ -165,10 +181,35 @@ public class MechTurnoTest {
         mech.atacarA(posicionVek, tablero);
 
         // Act
-        mech.deshacerMovimiento(tablero);
+        assertRejected(mech.deshacerMovimiento(tablero), MotivoRechazoAccion.ACCION_NO_DISPONIBLE);
 
         // Assert
         assertEquals(destino, mech.obtenerPosicion());
+    }
+
+    @Test
+    public void test09AtaqueInvalidoNoConsumeLaAccionDelMech() {
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Posicion origen = new Posicion(0, 0);
+        Posicion objetivoNoAdyacente = new Posicion(0, 2);
+        Posicion destinoMovimiento = new Posicion(0, 1);
+        Mech mech = new Combate();
+        Unidad vek = new Luciernaga();
+        mech.colocarseEn(origen, tablero);
+        vek.colocarseEn(objetivoNoAdyacente, tablero);
+
+        assertRejected(mech.atacarA(objetivoNoAdyacente, tablero),
+                MotivoRechazoAccion.DESTINO_NO_ALCANZABLE);
+        ResultadoAccion<Void> resultadoMovimiento = mech.moverA(destinoMovimiento, tablero);
+
+        assertEquals(ResultadoAccion.Exito.class, resultadoMovimiento.getClass());
+        assertEquals(destinoMovimiento, mech.obtenerPosicion());
+        assertEquals(3, vek.obtenerVida());
+    }
+
+    private void assertRejected(ResultadoAccion<?> resultado, MotivoRechazoAccion motivo) {
+        assertEquals(ResultadoAccion.Rechazo.class, resultado.getClass());
+        assertEquals(motivo, ((ResultadoAccion.Rechazo<?>) resultado).motivo());
     }
 
 }

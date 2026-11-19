@@ -6,6 +6,8 @@ import edu.fiuba.algo3.modelo.tablero.Direccion;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Sur;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.unidades.MotivoRechazoAccion;
+import edu.fiuba.algo3.modelo.unidades.ResultadoAccion;
 import edu.fiuba.algo3.modelo.unidades.veks.EstadoTurnoVek;
 import edu.fiuba.algo3.modelo.unidades.veks.EstadoVekConAtaquePreparado;
 import edu.fiuba.algo3.modelo.unidades.veks.EstadoVekDisponible;
@@ -40,7 +42,8 @@ public class EstadoVekTest {
 
         // Act
         vek.moverA(primerDestino, tablero);
-        vek.moverA(segundoDestino, tablero);
+        ResultadoAccion<Void> resultadoMovimiento = vek.moverA(segundoDestino, tablero);
+        assertRejected(resultadoMovimiento, MotivoRechazoAccion.MOVIMIENTO_YA_REALIZADO);
 
         // Assert
         assertEquals(primerDestino, vek.obtenerPosicion());
@@ -53,10 +56,11 @@ public class EstadoVekTest {
         EstadoTurnoVek estadoInicial = new EstadoVekDisponible();
 
         // Act
-        EstadoTurnoVek nuevoEstado = estadoInicial.prepararAtaque(vek, new Sur());
+        ResultadoAccion<EstadoTurnoVek> resultado = estadoInicial.prepararAtaque(vek, new Sur());
 
         // Assert
-        assertEquals(EstadoVekConAtaquePreparado.class, nuevoEstado.getClass());
+        assertEquals(ResultadoAccion.Exito.class, resultado.getClass());
+        assertEquals(EstadoVekConAtaquePreparado.class, ((ResultadoAccion.Exito<?>) resultado).valor().getClass());
     }
 
     @Test
@@ -68,9 +72,15 @@ public class EstadoVekTest {
         EstadoTurnoVek estadoConAtaque = new EstadoVekConAtaquePreparado();
 
         // Act
-        EstadoTurnoVek nuevoEstado = estadoConAtaque.resolverAtaque(vek, tablero);
+        ResultadoAccion<EstadoTurnoVek> resultado = estadoConAtaque.resolverAtaque(vek, tablero);
 
         // Assert
-        assertEquals(EstadoVekDisponible.class, nuevoEstado.getClass());
+        assertEquals(ResultadoAccion.Exito.class, resultado.getClass());
+        assertEquals(EstadoVekDisponible.class, ((ResultadoAccion.Exito<?>) resultado).valor().getClass());
+    }
+
+    private void assertRejected(ResultadoAccion<?> resultado, MotivoRechazoAccion motivo) {
+        assertEquals(ResultadoAccion.Rechazo.class, resultado.getClass());
+        assertEquals(motivo, ((ResultadoAccion.Rechazo<?>) resultado).motivo());
     }
 }

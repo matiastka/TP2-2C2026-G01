@@ -8,6 +8,7 @@
     import edu.fiuba.algo3.modelo.tablero.Tablero;
     import edu.fiuba.algo3.modelo.unidades.Ataque;
     import edu.fiuba.algo3.modelo.unidades.Movimiento;
+    import edu.fiuba.algo3.modelo.unidades.ResultadoAccion;
     import edu.fiuba.algo3.modelo.unidades.Unidad;
 
     public abstract class Vek extends Unidad {
@@ -24,24 +25,33 @@
         }
 
         @Override
-        public void moverA(Posicion destino, Tablero tablero) {
-            this.estadoTurno = this.estadoTurno.mover(this, destino, tablero);
+        public ResultadoAccion<Void> moverA(Posicion destino, Tablero tablero) {
+            return this.estadoTurno.mover(this, destino, tablero).map(nuevoEstado -> {
+                this.estadoTurno = nuevoEstado;
+                return null;
+            });
         }
 
         public Optional<Casilla> simularImpactoDesde(Posicion origen, Direccion direccion, Tablero tablero) {
             return this.ataque.casillaImpactadaDesde(origen, direccion, tablero);
         }
 
-        boolean ejecutarMovimientoVek(Posicion destino, Tablero tablero) {
+        ResultadoAccion<Void> ejecutarMovimientoVek(Posicion destino, Tablero tablero) {
             return super.ejecutarMovimiento(destino, tablero);
         }
 
-        public void prepararAtaque(Direccion direccion) {
-            this.estadoTurno = this.estadoTurno.prepararAtaque(this, direccion);
+        public ResultadoAccion<Void> prepararAtaque(Direccion direccion) {
+            return this.estadoTurno.prepararAtaque(this, direccion).map(nuevoEstado -> {
+                this.estadoTurno = nuevoEstado;
+                return null;
+            });
         }
 
-        public void resolverAtaque(Tablero tablero) {
-            this.estadoTurno = this.estadoTurno.resolverAtaque(this, tablero);
+        public ResultadoAccion<Void> resolverAtaque(Tablero tablero) {
+            return this.estadoTurno.resolverAtaque(this, tablero).map(nuevoEstado -> {
+                this.estadoTurno = nuevoEstado;
+                return null;
+            });
         }
 
         void guardarDireccionAtaque(Direccion direccion) {

@@ -1,12 +1,13 @@
 package edu.fiuba.algo3.modelo.unidades.veks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import edu.fiuba.algo3.modelo.tablero.*;
 import org.junit.jupiter.api.Test;
 
 import edu.fiuba.algo3.mapa.ConstructorDeTablero;
+import edu.fiuba.algo3.modelo.unidades.MotivoRechazoAccion;
 import edu.fiuba.algo3.modelo.unidades.Mech;
+import edu.fiuba.algo3.modelo.unidades.ResultadoAccion;
 import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
 
 public class EstadoTurnoVekTest {
@@ -34,7 +35,7 @@ public class EstadoTurnoVekTest {
         vek.colocarseEn(origen, tablero);
 
         vek.moverA(primerDestino, tablero);
-        vek.moverA(segundoDestino, tablero); // Intento inválido: ya se movió
+        assertRejected(vek.moverA(segundoDestino, tablero), MotivoRechazoAccion.MOVIMIENTO_YA_REALIZADO);
 
         assertEquals(primerDestino, vek.obtenerPosicion());
     }
@@ -77,7 +78,7 @@ public class EstadoTurnoVekTest {
         vek.colocarseEn(origen, tablero);
 
         vek.prepararAtaque(new Sur());
-        vek.moverA(destino, tablero); // Intento inválido: ya fijó su ataque
+        assertRejected(vek.moverA(destino, tablero), MotivoRechazoAccion.ATAQUE_YA_PREPARADO);
 
         assertEquals(origen, vek.obtenerPosicion());
     }
@@ -150,5 +151,27 @@ public class EstadoTurnoVekTest {
         vek.moverA(destino, tablero);
 
         assertEquals(destino, vek.obtenerPosicion());
+    }
+
+    @Test
+    public void test07MovimientoInvalidoDeVekVoladorNoConsumeSuTurno() {
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Posicion origen = new Posicion(0, 0);
+        Posicion fueraDelTablero = new Posicion(-1, 0);
+        Posicion destinoValido = new Posicion(0, 1);
+        Vek vek = new Avispon();
+        vek.colocarseEn(origen, tablero);
+
+        assertRejected(vek.moverA(fueraDelTablero, tablero),
+                MotivoRechazoAccion.DESTINO_FUERA_DEL_TABLERO);
+        ResultadoAccion<Void> resultadoMovimiento = vek.moverA(destinoValido, tablero);
+
+        assertEquals(ResultadoAccion.Exito.class, resultadoMovimiento.getClass());
+        assertEquals(destinoValido, vek.obtenerPosicion());
+    }
+
+    private void assertRejected(ResultadoAccion<?> resultado, MotivoRechazoAccion motivo) {
+        assertEquals(ResultadoAccion.Rechazo.class, resultado.getClass());
+        assertEquals(motivo, ((ResultadoAccion.Rechazo<?>) resultado).motivo());
     }
 }

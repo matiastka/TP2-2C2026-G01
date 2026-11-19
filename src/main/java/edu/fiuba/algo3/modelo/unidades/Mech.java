@@ -7,6 +7,7 @@ public abstract class Mech extends Unidad {
 
     private Posicion posicionAnterior;
     private EstadoArma estadoArma;
+    private EstadoArma estadoArmaAnterior;
     private EstadoTurnoMech estadoTurno;
 
     protected Mech(int vida) {
@@ -15,51 +16,61 @@ public abstract class Mech extends Unidad {
         this.estadoTurno = new EstadoDisponible();
     }
 
-    public void atacarA(Posicion posicion, Tablero tablero) {
-        this.estadoTurno = this.estadoTurno.atacar(this, posicion, tablero);
+    public ResultadoAccion<Void> atacarA(Posicion posicion, Tablero tablero) {
+        return this.estadoTurno.atacar(this, posicion, tablero).map(nuevoEstado -> {
+            this.estadoTurno = nuevoEstado;
+            return null;
+        });
     }
 
-    boolean ejecutarAtaqueValidado(Posicion posicion, Tablero tablero) {
+    ResultadoAccion<Void> ejecutarAtaqueValidado(Posicion posicion, Tablero tablero) {
         return estadoArma.usar(this, posicion, tablero);
     }
 
-    protected abstract void ejecutarAtaque(Posicion posicion, Tablero tablero);
+    protected abstract ResultadoAccion<Void> ejecutarAtaque(Posicion posicion, Tablero tablero);
 
     @Override
-    public void moverA(Posicion destino, Tablero tablero) {
-    Posicion posibleAnterior = this.obtenerPosicion();
-    EstadoSalud posibleSaludAnterior = this.obtenerEstadoSalud();
-    
-    this.estadoTurno = this.estadoTurno.mover(this, destino, tablero);
-    
-    if (!this.obtenerPosicion().equals(posibleAnterior)) {
-        this.posicionAnterior = posibleAnterior;
-        this.estadoSaludAnterior = posibleSaludAnterior;
+    public ResultadoAccion<Void> moverA(Posicion destino, Tablero tablero) {
+        Posicion posibleAnterior = this.obtenerPosicion();
+        EstadoSalud posibleSaludAnterior = this.obtenerEstadoSalud();
+        EstadoArma posibleEstadoArmaAnterior = this.estadoArma;
+
+        return this.estadoTurno.mover(this, destino, tablero).map(nuevoEstado -> {
+            this.estadoTurno = nuevoEstado;
+            if (!this.obtenerPosicion().equals(posibleAnterior)) {
+                this.posicionAnterior = posibleAnterior;
+                this.estadoSaludAnterior = posibleSaludAnterior;
+                this.estadoArmaAnterior = posibleEstadoArmaAnterior;
+            }
+            return null;
+        });
     }
-}
 
     public void reiniciarTurno() {
         this.estadoTurno = new EstadoDisponible();
     }
 
-    public void deshacerMovimiento(Tablero tablero) {
-        this.estadoTurno = this.estadoTurno.deshacerMovimiento(this, tablero);
+    public ResultadoAccion<Void> deshacerMovimiento(Tablero tablero) {
+        return this.estadoTurno.deshacerMovimiento(this, tablero).map(nuevoEstado -> {
+            this.estadoTurno = nuevoEstado;
+            return null;
+        });
     }
 
     void ejecutarDeshacerMovimiento(Tablero tablero) {
-    this.establecerEstadoSalud(this.estadoSaludAnterior);
-    reubicarEn(posicionAnterior, tablero);
-    }
-
-    @Override
-    protected void reubicarEn(Posicion destino, Tablero tablero) {
-        this.estadoArma = new EstadoArmaOperativa();
-        super.reubicarEn(destino, tablero);
+        this.establecerEstadoSalud(this.estadoSaludAnterior);
+        this.estadoArma = this.estadoArmaAnterior;
+        reubicarSinEfectoEn(posicionAnterior, tablero);
     }
 
     @Override
     protected void hundirse() {
         this.estadoArma = new EstadoArmaSumergida();
+    }
+
+    @Override
+    public void salirDelAgua() {
+        this.estadoArma = new EstadoArmaOperativa();
     }
 
     private EstadoSalud estadoSaludAnterior;

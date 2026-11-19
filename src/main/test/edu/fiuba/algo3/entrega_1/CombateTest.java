@@ -6,6 +6,8 @@ import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
 import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
 import edu.fiuba.algo3.modelo.unidades.Mech;
+import edu.fiuba.algo3.modelo.unidades.MotivoRechazoAccion;
+import edu.fiuba.algo3.modelo.unidades.ResultadoAccion;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
 import org.junit.jupiter.api.Test;
 
@@ -115,10 +117,11 @@ public class CombateTest {
 
         // Act
         // Se intenta mover 4 casillas a la derecha, cuando su rango es 3
-        mechCombate.moverA(posicionMechDestino, tablero);
+        assertRejected(mechCombate.moverA(posicionMechDestino, tablero),
+                MotivoRechazoAccion.DESTINO_NO_ALCANZABLE);
 
         // Assert
-        assertSame(mechCombate, tablero.enCasilla(posicionMechOrigen).obtenerOcupante()); // Esto podria directamente comparar cuando salga la exepcion
+        assertSame(mechCombate, tablero.enCasilla(posicionMechOrigen).obtenerOcupante());
     }
 
     @Test
@@ -157,10 +160,11 @@ public class CombateTest {
 
         // Act
         // mech intentar ir al (4,3) cuando tiene un mech en (4,2). Por ende no se moverá
-        mechCombate.moverA(posicionDestinoMech1, tablero);
+        assertRejected(mechCombate.moverA(posicionDestinoMech1, tablero),
+                MotivoRechazoAccion.CAMINO_BLOQUEADO);
 
         // Assert
-        assertSame(mechCombate, tablero.enCasilla(posicionMech1Origen).obtenerOcupante()); // Esto podria directamente comparar cuando salga la exepcion
+        assertSame(mechCombate, tablero.enCasilla(posicionMech1Origen).obtenerOcupante());
     }
 
     @Test
@@ -176,7 +180,8 @@ public class CombateTest {
         mechCombate.colocarseEn(posicionMechOrigen, tablero);
 
         // Act
-        mechCombate.moverA(posicionEdificio, tablero);
+        assertRejected(mechCombate.moverA(posicionEdificio, tablero),
+                MotivoRechazoAccion.CAMINO_BLOQUEADO);
 
         // Assert
         assertSame(mechCombate, tablero.enCasilla(posicionMechOrigen).obtenerOcupante());
@@ -287,9 +292,10 @@ public class CombateTest {
         vekLuciernaga.colocarseEn(posicionVekOrigen, tablero);
 
         // Act
-        mechCombate.atacarA(posicionVekOrigen, tablero);
+        ResultadoAccion<Void> resultadoAtaque = mechCombate.atacarA(posicionVekOrigen, tablero);
 
         // Assert
+        assertRejected(resultadoAtaque, MotivoRechazoAccion.DESTINO_NO_ALCANZABLE);
         assertEquals(vidaEsperada, vekLuciernaga.obtenerVida());
     }
 
@@ -308,9 +314,10 @@ public class CombateTest {
         vekLuciernaga.colocarseEn(posicionVekOrigen, tablero);
 
         // Act
-        mechCombate.atacarA(posicionVekOrigen, tablero);
+        ResultadoAccion<Void> resultadoAtaque = mechCombate.atacarA(posicionVekOrigen, tablero);
 
         // Assert
+        assertRejected(resultadoAtaque, MotivoRechazoAccion.DESTINO_NO_ALCANZABLE);
         assertSame(vekLuciernaga, tablero.enCasilla(posicionVekOrigen).obtenerOcupante());
     }
 
@@ -327,7 +334,7 @@ public class CombateTest {
         mechCombate.colocarseEn(posicionMech, tablero);
 
         // Act & Assert
-        assertDoesNotThrow(() -> mechCombate.atacarA(posicionVacia, tablero));
+        assertEquals(ResultadoAccion.Exito.class, mechCombate.atacarA(posicionVacia, tablero).getClass());
     }
 
     @Test
@@ -416,4 +423,8 @@ public class CombateTest {
         assertEquals(vidaEsperada, vidaActual);
     }
 
+    private void assertRejected(ResultadoAccion<?> resultado, MotivoRechazoAccion motivo) {
+        assertEquals(ResultadoAccion.Rechazo.class, resultado.getClass());
+        assertEquals(motivo, ((ResultadoAccion.Rechazo<?>) resultado).motivo());
+    }
 }

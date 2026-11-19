@@ -4,5 +4,5 @@ import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 
 public interface EstadoArma {
-    boolean usar(Mech mech, Posicion objetivo, Tablero tablero);
+    ResultadoAccion<Void> usar(Mech mech, Posicion objetivo, Tablero tablero);
 }

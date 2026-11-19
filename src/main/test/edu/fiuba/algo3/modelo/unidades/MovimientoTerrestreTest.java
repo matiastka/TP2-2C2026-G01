@@ -33,37 +33,40 @@ public class MovimientoTerrestreTest {
     };
 
     @Test
-    public void test01DestinoDentroDeRangoYLibreDevuelveTrue() {
+    public void test01DestinoDentroDeRangoYLibreEsValido() {
         Tablero tablero = new ConstructorDeTablero().construir(MAPA_BASE);
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 3);
 
-        assertTrue(movimiento.puedeLlegar(origen, destino, 3, tablero));
+        ResultadoAccion<Void> resultado = movimiento.validarCamino(origen, destino, 3, tablero);
+        assertEquals(ResultadoAccion.Exito.class, resultado.getClass());
     }
 
     @Test
-    public void test02DestinoFueraDeRangoDevuelveFalse() {
+    public void test02DestinoFueraDeRangoRetornaRechazo() {
         Tablero tablero = new ConstructorDeTablero().construir(MAPA_BASE);
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 4);
 
-        assertFalse(movimiento.puedeLlegar(origen, destino, 3, tablero));
+        assertRejected(movimiento.validarCamino(origen, destino, 3, tablero),
+                MotivoRechazoAccion.DESTINO_NO_ALCANZABLE);
     }
 
     @Test
-    public void test03CaminoBloqueadoPorMontanaDevuelveFalse() {
+    public void test03CaminoBloqueadoPorMontanaRetornaRechazo() {
         Tablero tablero = new ConstructorDeTablero().construir(MAPA_CON_MONTANA);
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 2);
 
-        assertFalse(movimiento.puedeLlegar(origen, destino, 3, tablero));
+        assertRejected(movimiento.validarCamino(origen, destino, 3, tablero),
+                MotivoRechazoAccion.CAMINO_BLOQUEADO);
     }
 
     @Test
-    public void test04CasillaDestinoOcupadaPorOtraUnidadDevuelveFalse() {
+    public void test04CasillaDestinoOcupadaPorOtraUnidadRetornaRechazo() {
         // Arrange
         Tablero tablero = new ConstructorDeTablero().construir(MAPA_BASE);
 
@@ -76,7 +79,8 @@ public class MovimientoTerrestreTest {
         tablero.ocuparCasilla(destino, new Combate());
 
         // Assert
-        assertFalse(movimiento.puedeLlegar(origen, destino, 3, tablero));
+        assertRejected(movimiento.validarCamino(origen, destino, 3, tablero),
+                MotivoRechazoAccion.CAMINO_BLOQUEADO);
     }
 
     @Test
@@ -88,11 +92,12 @@ public class MovimientoTerrestreTest {
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 2);
 
-        assertFalse(movimiento.puedeLlegar(origen, destino, 4, tablero));
+        assertRejected(movimiento.validarCamino(origen, destino, 4, tablero),
+                MotivoRechazoAccion.CAMINO_BLOQUEADO);
     }
 
     @Test
-    public void test06DestinoQueNoEstaEnLaMismaFilaNiColumnaDevuelveFalse() {
+    public void test06DestinoQueNoEstaEnLaMismaFilaNiColumnaRetornaRechazo() {
         Tablero tablero = new ConstructorDeTablero().construir(MAPA_BASE);
 
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
@@ -100,7 +105,8 @@ public class MovimientoTerrestreTest {
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(1, 2);
 
-        assertFalse(movimiento.puedeLlegar(origen, destino, 3, tablero));
+        assertRejected(movimiento.validarCamino(origen, destino, 3, tablero),
+                MotivoRechazoAccion.DESTINO_NO_ALCANZABLE);
     }
 
     @Test
@@ -112,7 +118,12 @@ public class MovimientoTerrestreTest {
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 1);
 
-        assertFalse(movimiento.puedeLlegar(origen, destino, 3, tablero));
+        assertRejected(movimiento.validarCamino(origen, destino, 3, tablero),
+                MotivoRechazoAccion.CAMINO_BLOQUEADO);
     }
 
+    private void assertRejected(ResultadoAccion<?> resultado, MotivoRechazoAccion motivo) {
+        assertEquals(ResultadoAccion.Rechazo.class, resultado.getClass());
+        assertEquals(motivo, ((ResultadoAccion.Rechazo<?>) resultado).motivo());
+    }
 }

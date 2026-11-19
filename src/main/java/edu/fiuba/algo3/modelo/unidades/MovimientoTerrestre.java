@@ -10,11 +10,20 @@ import edu.fiuba.algo3.modelo.tablero.Terreno;
 public class MovimientoTerrestre implements Movimiento {
 
     @Override
-    public boolean puedeLlegar(Posicion origen, Posicion destino, int rango, Tablero tablero) {
-        if (!origen.estaEnLineaRectaA(destino, 1)) return false;
-        if (!tablero.estaEnRango(destino)) return false;
-        if (!origen.estaAlAlcanceDe(destino, rango)) return false;
-        return caminoDespejado(origen, destino, tablero);
+    public ResultadoAccion<Void> validarCamino(Posicion origen, Posicion destino, int rango, Tablero tablero) {
+        if (!origen.estaEnLineaRectaA(destino, 1)) {
+            return ResultadoAccion.rechazo(MotivoRechazoAccion.DESTINO_NO_ALCANZABLE);
+        }
+        if (!tablero.estaEnRango(destino)) {
+            return ResultadoAccion.rechazo(MotivoRechazoAccion.DESTINO_FUERA_DEL_TABLERO);
+        }
+        if (!origen.estaAlAlcanceDe(destino, rango)) {
+            return ResultadoAccion.rechazo(MotivoRechazoAccion.DESTINO_NO_ALCANZABLE);
+        }
+        if (!caminoDespejado(origen, destino, tablero)) {
+            return ResultadoAccion.rechazo(MotivoRechazoAccion.CAMINO_BLOQUEADO);
+        }
+        return ResultadoAccion.exito(null);
     }
 
     private boolean caminoDespejado(Posicion origen, Posicion destino, Tablero tablero) {

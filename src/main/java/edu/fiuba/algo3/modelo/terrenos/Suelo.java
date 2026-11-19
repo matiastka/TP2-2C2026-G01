@@ -11,6 +11,5 @@ public class Suelo extends Terreno {
 
     @Override
     public void afectarA(Ocupante ocupante){
-
     }
 }

@@ -34,10 +34,11 @@ public class EstadoTurnoMechTest {
         EstadoTurnoMech estado = new EstadoDisponible();
 
         // Act
-        EstadoTurnoMech nuevoEstado = estado.mover(mech, new Posicion(0, 1), tablero);
+        ResultadoAccion<EstadoTurnoMech> resultado = estado.mover(mech, new Posicion(0, 1), tablero);
 
         // Assert
-        assertEquals(EstadoYaSeMovio.class, nuevoEstado.getClass());
+        assertEquals(ResultadoAccion.Exito.class, resultado.getClass());
+        assertEquals(EstadoYaSeMovio.class, ((ResultadoAccion.Exito<?>) resultado).valor().getClass());
     }
 
     @Test
@@ -54,10 +55,11 @@ public class EstadoTurnoMechTest {
         EstadoTurnoMech estado = new EstadoDisponible();
 
         // Act
-        EstadoTurnoMech nuevoEstado = estado.atacar(mech, new Posicion(0, 1), tablero);
+        ResultadoAccion<EstadoTurnoMech> resultado = estado.atacar(mech, new Posicion(0, 1), tablero);
 
         // Assert
-        assertEquals(EstadoTurnoAgotado.class, nuevoEstado.getClass());
+        assertEquals(ResultadoAccion.Exito.class, resultado.getClass());
+        assertEquals(EstadoTurnoAgotado.class, ((ResultadoAccion.Exito<?>) resultado).valor().getClass());
     }
 
     @Test
@@ -74,14 +76,15 @@ public class EstadoTurnoMechTest {
         EstadoTurnoMech estado = new EstadoYaSeMovio();
 
         // Act
-        EstadoTurnoMech nuevoEstado = estado.atacar(mech, new Posicion(0, 1), tablero);
+        ResultadoAccion<EstadoTurnoMech> resultado = estado.atacar(mech, new Posicion(0, 1), tablero);
 
         // Assert
-        assertEquals(EstadoTurnoAgotado.class, nuevoEstado.getClass());
+        assertEquals(ResultadoAccion.Exito.class, resultado.getClass());
+        assertEquals(EstadoTurnoAgotado.class, ((ResultadoAccion.Exito<?>) resultado).valor().getClass());
     }
 
     @Test
-    public void test04EstadoYaSeMovioAlIntentarMoverseNuevamenteDevuelveElMismoEstado() {
+    public void test04EstadoYaSeMovioAlIntentarMoverseNuevamenteRetornaRechazo() {
         // Arrange
         Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
@@ -92,14 +95,12 @@ public class EstadoTurnoMechTest {
         EstadoTurnoMech estado = new EstadoYaSeMovio();
 
         // Act
-        EstadoTurnoMech nuevoEstado = estado.mover(mech, new Posicion(0, 1), tablero);
-
-        // Assert
-        assertSame(estado, nuevoEstado);
+        ResultadoAccion<EstadoTurnoMech> resultado = estado.mover(mech, new Posicion(0, 1), tablero);
+        assertRejected(resultado, MotivoRechazoAccion.MOVIMIENTO_YA_REALIZADO);
     }
 
     @Test
-    public void test05EstadoTurnoAgotadoAlIntentarMoverseDevuelveElMismoEstado() {
+    public void test05EstadoTurnoAgotadoAlIntentarMoverseRetornaRechazo() {
         // Arrange
         Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
@@ -110,14 +111,12 @@ public class EstadoTurnoMechTest {
         EstadoTurnoMech estado = new EstadoTurnoAgotado();
 
         // Act
-        EstadoTurnoMech nuevoEstado = estado.mover(mech, new Posicion(0, 1), tablero);
-
-        // Assert
-        assertSame(estado, nuevoEstado);
+        ResultadoAccion<EstadoTurnoMech> resultado = estado.mover(mech, new Posicion(0, 1), tablero);
+        assertRejected(resultado, MotivoRechazoAccion.TURNO_AGOTADO);
     }
 
     @Test
-    public void test06EstadoTurnoAgotadoAlIntentarAtacarNuevamenteDevuelveElMismoEstado() {
+    public void test06EstadoTurnoAgotadoAlIntentarAtacarNuevamenteRetornaRechazo() {
         // Arrange
         Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
@@ -128,9 +127,12 @@ public class EstadoTurnoMechTest {
         EstadoTurnoMech estado = new EstadoTurnoAgotado();
 
         // Act
-        EstadoTurnoMech nuevoEstado = estado.atacar(mech, new Posicion(0, 1), tablero);
+        ResultadoAccion<EstadoTurnoMech> resultado = estado.atacar(mech, new Posicion(0, 1), tablero);
+        assertRejected(resultado, MotivoRechazoAccion.TURNO_AGOTADO);
+    }
 
-        // Assert
-        assertSame(estado, nuevoEstado);
+    private void assertRejected(ResultadoAccion<?> resultado, MotivoRechazoAccion motivo) {
+        assertEquals(ResultadoAccion.Rechazo.class, resultado.getClass());
+        assertEquals(motivo, ((ResultadoAccion.Rechazo<?>) resultado).motivo());
     }
 }

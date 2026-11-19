@@ -17,6 +17,11 @@ public class Agua extends Terreno {
     }
 
     @Override
+    public void abandonar(Ocupante ocupante) {
+        ocupante.salirDelAgua();
+    }
+
+    @Override
     public boolean esPeligrosoParaTerrestres() {
         return true;
     }

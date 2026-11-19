@@ -59,6 +59,10 @@ public class Casilla {
         this.terreno.afectarA(ocupante);
     }
 
+    public void abandonar(Ocupante ocupante) {
+        this.terreno.abandonar(ocupante);
+    }
+
     public boolean esTransitable() {
         return this.terreno.esTransitable(); 
     }

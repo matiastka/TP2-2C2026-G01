@@ -88,14 +88,32 @@ public class AguaTest {
         int vidaEsperada = 2;
 
         // Act
-        canonMech.atacarA(posicionVek, tablero);
+        assertRejected(canonMech.atacarA(posicionVek, tablero), MotivoRechazoAccion.ARMA_SUMERGIDA);
 
         // Assert
         assertEquals(vidaEsperada, avisponVek.obtenerVida());
     }
 
     @Test
-    public void test04UnMechSeMueveAlAguaSaleDelAguaYAtacaAUnVek(){
+    public void test04DeshacerMovimientoDesdeElAguaRestauraElArma(){
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Posicion posicionMech = new Posicion(2,3);
+        Posicion posicionAgua = new Posicion(2,4);
+        Posicion posicionVek = new Posicion(2,5);
+
+        Mech canonMech = new Canon();
+        Vek avisponVek = new Avispon();
+        canonMech.colocarseEn(posicionMech, tablero);
+        avisponVek.colocarseEn(posicionVek, tablero);
+
+        canonMech.moverA(posicionAgua, tablero);
+        canonMech.deshacerMovimiento(tablero);
+
+        assertEquals(ResultadoAccion.Exito.class, canonMech.atacarA(posicionVek, tablero).getClass());
+    }
+
+    @Test
+    public void test05UnMechSeMueveAlAguaSaleDelAguaYAtacaAUnVek(){
         // Arrange
         Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
@@ -119,14 +137,14 @@ public class AguaTest {
         int vidaEsperada = 1;
 
         // Act
-        canonMech.atacarA(posicionVek, tablero);
+        assertEquals(ResultadoAccion.Exito.class, canonMech.atacarA(posicionVek, tablero).getClass());
 
         // Assert
         assertEquals(vidaEsperada, avisponVek.obtenerVida());
     }
 
     @Test
-    public void test05UnMechCombateEnElAguaNoPuedeAtacar(){
+    public void test06UnMechCombateEnElAguaNoPuedeAtacar(){
         // Arrange
         Tablero tablero = new ConstructorDeTablero().construir(MAPA);
 
@@ -145,11 +163,15 @@ public class AguaTest {
         int vidaEsperada = 2;
 
         // Act
-        combateMech.atacarA(posicionVek, tablero);
+        assertRejected(combateMech.atacarA(posicionVek, tablero), MotivoRechazoAccion.ARMA_SUMERGIDA);
 
         // Assert
         assertEquals(vidaEsperada, avisponVek.obtenerVida());
     }
 
+    private void assertRejected(ResultadoAccion<?> resultado, MotivoRechazoAccion motivo) {
+        assertEquals(ResultadoAccion.Rechazo.class, resultado.getClass());
+        assertEquals(motivo, ((ResultadoAccion.Rechazo<?>) resultado).motivo());
+    }
 
 }

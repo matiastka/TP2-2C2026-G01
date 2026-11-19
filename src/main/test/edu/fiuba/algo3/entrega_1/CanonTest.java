@@ -104,7 +104,9 @@ public class CanonTest {
         // Act
         Posicion posMontana = new Posicion(2, 1);
         canon.atacarA(posMontana, tablero);
+        canon.reiniciarTurno();
         canon.atacarA(posMontana, tablero);
+        canon.reiniciarTurno();
         canon.atacarA(posMontana, tablero);
 
         // Assert
@@ -139,7 +141,8 @@ public class CanonTest {
 
         canon.colocarseEn(posCanon, tablero);
 
-        assertDoesNotThrow(() -> canon.atacarA(new Posicion(1, 5), tablero));
+        assertEquals(ResultadoAccion.Exito.class,
+                canon.atacarA(new Posicion(1, 5), tablero).getClass());
     }
 
     @Test

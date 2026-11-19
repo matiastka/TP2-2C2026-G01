@@ -8,6 +8,9 @@ public interface Ocupante {
     void serEmpujadoA(Posicion destino, Tablero tablero);
     void contaminarse();
 
+    default void salirDelAgua() {
+    }
+
     default boolean esMech() {
         return false;
     }
