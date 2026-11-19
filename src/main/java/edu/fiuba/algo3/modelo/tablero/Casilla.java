@@ -66,4 +66,9 @@ public class Casilla {
     public void cambiarTerreno(Terreno nuevoTerreno){
         this.terreno = nuevoTerreno;
     }
+
+    public void recibirDanio(int danio) {
+        this.ocupante.recibirDanio(danio);
+        this.terreno.recibirDanio(danio, this);
+    }
 }

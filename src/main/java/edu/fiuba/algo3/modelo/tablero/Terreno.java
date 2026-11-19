@@ -16,4 +16,8 @@ public abstract class Terreno {
     public boolean esPeligrosoParaTerrestres() {
         return false;
     }
+
+    public void recibirDanio(int danio, Casilla casilla) {
+        this.recibirDanio(danio);
+    }
 }

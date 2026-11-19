@@ -37,7 +37,6 @@ public class AtaqueArtilleria implements Ataque {
 
     @Override
     public void ejecutar(Posicion origen, Direccion direccion, Tablero tablero) {
-
         Posicion objetivo = origen;
         for (int i = 0; i < distancia; i++) {
             objetivo = objetivo.siguienteEn(direccion);
@@ -47,12 +46,7 @@ public class AtaqueArtilleria implements Ataque {
             return;
         }
 
-        Casilla casillaObjetivo = tablero.enCasilla(objetivo);
-        if (!casillaObjetivo.estaLibre()) {
-            casillaObjetivo.obtenerOcupante().recibirDanio(danio);
-        } else if (!casillaObjetivo.esTransitable()) {
-            casillaObjetivo.obtenerTerreno().recibirDanio(danio);
-        }
+        tablero.enCasilla(objetivo).recibirDanio(danio);
 
         for (Direccion dirCard : Direccion.cardinales()) {
             Posicion posAdyacente = objetivo.siguienteEn(dirCard);
