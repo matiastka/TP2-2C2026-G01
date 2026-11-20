@@ -141,8 +141,8 @@ public class CanonTest {
 
         canon.colocarseEn(posCanon, tablero);
 
-        assertEquals(ResultadoAccion.Exito.class,
-                canon.atacarA(new Posicion(1, 5), tablero).getClass());
+        assertEquals("exito", canon.atacarA(new Posicion(1, 5), tablero)
+                .fold(ignorado -> "exito", motivo -> "rechazo"));
     }
 
     @Test

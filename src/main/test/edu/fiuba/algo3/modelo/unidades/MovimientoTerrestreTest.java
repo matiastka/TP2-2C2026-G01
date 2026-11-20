@@ -40,7 +40,7 @@ public class MovimientoTerrestreTest {
         Posicion destino = new Posicion(0, 3);
 
         ResultadoAccion<Void> resultado = movimiento.validarCamino(origen, destino, 3, tablero);
-        assertEquals(ResultadoAccion.Exito.class, resultado.getClass());
+        assertEquals("exito", resultado.fold(ignorado -> "exito", motivo -> "rechazo"));
     }
 
     @Test
@@ -50,8 +50,8 @@ public class MovimientoTerrestreTest {
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 4);
 
-        assertRejected(movimiento.validarCamino(origen, destino, 3, tablero),
-                MotivoRechazoAccion.DESTINO_NO_ALCANZABLE);
+        assertEquals(MotivoRechazoAccion.DESTINO_NO_ALCANZABLE,
+                motivoRechazo(movimiento.validarCamino(origen, destino, 3, tablero)));
     }
 
     @Test
@@ -61,8 +61,8 @@ public class MovimientoTerrestreTest {
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 2);
 
-        assertRejected(movimiento.validarCamino(origen, destino, 3, tablero),
-                MotivoRechazoAccion.CAMINO_BLOQUEADO);
+        assertEquals(MotivoRechazoAccion.CAMINO_BLOQUEADO,
+                motivoRechazo(movimiento.validarCamino(origen, destino, 3, tablero)));
     }
 
     @Test
@@ -79,8 +79,8 @@ public class MovimientoTerrestreTest {
         tablero.ocuparCasilla(destino, new Combate());
 
         // Assert
-        assertRejected(movimiento.validarCamino(origen, destino, 3, tablero),
-                MotivoRechazoAccion.CAMINO_BLOQUEADO);
+        assertEquals(MotivoRechazoAccion.CAMINO_BLOQUEADO,
+                motivoRechazo(movimiento.validarCamino(origen, destino, 3, tablero)));
     }
 
     @Test
@@ -92,8 +92,8 @@ public class MovimientoTerrestreTest {
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 2);
 
-        assertRejected(movimiento.validarCamino(origen, destino, 4, tablero),
-                MotivoRechazoAccion.CAMINO_BLOQUEADO);
+        assertEquals(MotivoRechazoAccion.CAMINO_BLOQUEADO,
+                motivoRechazo(movimiento.validarCamino(origen, destino, 4, tablero)));
     }
 
     @Test
@@ -105,8 +105,8 @@ public class MovimientoTerrestreTest {
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(1, 2);
 
-        assertRejected(movimiento.validarCamino(origen, destino, 3, tablero),
-                MotivoRechazoAccion.DESTINO_NO_ALCANZABLE);
+        assertEquals(MotivoRechazoAccion.DESTINO_NO_ALCANZABLE,
+                motivoRechazo(movimiento.validarCamino(origen, destino, 3, tablero)));
     }
 
     @Test
@@ -118,12 +118,11 @@ public class MovimientoTerrestreTest {
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 1);
 
-        assertRejected(movimiento.validarCamino(origen, destino, 3, tablero),
-                MotivoRechazoAccion.CAMINO_BLOQUEADO);
+        assertEquals(MotivoRechazoAccion.CAMINO_BLOQUEADO,
+                motivoRechazo(movimiento.validarCamino(origen, destino, 3, tablero)));
     }
 
-    private void assertRejected(ResultadoAccion<?> resultado, MotivoRechazoAccion motivo) {
-        assertEquals(ResultadoAccion.Rechazo.class, resultado.getClass());
-        assertEquals(motivo, ((ResultadoAccion.Rechazo<?>) resultado).motivo());
+    private MotivoRechazoAccion motivoRechazo(ResultadoAccion<?> resultado) {
+        return resultado.fold(ignorado -> null, motivo -> motivo);
     }
 }

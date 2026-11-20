@@ -1,0 +1,13 @@
+package edu.fiuba.algo3.modelo.unidades;
+
+public enum MotivoRechazoAccion {
+    DESTINO_FUERA_DEL_TABLERO,
+    DESTINO_NO_ALCANZABLE,
+    CAMINO_BLOQUEADO,
+    DESTINO_OCUPADO,
+    MOVIMIENTO_YA_REALIZADO,
+    TURNO_AGOTADO,
+    ACCION_NO_DISPONIBLE,
+    ARMA_SUMERGIDA,
+    ATAQUE_YA_PREPARADO
+}

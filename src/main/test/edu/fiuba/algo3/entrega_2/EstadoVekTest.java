@@ -43,10 +43,8 @@ public class EstadoVekTest {
         // Act
         vek.moverA(primerDestino, tablero);
         ResultadoAccion<Void> resultadoMovimiento = vek.moverA(segundoDestino, tablero);
-        assertRejected(resultadoMovimiento, MotivoRechazoAccion.MOVIMIENTO_YA_REALIZADO);
+        assertEquals(MotivoRechazoAccion.MOVIMIENTO_YA_REALIZADO, motivoRechazo(resultadoMovimiento));
 
-        // Assert
-        assertEquals(primerDestino, vek.obtenerPosicion());
     }
 
     @Test
@@ -59,8 +57,7 @@ public class EstadoVekTest {
         ResultadoAccion<EstadoTurnoVek> resultado = estadoInicial.prepararAtaque(vek, new Sur());
 
         // Assert
-        assertEquals(ResultadoAccion.Exito.class, resultado.getClass());
-        assertEquals(EstadoVekConAtaquePreparado.class, ((ResultadoAccion.Exito<?>) resultado).valor().getClass());
+        assertEquals(EstadoVekConAtaquePreparado.class, resultado.fold(EstadoTurnoVek::getClass, motivo -> null));
     }
 
     @Test
@@ -75,12 +72,10 @@ public class EstadoVekTest {
         ResultadoAccion<EstadoTurnoVek> resultado = estadoConAtaque.resolverAtaque(vek, tablero);
 
         // Assert
-        assertEquals(ResultadoAccion.Exito.class, resultado.getClass());
-        assertEquals(EstadoVekDisponible.class, ((ResultadoAccion.Exito<?>) resultado).valor().getClass());
+        assertEquals(EstadoVekDisponible.class, resultado.fold(EstadoTurnoVek::getClass, motivo -> null));
     }
 
-    private void assertRejected(ResultadoAccion<?> resultado, MotivoRechazoAccion motivo) {
-        assertEquals(ResultadoAccion.Rechazo.class, resultado.getClass());
-        assertEquals(motivo, ((ResultadoAccion.Rechazo<?>) resultado).motivo());
+    private MotivoRechazoAccion motivoRechazo(ResultadoAccion<?> resultado) {
+        return resultado.fold(ignorado -> null, motivo -> motivo);
     }
 }

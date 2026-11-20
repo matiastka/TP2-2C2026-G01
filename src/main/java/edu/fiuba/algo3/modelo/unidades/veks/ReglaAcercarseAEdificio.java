@@ -38,7 +38,7 @@ public class ReglaAcercarseAEdificio implements ReglaPrioridadVek {
 
         if (!vek.obtenerPosicion().equals(mejorDestino)) {
             ResultadoAccion<Void> resultadoMovimiento = vek.moverA(mejorDestino, tablero);
-            if (resultadoMovimiento instanceof ResultadoAccion.Rechazo<?>) {
+            if (!resultadoMovimiento.fold(ignorado -> true, motivo -> false)) {
                 return false;
             }
         }

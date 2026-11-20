@@ -82,11 +82,9 @@ public abstract class Unidad implements Ocupante {
         if (this.posicion.equals(destino)) {
             return true;
         }
-        ResultadoAccion<Void> resultado = this.movimiento.validarCamino(this.posicion, destino, this.rango, tablero);
-        if (resultado instanceof ResultadoAccion.Rechazo<?>) {
-            return false;
-        }
-        return this.movimiento.esSeguroTerminarEn(tablero.enCasilla(destino).obtenerTerreno());
+        return this.movimiento.validarCamino(this.posicion, destino, this.rango, tablero)
+                .fold(ignorado -> this.movimiento.esSeguroTerminarEn(tablero.enCasilla(destino).obtenerTerreno()),
+                        motivo -> false);
     }
 
     protected abstract void hundirse();

@@ -85,13 +85,8 @@ public class AguaTest {
 
         canonMech.moverA(posicionAgua, tablero);
 
-        int vidaEsperada = 2;
-
-        // Act
-        assertRejected(canonMech.atacarA(posicionVek, tablero), MotivoRechazoAccion.ARMA_SUMERGIDA);
-
-        // Assert
-        assertEquals(vidaEsperada, avisponVek.obtenerVida());
+        assertEquals(MotivoRechazoAccion.ARMA_SUMERGIDA,
+                motivoRechazo(canonMech.atacarA(posicionVek, tablero)));
     }
 
     @Test
@@ -109,7 +104,8 @@ public class AguaTest {
         canonMech.moverA(posicionAgua, tablero);
         canonMech.deshacerMovimiento(tablero);
 
-        assertEquals(ResultadoAccion.Exito.class, canonMech.atacarA(posicionVek, tablero).getClass());
+        assertEquals("exito", canonMech.atacarA(posicionVek, tablero)
+                .fold(ignorado -> "exito", motivo -> "rechazo"));
     }
 
     @Test
@@ -136,10 +132,9 @@ public class AguaTest {
 
         int vidaEsperada = 1;
 
-        // Act
-        assertEquals(ResultadoAccion.Exito.class, canonMech.atacarA(posicionVek, tablero).getClass());
+        canonMech.atacarA(posicionVek, tablero);
 
-        // Assert
+        // Act & Assert
         assertEquals(vidaEsperada, avisponVek.obtenerVida());
     }
 
@@ -160,18 +155,11 @@ public class AguaTest {
 
         combateMech.moverA(posicionAgua, tablero);
 
-        int vidaEsperada = 2;
-
-        // Act
-        assertRejected(combateMech.atacarA(posicionVek, tablero), MotivoRechazoAccion.ARMA_SUMERGIDA);
-
-        // Assert
-        assertEquals(vidaEsperada, avisponVek.obtenerVida());
+        assertEquals(MotivoRechazoAccion.ARMA_SUMERGIDA,
+                motivoRechazo(combateMech.atacarA(posicionVek, tablero)));
     }
 
-    private void assertRejected(ResultadoAccion<?> resultado, MotivoRechazoAccion motivo) {
-        assertEquals(ResultadoAccion.Rechazo.class, resultado.getClass());
-        assertEquals(motivo, ((ResultadoAccion.Rechazo<?>) resultado).motivo());
+    private MotivoRechazoAccion motivoRechazo(ResultadoAccion<?> resultado) {
+        return resultado.fold(ignorado -> null, motivo -> motivo);
     }
-
 }

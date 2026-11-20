@@ -31,7 +31,7 @@ public class EstadoArmaTest {
 
         // Act
         ResultadoAccion<Void> resultado = estadoArma.usar(canonMech, new Posicion(2, 3), tablero);
-        assertEquals(ResultadoAccion.Exito.class, resultado.getClass());
+        assertEquals("exito", resultado.fold(ignorado -> "exito", motivo -> "rechazo"));
     }
 
     @Test
@@ -45,8 +45,7 @@ public class EstadoArmaTest {
 
         // Act
         ResultadoAccion<Void> resultado = estadoArma.usar(canonMech, new Posicion(2, 3), tablero);
-        assertEquals(ResultadoAccion.Rechazo.class, resultado.getClass());
         assertEquals(MotivoRechazoAccion.ARMA_SUMERGIDA,
-                ((ResultadoAccion.Rechazo<?>) resultado).motivo());
+                resultado.fold(ignorado -> null, motivo -> motivo));
     }
 }

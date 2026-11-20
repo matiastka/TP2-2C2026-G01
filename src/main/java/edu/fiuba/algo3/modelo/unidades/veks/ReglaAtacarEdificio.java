@@ -19,12 +19,12 @@ public class ReglaAtacarEdificio implements ReglaPrioridadVek {
                 if (impacto.isPresent() && impacto.get().obtenerTerreno().esEdificio()) {
                     if (!vek.obtenerPosicion().equals(destino)) {
                         ResultadoAccion<Void> resultadoMovimiento = vek.moverA(destino, tablero);
-                        if (resultadoMovimiento instanceof ResultadoAccion.Rechazo<?>) {
+                        if (!resultadoMovimiento.fold(ignorado -> true, motivo -> false)) {
                             return false;
                         }
                     }
                     ResultadoAccion<Void> resultadoAtaque = vek.prepararAtaque(direccion);
-                    if (resultadoAtaque instanceof ResultadoAccion.Rechazo<?>) {
+                    if (!resultadoAtaque.fold(ignorado -> true, motivo -> false)) {
                         return false;
                     }
                     return true;

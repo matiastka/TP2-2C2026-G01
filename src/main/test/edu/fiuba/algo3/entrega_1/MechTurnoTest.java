@@ -30,186 +30,169 @@ public class MechTurnoTest {
     @Test
     public void test01MechNoPuedeMoverseDosVecesEnElMismoTurno() {
         Tablero tablero = new ConstructorDeTablero().construir(MAPA);
-
-        Posicion origen = new Posicion(0, 0);
-        Posicion primerDestino = new Posicion(0, 2);
-        Posicion segundoDestino = new Posicion(0, 4);
-
         Mech mech = new Combate();
+        mech.colocarseEn(new Posicion(0, 0), tablero);
+        mech.moverA(new Posicion(0, 2), tablero);
 
-        mech.colocarseEn(origen, tablero);
-
-        mech.moverA(primerDestino, tablero);
-        assertRejected(mech.moverA(segundoDestino, tablero), MotivoRechazoAccion.MOVIMIENTO_YA_REALIZADO);
-
-        assertEquals(mech.obtenerPosicion(), primerDestino);
+        assertEquals(MotivoRechazoAccion.MOVIMIENTO_YA_REALIZADO,
+                motivoRechazo(mech.moverA(new Posicion(0, 4), tablero)));
     }
 
     @Test
-    public void test02MovimientoInvalidoNoConsumeLaAccionDelMech() {
+    public void test02MovimientoInvalidoNoCambiaLaPosicionDelMech() {
         Tablero tablero = new ConstructorDeTablero().construir(MAPA);
         Posicion origen = new Posicion(0, 0);
         Mech mech = new Combate();
         mech.colocarseEn(origen, tablero);
+        mech.moverA(new Posicion(0, 4), tablero);
 
-        assertRejected(mech.moverA(new Posicion(0, 4), tablero), MotivoRechazoAccion.DESTINO_NO_ALCANZABLE);
-        ResultadoAccion<Void> resultadoMovimiento = mech.moverA(new Posicion(0, 1), tablero);
-
-        assertEquals(ResultadoAccion.Exito.class, resultadoMovimiento.getClass());
-        assertEquals(new Posicion(0, 1), mech.obtenerPosicion());
+        assertEquals(origen, mech.obtenerPosicion());
     }
 
     @Test
-    public void test03MechNoPuedeAtacarDosVecesEnElMismoTurno() {
+    public void test03MovimientoInvalidoNoConsumeLaAccionDelMech() {
         Tablero tablero = new ConstructorDeTablero().construir(MAPA);
-
-        Posicion posMech = new Posicion(2, 2);
-        Posicion posVek1 = new Posicion(2, 3);
-        Posicion posVek2 = new Posicion(3, 2);
-
-        Mech mech = new Combate();
-        Unidad vek1 = new Luciernaga();
-        Unidad vek2 = new Luciernaga();
-
-        mech.colocarseEn(posMech, tablero);
-        vek1.colocarseEn(posVek1, tablero);
-        vek2.colocarseEn(posVek2, tablero);
-
-        mech.atacarA(posVek1, tablero);
-        assertRejected(mech.atacarA(posVek2, tablero), MotivoRechazoAccion.TURNO_AGOTADO);
-
-        assertEquals(3, vek2.obtenerVida()); // No debe recibir daño
-    }
-
-    @Test
-    public void test04AlReiniciarTurnoElMechPuedeVolverAMoverse() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
-
-        Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 1);
-        Posicion posVek = new Posicion(0, 2);
-
         Mech mech = new Combate();
-        Unidad vek = new Luciernaga();
-
-        mech.colocarseEn(origen, tablero);
-        vek.colocarseEn(posVek, tablero);
-
+        mech.colocarseEn(new Posicion(0, 0), tablero);
+        mech.moverA(new Posicion(0, 4), tablero);
         mech.moverA(destino, tablero);
-        mech.atacarA(posVek, tablero);
 
-        mech.reiniciarTurno();
-
-        Posicion nuevoDestino = new Posicion(1, 1);
-        mech.moverA(nuevoDestino, tablero);
-
-        assertEquals(mech.obtenerPosicion(), nuevoDestino);
-    }
-    
-    @Test
-    public void test05DeshacerMovimientoDeMechQueTodaviaNoAtaco() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
-
-        Posicion origen = new Posicion(0, 0);
-        Posicion destino = new Posicion(0, 1);
-
-        Mech mech = new Combate();
-
-        mech.colocarseEn(origen, tablero);
-        mech.moverA(destino, tablero);
-        
-        mech.deshacerMovimiento(tablero);
-
-        assertEquals(mech.obtenerPosicion(), origen);
-    }
-    
-    @Test
-    public void test06DeshacerDejaLaCasillaDestinoLibre() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
-
-        Posicion origen = new Posicion(0, 0);
-        Posicion destino = new Posicion(0, 1);
-
-        Mech mech = new Combate();
-
-        mech.colocarseEn(origen, tablero);
-        mech.moverA(destino, tablero);
-        
-        mech.deshacerMovimiento(tablero);
-
-        assertTrue(tablero.enCasilla(destino).estaLibre());
-    }
-    
-    @Test
-    public void test07DeshacerDosMovimientosDeMechEnElMismoTurno() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
-
-        Posicion origen = new Posicion(0, 0);
-        Posicion destino = new Posicion(0, 1);
-        Posicion destino2 = new Posicion(0, 2);
-
-        Mech mech = new Combate();
-
-        mech.colocarseEn(origen, tablero);
-        mech.moverA(destino, tablero);
-        
-        mech.deshacerMovimiento(tablero);
-        
-        mech.moverA(destino2, tablero);
-        
-        assertRejected(mech.deshacerMovimiento(tablero), MotivoRechazoAccion.ACCION_NO_DISPONIBLE);
-        
-        assertEquals(mech.obtenerPosicion(), destino2);
-    }
-
-    @Test
-    public void test08NoSePuedeDeshacerElMovimientoDespuesDeAtacar() {
-        // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
-
-        Posicion origen = new Posicion(0, 0);
-        Posicion destino = new Posicion(0, 1);
-        Posicion posicionVek = new Posicion(0, 2);
-
-        Mech mech = new Combate();
-        Unidad vek = new Luciernaga();
-
-        mech.colocarseEn(origen, tablero);
-        vek.colocarseEn(posicionVek, tablero);
-
-        mech.moverA(destino, tablero);
-        mech.atacarA(posicionVek, tablero);
-
-        // Act
-        assertRejected(mech.deshacerMovimiento(tablero), MotivoRechazoAccion.ACCION_NO_DISPONIBLE);
-
-        // Assert
         assertEquals(destino, mech.obtenerPosicion());
     }
 
     @Test
-    public void test09AtaqueInvalidoNoConsumeLaAccionDelMech() {
+    public void test04MechNoPuedeAtacarDosVecesEnElMismoTurno() {
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Mech mech = new Combate();
+        mech.colocarseEn(new Posicion(2, 2), tablero);
+        new Luciernaga().colocarseEn(new Posicion(2, 3), tablero);
+        mech.atacarA(new Posicion(2, 3), tablero);
+
+        assertEquals(MotivoRechazoAccion.TURNO_AGOTADO,
+                motivoRechazo(mech.atacarA(new Posicion(3, 2), tablero)));
+    }
+
+    @Test
+    public void test05SegundoAtaqueDelMechNoAfectaOtroVek() {
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Mech mech = new Combate();
+        Unidad vek1 = new Luciernaga();
+        Unidad vek2 = new Luciernaga();
+        mech.colocarseEn(new Posicion(2, 2), tablero);
+        vek1.colocarseEn(new Posicion(2, 3), tablero);
+        vek2.colocarseEn(new Posicion(3, 2), tablero);
+        mech.atacarA(new Posicion(2, 3), tablero);
+        mech.atacarA(new Posicion(3, 2), tablero);
+
+        assertEquals(3, vek2.obtenerVida());
+    }
+
+    @Test
+    public void test06AlReiniciarTurnoElMechPuedeVolverAMoverse() {
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Posicion destino = new Posicion(1, 1);
+        Mech mech = new Combate();
+        mech.colocarseEn(new Posicion(0, 0), tablero);
+        new Luciernaga().colocarseEn(new Posicion(0, 2), tablero);
+        mech.moverA(new Posicion(0, 1), tablero);
+        mech.atacarA(new Posicion(0, 2), tablero);
+        mech.reiniciarTurno();
+        mech.moverA(destino, tablero);
+
+        assertEquals(destino, mech.obtenerPosicion());
+    }
+
+    @Test
+    public void test07DeshacerMovimientoDeMechQueTodaviaNoAtaco() {
         Tablero tablero = new ConstructorDeTablero().construir(MAPA);
         Posicion origen = new Posicion(0, 0);
-        Posicion objetivoNoAdyacente = new Posicion(0, 2);
-        Posicion destinoMovimiento = new Posicion(0, 1);
         Mech mech = new Combate();
-        Unidad vek = new Luciernaga();
         mech.colocarseEn(origen, tablero);
-        vek.colocarseEn(objetivoNoAdyacente, tablero);
+        mech.moverA(new Posicion(0, 1), tablero);
+        mech.deshacerMovimiento(tablero);
 
-        assertRejected(mech.atacarA(objetivoNoAdyacente, tablero),
-                MotivoRechazoAccion.DESTINO_NO_ALCANZABLE);
-        ResultadoAccion<Void> resultadoMovimiento = mech.moverA(destinoMovimiento, tablero);
-
-        assertEquals(ResultadoAccion.Exito.class, resultadoMovimiento.getClass());
-        assertEquals(destinoMovimiento, mech.obtenerPosicion());
-        assertEquals(3, vek.obtenerVida());
+        assertEquals(origen, mech.obtenerPosicion());
     }
 
-    private void assertRejected(ResultadoAccion<?> resultado, MotivoRechazoAccion motivo) {
-        assertEquals(ResultadoAccion.Rechazo.class, resultado.getClass());
-        assertEquals(motivo, ((ResultadoAccion.Rechazo<?>) resultado).motivo());
+    @Test
+    public void test08DeshacerDejaLaCasillaDestinoLibre() {
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Posicion destino = new Posicion(0, 1);
+        Mech mech = new Combate();
+        mech.colocarseEn(new Posicion(0, 0), tablero);
+        mech.moverA(destino, tablero);
+        mech.deshacerMovimiento(tablero);
+
+        assertTrue(tablero.enCasilla(destino).estaLibre());
     }
 
+    @Test
+    public void test09NoSePuedeDeshacerDosMovimientosEnElMismoTurno() {
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Mech mech = new Combate();
+        mech.colocarseEn(new Posicion(0, 0), tablero);
+        mech.moverA(new Posicion(0, 1), tablero);
+        mech.deshacerMovimiento(tablero);
+        mech.moverA(new Posicion(0, 2), tablero);
+
+        assertEquals(MotivoRechazoAccion.ACCION_NO_DISPONIBLE,
+                motivoRechazo(mech.deshacerMovimiento(tablero)));
+    }
+
+    @Test
+    public void test10NoSePuedeDeshacerElMovimientoDespuesDeAtacar() {
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Mech mech = new Combate();
+        mech.colocarseEn(new Posicion(0, 0), tablero);
+        new Luciernaga().colocarseEn(new Posicion(0, 2), tablero);
+        mech.moverA(new Posicion(0, 1), tablero);
+        mech.atacarA(new Posicion(0, 2), tablero);
+
+        assertEquals(MotivoRechazoAccion.ACCION_NO_DISPONIBLE,
+                motivoRechazo(mech.deshacerMovimiento(tablero)));
+    }
+
+    @Test
+    public void test11IntentarDeshacerDespuesDeAtacarNoMueveAlMech() {
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Posicion destino = new Posicion(0, 1);
+        Mech mech = new Combate();
+        mech.colocarseEn(new Posicion(0, 0), tablero);
+        new Luciernaga().colocarseEn(new Posicion(0, 2), tablero);
+        mech.moverA(destino, tablero);
+        mech.atacarA(new Posicion(0, 2), tablero);
+        mech.deshacerMovimiento(tablero);
+
+        assertEquals(destino, mech.obtenerPosicion());
+    }
+
+    @Test
+    public void test12AtaqueInvalidoRetornaMotivoDeRechazo() {
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Posicion objetivoNoAdyacente = new Posicion(0, 2);
+        Mech mech = new Combate();
+        mech.colocarseEn(new Posicion(0, 0), tablero);
+        new Luciernaga().colocarseEn(objetivoNoAdyacente, tablero);
+
+        assertEquals(MotivoRechazoAccion.DESTINO_NO_ALCANZABLE,
+                motivoRechazo(mech.atacarA(objetivoNoAdyacente, tablero)));
+    }
+
+    @Test
+    public void test13AtaqueInvalidoNoConsumeLaAccionDelMech() {
+        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Posicion destino = new Posicion(0, 1);
+        Mech mech = new Combate();
+        mech.colocarseEn(new Posicion(0, 0), tablero);
+        new Luciernaga().colocarseEn(new Posicion(0, 2), tablero);
+        mech.atacarA(new Posicion(0, 2), tablero);
+        mech.moverA(destino, tablero);
+
+        assertEquals(destino, mech.obtenerPosicion());
+    }
+
+    private MotivoRechazoAccion motivoRechazo(ResultadoAccion<?> resultado) {
+        return resultado.fold(ignorado -> null, motivo -> motivo);
+    }
 }
