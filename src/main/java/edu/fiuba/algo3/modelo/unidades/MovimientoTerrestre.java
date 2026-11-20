@@ -1,13 +1,9 @@
 
 package edu.fiuba.algo3.modelo.unidades;
 
-import edu.fiuba.algo3.modelo.tablero.Casilla;
-import edu.fiuba.algo3.modelo.tablero.Direccion;
-import edu.fiuba.algo3.modelo.tablero.Posicion;
-import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.tablero.Terreno;
+import edu.fiuba.algo3.modelo.tablero.*;
 
-public class MovimientoTerrestre implements Movimiento {
+public class MovimientoTerrestre implements Movimiento, Transito {
 
     @Override
     public void validarCamino(Posicion origen, Posicion destino, int rango, Tablero tablero) {
@@ -20,20 +16,16 @@ public class MovimientoTerrestre implements Movimiento {
         if (!origen.estaAlAlcanceDe(destino, rango)) {
             throw new DestinoNoAlcanzableException();
         }
-        if (!caminoDespejado(origen, destino, tablero)) {
-            throw new CaminoBloqueadoException();
-        }
+        recorrerCamino(origen, destino, tablero);
     }
 
-    private boolean caminoDespejado(Posicion origen, Posicion destino, Tablero tablero) {
+    private void recorrerCamino(Posicion origen, Posicion destino, Tablero tablero) {
         Direccion direccion = origen.direccionHacia(destino);
         Posicion actual = origen;
         do {
             actual = actual.siguienteEn(direccion);
-            Casilla casilla = tablero.enCasilla(actual);
-            if (!casilla.esTransitable() || !casilla.estaLibre()) return false;
+            tablero.enCasilla(actual).recibirTransito(this);
         } while (!actual.equals(destino));
-        return true;
     }
 
     @Override
@@ -49,5 +41,19 @@ public class MovimientoTerrestre implements Movimiento {
     @Override
     public void caerEnAgua(Unidad unidad){
         unidad.hundirse();
+    }
+
+    @Override
+    public void atravesar(Casilla casilla) {
+    }
+
+    @Override
+    public void chocarConOcupante(Casilla casilla) {
+        throw new CaminoBloqueadoException();
+    }
+
+    @Override
+    public void chocarConTerreno(Casilla casilla) {
+        throw new CaminoBloqueadoException();
     }
 }

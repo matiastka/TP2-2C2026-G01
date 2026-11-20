@@ -7,11 +7,6 @@ import edu.fiuba.algo3.modelo.tablero.Terreno;
 public class Agua extends Terreno {
 
     @Override
-    public boolean esTransitable() {
-        return true;
-    }
-
-    @Override
     public void afectarA(Ocupante ocupante){
         ocupante.caerEnAgua();
     }

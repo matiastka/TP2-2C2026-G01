@@ -63,10 +63,6 @@ public class Casilla {
         this.terreno.abandonar(ocupante);
     }
 
-    public boolean esTransitable() {
-        return this.terreno.esTransitable(); 
-    }
-
     public void cambiarTerreno(Terreno nuevoTerreno){
         this.terreno = nuevoTerreno;
     }
@@ -74,5 +70,17 @@ public class Casilla {
     public void recibirDanio(int danio) {
         this.ocupante.recibirDanio(danio);
         this.terreno.recibirDanio(danio, this);
+    }
+
+    public void recibirTransito(Transito transito) {
+        this.ocupante.recibirTransito(transito, this);
+    }
+
+    public void recibirTransitoEnTerreno(Transito transito) {
+        this.terreno.recibirTransito(transito, this);
+    }
+
+    public void aplicarEfectoDeImpacto(EfectoImpacto efecto, Direccion direccion, Tablero tablero) {
+        this.ocupante.recibirEfectoDeImpacto(efecto, this.posicion, direccion, tablero);
     }
 }

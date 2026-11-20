@@ -4,12 +4,15 @@ import edu.fiuba.algo3.mapa.LectorDeMapa;
 
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.terrenos.Acido;
+import edu.fiuba.algo3.modelo.terrenos.Edificio;
+import edu.fiuba.algo3.modelo.terrenos.Montana;
 import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TableroTest {
+public class    TableroTest {
     private static final String[] MAPA = new LectorDeMapa().leer("src/main/java/edu/fiuba/algo3/mapa/mapa1.txt");
 
     @Test
@@ -59,7 +62,7 @@ public class TableroTest {
         Posicion posicionMontana = new Posicion(0,7);
 
         // Act & Assert
-        assertFalse(tablero.enCasilla(posicionMontana).esTransitable());
+        assertEquals(Montana.class, tablero.enCasilla(posicionMontana).obtenerTerreno().getClass());
     }
 
     @Test
@@ -89,7 +92,7 @@ public class TableroTest {
         Posicion posicionAcido = new Posicion(1,5);
 
         // Act & Assert
-        assertTrue(tablero.enCasilla(posicionAcido).esTransitable());
+        assertEquals(Acido.class, tablero.enCasilla(posicionAcido).obtenerTerreno().getClass());
     }
 
     @Test
@@ -100,7 +103,7 @@ public class TableroTest {
         Posicion posicionEdificio = new Posicion(0,2);
 
         // Act & Assert
-        assertFalse(tablero.enCasilla(posicionEdificio).esTransitable());
+        assertEquals(Edificio.class, tablero.enCasilla(posicionEdificio).obtenerTerreno().getClass());
     }
     @Test
     public void test08UnTableroCargadoPreDefinidoTieneSueloEnUnaPosicionParticular(){

@@ -1,8 +1,6 @@
 package edu.fiuba.algo3.modelo.unidades;
 
-import edu.fiuba.algo3.modelo.tablero.Ocupante;
-import edu.fiuba.algo3.modelo.tablero.Posicion;
-import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.tablero.*;
 
 public abstract class Unidad implements Ocupante {
 
@@ -109,7 +107,18 @@ public abstract class Unidad implements Ocupante {
     protected EstadoSalud obtenerEstadoSalud() {
     return this.estadoSalud;
     }
+
     protected void establecerEstadoSalud(EstadoSalud estado) {
         this.estadoSalud = estado;
+    }
+
+    @Override
+    public void recibirTransito(Transito transito, Casilla casilla) {
+        transito.chocarConOcupante(casilla);
+    }
+
+    @Override
+    public void recibirEfectoDeImpacto(EfectoImpacto efecto, Posicion posicion, Direccion direccion, Tablero tablero) {
+        efecto.aplicar(this, posicion, direccion, tablero);
     }
 }

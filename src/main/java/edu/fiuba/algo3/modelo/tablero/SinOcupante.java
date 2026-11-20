@@ -31,5 +31,14 @@ public class SinOcupante implements Ocupante {
     public void contaminarse() {
     }
 
+    @Override
+    public void recibirTransito(Transito transito, Casilla casilla) {
+        casilla.recibirTransitoEnTerreno(transito);
+    }
+
+    @Override
+    public void recibirEfectoDeImpacto(EfectoImpacto efecto, Posicion posicion, Direccion direccion, Tablero tablero) {
+    }
+
 
 }

@@ -1,7 +1,9 @@
 
 package edu.fiuba.algo3.modelo.terrenos;
 
+import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
+import edu.fiuba.algo3.modelo.unidades.MovimientoTerrestre;
 import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
 import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
 import org.junit.jupiter.api.Test;
@@ -10,15 +12,12 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AguaTest {
 
     @Test
-    public void test01AguaEsTransitable() {
+    public void test01UnaUnidadTerrestrePuedeAtravesarAgua() {
         // Arrange
-        Agua agua = new Agua();
+        Casilla casilla = new Casilla(new Agua(), new Posicion(0, 0));
 
-        // Act
-        boolean esTransitable = agua.esTransitable();
-
-        // Assert
-        assertTrue(esTransitable);
+        // Act & Assert
+        assertDoesNotThrow(() -> casilla.recibirTransito(new MovimientoTerrestre()));
     }
 
     @Test

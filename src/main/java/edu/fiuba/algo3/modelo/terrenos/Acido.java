@@ -4,10 +4,6 @@ import edu.fiuba.algo3.modelo.tablero.Ocupante;
 import edu.fiuba.algo3.modelo.tablero.Terreno;
 
 public class Acido extends Terreno {
-    @Override
-    public boolean esTransitable() {
-        return true;
-    }
 
     @Override
     public void afectarA(Ocupante ocupante) {

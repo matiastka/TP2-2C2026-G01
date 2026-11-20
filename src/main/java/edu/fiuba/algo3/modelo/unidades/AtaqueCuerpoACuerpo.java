@@ -2,10 +2,7 @@ package edu.fiuba.algo3.modelo.unidades;
 
 import java.util.Optional;
 
-import edu.fiuba.algo3.modelo.tablero.Casilla;
-import edu.fiuba.algo3.modelo.tablero.Direccion;
-import edu.fiuba.algo3.modelo.tablero.Posicion;
-import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.tablero.*;
 
 public class AtaqueCuerpoACuerpo implements Ataque {
 
@@ -35,9 +32,6 @@ public class AtaqueCuerpoACuerpo implements Ataque {
 
         Casilla casillaObjetivo = tablero.enCasilla(objetivo);
         casillaObjetivo.recibirDanio(danio);
-
-        if (!casillaObjetivo.estaLibre()) {
-            efecto.aplicar(casillaObjetivo.obtenerOcupante(), objetivo, direccion, tablero);
-        }
+        casillaObjetivo.aplicarEfectoDeImpacto(efecto, direccion, tablero);
     }
 }

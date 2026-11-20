@@ -1,11 +1,8 @@
 package edu.fiuba.algo3.modelo.unidades;
 
-import edu.fiuba.algo3.modelo.tablero.Direccion;
-import edu.fiuba.algo3.modelo.tablero.Posicion;
-import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.tablero.Terreno;
+import edu.fiuba.algo3.modelo.tablero.*;
 
-public class MovimientoVolador implements Movimiento{
+public class MovimientoVolador implements Movimiento, Transito {
 
     @Override
     public void validarCamino(Posicion origen, Posicion destino, int rango, Tablero tablero){
@@ -18,12 +15,11 @@ public class MovimientoVolador implements Movimiento{
         if (!origen.estaAlAlcanceDe(destino, rango)) {
             throw new DestinoNoAlcanzableException();
         }
-        if (!tablero.enCasilla(destino).estaLibre()) {
-            throw new DestinoOcupadoException();
-        }
-        if (!tablero.enCasilla(destino).esTransitable()) {
-            throw new CaminoBloqueadoException();
-        }
+        aterrizarEn(destino, tablero);
+    }
+
+    private void aterrizarEn(Posicion destino, Tablero tablero) {
+        tablero.enCasilla(destino).recibirTransito(this);
     }
 
     @Override
@@ -45,5 +41,19 @@ public class MovimientoVolador implements Movimiento{
 
     @Override
     public void caerEnAgua(Unidad unidad){
+    }
+
+    @Override
+    public void atravesar(Casilla casilla) {
+    }
+
+    @Override
+    public void chocarConOcupante(Casilla casilla) {
+        throw new DestinoOcupadoException();
+    }
+
+    @Override
+    public void chocarConTerreno(Casilla casilla) {
+        throw new CaminoBloqueadoException();
     }
 }

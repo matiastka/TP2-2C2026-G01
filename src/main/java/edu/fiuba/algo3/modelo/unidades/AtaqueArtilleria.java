@@ -2,11 +2,7 @@ package edu.fiuba.algo3.modelo.unidades;
 
 import java.util.Optional;
 
-import edu.fiuba.algo3.modelo.tablero.Casilla;
-import edu.fiuba.algo3.modelo.tablero.Direccion;
-import edu.fiuba.algo3.modelo.tablero.Ocupante;
-import edu.fiuba.algo3.modelo.tablero.Posicion;
-import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.tablero.*;
 
 public class AtaqueArtilleria implements Ataque {
 
@@ -50,9 +46,8 @@ public class AtaqueArtilleria implements Ataque {
 
         for (Direccion dirCard : Direccion.cardinales()) {
             Posicion posAdyacente = objetivo.siguienteEn(dirCard);
-            if (tablero.estaEnRango(posAdyacente) && !tablero.enCasilla(posAdyacente).estaLibre()) {
-                Ocupante ocupanteAdyacente = tablero.enCasilla(posAdyacente).obtenerOcupante();
-                efectoAdyacente.aplicar(ocupanteAdyacente, posAdyacente, dirCard, tablero);
+            if (tablero.estaEnRango(posAdyacente)) {
+                tablero.enCasilla(posAdyacente).aplicarEfectoDeImpacto(efectoAdyacente, dirCard, tablero);
             }
         }
     }

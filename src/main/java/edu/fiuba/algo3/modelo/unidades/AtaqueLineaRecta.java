@@ -2,10 +2,7 @@ package edu.fiuba.algo3.modelo.unidades;
 
 import java.util.Optional;
 
-import edu.fiuba.algo3.modelo.tablero.Casilla;
-import edu.fiuba.algo3.modelo.tablero.Direccion;
-import edu.fiuba.algo3.modelo.tablero.Posicion;
-import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.tablero.*;
 
 public class AtaqueLineaRecta implements Ataque {
 
@@ -17,34 +14,16 @@ public class AtaqueLineaRecta implements Ataque {
         this.efecto = efecto;
     }
 
-    @Override 
+    @Override
     public Optional<Casilla> casillaImpactadaDesde(Posicion origen, Direccion direccion, Tablero tablero) {
-        Posicion posActual = origen.siguienteEn(direccion);
-        while (tablero.estaEnRango(posActual)) {
-            Casilla casillaActual = tablero.enCasilla(posActual);
-            if (!casillaActual.estaLibre() || !casillaActual.esTransitable()) {
-                return Optional.of(casillaActual);
-            }
-            posActual = posActual.siguienteEn(direccion);
-        }
-        return Optional.empty();
+        ProyectilSimulado proyectil = new ProyectilSimulado(direccion, tablero);
+        proyectil.lanzarDesde(origen);
+        return proyectil.casillaImpactada();
     }
 
     @Override
     public void ejecutar(Posicion origen, Direccion direccion, Tablero tablero) {
-        Posicion posActual = origen.siguienteEn(direccion);
-        while (tablero.estaEnRango(posActual)) {
-            Casilla casillaActual = tablero.enCasilla(posActual);
-
-            if (!casillaActual.estaLibre() || !casillaActual.esTransitable()) {
-                casillaActual.recibirDanio(danio);
-                if (!casillaActual.estaLibre()) {
-                    efecto.aplicar(casillaActual.obtenerOcupante(), posActual, direccion, tablero);
-                }
-                return;
-            }
-
-            posActual = posActual.siguienteEn(direccion);
-        }
+        new ProyectilReal(this.danio, this.efecto, direccion, tablero).lanzarDesde(origen);
     }
+
 }
