@@ -20,7 +20,7 @@ public class EstadoTurnoMechTest {
             "SSSSSSSS",
             "SSSSSSSS",
             "SSSSSSSS"
-        };
+    };
 
     @Test
     public void test01EstadoDisponibleAlMoverseExitosamenteRetornaEstadoYaSeMovio() {
@@ -34,10 +34,10 @@ public class EstadoTurnoMechTest {
         EstadoTurnoMech estado = new EstadoDisponible();
 
         // Act
-        ResultadoAccion<EstadoTurnoMech> resultado = estado.mover(mech, new Posicion(0, 1), tablero);
+        EstadoTurnoMech resultado = estado.mover(mech, new Posicion(0, 1), tablero);
 
         // Assert
-        assertEquals(EstadoYaSeMovio.class, resultado.fold(EstadoTurnoMech::getClass, motivo -> null));
+        assertEquals(EstadoYaSeMovio.class, resultado.getClass());
     }
 
     @Test
@@ -54,10 +54,10 @@ public class EstadoTurnoMechTest {
         EstadoTurnoMech estado = new EstadoDisponible();
 
         // Act
-        ResultadoAccion<EstadoTurnoMech> resultado = estado.atacar(mech, new Posicion(0, 1), tablero);
+        EstadoTurnoMech resultado = estado.atacar(mech, new Posicion(0, 1), tablero);
 
         // Assert
-        assertEquals(EstadoTurnoAgotado.class, resultado.fold(EstadoTurnoMech::getClass, motivo -> null));
+        assertEquals(EstadoTurnoAgotado.class, resultado.getClass());
     }
 
     @Test
@@ -74,10 +74,10 @@ public class EstadoTurnoMechTest {
         EstadoTurnoMech estado = new EstadoYaSeMovio();
 
         // Act
-        ResultadoAccion<EstadoTurnoMech> resultado = estado.atacar(mech, new Posicion(0, 1), tablero);
+        EstadoTurnoMech resultado = estado.atacar(mech, new Posicion(0, 1), tablero);
 
         // Assert
-        assertEquals(EstadoTurnoAgotado.class, resultado.fold(EstadoTurnoMech::getClass, motivo -> null));
+        assertEquals(EstadoTurnoAgotado.class, resultado.getClass());
     }
 
     @Test
@@ -92,8 +92,7 @@ public class EstadoTurnoMechTest {
         EstadoTurnoMech estado = new EstadoYaSeMovio();
 
         // Act
-        ResultadoAccion<EstadoTurnoMech> resultado = estado.mover(mech, new Posicion(0, 1), tablero);
-        assertEquals(MotivoRechazoAccion.MOVIMIENTO_YA_REALIZADO, motivoRechazo(resultado));
+        assertThrows(MovimientoYaRealizadoException.class, () -> estado.mover(mech, new Posicion(0, 1), tablero));
     }
 
     @Test
@@ -108,8 +107,7 @@ public class EstadoTurnoMechTest {
         EstadoTurnoMech estado = new EstadoTurnoAgotado();
 
         // Act
-        ResultadoAccion<EstadoTurnoMech> resultado = estado.mover(mech, new Posicion(0, 1), tablero);
-        assertEquals(MotivoRechazoAccion.TURNO_AGOTADO, motivoRechazo(resultado));
+        assertThrows(TurnoAgotadoException.class, () -> estado.mover(mech, new Posicion(0, 1), tablero));
     }
 
     @Test
@@ -124,11 +122,6 @@ public class EstadoTurnoMechTest {
         EstadoTurnoMech estado = new EstadoTurnoAgotado();
 
         // Act
-        ResultadoAccion<EstadoTurnoMech> resultado = estado.atacar(mech, new Posicion(0, 1), tablero);
-        assertEquals(MotivoRechazoAccion.TURNO_AGOTADO, motivoRechazo(resultado));
-    }
-
-    private MotivoRechazoAccion motivoRechazo(ResultadoAccion<?> resultado) {
-        return resultado.fold(ignorado -> null, motivo -> motivo);
+        assertThrows(TurnoAgotadoException.class, () -> estado.atacar(mech, new Posicion(0, 1), tablero));
     }
 }

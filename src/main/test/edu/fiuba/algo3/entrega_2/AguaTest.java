@@ -85,8 +85,7 @@ public class AguaTest {
 
         canonMech.moverA(posicionAgua, tablero);
 
-        assertEquals(MotivoRechazoAccion.ARMA_SUMERGIDA,
-                motivoRechazo(canonMech.atacarA(posicionVek, tablero)));
+        assertThrows(ArmaSumergidaException.class, () -> canonMech.atacarA(posicionVek, tablero));
     }
 
     @Test
@@ -104,8 +103,7 @@ public class AguaTest {
         canonMech.moverA(posicionAgua, tablero);
         canonMech.deshacerMovimiento(tablero);
 
-        assertEquals("exito", canonMech.atacarA(posicionVek, tablero)
-                .fold(ignorado -> "exito", motivo -> "rechazo"));
+        assertDoesNotThrow(() -> canonMech.atacarA(posicionVek, tablero));
     }
 
     @Test
@@ -155,11 +153,6 @@ public class AguaTest {
 
         combateMech.moverA(posicionAgua, tablero);
 
-        assertEquals(MotivoRechazoAccion.ARMA_SUMERGIDA,
-                motivoRechazo(combateMech.atacarA(posicionVek, tablero)));
-    }
-
-    private MotivoRechazoAccion motivoRechazo(ResultadoAccion<?> resultado) {
-        return resultado.fold(ignorado -> null, motivo -> motivo);
+        assertThrows(ArmaSumergidaException.class, () -> combateMech.atacarA(posicionVek, tablero));
     }
 }

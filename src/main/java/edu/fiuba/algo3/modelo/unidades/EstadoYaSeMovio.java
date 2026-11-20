@@ -6,19 +6,19 @@ import edu.fiuba.algo3.modelo.tablero.Tablero;
 public class EstadoYaSeMovio implements EstadoTurnoMech {
 
     @Override
-    public ResultadoAccion<EstadoTurnoMech> mover(Mech mech, Posicion destino, Tablero tablero) {
-        return ResultadoAccion.rechazo(MotivoRechazoAccion.MOVIMIENTO_YA_REALIZADO);
+    public EstadoTurnoMech mover(Mech mech, Posicion destino, Tablero tablero) {
+        throw new MovimientoYaRealizadoException();
     }
 
     @Override
-    public ResultadoAccion<EstadoTurnoMech> atacar(Mech mech, Posicion posicion, Tablero tablero) {
-        return mech.ejecutarAtaqueValidado(posicion, tablero)
-                .map(ignorado -> new EstadoTurnoAgotado());
+    public EstadoTurnoMech atacar(Mech mech, Posicion posicion, Tablero tablero) {
+        mech.ejecutarAtaqueValidado(posicion, tablero);
+        return new EstadoTurnoAgotado();
     }
 
     @Override
-    public ResultadoAccion<EstadoTurnoMech> deshacerMovimiento(Mech mech, Tablero tablero) {
+    public EstadoTurnoMech deshacerMovimiento(Mech mech, Tablero tablero) {
         mech.ejecutarDeshacerMovimiento(tablero);
-        return ResultadoAccion.exito(new EstadoDisponibleSinDeshacer());
+        return new EstadoDisponibleSinDeshacer();
     }
 }

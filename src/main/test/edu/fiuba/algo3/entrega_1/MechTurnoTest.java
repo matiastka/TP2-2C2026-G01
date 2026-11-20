@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.entrega_1;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
@@ -7,9 +8,12 @@ import org.junit.jupiter.api.Test;
 import edu.fiuba.algo3.mapa.ConstructorDeTablero;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.unidades.AccionInvalidaException;
 import edu.fiuba.algo3.modelo.unidades.Mech;
-import edu.fiuba.algo3.modelo.unidades.MotivoRechazoAccion;
-import edu.fiuba.algo3.modelo.unidades.ResultadoAccion;
+import edu.fiuba.algo3.modelo.unidades.AccionNoDisponibleException;
+import edu.fiuba.algo3.modelo.unidades.DestinoNoAlcanzableException;
+import edu.fiuba.algo3.modelo.unidades.MovimientoYaRealizadoException;
+import edu.fiuba.algo3.modelo.unidades.TurnoAgotadoException;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
 import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
 import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
@@ -34,8 +38,7 @@ public class MechTurnoTest {
         mech.colocarseEn(new Posicion(0, 0), tablero);
         mech.moverA(new Posicion(0, 2), tablero);
 
-        assertEquals(MotivoRechazoAccion.MOVIMIENTO_YA_REALIZADO,
-                motivoRechazo(mech.moverA(new Posicion(0, 4), tablero)));
+        assertThrows(MovimientoYaRealizadoException.class, () -> mech.moverA(new Posicion(0, 4), tablero));
     }
 
     @Test
@@ -44,9 +47,8 @@ public class MechTurnoTest {
         Posicion origen = new Posicion(0, 0);
         Mech mech = new Combate();
         mech.colocarseEn(origen, tablero);
-        mech.moverA(new Posicion(0, 4), tablero);
 
-        assertEquals(origen, mech.obtenerPosicion());
+        assertThrows(DestinoNoAlcanzableException.class, () -> mech.moverA(new Posicion(0, 4), tablero));
     }
 
     @Test
@@ -55,7 +57,7 @@ public class MechTurnoTest {
         Posicion destino = new Posicion(0, 1);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(0, 0), tablero);
-        mech.moverA(new Posicion(0, 4), tablero);
+        intentarAccionInvalida(() -> mech.moverA(new Posicion(0, 4), tablero));
         mech.moverA(destino, tablero);
 
         assertEquals(destino, mech.obtenerPosicion());
@@ -69,8 +71,7 @@ public class MechTurnoTest {
         new Luciernaga().colocarseEn(new Posicion(2, 3), tablero);
         mech.atacarA(new Posicion(2, 3), tablero);
 
-        assertEquals(MotivoRechazoAccion.TURNO_AGOTADO,
-                motivoRechazo(mech.atacarA(new Posicion(3, 2), tablero)));
+        assertThrows(TurnoAgotadoException.class, () -> mech.atacarA(new Posicion(3, 2), tablero));
     }
 
     @Test
@@ -83,9 +84,8 @@ public class MechTurnoTest {
         vek1.colocarseEn(new Posicion(2, 3), tablero);
         vek2.colocarseEn(new Posicion(3, 2), tablero);
         mech.atacarA(new Posicion(2, 3), tablero);
-        mech.atacarA(new Posicion(3, 2), tablero);
 
-        assertEquals(3, vek2.obtenerVida());
+        assertThrows(TurnoAgotadoException.class, () -> mech.atacarA(new Posicion(3, 2), tablero));
     }
 
     @Test
@@ -136,8 +136,7 @@ public class MechTurnoTest {
         mech.deshacerMovimiento(tablero);
         mech.moverA(new Posicion(0, 2), tablero);
 
-        assertEquals(MotivoRechazoAccion.ACCION_NO_DISPONIBLE,
-                motivoRechazo(mech.deshacerMovimiento(tablero)));
+        assertThrows(AccionNoDisponibleException.class, () -> mech.deshacerMovimiento(tablero));
     }
 
     @Test
@@ -149,8 +148,7 @@ public class MechTurnoTest {
         mech.moverA(new Posicion(0, 1), tablero);
         mech.atacarA(new Posicion(0, 2), tablero);
 
-        assertEquals(MotivoRechazoAccion.ACCION_NO_DISPONIBLE,
-                motivoRechazo(mech.deshacerMovimiento(tablero)));
+        assertThrows(AccionNoDisponibleException.class, () -> mech.deshacerMovimiento(tablero));
     }
 
     @Test
@@ -162,9 +160,8 @@ public class MechTurnoTest {
         new Luciernaga().colocarseEn(new Posicion(0, 2), tablero);
         mech.moverA(destino, tablero);
         mech.atacarA(new Posicion(0, 2), tablero);
-        mech.deshacerMovimiento(tablero);
 
-        assertEquals(destino, mech.obtenerPosicion());
+        assertThrows(AccionNoDisponibleException.class, () -> mech.deshacerMovimiento(tablero));
     }
 
     @Test
@@ -175,8 +172,7 @@ public class MechTurnoTest {
         mech.colocarseEn(new Posicion(0, 0), tablero);
         new Luciernaga().colocarseEn(objetivoNoAdyacente, tablero);
 
-        assertEquals(MotivoRechazoAccion.DESTINO_NO_ALCANZABLE,
-                motivoRechazo(mech.atacarA(objetivoNoAdyacente, tablero)));
+        assertThrows(DestinoNoAlcanzableException.class, () -> mech.atacarA(objetivoNoAdyacente, tablero));
     }
 
     @Test
@@ -186,13 +182,16 @@ public class MechTurnoTest {
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(0, 0), tablero);
         new Luciernaga().colocarseEn(new Posicion(0, 2), tablero);
-        mech.atacarA(new Posicion(0, 2), tablero);
+        intentarAccionInvalida(() -> mech.atacarA(new Posicion(0, 2), tablero));
         mech.moverA(destino, tablero);
 
         assertEquals(destino, mech.obtenerPosicion());
     }
 
-    private MotivoRechazoAccion motivoRechazo(ResultadoAccion<?> resultado) {
-        return resultado.fold(ignorado -> null, motivo -> motivo);
+    private void intentarAccionInvalida(Runnable accion) {
+        try {
+            accion.run();
+        } catch (AccionInvalidaException esperada) {
+        }
     }
 }

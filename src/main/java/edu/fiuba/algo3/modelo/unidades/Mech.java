@@ -16,45 +16,34 @@ public abstract class Mech extends Unidad {
         this.estadoTurno = new EstadoDisponible();
     }
 
-    public ResultadoAccion<Void> atacarA(Posicion posicion, Tablero tablero) {
-        return this.estadoTurno.atacar(this, posicion, tablero).map(nuevoEstado -> {
-            this.estadoTurno = nuevoEstado;
-            return null;
-        });
+    public void atacarA(Posicion posicion, Tablero tablero) {
+        this.estadoTurno = this.estadoTurno.atacar(this, posicion, tablero);
     }
 
-    ResultadoAccion<Void> ejecutarAtaqueValidado(Posicion posicion, Tablero tablero) {
-        return estadoArma.usar(this, posicion, tablero);
+    void ejecutarAtaqueValidado(Posicion posicion, Tablero tablero) {
+        estadoArma.usar(this, posicion, tablero);
     }
 
-    protected abstract ResultadoAccion<Void> ejecutarAtaque(Posicion posicion, Tablero tablero);
+    protected abstract void ejecutarAtaque(Posicion posicion, Tablero tablero);
 
     @Override
-    public ResultadoAccion<Void> moverA(Posicion destino, Tablero tablero) {
+    public void moverA(Posicion destino, Tablero tablero) {
         Posicion posibleAnterior = this.obtenerPosicion();
         EstadoSalud posibleSaludAnterior = this.obtenerEstadoSalud();
         EstadoArma posibleEstadoArmaAnterior = this.estadoArma;
 
-        return this.estadoTurno.mover(this, destino, tablero).map(nuevoEstado -> {
-            this.estadoTurno = nuevoEstado;
-            if (!this.obtenerPosicion().equals(posibleAnterior)) {
-                this.posicionAnterior = posibleAnterior;
-                this.estadoSaludAnterior = posibleSaludAnterior;
-                this.estadoArmaAnterior = posibleEstadoArmaAnterior;
-            }
-            return null;
-        });
+        this.estadoTurno = this.estadoTurno.mover(this, destino, tablero);
+        this.posicionAnterior = posibleAnterior;
+        this.estadoSaludAnterior = posibleSaludAnterior;
+        this.estadoArmaAnterior = posibleEstadoArmaAnterior;
     }
 
     public void reiniciarTurno() {
         this.estadoTurno = new EstadoDisponible();
     }
 
-    public ResultadoAccion<Void> deshacerMovimiento(Tablero tablero) {
-        return this.estadoTurno.deshacerMovimiento(this, tablero).map(nuevoEstado -> {
-            this.estadoTurno = nuevoEstado;
-            return null;
-        });
+    public void deshacerMovimiento(Tablero tablero) {
+        this.estadoTurno = this.estadoTurno.deshacerMovimiento(this, tablero);
     }
 
     void ejecutarDeshacerMovimiento(Tablero tablero) {

@@ -2,6 +2,7 @@ package edu.fiuba.algo3.entrega_1;
 
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.unidades.DestinoNoAlcanzableException;
 import edu.fiuba.algo3.modelo.unidades.mechs.Artilleria;
 import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
 import edu.fiuba.algo3.modelo.unidades.Mech;
@@ -35,9 +36,7 @@ public class ArtilleriaTest {
         artilleria.colocarseEn(posArtilleria, tablero);
         objetivo.colocarseEn(posObjetivoAdyacente, tablero);
 
-        artilleria.atacarA(posObjetivoAdyacente, tablero);
-
-        assertEquals(3, objetivo.obtenerVida());
+        assertThrows(DestinoNoAlcanzableException.class, () -> artilleria.atacarA(posObjetivoAdyacente, tablero));
     }
 
     @Test

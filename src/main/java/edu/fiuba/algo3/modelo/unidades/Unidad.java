@@ -19,12 +19,9 @@ public abstract class Unidad implements Ocupante {
         this.movimiento = movimiento;
     }
 
-    protected ResultadoAccion<Void> ejecutarMovimiento(Posicion destino, Tablero tablero) {
-        return this.movimiento.validarCamino(this.posicion, destino, this.obtenerRango(), tablero)
-                .map(ignorado -> {
-                    reubicarEn(destino, tablero);
-                    return null;
-                });
+    protected void ejecutarMovimiento(Posicion destino, Tablero tablero) {
+        this.movimiento.validarCamino(this.posicion, destino, this.obtenerRango(), tablero);
+        reubicarEn(destino, tablero);
     }
 
     protected void reubicarEn(Posicion destino, Tablero tablero) {
@@ -82,9 +79,12 @@ public abstract class Unidad implements Ocupante {
         if (this.posicion.equals(destino)) {
             return true;
         }
-        return this.movimiento.validarCamino(this.posicion, destino, this.rango, tablero)
-                .fold(ignorado -> this.movimiento.esSeguroTerminarEn(tablero.enCasilla(destino).obtenerTerreno()),
-                        motivo -> false);
+        try {
+            this.movimiento.validarCamino(this.posicion, destino, this.rango, tablero);
+        } catch (AccionInvalidaException e) {
+            return false;
+        }
+        return this.movimiento.esSeguroTerminarEn(tablero.enCasilla(destino).obtenerTerreno());
     }
 
     protected abstract void hundirse();
@@ -104,7 +104,8 @@ public abstract class Unidad implements Ocupante {
         reubicarEn(destino, tablero);
     }
 
-    public abstract ResultadoAccion<Void> moverA(Posicion destino, Tablero tablero);
+    public abstract void moverA(Posicion destino, Tablero tablero);
+
     protected EstadoSalud obtenerEstadoSalud() {
     return this.estadoSalud;
     }

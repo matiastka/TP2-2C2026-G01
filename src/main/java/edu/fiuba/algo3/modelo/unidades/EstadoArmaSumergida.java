@@ -6,7 +6,7 @@ import edu.fiuba.algo3.modelo.tablero.Tablero;
 public class EstadoArmaSumergida implements EstadoArma{
 
     @Override
-    public ResultadoAccion<Void> usar(Mech mech, Posicion objetivo, Tablero tablero){
-        return ResultadoAccion.rechazo(MotivoRechazoAccion.ARMA_SUMERGIDA);
+    public void usar(Mech mech, Posicion objetivo, Tablero tablero) {
+        throw new ArmaSumergidaException();
     }
 }

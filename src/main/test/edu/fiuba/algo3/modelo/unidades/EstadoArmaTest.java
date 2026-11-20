@@ -30,8 +30,7 @@ public class EstadoArmaTest {
         EstadoArma estadoArma = new EstadoArmaOperativa();
 
         // Act
-        ResultadoAccion<Void> resultado = estadoArma.usar(canonMech, new Posicion(2, 3), tablero);
-        assertEquals("exito", resultado.fold(ignorado -> "exito", motivo -> "rechazo"));
+        assertDoesNotThrow(() -> estadoArma.usar(canonMech, new Posicion(2, 3), tablero));
     }
 
     @Test
@@ -44,8 +43,6 @@ public class EstadoArmaTest {
         EstadoArma estadoArma = new EstadoArmaSumergida();
 
         // Act
-        ResultadoAccion<Void> resultado = estadoArma.usar(canonMech, new Posicion(2, 3), tablero);
-        assertEquals(MotivoRechazoAccion.ARMA_SUMERGIDA,
-                resultado.fold(ignorado -> null, motivo -> motivo));
+        assertThrows(ArmaSumergidaException.class, () -> estadoArma.usar(canonMech, new Posicion(2, 3), tablero));
     }
 }

@@ -6,14 +6,14 @@ import edu.fiuba.algo3.modelo.tablero.Direccion;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Sur;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.MotivoRechazoAccion;
-import edu.fiuba.algo3.modelo.unidades.ResultadoAccion;
+import edu.fiuba.algo3.modelo.unidades.MovimientoYaRealizadoException;
 import edu.fiuba.algo3.modelo.unidades.veks.EstadoTurnoVek;
 import edu.fiuba.algo3.modelo.unidades.veks.EstadoVekConAtaquePreparado;
 import edu.fiuba.algo3.modelo.unidades.veks.EstadoVekDisponible;
 import edu.fiuba.algo3.modelo.unidades.veks.Saltador;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EstadoVekTest {
@@ -37,13 +37,13 @@ public class EstadoVekTest {
         Posicion posInicial = new Posicion(1, 1);
         Posicion primerDestino = new Posicion(1, 2);
         Posicion segundoDestino = new Posicion(1, 3);
-        
+
         vek.colocarseEn(posInicial, tablero);
 
         // Act
         vek.moverA(primerDestino, tablero);
-        ResultadoAccion<Void> resultadoMovimiento = vek.moverA(segundoDestino, tablero);
-        assertEquals(MotivoRechazoAccion.MOVIMIENTO_YA_REALIZADO, motivoRechazo(resultadoMovimiento));
+
+        assertThrows(MovimientoYaRealizadoException.class, () -> vek.moverA(segundoDestino, tablero));
 
     }
 
@@ -54,10 +54,10 @@ public class EstadoVekTest {
         EstadoTurnoVek estadoInicial = new EstadoVekDisponible();
 
         // Act
-        ResultadoAccion<EstadoTurnoVek> resultado = estadoInicial.prepararAtaque(vek, new Sur());
+        EstadoTurnoVek resultado = estadoInicial.prepararAtaque(vek, new Sur());
 
         // Assert
-        assertEquals(EstadoVekConAtaquePreparado.class, resultado.fold(EstadoTurnoVek::getClass, motivo -> null));
+        assertEquals(EstadoVekConAtaquePreparado.class, resultado.getClass());
     }
 
     @Test
@@ -69,13 +69,9 @@ public class EstadoVekTest {
         EstadoTurnoVek estadoConAtaque = new EstadoVekConAtaquePreparado();
 
         // Act
-        ResultadoAccion<EstadoTurnoVek> resultado = estadoConAtaque.resolverAtaque(vek, tablero);
+        EstadoTurnoVek resultado = estadoConAtaque.resolverAtaque(vek, tablero);
 
         // Assert
-        assertEquals(EstadoVekDisponible.class, resultado.fold(EstadoTurnoVek::getClass, motivo -> null));
-    }
-
-    private MotivoRechazoAccion motivoRechazo(ResultadoAccion<?> resultado) {
-        return resultado.fold(ignorado -> null, motivo -> motivo);
+        assertEquals(EstadoVekDisponible.class, resultado.getClass());
     }
 }

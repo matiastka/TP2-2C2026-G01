@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.unidades.veks;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import edu.fiuba.algo3.mapa.ConstructorDeTablero;
@@ -7,9 +8,11 @@ import edu.fiuba.algo3.modelo.tablero.Este;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Sur;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.unidades.AccionInvalidaException;
 import edu.fiuba.algo3.modelo.unidades.Mech;
-import edu.fiuba.algo3.modelo.unidades.MotivoRechazoAccion;
-import edu.fiuba.algo3.modelo.unidades.ResultadoAccion;
+import edu.fiuba.algo3.modelo.unidades.AtaqueYaPreparadoException;
+import edu.fiuba.algo3.modelo.unidades.DestinoFueraDelTableroException;
+import edu.fiuba.algo3.modelo.unidades.MovimientoYaRealizadoException;
 import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
 import org.junit.jupiter.api.Test;
 
@@ -33,8 +36,7 @@ public class EstadoTurnoVekTest {
         vek.colocarseEn(new Posicion(0, 0), tablero);
         vek.moverA(new Posicion(0, 2), tablero);
 
-        assertEquals(MotivoRechazoAccion.MOVIMIENTO_YA_REALIZADO,
-                motivoRechazo(vek.moverA(new Posicion(0, 4), tablero)));
+        assertThrows(MovimientoYaRealizadoException.class, () -> vek.moverA(new Posicion(0, 4), tablero));
     }
 
     @Test
@@ -44,9 +46,8 @@ public class EstadoTurnoVekTest {
         Vek vek = new Luciernaga();
         vek.colocarseEn(new Posicion(0, 0), tablero);
         vek.moverA(primerDestino, tablero);
-        vek.moverA(new Posicion(0, 4), tablero);
 
-        assertEquals(primerDestino, vek.obtenerPosicion());
+        assertThrows(MovimientoYaRealizadoException.class, () -> vek.moverA(new Posicion(0, 4), tablero));
     }
 
     @Test
@@ -85,8 +86,7 @@ public class EstadoTurnoVekTest {
         vek.colocarseEn(new Posicion(1, 1), tablero);
         vek.prepararAtaque(new Sur());
 
-        assertEquals(MotivoRechazoAccion.ATAQUE_YA_PREPARADO,
-                motivoRechazo(vek.moverA(new Posicion(1, 2), tablero)));
+        assertThrows(AtaqueYaPreparadoException.class, () -> vek.moverA(new Posicion(1, 2), tablero));
     }
 
     @Test
@@ -96,9 +96,8 @@ public class EstadoTurnoVekTest {
         Vek vek = new Luciernaga();
         vek.colocarseEn(origen, tablero);
         vek.prepararAtaque(new Sur());
-        vek.moverA(new Posicion(1, 2), tablero);
 
-        assertEquals(origen, vek.obtenerPosicion());
+        assertThrows(AtaqueYaPreparadoException.class, () -> vek.moverA(new Posicion(1, 2), tablero));
     }
 
     @Test
@@ -151,8 +150,7 @@ public class EstadoTurnoVekTest {
         Vek vek = new Avispon();
         vek.colocarseEn(new Posicion(0, 0), tablero);
 
-        assertEquals(MotivoRechazoAccion.DESTINO_FUERA_DEL_TABLERO,
-                motivoRechazo(vek.moverA(new Posicion(-1, 0), tablero)));
+        assertThrows(DestinoFueraDelTableroException.class, () -> vek.moverA(new Posicion(-1, 0), tablero));
     }
 
     @Test
@@ -161,13 +159,16 @@ public class EstadoTurnoVekTest {
         Posicion destinoValido = new Posicion(0, 1);
         Vek vek = new Avispon();
         vek.colocarseEn(new Posicion(0, 0), tablero);
-        vek.moverA(new Posicion(-1, 0), tablero);
+        intentarAccionInvalida(() -> vek.moverA(new Posicion(-1, 0), tablero));
         vek.moverA(destinoValido, tablero);
 
         assertEquals(destinoValido, vek.obtenerPosicion());
     }
 
-    private MotivoRechazoAccion motivoRechazo(ResultadoAccion<?> resultado) {
-        return resultado.fold(ignorado -> null, motivo -> motivo);
+    private void intentarAccionInvalida(Runnable accion) {
+        try {
+            accion.run();
+        } catch (AccionInvalidaException esperada) {
+        }
     }
 }

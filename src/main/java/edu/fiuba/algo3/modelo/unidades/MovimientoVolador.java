@@ -8,23 +8,22 @@ import edu.fiuba.algo3.modelo.tablero.Terreno;
 public class MovimientoVolador implements Movimiento{
 
     @Override
-    public ResultadoAccion<Void> validarCamino(Posicion origen, Posicion destino, int rango, Tablero tablero){
+    public void validarCamino(Posicion origen, Posicion destino, int rango, Tablero tablero){
         if (!origen.estaEnLineaRectaA(destino, 1)) {
-            return ResultadoAccion.rechazo(MotivoRechazoAccion.DESTINO_NO_ALCANZABLE);
+            throw new DestinoNoAlcanzableException();
         }
         if (!tablero.estaEnRango(destino)) {
-            return ResultadoAccion.rechazo(MotivoRechazoAccion.DESTINO_FUERA_DEL_TABLERO);
+            throw new DestinoFueraDelTableroException();
         }
         if (!origen.estaAlAlcanceDe(destino, rango)) {
-            return ResultadoAccion.rechazo(MotivoRechazoAccion.DESTINO_NO_ALCANZABLE);
+            throw new DestinoNoAlcanzableException();
         }
         if (!tablero.enCasilla(destino).estaLibre()) {
-            return ResultadoAccion.rechazo(MotivoRechazoAccion.DESTINO_OCUPADO);
+            throw new DestinoOcupadoException();
         }
         if (!tablero.enCasilla(destino).esTransitable()) {
-            return ResultadoAccion.rechazo(MotivoRechazoAccion.CAMINO_BLOQUEADO);
+            throw new CaminoBloqueadoException();
         }
-        return ResultadoAccion.exito(null);
     }
 
     @Override

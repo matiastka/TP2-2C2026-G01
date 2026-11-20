@@ -97,7 +97,7 @@ public class CanonTest {
 
         Mech canon = new Canon();
         Mech blancoAtras = new Combate();
-        
+
         canon.colocarseEn(posCanon, tablero);
         blancoAtras.colocarseEn(posBlanco, tablero);
 
@@ -141,8 +141,7 @@ public class CanonTest {
 
         canon.colocarseEn(posCanon, tablero);
 
-        assertEquals("exito", canon.atacarA(new Posicion(1, 5), tablero)
-                .fold(ignorado -> "exito", motivo -> "rechazo"));
+        assertDoesNotThrow(() -> canon.atacarA(new Posicion(1, 5), tablero));
     }
 
     @Test

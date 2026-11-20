@@ -5,7 +5,7 @@ import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.tablero.Terreno;
 
 public interface Movimiento {
-    ResultadoAccion<Void> validarCamino(Posicion origen, Posicion destino, int rango, Tablero tablero);
+    void validarCamino(Posicion origen, Posicion destino, int rango, Tablero tablero);
 
     void caerEnAcido(Unidad unidad);
 
