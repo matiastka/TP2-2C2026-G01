@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import edu.fiuba.algo3.mapa.ConstructorDeTablero;
+import edu.fiuba.algo3.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.RedElectrica;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
@@ -32,7 +32,7 @@ public class EfectoEmpujeTest {
 
     @Test
     public void test01EmpujarUnidadContraOtraUnidadNoMueveALaUnidadEmpujada() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_OBSTACULOS);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_OBSTACULOS);
         Posicion posVek1 = new Posicion(1, 2);
 
         Mech canon = new Canon();
@@ -51,7 +51,7 @@ public class EfectoEmpujeTest {
 
     @Test
     public void test02EmpujarUnidadContraOtraUnidadAplicaDanioDeColisionALaEmpujada() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_OBSTACULOS);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_OBSTACULOS);
         Posicion posVek1 = new Posicion(1, 2);
 
         Mech canon = new Canon();
@@ -71,7 +71,7 @@ public class EfectoEmpujeTest {
 
     @Test
     public void test03EmpujarUnidadContraOtraUnidadAplicaDanioDeColisionALaUnidadObstaculo() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_OBSTACULOS);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_OBSTACULOS);
         Posicion posVek1 = new Posicion(1, 2);
 
         Mech canon = new Canon();
@@ -91,7 +91,7 @@ public class EfectoEmpujeTest {
 
     @Test
     public void test04EmpujarUnidadContraMontanaNoLaMueve() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_OBSTACULOS);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_OBSTACULOS);
         Posicion posVek = new Posicion(3, 2);
 
         Mech canon = new Canon();
@@ -107,7 +107,7 @@ public class EfectoEmpujeTest {
 
     @Test
     public void test05EmpujarUnidadContraMontanaAplicaDanioDeColision() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_OBSTACULOS);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_OBSTACULOS);
         Posicion posVek = new Posicion(3, 2);
 
         Mech canon = new Canon();
@@ -124,7 +124,7 @@ public class EfectoEmpujeTest {
 
     @Test
     public void test06EmpujarUnidadContraEdificioNoLaMueve() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_OBSTACULOS);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_OBSTACULOS);
         Posicion posVek = new Posicion(3, 5);
 
         Mech canon = new Canon();
@@ -140,7 +140,7 @@ public class EfectoEmpujeTest {
 
     @Test
     public void test07EmpujarUnidadContraEdificioAplicaDanioDeColisionALaUnidad() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_OBSTACULOS);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_OBSTACULOS);
         Posicion posVek = new Posicion(3, 5);
 
         Mech canon = new Canon();
@@ -157,7 +157,7 @@ public class EfectoEmpujeTest {
 
     @Test
     public void test08EmpujarUnidadContraBordeDelTableroNoLaMueve() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_OBSTACULOS);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_OBSTACULOS);
         Posicion posVekEnBorde = new Posicion(0, 0);
 
         Mech canon = new Canon();
@@ -173,7 +173,7 @@ public class EfectoEmpujeTest {
 
     @Test
     public void test09EmpujarUnidadContraBordeDelTableroNoAplicaDanioDeColision() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_OBSTACULOS);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_OBSTACULOS);
         Posicion posVekEnBorde = new Posicion(0, 0);
 
         Mech canon = new Canon();

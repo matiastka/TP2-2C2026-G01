@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import edu.fiuba.algo3.mapa.ConstructorDeTablero;
+import edu.fiuba.algo3.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.RedElectrica;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
@@ -34,7 +34,7 @@ public class EdificioTest {
 
     @Test
     public void test01ElDanioAUnEdificioReduceLaRedElectricaEn1() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_CON_EDIFICIO);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_CON_EDIFICIO);
         int redInicial = tablero.obtenerRedElectrica();
         Posicion posicionOrigen = new Posicion(3, 2);
         Posicion posicionEdificio = new Posicion(3, 3);
@@ -48,7 +48,7 @@ public class EdificioTest {
 
     @Test
     public void test02UnEdificioDestruidoPasaASerTransitableParaOtroMech() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_CON_EDIFICIO);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_CON_EDIFICIO);
         Posicion posicionEdificio = new Posicion(3, 3);
         Mech atacante = new Combate();
         atacante.colocarseEn(new Posicion(3, 2), tablero);
@@ -63,7 +63,7 @@ public class EdificioTest {
 
     @Test
     public void test03AtacarUnEdificioYaDestruidoNoVuelveARestarRedElectrica() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_CON_EDIFICIO);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_CON_EDIFICIO);
         int redInicial = tablero.obtenerRedElectrica();
         Posicion posicionEdificio = new Posicion(3, 3);
 
@@ -80,7 +80,7 @@ public class EdificioTest {
 
     @Test
     public void test04DisparoEnLineaRectaAtraviesaUnEdificioYaDestruido() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_CON_EDIFICIO);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_CON_EDIFICIO);
         Posicion posicionEdificio = new Posicion(3, 3);
         Posicion posicionVekDetrasDelEdificio = new Posicion(3, 5);
 
@@ -101,7 +101,7 @@ public class EdificioTest {
 
     @Test
     public void test05EmpujarUnaUnidadContraUnEdificioReduceLaRedElectrica() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_CON_EDIFICIO);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_CON_EDIFICIO);
         int redInicial = tablero.obtenerRedElectrica();
         Posicion posicionVek = new Posicion(3, 2);
 
@@ -118,7 +118,7 @@ public class EdificioTest {
 
     @Test
     public void test06EmpujarUnaUnidadContraUnEdificioLeAplicaDanioAdicionalPorColision() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_CON_EDIFICIO);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_CON_EDIFICIO);
         Posicion posicionVek = new Posicion(3, 2);
 
         Mech mech = new Combate();
@@ -135,7 +135,7 @@ public class EdificioTest {
 
     @Test
     public void test07EmpujarUnaUnidadContraUnEdificioNoLaDesplaza() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_CON_EDIFICIO);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_CON_EDIFICIO);
         Posicion posicionVek = new Posicion(3, 2);
 
         Mech mech = new Combate();

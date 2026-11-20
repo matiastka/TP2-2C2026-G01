@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
-import edu.fiuba.algo3.mapa.ConstructorDeTablero;
+import edu.fiuba.algo3.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.AccionInvalidaException;
@@ -33,7 +33,7 @@ public class MechTurnoTest {
 
     @Test
     public void test01MechNoPuedeMoverseDosVecesEnElMismoTurno() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(0, 0), tablero);
         mech.moverA(new Posicion(0, 2), tablero);
@@ -43,7 +43,7 @@ public class MechTurnoTest {
 
     @Test
     public void test02MovimientoInvalidoNoCambiaLaPosicionDelMech() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion origen = new Posicion(0, 0);
         Mech mech = new Combate();
         mech.colocarseEn(origen, tablero);
@@ -53,7 +53,7 @@ public class MechTurnoTest {
 
     @Test
     public void test03MovimientoInvalidoNoConsumeLaAccionDelMech() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion destino = new Posicion(0, 1);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(0, 0), tablero);
@@ -65,7 +65,7 @@ public class MechTurnoTest {
 
     @Test
     public void test04MechNoPuedeAtacarDosVecesEnElMismoTurno() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(2, 2), tablero);
         new Luciernaga().colocarseEn(new Posicion(2, 3), tablero);
@@ -76,7 +76,7 @@ public class MechTurnoTest {
 
     @Test
     public void test05SegundoAtaqueDelMechNoAfectaOtroVek() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Mech mech = new Combate();
         Unidad vek1 = new Luciernaga();
         Unidad vek2 = new Luciernaga();
@@ -90,7 +90,7 @@ public class MechTurnoTest {
 
     @Test
     public void test06AlReiniciarTurnoElMechPuedeVolverAMoverse() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion destino = new Posicion(1, 1);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(0, 0), tablero);
@@ -105,7 +105,7 @@ public class MechTurnoTest {
 
     @Test
     public void test07DeshacerMovimientoDeMechQueTodaviaNoAtaco() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion origen = new Posicion(0, 0);
         Mech mech = new Combate();
         mech.colocarseEn(origen, tablero);
@@ -117,7 +117,7 @@ public class MechTurnoTest {
 
     @Test
     public void test08DeshacerDejaLaCasillaDestinoLibre() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion destino = new Posicion(0, 1);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(0, 0), tablero);
@@ -129,7 +129,7 @@ public class MechTurnoTest {
 
     @Test
     public void test09NoSePuedeDeshacerDosMovimientosEnElMismoTurno() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(0, 0), tablero);
         mech.moverA(new Posicion(0, 1), tablero);
@@ -141,7 +141,7 @@ public class MechTurnoTest {
 
     @Test
     public void test10NoSePuedeDeshacerElMovimientoDespuesDeAtacar() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(0, 0), tablero);
         new Luciernaga().colocarseEn(new Posicion(0, 2), tablero);
@@ -153,7 +153,7 @@ public class MechTurnoTest {
 
     @Test
     public void test11IntentarDeshacerDespuesDeAtacarNoMueveAlMech() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion destino = new Posicion(0, 1);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(0, 0), tablero);
@@ -166,7 +166,7 @@ public class MechTurnoTest {
 
     @Test
     public void test12AtaqueInvalidoRetornaMotivoDeRechazo() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion objetivoNoAdyacente = new Posicion(0, 2);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(0, 0), tablero);
@@ -177,7 +177,7 @@ public class MechTurnoTest {
 
     @Test
     public void test13AtaqueInvalidoNoConsumeLaAccionDelMech() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion destino = new Posicion(0, 1);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(0, 0), tablero);

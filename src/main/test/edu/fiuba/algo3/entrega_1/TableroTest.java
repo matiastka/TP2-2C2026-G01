@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.entrega_1;
-import edu.fiuba.algo3.mapa.ConstructorDeTablero;
-import edu.fiuba.algo3.modelo.tablero.TableroInvalidoException;
+import edu.fiuba.algo3.mapa.ConstructorTablero;
 import edu.fiuba.algo3.mapa.LectorDeMapa;
 
 import edu.fiuba.algo3.modelo.tablero.Posicion;
@@ -16,7 +15,7 @@ public class TableroTest {
     @Test
     public void test01UnTableroCargadoTiene8Columnas(){
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         int cantidadEsperada = 8;
 
         // Act
@@ -29,7 +28,7 @@ public class TableroTest {
     @Test
     public void test02UnTableroCargadoTiene8Filas(){
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         int cantidadEsperada = 8;
 
         // Act
@@ -42,7 +41,7 @@ public class TableroTest {
     @Test
     public void test03UnTableroCargadoEsDe8x8(){
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         int cantidadEsperada = 64;
 
         // Act
@@ -55,7 +54,7 @@ public class TableroTest {
     @Test
     public void test04UnTableroCargadoPreDefinidoTieneMontanaEnUnaPosicionParticular(){
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
 
         Posicion posicionMontana = new Posicion(0,7);
 
@@ -66,7 +65,7 @@ public class TableroTest {
     @Test
     public void test05UnTableroCargadoPreDefinidoTieneAguaEnUnaPosicionParticular(){
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
 
         Posicion posicionAgua = new Posicion(0,0);
 
@@ -85,7 +84,7 @@ public class TableroTest {
     @Test
     public void test06UnTableroCargadoPreDefinidoTieneAcidoEnUnaPosicionParticular(){
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
 
         Posicion posicionAcido = new Posicion(1,5);
 
@@ -96,7 +95,7 @@ public class TableroTest {
     @Test
     public void test07UnTableroCargadoPreDefinidoTieneEdificioEnUnaPosicionParticular(){
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
 
         Posicion posicionEdificio = new Posicion(0,2);
 
@@ -106,7 +105,7 @@ public class TableroTest {
     @Test
     public void test08UnTableroCargadoPreDefinidoTieneSueloEnUnaPosicionParticular(){
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
 
         Posicion posicionSuelo = new Posicion(6,1);
 
@@ -123,7 +122,7 @@ public class TableroTest {
     @Test
     public void test09Posicion77EstaEnElTablero() {
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion posicion = new Posicion(7, 7);
 
         // Act & Assert
@@ -133,7 +132,7 @@ public class TableroTest {
     @Test
     public void test10Posicion80NoEstaEnElTablero() {
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion posicion = new Posicion(8, 0);
 
         // Act & Assert

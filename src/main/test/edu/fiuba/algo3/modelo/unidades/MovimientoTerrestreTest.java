@@ -1,7 +1,7 @@
 
 package edu.fiuba.algo3.modelo.unidades;
 
-import edu.fiuba.algo3.mapa.ConstructorDeTablero;
+import edu.fiuba.algo3.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
@@ -34,7 +34,7 @@ public class MovimientoTerrestreTest {
 
     @Test
     public void test01DestinoDentroDeRangoYLibreEsValido() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_BASE);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_BASE);
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 3);
@@ -44,7 +44,7 @@ public class MovimientoTerrestreTest {
 
     @Test
     public void test02DestinoFueraDeRangoRetornaRechazo() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_BASE);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_BASE);
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 4);
@@ -54,7 +54,7 @@ public class MovimientoTerrestreTest {
 
     @Test
     public void test03CaminoBloqueadoPorMontanaRetornaRechazo() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_CON_MONTANA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_CON_MONTANA);
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 2);
@@ -65,7 +65,7 @@ public class MovimientoTerrestreTest {
     @Test
     public void test04CasillaDestinoOcupadaPorOtraUnidadRetornaRechazo() {
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_BASE);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_BASE);
 
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 2);
@@ -81,7 +81,7 @@ public class MovimientoTerrestreTest {
 
     @Test
     public void test05AunqueTengaRangoNoPuedeRodearLaMontana() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_CON_MONTANA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_CON_MONTANA);
 
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
 
@@ -93,7 +93,7 @@ public class MovimientoTerrestreTest {
 
     @Test
     public void test06DestinoQueNoEstaEnLaMismaFilaNiColumnaRetornaRechazo() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_BASE);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_BASE);
 
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
 
@@ -105,7 +105,7 @@ public class MovimientoTerrestreTest {
 
     @Test
     public void test07NoPuedeTerminarSobreUnaMontana() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_CON_MONTANA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_CON_MONTANA);
 
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
 

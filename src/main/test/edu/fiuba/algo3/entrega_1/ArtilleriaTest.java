@@ -25,7 +25,7 @@ public class ArtilleriaTest {
 
     @Test
     public void test01ArtilleriaNoPuedeAtacarCasillaAdyacente() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
 
         Posicion posArtilleria = new Posicion(4, 4);
         Posicion posObjetivoAdyacente = new Posicion(4, 5);
@@ -41,7 +41,7 @@ public class ArtilleriaTest {
 
     @Test
     public void test02ArtilleriaAtacaPorEncimaDeObstaculos() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
 
         Posicion posArtilleria = new Posicion(2, 0); // Fila 2 (hay montaña en 2,1)
         Posicion posObjetivo = new Posicion(2, 3);
@@ -59,7 +59,7 @@ public class ArtilleriaTest {
 
     @Test
     public void test04ArtilleriaDaniaALaUnidadDelCentro() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion posArtilleria = new Posicion(4, 0);
         Posicion posCentro = new Posicion(4, 4);
         Mech artilleria = new Artilleria();
@@ -74,7 +74,7 @@ public class ArtilleriaTest {
 
     @Test
     public void test05ArtilleriaEmpujaHaciaElNorteALaUnidadDeArribaDelCentro() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
 
         Posicion posArtilleria = new Posicion(4, 0);
         Posicion posCentro = new Posicion(4, 4);
@@ -93,7 +93,7 @@ public class ArtilleriaTest {
 
     @Test
     public void test06ArtilleriaEmpujaHaciaElSurALaUnidadDeAbajoDelCentro() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion posArtilleria = new Posicion(4, 0);
         Posicion posCentro = new Posicion(4, 4);
         Posicion posSur = new Posicion(5, 4);
@@ -111,7 +111,7 @@ public class ArtilleriaTest {
 
     @Test
     public void test07ArtilleriaEmpujaHaciaElOesteALaUnidadDeLaIzquierdaDelCentro() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
 
         Posicion posArtilleria = new Posicion(4, 0);
         Posicion posCentro = new Posicion(4, 4);
@@ -130,7 +130,7 @@ public class ArtilleriaTest {
 
     @Test
     public void test08ArtilleriaEmpujaHaciaElEsteALaUnidadDeLaDerechaDelCentro() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
 
         Posicion posArtilleria = new Posicion(4, 0);
         Posicion posCentro = new Posicion(4, 4);

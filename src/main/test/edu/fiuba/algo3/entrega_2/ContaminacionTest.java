@@ -2,7 +2,7 @@ package edu.fiuba.algo3.entrega_2;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import edu.fiuba.algo3.mapa.ConstructorDeTablero;
+import edu.fiuba.algo3.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.*;
@@ -25,7 +25,7 @@ public class ContaminacionTest {
     @Test
     public void test01UnMechSeMueveAUnaCasillaConAcidoYAlRecibirDanioPierdeElDobleDeVida() {
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
 
         Posicion posicionMech = new Posicion(2, 3);
         Posicion posicionAcido = new Posicion(2, 4);
@@ -47,7 +47,7 @@ public class ContaminacionTest {
     @Test
     public void test02UnMechQueNuncaPisaAcidoRecibeDanioNormal() {
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion posicionMech = new Posicion(2, 2);
         Posicion posicionSuelo = new Posicion(2, 3);
 
@@ -69,7 +69,7 @@ public class ContaminacionTest {
     @Test
     public void test03UnMechQueSaleDelAcidoSigueContaminado() {
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion posicionMech = new Posicion(2, 2);
         Posicion posicionAcido = new Posicion(2, 4);
         Posicion posicionSuelo = new Posicion(2, 5);
@@ -94,7 +94,7 @@ public class ContaminacionTest {
     @Test
     public void test04UnaLucierganaEmpujadaAlAcidoQuedaContaminada() {
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion posicionMech = new Posicion(2, 2);
         Posicion posicionVek = new Posicion(2, 3);
 
@@ -120,7 +120,7 @@ public class ContaminacionTest {
     @Test
     public void test05UnAvisponQueTerminaSobreAcidoNoQuedaContaminado() {
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion posicionVek = new Posicion(2, 3);
         Posicion posicionAcido = new Posicion(2, 4);
 

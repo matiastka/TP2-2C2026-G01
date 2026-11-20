@@ -1,7 +1,7 @@
 
 package edu.fiuba.algo3.modelo.unidades;
 
-import edu.fiuba.algo3.mapa.ConstructorDeTablero;
+import edu.fiuba.algo3.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
@@ -25,7 +25,7 @@ public class EstadoTurnoMechTest {
     @Test
     public void test01EstadoDisponibleAlMoverseExitosamenteRetornaEstadoYaSeMovio() {
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
 
         Mech mech = new Combate();
 
@@ -43,7 +43,7 @@ public class EstadoTurnoMechTest {
     @Test
     public void test02EstadoDisponibleAlAtacarExitosamenteRetornaEstadoTurnoAgotado() {
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
 
         Mech mech = new Combate();
         Luciernaga vek = new Luciernaga();
@@ -63,7 +63,7 @@ public class EstadoTurnoMechTest {
     @Test
     public void test03EstadoYaSeMovioAlAtacarRetornaEstadoTurnoAgotado() {
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
 
         Combate mech = new Combate();
         Luciernaga vek = new Luciernaga();
@@ -83,7 +83,7 @@ public class EstadoTurnoMechTest {
     @Test
     public void test04EstadoYaSeMovioAlIntentarMoverseNuevamenteRetornaRechazo() {
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
 
         Combate mech = new Combate();
 
@@ -98,7 +98,7 @@ public class EstadoTurnoMechTest {
     @Test
     public void test05EstadoTurnoAgotadoAlIntentarMoverseRetornaRechazo() {
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
 
         Combate mech = new Combate();
 
@@ -113,7 +113,7 @@ public class EstadoTurnoMechTest {
     @Test
     public void test06EstadoTurnoAgotadoAlIntentarAtacarNuevamenteRetornaRechazo() {
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
 
         Combate mech = new Combate();
 

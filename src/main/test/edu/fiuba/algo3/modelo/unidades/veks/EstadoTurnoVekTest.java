@@ -3,7 +3,7 @@ package edu.fiuba.algo3.modelo.unidades.veks;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import edu.fiuba.algo3.mapa.ConstructorDeTablero;
+import edu.fiuba.algo3.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.tablero.Este;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Sur;
@@ -31,7 +31,7 @@ public class EstadoTurnoVekTest {
 
     @Test
     public void test01VekNoPuedeMoverseDosVecesEnElMismoTurno() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Vek vek = new Luciernaga();
         vek.colocarseEn(new Posicion(0, 0), tablero);
         vek.moverA(new Posicion(0, 2), tablero);
@@ -41,7 +41,7 @@ public class EstadoTurnoVekTest {
 
     @Test
     public void test02MovimientoRechazadoNoCambiaLaPosicionDelVek() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion primerDestino = new Posicion(0, 2);
         Vek vek = new Luciernaga();
         vek.colocarseEn(new Posicion(0, 0), tablero);
@@ -52,7 +52,7 @@ public class EstadoTurnoVekTest {
 
     @Test
     public void test03VekPreparaAtaqueSinHacerDanioInmediato() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion posVek = new Posicion(2, 2);
         Posicion posMech = new Posicion(2, 3);
         Vek vek = new Luciernaga();
@@ -66,7 +66,7 @@ public class EstadoTurnoVekTest {
 
     @Test
     public void test04AtaquePreparadoSeResuelveYHaceDanio() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion posVek = new Posicion(2, 2);
         Posicion posMech = new Posicion(2, 3);
         Vek vek = new Luciernaga();
@@ -81,7 +81,7 @@ public class EstadoTurnoVekTest {
 
     @Test
     public void test05VekNoPuedeMoverseSiYaPreparoUnAtaque() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Vek vek = new Luciernaga();
         vek.colocarseEn(new Posicion(1, 1), tablero);
         vek.prepararAtaque(new Sur());
@@ -91,7 +91,7 @@ public class EstadoTurnoVekTest {
 
     @Test
     public void test06MovimientoRechazadoConAtaquePreparadoNoMueveAlVek() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion origen = new Posicion(1, 1);
         Vek vek = new Luciernaga();
         vek.colocarseEn(origen, tablero);
@@ -102,7 +102,7 @@ public class EstadoTurnoVekTest {
 
     @Test
     public void test07VekVuelveAEstarDisponibleLuegoDeResolverSuAtaque() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion nuevoDestino = new Posicion(1, 3);
         Vek vek = new Luciernaga();
         vek.colocarseEn(new Posicion(1, 1), tablero);
@@ -115,7 +115,7 @@ public class EstadoTurnoVekTest {
 
     @Test
     public void test08VekEmpujadoAtacaDesdeSuNuevaPosicion() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion posVekInicial = new Posicion(1, 1);
         Posicion posVekEmpujado = new Posicion(2, 1);
         Posicion posMech2 = new Posicion(2, 2);
@@ -134,7 +134,7 @@ public class EstadoTurnoVekTest {
 
     @Test
     public void test09ResolverAtaqueSinPreparacionNoImpideMoverse() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion destino = new Posicion(0, 2);
         Vek vek = new Luciernaga();
         vek.colocarseEn(new Posicion(0, 0), tablero);
@@ -146,7 +146,7 @@ public class EstadoTurnoVekTest {
 
     @Test
     public void test10MovimientoFueraDelTableroDeVekVoladorRetornaRechazo() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Vek vek = new Avispon();
         vek.colocarseEn(new Posicion(0, 0), tablero);
 
@@ -155,7 +155,7 @@ public class EstadoTurnoVekTest {
 
     @Test
     public void test11MovimientoFueraDelTableroNoConsumeTurnoDeVekVolador() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion destinoValido = new Posicion(0, 1);
         Vek vek = new Avispon();
         vek.colocarseEn(new Posicion(0, 0), tablero);

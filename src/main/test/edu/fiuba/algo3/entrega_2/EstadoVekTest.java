@@ -1,8 +1,7 @@
 
 package edu.fiuba.algo3.entrega_2;
 
-import edu.fiuba.algo3.mapa.ConstructorDeTablero;
-import edu.fiuba.algo3.modelo.tablero.Direccion;
+import edu.fiuba.algo3.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Sur;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
@@ -32,7 +31,7 @@ public class EstadoVekTest {
     @Test
     public void test01VekDisponibleSeMueveYSuEstadoBloqueaMovimientosSucesivos() {
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_BASE);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_BASE);
         Saltador vek = new Saltador();
         Posicion posInicial = new Posicion(1, 1);
         Posicion primerDestino = new Posicion(1, 2);
@@ -63,7 +62,7 @@ public class EstadoVekTest {
     @Test
     public void test03EstadoVekConAtaquePreparadoRestauraAEstadoDisponibleAlResolverAtaque() {
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_BASE);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_BASE);
         Saltador vek = new Saltador();
         vek.colocarseEn(new Posicion(1, 1), tablero);
         EstadoTurnoVek estadoConAtaque = new EstadoVekConAtaquePreparado();

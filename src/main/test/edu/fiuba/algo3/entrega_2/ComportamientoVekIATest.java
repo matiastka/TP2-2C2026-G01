@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import edu.fiuba.algo3.mapa.ConstructorDeTablero;
+import edu.fiuba.algo3.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.RedElectrica;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
@@ -38,7 +38,7 @@ public class ComportamientoVekIATest {
                 "SSSSSSSS",
                 "SSSSSSSS"
         };
-        Tablero tablero = new ConstructorDeTablero().construir(mapa);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
         int redInicial = tablero.obtenerRedElectrica();
 
         Mech mech = new Combate();
@@ -65,7 +65,7 @@ public class ComportamientoVekIATest {
                 "SSSSSSSS",
                 "SSSSSSSS"
         };
-        Tablero tablero = new ConstructorDeTablero().construir(mapa);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
 
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(5, 5), tablero);
@@ -92,7 +92,7 @@ public class ComportamientoVekIATest {
                 "SSSSSSSS",
                 "SSSSSSSS"
         };
-        Tablero tablero = new ConstructorDeTablero().construir(mapa);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
 
         Vek saltador = new Saltador();
         saltador.colocarseEn(new Posicion(5, 0), tablero);
@@ -115,7 +115,7 @@ public class ComportamientoVekIATest {
                 "SSSSSSSS",
                 "SSSSSSSS"
         };
-        Tablero tablero = new ConstructorDeTablero().construir(mapa);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
 
         Vek saltador = new Saltador();
         saltador.colocarseEn(new Posicion(2, 2), tablero);
@@ -138,7 +138,7 @@ public class ComportamientoVekIATest {
                 "SSSSSSSS",
                 "SSSSSSSS"
         };
-        Tablero tablero = new ConstructorDeTablero().construir(mapa);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
         int redInicial = tablero.obtenerRedElectrica();
 
         Vek avispon = new Avispon();
@@ -162,7 +162,7 @@ public class ComportamientoVekIATest {
                 "SSSSSSSS",
                 "SSSSSSSS"
         };
-        Tablero tablero = new ConstructorDeTablero().construir(mapa);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
 
         // Saltador en (2, 3): puede atacar el edificio (0, 3) desde (1, 3) o el edificio (2, 1) desde (2, 2).
         // Por menor fila y luego menor columna, debe elegir (1, 3).
@@ -186,7 +186,7 @@ public class ComportamientoVekIATest {
                 "SSSSSSSS",
                 "SSSSSSSS"
         };
-        Tablero tablero = new ConstructorDeTablero().construir(mapa);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
         int redInicial = tablero.obtenerRedElectrica();
 
         // Luciérnaga en (2, 1): sube en línea recta hasta (0, 1) y dispara al OESTE al edificio (0, 0)

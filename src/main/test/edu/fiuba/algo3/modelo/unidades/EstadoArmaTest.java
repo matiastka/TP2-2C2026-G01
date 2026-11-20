@@ -2,7 +2,7 @@ package edu.fiuba.algo3.modelo.unidades;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import edu.fiuba.algo3.mapa.ConstructorDeTablero;
+import edu.fiuba.algo3.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.mechs.Canon;
@@ -23,7 +23,7 @@ public class EstadoArmaTest {
     @Test
     public void test01UnArmaOperativaPuedeUsarse() {
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Mech canonMech = new Canon();
         canonMech.colocarseEn(new Posicion(2, 0), tablero);
 
@@ -36,7 +36,7 @@ public class EstadoArmaTest {
     @Test
     public void test02UnArmaSumergidaNoPuedeUsarse() {
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Mech canonMech = new Canon();
         canonMech.colocarseEn(new Posicion(2, 0), tablero);
 

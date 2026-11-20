@@ -1,7 +1,7 @@
 
 package edu.fiuba.algo3.entrega_2;
 
-import edu.fiuba.algo3.mapa.ConstructorDeTablero;
+import edu.fiuba.algo3.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.tablero.*;
 import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
 import edu.fiuba.algo3.modelo.unidades.veks.GestorDeAtaques;
@@ -26,7 +26,7 @@ public class AtaqueAnunciadoTest {
     @Test
     public void testVeksAtacanEnElOrdenAnunciado() {
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_BASE);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_BASE);
         GestorDeAtaques gestor = new GestorDeAtaques();
 
         Posicion posVek1 = new Posicion(1, 1);
@@ -54,7 +54,7 @@ public class AtaqueAnunciadoTest {
     @Test
     public void testVekMuertoDuranteLaFaseDeResolucionNoEjecutaSuAtaque() {
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_BASE);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_BASE);
         GestorDeAtaques gestor = new GestorDeAtaques();
 
         Posicion posVek1 = new Posicion(1, 1);

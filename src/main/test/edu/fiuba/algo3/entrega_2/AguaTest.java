@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.entrega_2;
 
-import edu.fiuba.algo3.mapa.ConstructorDeTablero;
+import edu.fiuba.algo3.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.tablero.*;
 import edu.fiuba.algo3.modelo.unidades.veks.*;
 import edu.fiuba.algo3.modelo.unidades.mechs.*;
@@ -25,7 +25,7 @@ public class AguaTest {
     @Test
     public void test01UnaLuciernagaEmpujadaAlAguaPorElCanonMuere(){
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
 
         Posicion posicionVek = new Posicion(2,3);
         Posicion posicionMech = new Posicion(2,0);
@@ -48,7 +48,7 @@ public class AguaTest {
     @Test
     public void test02UnAvisponEmpujadoAlAguaPorElCanonNoMuere(){
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
 
         Posicion posicionVek = new Posicion(2,3);
         Posicion posicionMech = new Posicion(2,0);
@@ -71,7 +71,7 @@ public class AguaTest {
     @Test
     public void test03UnMechCanonEnElAguaNoPuedeAtacar(){
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
 
         Posicion posicionVek = new Posicion(2,5);
         Posicion posicionMech = new Posicion(2,3);
@@ -90,7 +90,7 @@ public class AguaTest {
 
     @Test
     public void test04DeshacerMovimientoDesdeElAguaRestauraElArma(){
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion posicionMech = new Posicion(2,3);
         Posicion posicionAgua = new Posicion(2,4);
         Posicion posicionVek = new Posicion(2,5);
@@ -109,7 +109,7 @@ public class AguaTest {
     @Test
     public void test05UnMechSeMueveAlAguaSaleDelAguaYAtacaAUnVek(){
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
 
         Posicion posicionVek = new Posicion(2,6);
         Posicion posicionMech = new Posicion(2,3);
@@ -139,7 +139,7 @@ public class AguaTest {
     @Test
     public void test06UnMechCombateEnElAguaNoPuedeAtacar(){
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
 
         Posicion posicionVek = new Posicion(2,5);
         Posicion posicionMech = new Posicion(2,3);

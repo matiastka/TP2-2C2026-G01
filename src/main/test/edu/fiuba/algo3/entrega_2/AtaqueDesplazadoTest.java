@@ -1,8 +1,7 @@
 
 package edu.fiuba.algo3.entrega_2;
 
-import edu.fiuba.algo3.mapa.ConstructorDeTablero;
-import edu.fiuba.algo3.modelo.tablero.Direccion;
+import edu.fiuba.algo3.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Sur;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
@@ -30,7 +29,7 @@ public class AtaqueDesplazadoTest {
     @Test
     public void testEmpujarVekDesplazaSuAtaqueAnunciadoYDanioAlNuevoObjetivo() {
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_BASE);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_BASE);
         GestorDeAtaques gestor = new GestorDeAtaques();
 
         Posicion posCanon = new Posicion(1, 1);

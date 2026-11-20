@@ -1,77 +1,68 @@
 package edu.fiuba.algo3.mapa;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.tablero.TableroInvalidoException;
+import edu.fiuba.algo3.modelo.terrenos.Acido;
+import edu.fiuba.algo3.modelo.terrenos.Agua;
+import edu.fiuba.algo3.modelo.terrenos.Edificio;
+import edu.fiuba.algo3.modelo.terrenos.Montana;
+import edu.fiuba.algo3.modelo.terrenos.Suelo;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public class ConstructorTableroTest {
-    private static final String[] MAPA = {
-            "MSSSSSSS",
-            "SSSSSSSS",
-            "SSSSSSSS",
-            "SSSSSSSS",
-            "SSSSSSSS",
-            "SSSSSSSS",
-            "SSSSSSSS",
-            "SSSSSSSS"
-    };
-
     @Test
-    public void test01UnaLetraDesconocidaLanzaExcepcion() {
-        // Arrange
-        String[] mapaInvalido = {
-                "XSSSSSSS",
-                "SSSSSSSS",
-                "SSSSSSSS",
-                "SSSSSSSS",
-                "SSSSSSSS",
-                "SSSSSSSS",
-                "SSSSSSSS",
-                "SSSSSSSS"
-        };
-        ConstructorDeTablero constructor = new ConstructorDeTablero();
+    public void test01LaLetraSCreaUnaCasillaDeSuelo() {
+        Tablero tablero = new ConstructorTablero().construir(new String[]{"S"});
 
-        // Act & Assert
-        assertThrows(TableroInvalidoException.class, () -> constructor.construir(mapaInvalido));
+        assertEquals(Suelo.class, tablero.enCasilla(new Posicion(0, 0)).obtenerTerreno().getClass());
     }
 
     @Test
-    public void test02UnaLetraMGeneraUnaCasillaNoTransitable() {
-        // Arrange
-        ConstructorDeTablero constructor = new ConstructorDeTablero();
+    public void test02LaLetraECreaUnaCasillaDeEdificio() {
+        Tablero tablero = new ConstructorTablero().construir(new String[]{"E"});
 
-        // Act
-        Tablero tablero = constructor.construir(MAPA);
-
-        // Assert
-        assertFalse(tablero.enCasilla(new Posicion(0, 0)).esTransitable());
+        assertEquals(Edificio.class, tablero.enCasilla(new Posicion(0, 0)).obtenerTerreno().getClass());
     }
 
     @Test
-    public void test03UnaLetraSGeneraUnaCasillaTransitable() {
-        // Arrange
-        ConstructorDeTablero constructor = new ConstructorDeTablero();
+    public void test03LaLetraMCreaUnaCasillaDeMontana() {
+        Tablero tablero = new ConstructorTablero().construir(new String[]{"M"});
 
-        // Act
-        Tablero tablero = constructor.construir(MAPA);
-
-        // Assert
-        assertTrue(tablero.enCasilla(new Posicion(0, 1)).esTransitable());
+        assertEquals(Montana.class, tablero.enCasilla(new Posicion(0, 0)).obtenerTerreno().getClass());
     }
 
     @Test
-    public void test04ElTableroConstruidoTieneTantasFilasComoElMapa() {
-        // Arrange
-        ConstructorDeTablero constructor = new ConstructorDeTablero();
-        int filasEsperadas = 8;
+    public void test04LaLetraACreaUnaCasillaDeAgua() {
+        Tablero tablero = new ConstructorTablero().construir(new String[]{"A"});
 
-        // Act
-        Tablero tablero = constructor.construir(MAPA);
+        assertEquals(Agua.class, tablero.enCasilla(new Posicion(0, 0)).obtenerTerreno().getClass());
+    }
 
-        // Assert
-        assertEquals(filasEsperadas, tablero.cantidadFilas());
+    @Test
+    public void test05LaLetraCCreaUnaCasillaDeAcido() {
+        Tablero tablero = new ConstructorTablero().construir(new String[]{"C"});
+
+        assertEquals(Acido.class, tablero.enCasilla(new Posicion(0, 0)).obtenerTerreno().getClass());
+    }
+
+    @Test
+    public void test06UnaLetraDesconocidaLanzaExcepcion() {
+        ConstructorTablero constructor = new ConstructorTablero();
+
+        assertThrows(TableroInvalidoException.class, () -> constructor.construir(new String[]{"X"}));
+    }
+
+    @Test
+    public void test07DosCasillasConLaMismaLetraTienenTerrenosDistintos() {
+        Tablero tablero = new ConstructorTablero().construir(new String[]{"EE"});
+
+        assertNotSame(tablero.enCasilla(new Posicion(0, 0)).obtenerTerreno(),
+                tablero.enCasilla(new Posicion(0, 1)).obtenerTerreno());
     }
 }

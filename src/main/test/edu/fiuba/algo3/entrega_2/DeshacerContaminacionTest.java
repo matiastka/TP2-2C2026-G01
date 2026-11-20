@@ -1,7 +1,7 @@
 
 package edu.fiuba.algo3.entrega_2;
 
-import edu.fiuba.algo3.mapa.ConstructorDeTablero;
+import edu.fiuba.algo3.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
@@ -25,7 +25,7 @@ public class DeshacerContaminacionTest {
     @Test
     public void testDeshacerMovimientoDesdeAcidoRestauraEstadoSano() {
         // Arrange
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_CON_ACIDO);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_CON_ACIDO);
         
         Posicion origen = new Posicion(1, 1);
         Posicion destinoAcido = new Posicion(1, 2);

@@ -6,7 +6,7 @@ import edu.fiuba.algo3.modelo.tablero.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import edu.fiuba.algo3.mapa.ConstructorDeTablero;
+import edu.fiuba.algo3.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.RedElectrica;
 import edu.fiuba.algo3.modelo.unidades.Mech;
 import edu.fiuba.algo3.modelo.unidades.mechs.Artilleria;
@@ -46,7 +46,7 @@ public class ContaminacionLuciernagaTest {
 
     @Test
     public void test01LuciernagaDaniaYContaminaAlMechImpactadoDuplicandoElSiguienteDanio() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_LIBRE);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_LIBRE);
 
         // Combate tiene 3 de vida
         Mech mech = new Combate();
@@ -70,7 +70,7 @@ public class ContaminacionLuciernagaTest {
 
     @Test
     public void test02LaContaminacionNoSeAcumulaAlCombinarAcidoYLuciernaga() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_CON_ACIDO);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_CON_ACIDO);
 
         // Combate tiene 3 de vida
         Mech mech = new Combate();
@@ -92,7 +92,7 @@ public class ContaminacionLuciernagaTest {
 
     @Test
     public void test03LaContaminacionNoSeAcumulaAlRecibirDosImpactosDeLuciernaga() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_CON_ACIDO);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_CON_ACIDO);
 
         // Combate tiene 3 de vida
         Mech mech = new Combate();
@@ -119,7 +119,7 @@ public class ContaminacionLuciernagaTest {
 
     @Test
     public void test04AvisponEsInmuneALaContaminacionDeLuciernaga() {
-        Tablero tablero = new ConstructorDeTablero().construir(MAPA_LIBRE);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_LIBRE);
 
         // Avispón es un Vek con 4 de vida e inmune a la contaminación
         Vek avispon = new Avispon();
