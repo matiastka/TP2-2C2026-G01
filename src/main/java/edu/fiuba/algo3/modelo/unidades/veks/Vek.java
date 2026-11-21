@@ -3,12 +3,16 @@
     import java.util.Optional;
 
     import edu.fiuba.algo3.modelo.tablero.Casilla;
-    import edu.fiuba.algo3.modelo.tablero.Direccion;
+    import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
     import edu.fiuba.algo3.modelo.tablero.Posicion;
     import edu.fiuba.algo3.modelo.tablero.Tablero;
-    import edu.fiuba.algo3.modelo.unidades.Ataque;
-    import edu.fiuba.algo3.modelo.unidades.Movimiento;
+    import edu.fiuba.algo3.modelo.unidades.ataques.Ataque;
+    import edu.fiuba.algo3.modelo.unidades.movimientos.Movimiento;
     import edu.fiuba.algo3.modelo.unidades.Unidad;
+    import edu.fiuba.algo3.modelo.unidades.veks.anuncios.AtaqueEnDireccion;
+    import edu.fiuba.algo3.modelo.unidades.veks.anuncios.AtaquePreparado;
+    import edu.fiuba.algo3.modelo.unidades.veks.anuncios.SinAtaquePreparado;
+    import edu.fiuba.algo3.modelo.unidades.veks.ia.EstadoTurnoVek;
 
     public abstract class Vek extends Unidad {
 
@@ -50,7 +54,7 @@
         }
 
         @Override
-        protected void hundirse() {
+        public void hundirse() {
             recibirDanio(obtenerVida());
         }
 

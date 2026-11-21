@@ -1,9 +1,9 @@
 package edu.fiuba.algo3.modelo.unidades.veks;
 
-import edu.fiuba.algo3.modelo.tablero.Direccion;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.AtaqueYaPreparadoException;
+import edu.fiuba.algo3.modelo.unidades.excepciones.AtaqueYaPreparadoException;
+import edu.fiuba.algo3.modelo.unidades.veks.ia.EstadoTurnoVek;
 
 public class EstadoVekConAtaquePreparado implements EstadoTurnoVek {
 

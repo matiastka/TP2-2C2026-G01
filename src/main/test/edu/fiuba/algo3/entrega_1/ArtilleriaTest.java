@@ -1,12 +1,12 @@
 package edu.fiuba.algo3.entrega_1;
 
+import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.DestinoNoAlcanzableException;
+import edu.fiuba.algo3.modelo.unidades.excepciones.DestinoNoAlcanzableException;
 import edu.fiuba.algo3.modelo.unidades.mechs.Artilleria;
 import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
-import edu.fiuba.algo3.modelo.unidades.Mech;
-import edu.fiuba.algo3.mapa.*;
+import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

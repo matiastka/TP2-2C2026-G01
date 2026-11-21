@@ -3,7 +3,7 @@ package edu.fiuba.algo3.modelo.partida;
 import java.util.List;
 
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.veks.InteligenciaArtificialVek;
+import edu.fiuba.algo3.modelo.unidades.veks.ia.InteligenciaArtificialVek;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
 
 public class Turno {

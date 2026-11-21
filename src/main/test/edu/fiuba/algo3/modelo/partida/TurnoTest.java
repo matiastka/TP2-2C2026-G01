@@ -2,14 +2,11 @@ package edu.fiuba.algo3.modelo.partida;
 
 import java.util.List;
 
-import edu.fiuba.algo3.mapa.ConstructorTablero;
-import edu.fiuba.algo3.modelo.tablero.Este;
-import edu.fiuba.algo3.modelo.tablero.Oeste;
+import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.veks.InteligenciaArtificialVek;
+import edu.fiuba.algo3.modelo.unidades.veks.ia.InteligenciaArtificialVek;
 import edu.fiuba.algo3.modelo.unidades.veks.Saltador;
-import javafx.geometry.Pos;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

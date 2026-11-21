@@ -1,12 +1,11 @@
 
 package edu.fiuba.algo3.entrega_2;
 
-import edu.fiuba.algo3.mapa.ConstructorTablero;
+import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
-import edu.fiuba.algo3.modelo.tablero.Sur;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.MovimientoYaRealizadoException;
-import edu.fiuba.algo3.modelo.unidades.veks.EstadoTurnoVek;
+import edu.fiuba.algo3.modelo.unidades.excepciones.MovimientoYaRealizadoException;
+import edu.fiuba.algo3.modelo.unidades.veks.ia.EstadoTurnoVek;
 import edu.fiuba.algo3.modelo.unidades.veks.EstadoVekConAtaquePreparado;
 import edu.fiuba.algo3.modelo.unidades.veks.EstadoVekDisponible;
 import edu.fiuba.algo3.modelo.unidades.veks.Saltador;

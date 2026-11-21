@@ -1,5 +1,9 @@
 package edu.fiuba.algo3.modelo.tablero;
 
+import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
+import edu.fiuba.algo3.modelo.tablero.emergencias.Emergencia;
+import edu.fiuba.algo3.modelo.tablero.emergencias.EmergenciaVek;
+import edu.fiuba.algo3.modelo.tablero.emergencias.SinEmergencia;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
 
 public class Casilla {

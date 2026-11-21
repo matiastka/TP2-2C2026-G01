@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.terrenos;
 
-import edu.fiuba.algo3.modelo.RedElectrica;
+import edu.fiuba.algo3.modelo.tablero.RedElectrica;
 import edu.fiuba.algo3.modelo.tablero.*;
 
 public class Edificio extends Terreno {

@@ -1,10 +1,10 @@
 package edu.fiuba.algo3.modelo.unidades.veks;
 
 import edu.fiuba.algo3.modelo.tablero.Posicion;
-import edu.fiuba.algo3.modelo.unidades.AtaqueLineaRecta;
-import edu.fiuba.algo3.modelo.unidades.DestinoNoAlcanzableException;
-import edu.fiuba.algo3.modelo.unidades.EfectoContaminar;
-import edu.fiuba.algo3.modelo.unidades.MovimientoTerrestre;
+import edu.fiuba.algo3.modelo.unidades.ataques.AtaqueLineaRecta;
+import edu.fiuba.algo3.modelo.unidades.excepciones.DestinoNoAlcanzableException;
+import edu.fiuba.algo3.modelo.unidades.ataques.efectos.EfectoContaminar;
+import edu.fiuba.algo3.modelo.unidades.movimientos.MovimientoTerrestre;
 
 public class Luciernaga extends Vek {
     public Luciernaga() {

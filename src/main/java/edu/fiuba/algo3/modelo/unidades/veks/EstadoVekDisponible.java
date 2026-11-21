@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.unidades.veks;
 
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.unidades.veks.ia.EstadoTurnoVek;
 
 public class EstadoVekDisponible implements EstadoTurnoVek {
 

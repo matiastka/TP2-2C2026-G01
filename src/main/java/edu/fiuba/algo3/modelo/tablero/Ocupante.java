@@ -1,5 +1,8 @@
 package edu.fiuba.algo3.modelo.tablero;
 
+import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
+import edu.fiuba.algo3.modelo.tablero.emergencias.EmergenciaVek;
+
 public interface Ocupante {
     boolean ocupaCasilla();
     void recibirDanio(int danio);

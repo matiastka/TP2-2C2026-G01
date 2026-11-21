@@ -1,9 +1,13 @@
 package edu.fiuba.algo3.modelo.unidades.mechs;
 
-import edu.fiuba.algo3.modelo.tablero.Direccion;
+import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.*;
+import edu.fiuba.algo3.modelo.unidades.ataques.Ataque;
+import edu.fiuba.algo3.modelo.unidades.ataques.AtaqueCuerpoACuerpo;
+import edu.fiuba.algo3.modelo.unidades.ataques.efectos.EfectoEmpujar;
+import edu.fiuba.algo3.modelo.unidades.excepciones.DestinoFueraDelTableroException;
+import edu.fiuba.algo3.modelo.unidades.excepciones.DestinoNoAlcanzableException;
 
 public class Combate extends Mech {
 

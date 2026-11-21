@@ -2,7 +2,6 @@ package edu.fiuba.algo3.modelo.tablero;
 
 import java.util.Map;
 
-import edu.fiuba.algo3.modelo.RedElectrica;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
 
 public class Tablero {

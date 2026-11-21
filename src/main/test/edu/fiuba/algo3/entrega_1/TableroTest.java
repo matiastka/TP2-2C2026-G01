@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.entrega_1;
-import edu.fiuba.algo3.mapa.ConstructorTablero;
-import edu.fiuba.algo3.mapa.LectorDeMapa;
+
+import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
+import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
@@ -12,8 +13,8 @@ import edu.fiuba.algo3.modelo.unidades.Unidad;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class    TableroTest {
-    private static final String[] MAPA = new LectorDeMapa().leer("src/main/java/edu/fiuba/algo3/mapa/mapa1.txt");
+public class TableroTest {
+    private static final String[] MAPA = new LectorDeMapa().leer("src/main/java/edu/fiuba/algo3/modelo/mapa/mapa1.txt");
 
     @Test
     public void test01UnTableroCargadoTiene8Columnas(){

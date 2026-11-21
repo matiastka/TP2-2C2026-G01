@@ -1,6 +1,9 @@
 
 package edu.fiuba.algo3.modelo.tablero;
 
+import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
+import edu.fiuba.algo3.modelo.tablero.direcciones.DireccionInvalidaException;
+
 import java.util.Objects;
 
 public class Posicion {

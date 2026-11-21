@@ -1,0 +1,119 @@
+
+package edu.fiuba.algo3.modelo.unidades.movimientos;
+
+import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
+import edu.fiuba.algo3.modelo.tablero.Posicion;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.unidades.excepciones.CaminoBloqueadoException;
+import edu.fiuba.algo3.modelo.unidades.excepciones.DestinoNoAlcanzableException;
+import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class MovimientoTerrestreTest {
+
+    private static final String[] MAPA_BASE = {
+            "SSSSSSSS",
+            "SSSSSSSS",
+            "SSSSSSSS",
+            "SSSSSSSS",
+            "SSSSSSSS",
+            "SSSSSSSS",
+            "SSSSSSSS",
+            "SSSSSSSS"
+    };
+    private static final String[] MAPA_CON_MONTANA = {
+            "SMSSSSSS",
+            "SSSSSSSS",
+            "SSSSSSSS",
+            "SSSSSSSS",
+            "SSSSSSSS",
+            "SSSSSSSS",
+            "SSSSSSSS",
+            "SSSSSSSS"
+    };
+
+    @Test
+    public void test01DestinoDentroDeRangoYLibreEsValido() {
+        Tablero tablero = new ConstructorTablero().construir(MAPA_BASE);
+        MovimientoTerrestre movimiento = new MovimientoTerrestre();
+        Posicion origen = new Posicion(0, 0);
+        Posicion destino = new Posicion(0, 3);
+
+        assertDoesNotThrow(() -> movimiento.validarCamino(origen, destino, 3, tablero));
+    }
+
+    @Test
+    public void test02DestinoFueraDeRangoRetornaRechazo() {
+        Tablero tablero = new ConstructorTablero().construir(MAPA_BASE);
+        MovimientoTerrestre movimiento = new MovimientoTerrestre();
+        Posicion origen = new Posicion(0, 0);
+        Posicion destino = new Posicion(0, 4);
+
+        assertThrows(DestinoNoAlcanzableException.class, () -> movimiento.validarCamino(origen, destino, 3, tablero));
+    }
+
+    @Test
+    public void test03CaminoBloqueadoPorMontanaRetornaRechazo() {
+        Tablero tablero = new ConstructorTablero().construir(MAPA_CON_MONTANA);
+        MovimientoTerrestre movimiento = new MovimientoTerrestre();
+        Posicion origen = new Posicion(0, 0);
+        Posicion destino = new Posicion(0, 2);
+
+        assertThrows(CaminoBloqueadoException.class, () -> movimiento.validarCamino(origen, destino, 3, tablero));
+    }
+
+    @Test
+    public void test04CasillaDestinoOcupadaPorOtraUnidadRetornaRechazo() {
+        // Arrange
+        Tablero tablero = new ConstructorTablero().construir(MAPA_BASE);
+
+        Posicion origen = new Posicion(0, 0);
+        Posicion destino = new Posicion(0, 2);
+
+        MovimientoTerrestre movimiento = new MovimientoTerrestre();
+
+        // Act
+        tablero.ocuparCasilla(destino, new Combate());
+
+        // Assert
+        assertThrows(CaminoBloqueadoException.class, () -> movimiento.validarCamino(origen, destino, 3, tablero));
+    }
+
+    @Test
+    public void test05AunqueTengaRangoNoPuedeRodearLaMontana() {
+        Tablero tablero = new ConstructorTablero().construir(MAPA_CON_MONTANA);
+
+        MovimientoTerrestre movimiento = new MovimientoTerrestre();
+
+        Posicion origen = new Posicion(0, 0);
+        Posicion destino = new Posicion(0, 2);
+
+        assertThrows(CaminoBloqueadoException.class, () -> movimiento.validarCamino(origen, destino, 4, tablero));
+    }
+
+    @Test
+    public void test06DestinoQueNoEstaEnLaMismaFilaNiColumnaRetornaRechazo() {
+        Tablero tablero = new ConstructorTablero().construir(MAPA_BASE);
+
+        MovimientoTerrestre movimiento = new MovimientoTerrestre();
+
+        Posicion origen = new Posicion(0, 0);
+        Posicion destino = new Posicion(1, 2);
+
+        assertThrows(DestinoNoAlcanzableException.class, () -> movimiento.validarCamino(origen, destino, 3, tablero));
+    }
+
+    @Test
+    public void test07NoPuedeTerminarSobreUnaMontana() {
+        Tablero tablero = new ConstructorTablero().construir(MAPA_CON_MONTANA);
+
+        MovimientoTerrestre movimiento = new MovimientoTerrestre();
+
+        Posicion origen = new Posicion(0, 0);
+        Posicion destino = new Posicion(0, 1);
+
+        assertThrows(CaminoBloqueadoException.class, () -> movimiento.validarCamino(origen, destino, 3, tablero));
+    }
+}

@@ -1,10 +1,10 @@
 package edu.fiuba.algo3.modelo.unidades.veks;
 
 import edu.fiuba.algo3.modelo.tablero.Posicion;
-import edu.fiuba.algo3.modelo.unidades.AtaqueCuerpoACuerpo;
-import edu.fiuba.algo3.modelo.unidades.DestinoNoAlcanzableException;
-import edu.fiuba.algo3.modelo.unidades.EfectoNulo;
-import edu.fiuba.algo3.modelo.unidades.MovimientoTerrestre;
+import edu.fiuba.algo3.modelo.unidades.ataques.AtaqueCuerpoACuerpo;
+import edu.fiuba.algo3.modelo.unidades.excepciones.DestinoNoAlcanzableException;
+import edu.fiuba.algo3.modelo.unidades.ataques.efectos.EfectoNulo;
+import edu.fiuba.algo3.modelo.unidades.movimientos.MovimientoTerrestre;
 
 public class Saltador extends Vek {
     public Saltador() {

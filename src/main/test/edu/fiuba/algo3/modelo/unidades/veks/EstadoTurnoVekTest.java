@@ -3,16 +3,14 @@ package edu.fiuba.algo3.modelo.unidades.veks;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import edu.fiuba.algo3.mapa.ConstructorTablero;
-import edu.fiuba.algo3.modelo.tablero.Este;
+import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
-import edu.fiuba.algo3.modelo.tablero.Sur;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.AccionInvalidaException;
-import edu.fiuba.algo3.modelo.unidades.Mech;
-import edu.fiuba.algo3.modelo.unidades.AtaqueYaPreparadoException;
-import edu.fiuba.algo3.modelo.unidades.DestinoFueraDelTableroException;
-import edu.fiuba.algo3.modelo.unidades.MovimientoYaRealizadoException;
+import edu.fiuba.algo3.modelo.unidades.excepciones.AccionInvalidaException;
+import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
+import edu.fiuba.algo3.modelo.unidades.excepciones.AtaqueYaPreparadoException;
+import edu.fiuba.algo3.modelo.unidades.excepciones.DestinoFueraDelTableroException;
+import edu.fiuba.algo3.modelo.unidades.excepciones.MovimientoYaRealizadoException;
 import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
 import org.junit.jupiter.api.Test;
 

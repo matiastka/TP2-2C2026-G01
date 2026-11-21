@@ -1,10 +1,10 @@
 package edu.fiuba.algo3.entrega_2;
 
-import edu.fiuba.algo3.mapa.ConstructorTablero;
+import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.tablero.*;
+import edu.fiuba.algo3.modelo.unidades.excepciones.ArmaSumergidaException;
 import edu.fiuba.algo3.modelo.unidades.veks.*;
 import edu.fiuba.algo3.modelo.unidades.mechs.*;
-import edu.fiuba.algo3.modelo.unidades.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

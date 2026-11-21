@@ -3,6 +3,10 @@ package edu.fiuba.algo3.modelo.unidades;
 import java.util.List;
 
 import edu.fiuba.algo3.modelo.tablero.*;
+import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
+import edu.fiuba.algo3.modelo.tablero.emergencias.EmergenciaVek;
+import edu.fiuba.algo3.modelo.unidades.excepciones.AccionInvalidaException;
+import edu.fiuba.algo3.modelo.unidades.movimientos.Movimiento;
 
 public abstract class Unidad implements Ocupante {
 
@@ -88,7 +92,7 @@ public abstract class Unidad implements Ocupante {
         this.movimiento.agregarSiPuedeTerminarEn(tablero.enCasilla(destino), destinos);
     }
 
-    protected abstract void hundirse();
+    public abstract void hundirse();
 
     @Override
     public void caerEnAgua(){
