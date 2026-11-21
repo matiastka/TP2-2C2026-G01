@@ -1,185 +1,187 @@
+
 package edu.fiuba.algo3.modelo.unidades.ataques;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
-import org.junit.jupiter.api.Test;
-
 import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
+import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.mechs.Canon;
+import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
 import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EfectoEmpujeTest {
 
-    private static final String[] MAPA_OBSTACULOS = {
-            "SSSSSSSS",
-            "SSSSSSSS",
-            "SSSSSSSS",
-            "SSSMESSS",
-            "SSSSSSSS",
-            "SSSSSSSS",
-            "SSSSSSSS",
-            "SSSSSSSS"
-    };
+    private static final String RUTA_MAPA_OBSTACULOS = "src/main/test/edu/fiuba/algo3/modelo/mapa/mapa_obstaculos.txt";
 
     @Test
     public void test01EmpujarUnidadContraOtraUnidadNoMueveALaUnidadEmpujada() {
-        Tablero tablero = new ConstructorTablero().construir(MAPA_OBSTACULOS);
+        // Arrange
+        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_OBSTACULOS);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
         Posicion posVek1 = new Posicion(1, 2);
-
         Mech canon = new Canon();
         canon.colocarseEn(new Posicion(1, 0), tablero);
-
         Vek vekEmpujado = new Luciernaga();
         vekEmpujado.colocarseEn(posVek1, tablero);
-
         Vek vekObstaculo = new Luciernaga();
         vekObstaculo.colocarseEn(new Posicion(1, 3), tablero);
 
+        // Act
         canon.atacarA(posVek1, tablero);
 
+        // Assert
         assertEquals(posVek1, vekEmpujado.obtenerPosicion());
     }
 
     @Test
     public void test02EmpujarUnidadContraOtraUnidadAplicaDanioDeColisionALaEmpujada() {
-        Tablero tablero = new ConstructorTablero().construir(MAPA_OBSTACULOS);
+        // Arrange
+        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_OBSTACULOS);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
         Posicion posVek1 = new Posicion(1, 2);
-
         Mech canon = new Canon();
         canon.colocarseEn(new Posicion(1, 0), tablero);
-
-        Vek vekEmpujado = new Luciernaga(); // 3 de vida
+        Vek vekEmpujado = new Luciernaga();
         vekEmpujado.colocarseEn(posVek1, tablero);
-
         Vek vekObstaculo = new Luciernaga();
         vekObstaculo.colocarseEn(new Posicion(1, 3), tablero);
 
+        // Act
         canon.atacarA(posVek1, tablero);
 
-        // 1 de daño por el disparo + 1 de daño por colisión = 2 de daño (3 - 2 = 1)
+        // Assert
         assertEquals(1, vekEmpujado.obtenerVida());
     }
 
     @Test
     public void test03EmpujarUnidadContraOtraUnidadAplicaDanioDeColisionALaUnidadObstaculo() {
-        Tablero tablero = new ConstructorTablero().construir(MAPA_OBSTACULOS);
+        // Arrange
+        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_OBSTACULOS);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
         Posicion posVek1 = new Posicion(1, 2);
-
         Mech canon = new Canon();
         canon.colocarseEn(new Posicion(1, 0), tablero);
-
         Vek vekEmpujado = new Luciernaga();
         vekEmpujado.colocarseEn(posVek1, tablero);
-
-        Vek vekObstaculo = new Luciernaga(); // 3 de vida
+        Vek vekObstaculo = new Luciernaga();
         vekObstaculo.colocarseEn(new Posicion(1, 3), tablero);
 
+        // Act
         canon.atacarA(posVek1, tablero);
 
-        // 1 de daño por colisión (3 - 1 = 2)
+        // Assert
         assertEquals(2, vekObstaculo.obtenerVida());
     }
 
     @Test
     public void test04EmpujarUnidadContraMontanaNoLaMueve() {
-        Tablero tablero = new ConstructorTablero().construir(MAPA_OBSTACULOS);
+        // Arrange
+        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_OBSTACULOS);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
         Posicion posVek = new Posicion(3, 2);
-
         Mech canon = new Canon();
         canon.colocarseEn(new Posicion(3, 0), tablero);
-
         Vek vek = new Luciernaga();
         vek.colocarseEn(posVek, tablero);
 
+        // Act
         canon.atacarA(posVek, tablero);
 
+        // Assert
         assertEquals(posVek, vek.obtenerPosicion());
     }
 
     @Test
     public void test05EmpujarUnidadContraMontanaAplicaDanioDeColision() {
-        Tablero tablero = new ConstructorTablero().construir(MAPA_OBSTACULOS);
+        // Arrange
+        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_OBSTACULOS);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
         Posicion posVek = new Posicion(3, 2);
-
         Mech canon = new Canon();
         canon.colocarseEn(new Posicion(3, 0), tablero);
-
-        Vek vek = new Luciernaga(); // 3 de vida
+        Vek vek = new Luciernaga();
         vek.colocarseEn(posVek, tablero);
 
+        // Act
         canon.atacarA(posVek, tablero);
 
-        // 1 de daño por el disparo + 1 de daño por colisión contra la montaña
+        // Assert
         assertEquals(1, vek.obtenerVida());
     }
 
     @Test
     public void test06EmpujarUnidadContraEdificioNoLaMueve() {
-        Tablero tablero = new ConstructorTablero().construir(MAPA_OBSTACULOS);
+        // Arrange
+        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_OBSTACULOS);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
         Posicion posVek = new Posicion(3, 5);
-
         Mech canon = new Canon();
         canon.colocarseEn(new Posicion(3, 7), tablero);
-
         Vek vek = new Luciernaga();
         vek.colocarseEn(posVek, tablero);
 
+        // Act
         canon.atacarA(posVek, tablero);
 
+        // Assert
         assertEquals(posVek, vek.obtenerPosicion());
     }
 
     @Test
     public void test07EmpujarUnidadContraEdificioAplicaDanioDeColisionALaUnidad() {
-        Tablero tablero = new ConstructorTablero().construir(MAPA_OBSTACULOS);
+        // Arrange
+        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_OBSTACULOS);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
         Posicion posVek = new Posicion(3, 5);
-
         Mech canon = new Canon();
         canon.colocarseEn(new Posicion(3, 7), tablero);
-
-        Vek vek = new Luciernaga(); // 3 de vida
+        Vek vek = new Luciernaga();
         vek.colocarseEn(posVek, tablero);
 
+        // Act
         canon.atacarA(posVek, tablero);
 
-        // 1 de daño por el disparo + 1 de daño por colisión contra el edificio
+        // Assert
         assertEquals(1, vek.obtenerVida());
     }
 
     @Test
     public void test08EmpujarUnidadContraBordeDelTableroNoLaMueve() {
-        Tablero tablero = new ConstructorTablero().construir(MAPA_OBSTACULOS);
+        // Arrange
+        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_OBSTACULOS);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
         Posicion posVekEnBorde = new Posicion(0, 0);
-
         Mech canon = new Canon();
         canon.colocarseEn(new Posicion(0, 2), tablero);
-
         Vek vek = new Luciernaga();
         vek.colocarseEn(posVekEnBorde, tablero);
 
+        // Act
         canon.atacarA(posVekEnBorde, tablero);
 
+        // Assert
         assertEquals(posVekEnBorde, vek.obtenerPosicion());
     }
 
     @Test
     public void test09EmpujarUnidadContraBordeDelTableroNoAplicaDanioDeColision() {
-        Tablero tablero = new ConstructorTablero().construir(MAPA_OBSTACULOS);
+        // Arrange
+        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_OBSTACULOS);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
         Posicion posVekEnBorde = new Posicion(0, 0);
-
         Mech canon = new Canon();
         canon.colocarseEn(new Posicion(0, 2), tablero);
-
-        Vek vek = new Luciernaga(); // 3 de vida
+        Vek vek = new Luciernaga();
         vek.colocarseEn(posVekEnBorde, tablero);
 
+        // Act
         canon.atacarA(posVekEnBorde, tablero);
 
-        // Solo recibe 1 de daño del disparo del Cañón, sin daño extra por colisión
+        // Assert
         assertEquals(2, vek.obtenerVida());
     }
 }

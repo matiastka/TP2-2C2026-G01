@@ -1,6 +1,8 @@
+
 package edu.fiuba.algo3.modelo.unidades.veks;
 
 import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
+import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.excepciones.DestinoNoAlcanzableException;
@@ -11,15 +13,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SaltadorTest {
 
-    private static final String[] MAPA = {
-            "SSSSSSSS", "SSSSSSSS", "SSSSSSSS", "SSSSSSSS",
-            "SSSSSSSS", "SSSSSSSS", "SSSSSSSS", "SSSSSSSS"
-    };
+    private static final String RUTA_MAPA_LIBRE = "src/main/test/edu/fiuba/algo3/modelo/mapa/mapa_libre.txt";
 
     @Test
     public void test01ElSaltadorPuedeAtacarUnaCasillaAdyacente() {
         // Arrange
-        Tablero tablero = new ConstructorTablero().construir(MAPA);
+        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
         Saltador vek = new Saltador();
         vek.colocarseEn(new Posicion(3, 3), tablero);
 
@@ -30,7 +30,8 @@ public class SaltadorTest {
     @Test
     public void test02ElSaltadorNoPuedeAtacarUnaCasillaNoAdyacente() {
         // Arrange
-        Tablero tablero = new ConstructorTablero().construir(MAPA);
+        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
         Saltador vek = new Saltador();
         vek.colocarseEn(new Posicion(3, 3), tablero);
 

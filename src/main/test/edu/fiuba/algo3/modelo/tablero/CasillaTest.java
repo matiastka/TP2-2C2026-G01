@@ -1,45 +1,62 @@
+
 package edu.fiuba.algo3.modelo.tablero;
 
 import edu.fiuba.algo3.modelo.terrenos.Suelo;
 import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CasillaTest {
 
     @Test
     public void test01UnaCasillaNuevaEstaLibre() {
-        Casilla casilla = new Casilla(new Suelo(), new Posicion(0,0));
+        // Arrange
+        Casilla casilla = new Casilla(new Suelo(), new Posicion(0, 0));
 
-        assertTrue(casilla.estaLibre());
+        // Act
+        boolean estaLibre = casilla.estaLibre();
+
+        // Assert
+        assertTrue(estaLibre);
     }
 
     @Test
     public void test02UnaCasillaOcupadaNoEstaLibre() {
-        Casilla casilla = new Casilla(new Suelo(), new Posicion(0,0));
+        // Arrange
+        Casilla casilla = new Casilla(new Suelo(), new Posicion(0, 0));
 
+        // Act
         casilla.ocupar(new Combate());
 
+        // Assert
         assertFalse(casilla.estaLibre());
     }
 
     @Test
     public void test03UnaCasillaDesocupadaVuelveAEstarLibre() {
-        Casilla casilla = new Casilla(new Suelo(), new Posicion(0,0));
-
+        // Arrange
+        Casilla casilla = new Casilla(new Suelo(), new Posicion(0, 0));
         casilla.ocupar(new Combate());
 
+        // Act
         casilla.desOcupar();
 
+        // Assert
         assertTrue(casilla.estaLibre());
     }
 
     @Test
     public void test04UnaCasillaLibreNoDevuelveNull() {
-        Casilla casilla = new Casilla(new Suelo(), new Posicion(0,0));
+        // Arrange
+        Casilla casilla = new Casilla(new Suelo(), new Posicion(0, 0));
 
-        assertNotNull(casilla.obtenerOcupante());
+        // Act
+        Ocupante ocupante = casilla.obtenerOcupante();
+
+        // Assert
+        assertNotNull(ocupante);
     }
-
 }
-
