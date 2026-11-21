@@ -3,11 +3,9 @@ package edu.fiuba.algo3.entrega_2;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import edu.fiuba.algo3.modelo.tablero.*;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import edu.fiuba.algo3.mapa.ConstructorTablero;
-import edu.fiuba.algo3.modelo.RedElectrica;
 import edu.fiuba.algo3.modelo.unidades.Mech;
 import edu.fiuba.algo3.modelo.unidades.mechs.Artilleria;
 import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
@@ -38,11 +36,6 @@ public class ContaminacionLuciernagaTest {
             "SSSSSSSS",
             "SSSSSSSS"
     };
-
-    @BeforeEach
-    public void setUp() {
-        RedElectrica.getInstancia().reiniciar();
-    }
 
     @Test
     public void test01LuciernagaDaniaYContaminaAlMechImpactadoDuplicandoElSiguienteDanio() {

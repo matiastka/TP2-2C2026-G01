@@ -1,6 +1,7 @@
 
 package edu.fiuba.algo3.modelo.terrenos;
 
+import edu.fiuba.algo3.modelo.RedElectrica;
 import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.unidades.CaminoBloqueadoException;
@@ -13,7 +14,7 @@ public class EdificioTest {
     @Test
     public void test01UnaUnidadTerrestreNoPuedeAtravesarEdificio() {
         // Arrange
-        Casilla casilla = new Casilla(new Edificio(), new Posicion(0, 0));
+        Casilla casilla = new Casilla(new Edificio(new RedElectrica()), new Posicion(0, 0));
 
         // Act & Assert
         assertThrows(CaminoBloqueadoException.class, () -> casilla.recibirTransito(new MovimientoTerrestre()));

@@ -8,11 +8,12 @@ import edu.fiuba.algo3.modelo.unidades.Unidad;
 public class Tablero {
     private static final int CANTIDAD_DE_FILAS = 8;
     private static final int CANTIDAD_DE_COLUMNAS = 8;
-    private final RedElectrica redElectrica = RedElectrica.getInstancia();
+    private final RedElectrica redElectrica;
     private Map<Posicion, Casilla> casillas;
 
-    public Tablero(Map<Posicion, Casilla> casillas){
+    public Tablero(Map<Posicion, Casilla> casillas, RedElectrica redElectrica){
         this.casillas = casillas;
+        this.redElectrica = redElectrica;
     }
 
     public Casilla enCasilla(Posicion posicion){
@@ -63,9 +64,5 @@ public class Tablero {
 
     public int obtenerRedElectrica() {
         return this.redElectrica.obtenerNivel();
-    }
-
-    public void reducirRedElectrica() {
-        this.redElectrica.reducir();
     }
 }

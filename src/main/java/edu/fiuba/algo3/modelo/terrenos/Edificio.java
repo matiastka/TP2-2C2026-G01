@@ -7,7 +7,11 @@ import edu.fiuba.algo3.modelo.tablero.Terreno;
 import edu.fiuba.algo3.modelo.tablero.Transito;
 
 public class Edificio extends Terreno {
-    private final RedElectrica redElectrica = RedElectrica.getInstancia();
+    private final RedElectrica redElectrica;
+
+    public Edificio(RedElectrica redElectrica) {
+        this.redElectrica = redElectrica;
+    }
 
     @Override
     public void afectarA(Ocupante ocupante) {

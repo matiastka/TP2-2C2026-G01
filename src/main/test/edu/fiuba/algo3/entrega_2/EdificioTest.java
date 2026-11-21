@@ -1,11 +1,9 @@
 package edu.fiuba.algo3.entrega_2;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import edu.fiuba.algo3.mapa.ConstructorTablero;
-import edu.fiuba.algo3.modelo.RedElectrica;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.Mech;
@@ -26,11 +24,6 @@ public class EdificioTest {
             "SSSSSSSS",
             "SSSSSSSS"
     };
-
-    @BeforeEach
-    public void setUp() {
-        RedElectrica.getInstancia().reiniciar();
-    }
 
     @Test
     public void test01ElDanioAUnEdificioReduceLaRedElectricaEn1() {
