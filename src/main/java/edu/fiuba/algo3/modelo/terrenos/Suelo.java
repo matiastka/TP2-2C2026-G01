@@ -1,15 +1,11 @@
 package edu.fiuba.algo3.modelo.terrenos;
 
-import edu.fiuba.algo3.modelo.unidades.Unidad;
+import edu.fiuba.algo3.modelo.tablero.Ocupante;
+import edu.fiuba.algo3.modelo.tablero.Terreno;
 
 public class Suelo extends Terreno {
-    @Override
-    public boolean esTransitable() {
-        return true;
-    }
 
     @Override
-    public void afectarA(Unidad unidad){
-
+    public void afectarA(Ocupante ocupante){
     }
 }

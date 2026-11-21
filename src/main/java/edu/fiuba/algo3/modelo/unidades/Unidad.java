@@ -1,60 +1,67 @@
 package edu.fiuba.algo3.modelo.unidades;
 
-import edu.fiuba.algo3.modelo.tablero.Posicion;
-import edu.fiuba.algo3.modelo.tablero.Tablero;
+import java.util.List;
 
-public abstract class Unidad {
+import edu.fiuba.algo3.modelo.tablero.*;
+import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
+import edu.fiuba.algo3.modelo.tablero.emergencias.EmergenciaVek;
+import edu.fiuba.algo3.modelo.unidades.excepciones.AccionInvalidaException;
+import edu.fiuba.algo3.modelo.unidades.movimientos.Movimiento;
+
+public abstract class Unidad implements Ocupante {
 
     private int vida;
-    protected int rango;
-    protected Posicion posicion;
-    protected EstadoTurno estadoTurno;
+    private int rango;
+    private Posicion posicion;
+    private EstadoSalud estadoSalud;
+    private Movimiento movimiento;
 
-    protected Unidad(int vida, Posicion posicion) {
+    protected Unidad(int vida, int rango, Movimiento movimiento) {
         this.vida = vida;
-        this.posicion = posicion;
-        this.estadoTurno = new EstadoDisponible();
+        this.rango = rango;
+        this.estadoSalud = new EstadoSano();
+        this.movimiento = movimiento;
     }
 
-    public void moverA(Posicion destino, Tablero tablero) {
-        this.estadoTurno = this.estadoTurno.mover(this, destino, tablero);
-    }
-
-    boolean ejecutarMovimiento(Posicion destino, Tablero tablero) {
-        MovimientoTerrestre validador = new MovimientoTerrestre();
-
-        if (validador.puedeLlegar(this.posicion, destino, this.obtenerRango(), tablero)) {
-            reubicarEn(destino, tablero);
-            return true;
-        } else {
-            System.out.println("Movimiento inválido: fuera de rango o camino bloqueado");
-            return false;
-        }
+    protected void ejecutarMovimiento(Posicion destino, Tablero tablero) {
+        this.movimiento.validarCamino(this.posicion, destino, this.obtenerRango(), tablero);
+        reubicarEn(destino, tablero);
     }
 
     protected void reubicarEn(Posicion destino, Tablero tablero) {
-        tablero.desOcuparCasilla(this.posicion);
-        tablero.ocuparCasilla(destino, this);
-        this.posicion = destino;
+        tablero.enCasilla(this.posicion).abandonar(this);
+        trasladarA(destino, tablero);
         tablero.enCasilla(destino).aplicarEfectoA(this);
     }
 
-    public void reiniciarTurno() {
-        this.estadoTurno = new EstadoDisponible();
+    protected void reubicarSinEfectoEn(Posicion destino, Tablero tablero) {
+        trasladarA(destino, tablero);
+    }
+
+    private void trasladarA(Posicion destino, Tablero tablero) {
+        tablero.trasladar(this, this.posicion, destino);
+        this.posicion = destino;
+    }
+
+    public void colocarseEn(Posicion posicion, Tablero tablero) {
+        tablero.ocuparCasilla(posicion, this);
+        this.posicion = posicion;
     }
 
     public int obtenerRango() {
         return rango;
     }
 
+    @Override
     public void recibirDanio(int danio) {
-        this.vida -= danio;
+        this.vida -= this.estadoSalud.calcularDanio(danio);
     }
 
     public int obtenerVida() {
         return vida;
     }
 
+    @Override
     public boolean ocupaCasilla() {
         return true;
     }
@@ -63,12 +70,71 @@ public abstract class Unidad {
         return posicion;
     }
 
-    // Esto hay que verlo porque no tiene sentido que no implemente el contrato (Mati)
-    public void caerEnAgua(){
-
+    @Override
+    public void contaminarse(){
+        this.estadoSalud = new EstadoContaminado();
     }
 
-    public void caerEnAcido(){
+    public void descontaminarse(){
+        this.estadoSalud = new EstadoSano();
+    }
 
+    public void agregarSiPuedeTerminarEn(Posicion destino, List<Posicion> destinos, Tablero tablero) {
+        if (this.posicion.equals(destino)) {
+            destinos.add(destino);
+            return;
+        }
+        try {
+            this.movimiento.validarCamino(this.posicion, destino, this.rango, tablero);
+        } catch (AccionInvalidaException e) {
+            return;
+        }
+        this.movimiento.agregarSiPuedeTerminarEn(tablero.enCasilla(destino), destinos);
+    }
+
+    public abstract void hundirse();
+
+    @Override
+    public void caerEnAgua(){
+        movimiento.caerEnAgua(this);
+    }
+
+    @Override
+    public void caerEnAcido(){
+        movimiento.caerEnAcido(this);
+    }
+
+    @Override
+    public void serEmpujadoA(Posicion destino, Tablero tablero) {
+        reubicarEn(destino, tablero);
+    }
+
+    public abstract void moverA(Posicion destino, Tablero tablero);
+
+    protected EstadoSalud obtenerEstadoSalud() {
+        return this.estadoSalud;
+    }
+
+    protected void establecerEstadoSalud(EstadoSalud estado) {
+        this.estadoSalud = estado;
+    }
+
+    @Override
+    public void recibirTransito(Transito transito, Casilla casilla) {
+        transito.chocarConOcupante(casilla);
+    }
+
+    @Override
+    public void recibirEfectoDeImpacto(EfectoImpacto efecto, Posicion posicion, Direccion direccion, Tablero tablero) {
+        efecto.aplicar(this, posicion, direccion, tablero);
+    }
+
+    @Override
+    public void ofrecerComoObjetivo(BuscadorDeObjetivos buscador, Casilla casilla) {
+    }
+
+    @Override
+    public void recibirEmergencia(EmergenciaVek emergencia, Casilla casilla, Tablero tablero) {
+        emergencia.serBloqueadaPor(this);
     }
 }

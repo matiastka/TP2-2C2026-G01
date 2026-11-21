@@ -1,6 +1,9 @@
 
 package edu.fiuba.algo3.modelo.tablero;
 
+import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
+import edu.fiuba.algo3.modelo.tablero.direcciones.DireccionInvalidaException;
+
 import java.util.Objects;
 
 public class Posicion {
@@ -21,12 +24,12 @@ public class Posicion {
         int incrementoColumna = Integer.compare(otra.columna, this.columna);
         Posicion paso = new Posicion(fila + incrementoFila, columna + incrementoColumna);
 
-        for (Direccion direccion : Direccion.values()) {
+        for (Direccion direccion : Direccion.cardinales()) {
             if (siguienteEn(direccion).equals(paso)) {
                 return direccion;
             }
         }
-        return Direccion.NINGUNA;
+        throw new DireccionInvalidaException("No hay direccion");
     }
 
     public boolean esAdyacente(Posicion otra){
@@ -34,7 +37,7 @@ public class Posicion {
     }
 
     public boolean estaEnLineaRectaA(Posicion otra, int distanciaMinima){
-        return direccionHacia(otra) != Direccion.NINGUNA && distanciaA(otra) >= distanciaMinima;
+        return (fila == otra.fila) != (columna == otra.columna) && distanciaA(otra) >= distanciaMinima;
     }
 
     public boolean estaAlAlcanceDe(Posicion otra, int rango) {
@@ -58,6 +61,9 @@ public class Posicion {
         return Objects.hash(fila, columna);
     }
 
-
+    @Override 
+    public String toString() { 
+        return "(" + fila + ", " + columna + ")"; 
+    }
 
 }

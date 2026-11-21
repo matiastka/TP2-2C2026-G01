@@ -1,16 +1,24 @@
 package edu.fiuba.algo3.modelo.terrenos;
 
-import edu.fiuba.algo3.modelo.unidades.Unidad;
+
+import edu.fiuba.algo3.modelo.tablero.BuscadorDeDestinos;
+import edu.fiuba.algo3.modelo.tablero.Casilla;
+import edu.fiuba.algo3.modelo.tablero.Ocupante;
+import edu.fiuba.algo3.modelo.tablero.Terreno;
 
 public class Agua extends Terreno {
 
     @Override
-    public boolean esTransitable() {
-        return true;
+    public void afectarA(Ocupante ocupante){
+        ocupante.caerEnAgua();
     }
 
     @Override
-    public void afectarA(Unidad unidad){
-        unidad.caerEnAgua();
+    public void abandonar(Ocupante ocupante) {
+        ocupante.salirDelAgua();
+    }
+
+    @Override
+    public void ofrecerComoDestino(BuscadorDeDestinos buscador, Casilla casilla) {
     }
 }

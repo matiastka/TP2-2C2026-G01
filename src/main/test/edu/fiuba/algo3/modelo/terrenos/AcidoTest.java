@@ -1,20 +1,20 @@
 
 package edu.fiuba.algo3.modelo.terrenos;
 
+import edu.fiuba.algo3.modelo.tablero.Casilla;
+import edu.fiuba.algo3.modelo.tablero.Posicion;
+import edu.fiuba.algo3.modelo.unidades.movimientos.MovimientoTerrestre;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AcidoTest {
 
     @Test
-    public void test01AcidoEsTransitable() {
+    public void test01UnaUnidadTerrestrePuedeAtravesarAcido() {
         // Arrange
-        Acido acido = new Acido();
+        Casilla casilla = new Casilla(new Acido(), new Posicion(0, 0));
 
-        // Act
-        boolean esTransitable = acido.esTransitable();
-
-        // Assert
-        assertTrue(esTransitable);
+        // Act & Assert
+        assertDoesNotThrow(() -> casilla.recibirTransito(new MovimientoTerrestre()));
     }
 }

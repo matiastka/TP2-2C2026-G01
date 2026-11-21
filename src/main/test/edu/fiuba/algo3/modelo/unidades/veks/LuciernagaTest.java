@@ -1,16 +1,25 @@
 
 package edu.fiuba.algo3.modelo.unidades.veks;
 
+import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
+import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.unidades.excepciones.DestinoNoAlcanzableException;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class LuciernagaTest {
+
+    private static final String RUTA_MAPA_LIBRE = "src/main/test/edu/fiuba/algo3/modelo/mapa/mapa_libre.txt";
 
     @Test
     public void test01LuciernagaEmpiezaCon3DeVida() {
         // Arrange
-        Luciernaga luciernaga = new Luciernaga(new Posicion(0, 0));
+        Luciernaga luciernaga = new Luciernaga();
         int vidaEsperada = 3;
 
         // Act
@@ -23,7 +32,7 @@ public class LuciernagaTest {
     @Test
     public void test02LuciernagaTieneRango2() {
         // Arrange
-        Luciernaga luciernaga = new Luciernaga(new Posicion(0, 0));
+        Luciernaga luciernaga = new Luciernaga();
         int rangoEsperado = 2;
 
         // Act
@@ -31,5 +40,29 @@ public class LuciernagaTest {
 
         // Assert
         assertEquals(rangoEsperado, rangoActual);
+    }
+
+    @Test
+    public void test03LaLuciernagaPuedeAtacarUnaCasillaLejanaEnLineaRecta() {
+        // Arrange
+        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Luciernaga vek = new Luciernaga();
+        vek.colocarseEn(new Posicion(3, 3), tablero);
+
+        // Act & Assert
+        assertDoesNotThrow(() -> vek.prepararAtaque(new Posicion(3, 7)));
+    }
+
+    @Test
+    public void test04LaLuciernagaNoPuedeAtacarUnaCasillaEnDiagonal() {
+        // Arrange
+        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Luciernaga vek = new Luciernaga();
+        vek.colocarseEn(new Posicion(3, 3), tablero);
+
+        // Act & Assert
+        assertThrows(DestinoNoAlcanzableException.class, () -> vek.prepararAtaque(new Posicion(4, 4)));
     }
 }
