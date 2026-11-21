@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo.terrenos;
 
+import edu.fiuba.algo3.modelo.tablero.BuscadorDeDestinos;
+import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Ocupante;
 import edu.fiuba.algo3.modelo.tablero.Terreno;
 
@@ -14,4 +16,9 @@ public class Acido extends Terreno {
     public boolean esPeligrosoParaTerrestres() {
         return true;
     }
+
+    @Override
+    public void ofrecerComoDestino(BuscadorDeDestinos buscador, Casilla casilla) {
+    }
+
 }

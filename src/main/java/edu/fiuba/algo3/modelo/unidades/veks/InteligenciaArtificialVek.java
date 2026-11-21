@@ -32,9 +32,7 @@ public class InteligenciaArtificialVek {
         for (int fila = 0; fila < tablero.cantidadFilas(); fila++) {
             for (int col = 0; col < tablero.cantidadColumnas(); col++) {
                 Posicion pos = new Posicion(fila, col);
-                if (vek.puedeMoverseYTerminarEn(pos, tablero)) {
-                    candidatas.add(pos);
-                }
+                vek.agregarSiPuedeTerminarEn(pos, candidatas, tablero);
             }
         }
         return candidatas;

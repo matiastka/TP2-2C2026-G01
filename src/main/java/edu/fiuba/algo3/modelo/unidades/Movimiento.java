@@ -1,8 +1,10 @@
 package edu.fiuba.algo3.modelo.unidades;
 
+import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.tablero.Terreno;
+
+import java.util.List;
 
 public interface Movimiento {
     void validarCamino(Posicion origen, Posicion destino, int rango, Tablero tablero);
@@ -11,5 +13,5 @@ public interface Movimiento {
 
     void caerEnAgua(Unidad unidad);
 
-    boolean esSeguroTerminarEn(Terreno terreno);
+    void agregarSiPuedeTerminarEn(Casilla casilla, List<Posicion> destinos);
 }

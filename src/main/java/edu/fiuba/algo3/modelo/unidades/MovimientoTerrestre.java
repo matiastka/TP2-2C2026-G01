@@ -1,6 +1,8 @@
 
 package edu.fiuba.algo3.modelo.unidades;
 
+import java.util.List;
+
 import edu.fiuba.algo3.modelo.tablero.*;
 
 public class MovimientoTerrestre implements Movimiento, Transito {
@@ -34,8 +36,8 @@ public class MovimientoTerrestre implements Movimiento, Transito {
     }
 
     @Override
-    public boolean esSeguroTerminarEn(Terreno terreno) {
-        return !terreno.esPeligrosoParaTerrestres();
+    public void agregarSiPuedeTerminarEn(Casilla casilla, List<Posicion> destinos) {
+        casilla.ofrecerTerrenoComoDestino(new AgregadorDeDestinos(destinos));
     }
 
     @Override

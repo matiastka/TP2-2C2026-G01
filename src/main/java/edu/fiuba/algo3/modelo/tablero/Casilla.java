@@ -92,4 +92,9 @@ public class Casilla {
         this.terreno.ofrecerComoObjetivo(buscador, this);
     }
 
+    public void ofrecerTerrenoComoDestino(BuscadorDeDestinos buscador) {
+        this.terreno.ofrecerComoDestino(buscador, this);
+    }
+
+
 }

@@ -2,6 +2,8 @@ package edu.fiuba.algo3.modelo.unidades;
 
 import edu.fiuba.algo3.modelo.tablero.*;
 
+import java.util.List;
+
 public class MovimientoVolador implements Movimiento, Transito {
 
     @Override
@@ -23,18 +25,10 @@ public class MovimientoVolador implements Movimiento, Transito {
     }
 
     @Override
-    public boolean esSeguroTerminarEn(Terreno terreno) {
-        return true;
+    public void agregarSiPuedeTerminarEn(Casilla casilla, List<Posicion> destinos) {
+        destinos.add(casilla.obtenerPosicion());
     }
 
-    /* Duda de Mati: Es correcto que MovimientoVolador no haga nada?
-        Me quise basar como el Principio Strategy que vimos en la teorica, particularmente el ejemplo:
-        Volador --> -VolarConAlas
-                    -NoVolar
-        En este caso seria:
-        Movimiento --> MovimientoTerrestre
-                       MovimientoVolador
-     */
     @Override
     public void caerEnAcido(Unidad unidad){
     }

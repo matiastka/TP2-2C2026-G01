@@ -20,4 +20,9 @@ public abstract class Terreno {
     public void recibirTransito(Transito transito, Casilla casilla) {
         transito.atravesar(casilla);
     }
+
+    public void ofrecerComoDestino(BuscadorDeDestinos buscador, Casilla casilla) {
+        buscador.encontrarTerrenoSeguro(casilla);
+    }
+
 }

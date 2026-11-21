@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo.unidades;
 
+import java.util.List;
+
 import edu.fiuba.algo3.modelo.tablero.*;
 
 public abstract class Unidad implements Ocupante {
@@ -64,7 +66,7 @@ public abstract class Unidad implements Ocupante {
         return posicion;
     }
 
-    @Override 
+    @Override
     public void contaminarse(){
         this.estadoSalud = new EstadoContaminado();
     }
@@ -73,16 +75,17 @@ public abstract class Unidad implements Ocupante {
         this.estadoSalud = new EstadoSano();
     }
 
-    public boolean puedeMoverseYTerminarEn(Posicion destino, Tablero tablero) {
+    public void agregarSiPuedeTerminarEn(Posicion destino, List<Posicion> destinos, Tablero tablero) {
         if (this.posicion.equals(destino)) {
-            return true;
+            destinos.add(destino);
+            return;
         }
         try {
             this.movimiento.validarCamino(this.posicion, destino, this.rango, tablero);
         } catch (AccionInvalidaException e) {
-            return false;
+            return;
         }
-        return this.movimiento.esSeguroTerminarEn(tablero.enCasilla(destino).obtenerTerreno());
+        this.movimiento.agregarSiPuedeTerminarEn(tablero.enCasilla(destino), destinos);
     }
 
     protected abstract void hundirse();
@@ -105,7 +108,7 @@ public abstract class Unidad implements Ocupante {
     public abstract void moverA(Posicion destino, Tablero tablero);
 
     protected EstadoSalud obtenerEstadoSalud() {
-    return this.estadoSalud;
+        return this.estadoSalud;
     }
 
     protected void establecerEstadoSalud(EstadoSalud estado) {
@@ -123,12 +126,11 @@ public abstract class Unidad implements Ocupante {
     }
 
     @Override
-    public void recibirEmergencia(EmergenciaVek emergencia, Casilla casilla, Tablero tablero) {
-        emergencia.serBloqueadaPor(this);
-    }
-
-    @Override
     public void ofrecerComoObjetivo(BuscadorDeObjetivos buscador, Casilla casilla) {
     }
 
+    @Override
+    public void recibirEmergencia(EmergenciaVek emergencia, Casilla casilla, Tablero tablero) {
+        emergencia.serBloqueadaPor(this);
+    }
 }
