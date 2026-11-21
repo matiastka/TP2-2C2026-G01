@@ -6,6 +6,6 @@ import edu.fiuba.algo3.modelo.tablero.Tablero;
 
 public interface EstadoTurnoVek {
     EstadoTurnoVek mover(Vek vek, Posicion destino, Tablero tablero);
-    EstadoTurnoVek prepararAtaque(Vek vek, Direccion direccion);
+    EstadoTurnoVek prepararAtaque(Vek vek, Posicion objetivo);
     EstadoTurnoVek resolverAtaque(Vek vek, Tablero tablero);
 }

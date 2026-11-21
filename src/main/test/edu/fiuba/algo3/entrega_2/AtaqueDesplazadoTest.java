@@ -35,21 +35,22 @@ public class AtaqueDesplazadoTest {
         Tablero tablero = new ConstructorTablero().construir(MAPA_BASE);
 
         Posicion posCanon = new Posicion(1, 1);
-        Posicion posVek1 = new Posicion(1, 2);
-        Posicion posNuevoObjetivo = new Posicion(2, 3);
+        Posicion posAvispon = new Posicion(1, 2);
+        Posicion posSaltador = new Posicion(2, 3);
+        Posicion posAtaqueAvispon = new Posicion(2,2);
         
         Canon mechCanon = new Canon();
         Avispon vek1 = new Avispon();
         Saltador vek2 = new Saltador();
 
         mechCanon.colocarseEn(posCanon, tablero);
-        vek1.colocarseEn(posVek1, tablero);
-        vek2.colocarseEn(posNuevoObjetivo, tablero);
+        vek1.colocarseEn(posAvispon, tablero);
+        vek2.colocarseEn(posSaltador, tablero);
 
         // Act
-        vek1.prepararAtaque(new Sur());
+        vek1.prepararAtaque(posAtaqueAvispon);
 
-        mechCanon.atacarA(posVek1, tablero);
+        mechCanon.atacarA(posAvispon, tablero);
 
         new Turno(List.of(vek1), new InteligenciaArtificialVek()).faseResolucion(tablero);
 

@@ -32,10 +32,13 @@ public class EstadoVekTest {
     public void test01VekDisponibleSeMueveYSuEstadoBloqueaMovimientosSucesivos() {
         // Arrange
         Tablero tablero = new ConstructorTablero().construir(MAPA_BASE);
-        Saltador vek = new Saltador();
+
+
         Posicion posInicial = new Posicion(1, 1);
         Posicion primerDestino = new Posicion(1, 2);
         Posicion segundoDestino = new Posicion(1, 3);
+
+        Saltador vek = new Saltador();
 
         vek.colocarseEn(posInicial, tablero);
 
@@ -49,11 +52,16 @@ public class EstadoVekTest {
     @Test
     public void test02EstadoVekDisponibleCambiaAConAtaquePreparadoAlPrepararAtaque() {
         // Arrange
+        Tablero tablero = new ConstructorTablero().construir(MAPA_BASE);
+
         Saltador vek = new Saltador();
+
+        vek.colocarseEn(new Posicion(1,1), tablero);
+
         EstadoTurnoVek estadoInicial = new EstadoVekDisponible();
 
         // Act
-        EstadoTurnoVek resultado = estadoInicial.prepararAtaque(vek, new Sur());
+        EstadoTurnoVek resultado = estadoInicial.prepararAtaque(vek, new Posicion(2,1));
 
         // Assert
         assertEquals(EstadoVekConAtaquePreparado.class, resultado.getClass());

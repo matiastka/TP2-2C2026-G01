@@ -9,6 +9,7 @@ import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.veks.InteligenciaArtificialVek;
 import edu.fiuba.algo3.modelo.unidades.veks.Saltador;
+import javafx.geometry.Pos;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -42,19 +43,26 @@ public class TurnoTest {
     public void test01EnLaFaseDeResolucionAtacaPrimeroElPrimerVekDelTurno() {
         // Arrange
         Tablero tablero = new ConstructorTablero().construir(MAPA_LIBRE);
-        Saltador primero = new Saltador();
-        Saltador segundo = new Saltador();
-        primero.colocarseEn(new Posicion(1, 1), tablero);
-        segundo.colocarseEn(new Posicion(1, 2), tablero);
-        primero.prepararAtaque(new Este());
-        segundo.prepararAtaque(new Oeste());
-        Turno turno = new Turno(List.of(primero, segundo), new InteligenciaArtificialVek());
+
+        Posicion posicionVek1 = new Posicion(1,1);
+        Posicion posicionVek2 = new Posicion(1,2);
+
+        Saltador vekSaltador1 = new Saltador();
+        Saltador vekSaltador2 = new Saltador();
+
+        vekSaltador1.colocarseEn(posicionVek1, tablero);
+        vekSaltador2.colocarseEn(posicionVek2, tablero);
+
+        vekSaltador1.prepararAtaque(posicionVek2);
+        vekSaltador2.prepararAtaque(posicionVek1);
+
+        Turno turno = new Turno(List.of(vekSaltador1, vekSaltador2), new InteligenciaArtificialVek());
 
         // Act
         turno.faseResolucion(tablero);
 
         // Assert
-        assertEquals(2, primero.obtenerVida());
+        assertEquals(2, vekSaltador1.obtenerVida());
     }
 
     @Test
@@ -68,8 +76,8 @@ public class TurnoTest {
         primero.colocarseEn(new Posicion(1, 1), tablero);
         segundo.colocarseEn(new Posicion(1, 2), tablero);
 
-        primero.prepararAtaque(new Este());
-        segundo.prepararAtaque(new Oeste());
+        primero.prepararAtaque(new Posicion(1, 2));
+        segundo.prepararAtaque(new Posicion(1, 1));
 
         Turno turno = new Turno(List.of(segundo, primero), new InteligenciaArtificialVek());
 

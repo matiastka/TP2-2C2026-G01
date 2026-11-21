@@ -13,7 +13,7 @@ public class EstadoVekMuerto implements EstadoTurnoVek {
     }
 
     @Override
-    public EstadoTurnoVek prepararAtaque(Vek vek, Direccion direccion) {
+    public EstadoTurnoVek prepararAtaque(Vek vek, Posicion posicion) {
         throw new AccionNoDisponibleException();
     }
 

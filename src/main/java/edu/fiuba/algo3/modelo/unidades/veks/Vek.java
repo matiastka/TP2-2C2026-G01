@@ -36,16 +36,12 @@
             super.ejecutarMovimiento(destino, tablero);
         }
 
-        public void prepararAtaque(Direccion direccion) {
-            this.estadoTurno = this.estadoTurno.prepararAtaque(this, direccion);
+        public void prepararAtaque(Posicion objetivo) {
+            this.estadoTurno = this.estadoTurno.prepararAtaque(this, objetivo);
         }
 
         public void resolverAtaque(Tablero tablero) {
             this.estadoTurno = this.estadoTurno.resolverAtaque(this, tablero);
-        }
-
-        void guardarDireccionAtaque(Direccion direccion) {
-            this.ataquePreparado = new AtaqueEnDireccion(direccion);
         }
 
         void ejecutarAtaquePreparado(Tablero tablero) {
@@ -65,4 +61,11 @@
                 this.estadoTurno = new EstadoVekMuerto();
             }
         }
+
+        void apuntarA(Posicion objetivo) {
+            validarObjetivo(objetivo);
+            this.ataquePreparado = new AtaqueEnDireccion(obtenerPosicion().direccionHacia(objetivo));
+        }
+
+        protected abstract void validarObjetivo(Posicion objetivo);
 }

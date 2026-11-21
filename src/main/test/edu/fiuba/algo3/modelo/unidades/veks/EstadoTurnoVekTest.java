@@ -53,13 +53,16 @@ public class EstadoTurnoVekTest {
     @Test
     public void test03VekPreparaAtaqueSinHacerDanioInmediato() {
         Tablero tablero = new ConstructorTablero().construir(MAPA);
+
         Posicion posVek = new Posicion(2, 2);
         Posicion posMech = new Posicion(2, 3);
+
         Vek vek = new Luciernaga();
         Mech mech = new Combate();
+
         vek.colocarseEn(posVek, tablero);
         mech.colocarseEn(posMech, tablero);
-        vek.prepararAtaque(new Este());
+        vek.prepararAtaque(posMech);
 
         assertEquals(3, mech.obtenerVida());
     }
@@ -67,13 +70,17 @@ public class EstadoTurnoVekTest {
     @Test
     public void test04AtaquePreparadoSeResuelveYHaceDanio() {
         Tablero tablero = new ConstructorTablero().construir(MAPA);
+
         Posicion posVek = new Posicion(2, 2);
         Posicion posMech = new Posicion(2, 3);
+
         Vek vek = new Luciernaga();
         Mech mech = new Combate();
+
         vek.colocarseEn(posVek, tablero);
         mech.colocarseEn(posMech, tablero);
-        vek.prepararAtaque(new Este());
+
+        vek.prepararAtaque(posMech);
         vek.resolverAtaque(tablero);
 
         assertEquals(2, mech.obtenerVida());
@@ -82,9 +89,12 @@ public class EstadoTurnoVekTest {
     @Test
     public void test05VekNoPuedeMoverseSiYaPreparoUnAtaque() {
         Tablero tablero = new ConstructorTablero().construir(MAPA);
+
         Vek vek = new Luciernaga();
+
         vek.colocarseEn(new Posicion(1, 1), tablero);
-        vek.prepararAtaque(new Sur());
+
+        vek.prepararAtaque(new Posicion(2,1));
 
         assertThrows(AtaqueYaPreparadoException.class, () -> vek.moverA(new Posicion(1, 2), tablero));
     }
@@ -92,10 +102,13 @@ public class EstadoTurnoVekTest {
     @Test
     public void test06MovimientoRechazadoConAtaquePreparadoNoMueveAlVek() {
         Tablero tablero = new ConstructorTablero().construir(MAPA);
+
         Posicion origen = new Posicion(1, 1);
+
         Vek vek = new Luciernaga();
         vek.colocarseEn(origen, tablero);
-        vek.prepararAtaque(new Sur());
+
+        vek.prepararAtaque(new Posicion(2,1));
 
         assertThrows(AtaqueYaPreparadoException.class, () -> vek.moverA(new Posicion(1, 2), tablero));
     }
@@ -103,11 +116,17 @@ public class EstadoTurnoVekTest {
     @Test
     public void test07VekVuelveAEstarDisponibleLuegoDeResolverSuAtaque() {
         Tablero tablero = new ConstructorTablero().construir(MAPA);
+
         Posicion nuevoDestino = new Posicion(1, 3);
+
         Vek vek = new Luciernaga();
+
         vek.colocarseEn(new Posicion(1, 1), tablero);
-        vek.prepararAtaque(new Este());
+
+        vek.prepararAtaque(new Posicion(1, 2));
+
         vek.resolverAtaque(tablero);
+
         vek.moverA(nuevoDestino, tablero);
 
         assertEquals(nuevoDestino, vek.obtenerPosicion());
@@ -116,16 +135,23 @@ public class EstadoTurnoVekTest {
     @Test
     public void test08VekEmpujadoAtacaDesdeSuNuevaPosicion() {
         Tablero tablero = new ConstructorTablero().construir(MAPA);
+
         Posicion posVekInicial = new Posicion(1, 1);
         Posicion posVekEmpujado = new Posicion(2, 1);
+
         Posicion posMech2 = new Posicion(2, 2);
+
         Vek vek = new Luciernaga();
+
         Mech mech1 = new Combate();
         Mech mech2 = new Combate();
+
         vek.colocarseEn(posVekInicial, tablero);
+
         mech1.colocarseEn(new Posicion(1, 2), tablero);
         mech2.colocarseEn(posMech2, tablero);
-        vek.prepararAtaque(new Este());
+
+        vek.prepararAtaque(new Posicion(1, 2));
         vek.serEmpujadoA(posVekEmpujado, tablero);
         vek.resolverAtaque(tablero);
 

@@ -27,7 +27,7 @@ public class AtaqueAnunciadoTest {
     };
 
     @Test
-    public void testVeksAtacanEnElOrdenAnunciado() {
+    public void test01DosVeksSeAtacanEntreSiConUnOrdenAnunciado() {
         // Arrange
         Tablero tablero = new ConstructorTablero().construir(MAPA_BASE);
 
@@ -41,9 +41,9 @@ public class AtaqueAnunciadoTest {
         vek2.colocarseEn(posVek2, tablero);
 
         // Act
-        vek1.prepararAtaque(new Este());
+        vek1.prepararAtaque(posVek2);
 
-        vek2.prepararAtaque(new Oeste());
+        vek2.prepararAtaque(posVek1);
 
         new Turno(List.of(vek1, vek2), new InteligenciaArtificialVek()).faseResolucion(tablero);
 
@@ -52,7 +52,7 @@ public class AtaqueAnunciadoTest {
     }
 
     @Test
-    public void testVekMuertoDuranteLaFaseDeResolucionNoEjecutaSuAtaque() {
+    public void test02VekMuertoDuranteLaFaseDeResolucionNoEjecutaSuAtaque() {
         // Arrange
         Tablero tablero = new ConstructorTablero().construir(MAPA_BASE);
 
@@ -69,9 +69,9 @@ public class AtaqueAnunciadoTest {
         mech.colocarseEn(posMech, tablero);
 
         // Act
-        vek1.prepararAtaque(new Este());
+        vek1.prepararAtaque(posVek2);
 
-        vek2.prepararAtaque(new Este());
+        vek2.prepararAtaque(posMech);
 
         new Turno(List.of(vek1, vek2), new InteligenciaArtificialVek()).faseResolucion(tablero);
 

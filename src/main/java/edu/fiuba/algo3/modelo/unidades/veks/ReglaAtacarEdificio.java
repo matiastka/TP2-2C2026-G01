@@ -19,7 +19,7 @@ public class ReglaAtacarEdificio implements ReglaPrioridadVek {
                     if (!vek.obtenerPosicion().equals(destino)) {
                         vek.moverA(destino, tablero);
                     }
-                    vek.prepararAtaque(direccion);
+                    vek.prepararAtaque(destino.siguienteEn(direccion));
                     return true;
                 }
             }

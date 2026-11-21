@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.modelo.unidades.veks;
 
-import edu.fiuba.algo3.modelo.tablero.Direccion;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 
@@ -13,8 +12,8 @@ public class EstadoVekDisponible implements EstadoTurnoVek {
     }
 
     @Override
-    public EstadoTurnoVek prepararAtaque(Vek vek, Direccion direccion) {
-        vek.guardarDireccionAtaque(direccion);
+    public EstadoTurnoVek prepararAtaque(Vek vek, Posicion objetivo) {
+        vek.apuntarA(objetivo);
         return new EstadoVekConAtaquePreparado();
     }
 
