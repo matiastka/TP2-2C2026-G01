@@ -48,11 +48,7 @@ public class Tablero {
         enCasilla(posicion).activarEmergencia(unidad);
     }
 
-    public void resolverEmergencia(Posicion posicion) {
-        enCasilla(posicion).resolverEmergencia(this);
-    }
-
-    public void avanzarTurno() {
+    public void resolverEmergencias() {
         for (Casilla casilla : casillas.values()) {
             casilla.resolverEmergencia(this);
         }

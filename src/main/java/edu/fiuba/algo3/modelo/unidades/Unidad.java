@@ -121,4 +121,9 @@ public abstract class Unidad implements Ocupante {
     public void recibirEfectoDeImpacto(EfectoImpacto efecto, Posicion posicion, Direccion direccion, Tablero tablero) {
         efecto.aplicar(this, posicion, direccion, tablero);
     }
+
+    @Override
+    public void recibirEmergencia(EmergenciaVek emergencia, Casilla casilla, Tablero tablero) {
+        emergencia.serBloqueadaPor(this);
+    }
 }

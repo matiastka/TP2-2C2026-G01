@@ -27,4 +27,8 @@ public class Turno {
             vek.resolverAtaque(tablero);
         }
     }
+
+    public void faseEmergencia(Tablero tablero) {
+        tablero.resolverEmergencias();
+    }
 }

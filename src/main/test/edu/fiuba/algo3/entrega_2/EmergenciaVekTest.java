@@ -25,14 +25,14 @@ public class EmergenciaVekTest {
     };
 
     @Test
-    public void test01AlAnunciarLaEmergenciaQuedaActivaEnLaCasillaLibre() {
+    public void test01AlAnunciarLaEmergenciaElVekTodaviaNoEmerge() {
         Tablero tablero = new ConstructorTablero().construir(MAPA_BASE);
         Posicion posicion = new Posicion(3, 3);
         Vek vek = new Luciernaga();
 
         tablero.anunciarEmergencia(posicion, vek);
 
-        assertTrue(tablero.enCasilla(posicion).tieneEmergenciaActiva());
+        assertTrue(tablero.enCasilla(posicion).estaLibre());
     }
 
     @Test
@@ -42,21 +42,22 @@ public class EmergenciaVekTest {
         Vek vek = new Luciernaga();
 
         tablero.anunciarEmergencia(posicion, vek);
-        tablero.avanzarTurno();
+        tablero.resolverEmergencias();
 
         assertSame(vek, tablero.enCasilla(posicion).obtenerOcupante());
     }
 
     @Test
-    public void test03LaEmergenciaSeDesactivaCuandoElVekEmerge() {
+    public void test03UnaVezQueElVekEmergeLaEmergenciaNoVuelveAResolverse() {
         Tablero tablero = new ConstructorTablero().construir(MAPA_BASE);
         Posicion posicion = new Posicion(3, 3);
         Vek vek = new Luciernaga();
 
         tablero.anunciarEmergencia(posicion, vek);
-        tablero.avanzarTurno();
+        tablero.resolverEmergencias();
+        tablero.resolverEmergencias();
 
-        assertFalse(tablero.enCasilla(posicion).tieneEmergenciaActiva());
+        assertEquals(3, vek.obtenerVida());
     }
 
     @Test
@@ -68,7 +69,7 @@ public class EmergenciaVekTest {
 
         mech.colocarseEn(posicion, tablero);
         tablero.anunciarEmergencia(posicion, vek);
-        tablero.avanzarTurno();
+        tablero.resolverEmergencias();
 
         assertEquals(2, mech.obtenerVida());
     }
@@ -82,9 +83,10 @@ public class EmergenciaVekTest {
 
         mech.colocarseEn(posicion, tablero);
         tablero.anunciarEmergencia(posicion, vek);
-        tablero.avanzarTurno();
+        tablero.resolverEmergencias();
+        tablero.resolverEmergencias();
 
-        assertTrue(tablero.enCasilla(posicion).tieneEmergenciaActiva());
+        assertEquals(1, mech.obtenerVida());
     }
 
     @Test
@@ -96,7 +98,7 @@ public class EmergenciaVekTest {
 
         bloqueador.colocarseEn(posicion, tablero);
         tablero.anunciarEmergencia(posicion, vek);
-        tablero.avanzarTurno();
+        tablero.resolverEmergencias();
 
         assertEquals(2, bloqueador.obtenerVida());
     }
@@ -110,9 +112,10 @@ public class EmergenciaVekTest {
 
         bloqueador.colocarseEn(posicion, tablero);
         tablero.anunciarEmergencia(posicion, vek);
-        tablero.avanzarTurno();
+        tablero.resolverEmergencias();
+        tablero.resolverEmergencias();
 
-        assertTrue(tablero.enCasilla(posicion).tieneEmergenciaActiva());
+        assertEquals(1, bloqueador.obtenerVida());
     }
 
     @Test
@@ -124,9 +127,9 @@ public class EmergenciaVekTest {
 
         mech.colocarseEn(posicion, tablero);
         tablero.anunciarEmergencia(posicion, vek);
-        tablero.avanzarTurno();
+        tablero.resolverEmergencias();
         tablero.desOcuparCasilla(posicion);
-        tablero.avanzarTurno();
+        tablero.resolverEmergencias();
 
         assertSame(vek, tablero.enCasilla(posicion).obtenerOcupante());
     }

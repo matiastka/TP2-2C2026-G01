@@ -31,12 +31,12 @@ public class Casilla {
         this.emergencia = new EmergenciaVek(unidad);
     }
 
-    public boolean tieneEmergenciaActiva() {
-        return this.emergencia.estaActiva();
-    }
-
     public void resolverEmergencia(Tablero tablero) {
         this.emergencia.resolver(this, tablero);
+    }
+
+    public void recibirEmergencia(EmergenciaVek emergencia, Tablero tablero) {
+        this.ocupante.recibirEmergencia(emergencia, this, tablero);
     }
 
     public void setEmergencia(Emergencia emergencia) {

@@ -3,6 +3,8 @@ package edu.fiuba.algo3.modelo.tablero;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
 
 public class EmergenciaVek implements Emergencia {
+    private static final int DANIO_POR_BLOQUEO = 1;
+
     private final Unidad vekPendiente;
 
     public EmergenciaVek(Unidad vekPendiente) {
@@ -10,18 +12,17 @@ public class EmergenciaVek implements Emergencia {
     }
 
     @Override
-    public boolean estaActiva() {
-        return true;
+    public void resolver(Casilla casilla, Tablero tablero) {
+        casilla.recibirEmergencia(this, tablero);
     }
 
-    @Override
-    public void resolver(Casilla casilla, Tablero tablero) {
-        if (casilla.estaLibre()) {
-            this.vekPendiente.colocarseEn(casilla.obtenerPosicion(), tablero);
-            tablero.enCasilla(casilla.obtenerPosicion()).aplicarEfectoA(this.vekPendiente);
-            casilla.setEmergencia(new SinEmergencia());
-            return;
-        }
-        casilla.obtenerOcupante().recibirDanio(1);
+    public void emergerEn(Casilla casilla, Tablero tablero) {
+        this.vekPendiente.colocarseEn(casilla.obtenerPosicion(), tablero);
+        casilla.aplicarEfectoA(this.vekPendiente);
+        casilla.setEmergencia(new SinEmergencia());
+    }
+
+    public void serBloqueadaPor(Ocupante bloqueador) {
+        bloqueador.recibirDanio(DANIO_POR_BLOQUEO);
     }
 }

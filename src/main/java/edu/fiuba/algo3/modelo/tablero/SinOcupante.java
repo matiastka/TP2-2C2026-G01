@@ -40,5 +40,10 @@ public class SinOcupante implements Ocupante {
     public void recibirEfectoDeImpacto(EfectoImpacto efecto, Posicion posicion, Direccion direccion, Tablero tablero) {
     }
 
+    @Override
+    public void recibirEmergencia(EmergenciaVek emergencia, Casilla casilla, Tablero tablero) {
+        emergencia.emergerEn(casilla, tablero);
+    }
+
 
 }

@@ -18,4 +18,6 @@ public interface Ocupante {
     void recibirTransito(Transito transito, Casilla casilla);
 
     void recibirEfectoDeImpacto(EfectoImpacto efecto, Posicion posicion, Direccion direccion, Tablero tablero);
+
+    void recibirEmergencia(EmergenciaVek emergencia, Casilla casilla, Tablero tablero);
 }

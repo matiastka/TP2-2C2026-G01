@@ -36,8 +36,8 @@ public class Partida {
 
     EstadoPartida jugarRestoDelTurno() {
         this.turno.faseResolucion(this.tablero);
+        this.turno.faseEmergencia(this.tablero);
         retirarUnidadesMuertas();
-        this.tablero.avanzarTurno();
         EstadoPartida siguiente = evaluarFinDelTurno();
         siguiente.comenzarTurno(this);
         return siguiente;
