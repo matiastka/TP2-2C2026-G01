@@ -2,11 +2,14 @@
 package edu.fiuba.algo3.entrega_2;
 
 import edu.fiuba.algo3.mapa.ConstructorTablero;
+import edu.fiuba.algo3.modelo.partida.Turno;
 import edu.fiuba.algo3.modelo.tablero.*;
 import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
-import edu.fiuba.algo3.modelo.unidades.veks.GestorDeAtaques;
+import edu.fiuba.algo3.modelo.unidades.veks.InteligenciaArtificialVek;
 import edu.fiuba.algo3.modelo.unidades.veks.Saltador;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -27,7 +30,6 @@ public class AtaqueAnunciadoTest {
     public void testVeksAtacanEnElOrdenAnunciado() {
         // Arrange
         Tablero tablero = new ConstructorTablero().construir(MAPA_BASE);
-        GestorDeAtaques gestor = new GestorDeAtaques();
 
         Posicion posVek1 = new Posicion(1, 1);
         Posicion posVek2 = new Posicion(1, 2);
@@ -40,12 +42,10 @@ public class AtaqueAnunciadoTest {
 
         // Act
         vek1.prepararAtaque(new Este());
-        gestor.encolar(vek1.generarAtaqueAnunciado());
 
         vek2.prepararAtaque(new Oeste());
-        gestor.encolar(vek2.generarAtaqueAnunciado());
 
-        gestor.ejecutarFase(tablero);
+        new Turno(List.of(vek1, vek2), new InteligenciaArtificialVek()).faseResolucion(tablero);
 
         // Assert
         assertEquals(0, vek2.obtenerVida()); 
@@ -55,7 +55,6 @@ public class AtaqueAnunciadoTest {
     public void testVekMuertoDuranteLaFaseDeResolucionNoEjecutaSuAtaque() {
         // Arrange
         Tablero tablero = new ConstructorTablero().construir(MAPA_BASE);
-        GestorDeAtaques gestor = new GestorDeAtaques();
 
         Posicion posVek1 = new Posicion(1, 1);
         Posicion posVek2 = new Posicion(1, 2);
@@ -71,12 +70,10 @@ public class AtaqueAnunciadoTest {
 
         // Act
         vek1.prepararAtaque(new Este());
-        gestor.encolar(vek1.generarAtaqueAnunciado());
 
         vek2.prepararAtaque(new Este());
-        gestor.encolar(vek2.generarAtaqueAnunciado());
 
-        gestor.ejecutarFase(tablero);
+        new Turno(List.of(vek1, vek2), new InteligenciaArtificialVek()).faseResolucion(tablero);
 
         // Assert
         assertEquals(3, mech.obtenerVida()); 

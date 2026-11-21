@@ -2,14 +2,17 @@
 package edu.fiuba.algo3.entrega_2;
 
 import edu.fiuba.algo3.mapa.ConstructorTablero;
+import edu.fiuba.algo3.modelo.partida.Turno;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Sur;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.mechs.Canon;
 import edu.fiuba.algo3.modelo.unidades.veks.Avispon;
-import edu.fiuba.algo3.modelo.unidades.veks.GestorDeAtaques;
+import edu.fiuba.algo3.modelo.unidades.veks.InteligenciaArtificialVek;
 import edu.fiuba.algo3.modelo.unidades.veks.Saltador;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -30,7 +33,6 @@ public class AtaqueDesplazadoTest {
     public void testEmpujarVekDesplazaSuAtaqueAnunciadoYDanioAlNuevoObjetivo() {
         // Arrange
         Tablero tablero = new ConstructorTablero().construir(MAPA_BASE);
-        GestorDeAtaques gestor = new GestorDeAtaques();
 
         Posicion posCanon = new Posicion(1, 1);
         Posicion posVek1 = new Posicion(1, 2);
@@ -46,11 +48,10 @@ public class AtaqueDesplazadoTest {
 
         // Act
         vek1.prepararAtaque(new Sur());
-        gestor.encolar(vek1.generarAtaqueAnunciado());
 
         mechCanon.atacarA(posVek1, tablero);
 
-        gestor.ejecutarFase(tablero);
+        new Turno(List.of(vek1), new InteligenciaArtificialVek()).faseResolucion(tablero);
 
         // Assert
         assertEquals(1, vek2.obtenerVida());

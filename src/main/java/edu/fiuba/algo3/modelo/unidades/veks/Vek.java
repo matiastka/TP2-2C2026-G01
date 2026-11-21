@@ -58,7 +58,11 @@
             recibirDanio(obtenerVida());
         }
 
-        public AtaqueAnunciado generarAtaqueAnunciado() {
-            return new AtaqueAnunciado(this);
+        @Override
+        public void recibirDanio(int danio) {
+            super.recibirDanio(danio);
+            if (obtenerVida() <= 0) {
+                this.estadoTurno = new EstadoVekMuerto();
+            }
         }
 }
