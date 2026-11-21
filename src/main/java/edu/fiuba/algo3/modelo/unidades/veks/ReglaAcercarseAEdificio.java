@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.modelo.unidades.veks;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import edu.fiuba.algo3.modelo.tablero.Posicion;
@@ -43,15 +42,8 @@ public class ReglaAcercarseAEdificio implements ReglaPrioridadVek {
     }
 
     private List<Posicion> obtenerPosicionesEdificios(Tablero tablero) {
-        List<Posicion> edificios = new ArrayList<>();
-        for (int fila = 0; fila < tablero.cantidadFilas(); fila++) {
-            for (int col = 0; col < tablero.cantidadColumnas(); col++) {
-                Posicion pos = new Posicion(fila, col);
-                if (tablero.enCasilla(pos).obtenerTerreno().esEdificio()) {
-                    edificios.add(pos);
-                }
-            }
-        }
-        return edificios;
+        BuscadorDeEdificios buscador = new BuscadorDeEdificios();
+        tablero.recorrerTerrenos(buscador);
+        return buscador.obtenerEdificios();
     }
 }

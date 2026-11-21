@@ -1,29 +1,14 @@
 package edu.fiuba.algo3.modelo.unidades.veks;
 
-import edu.fiuba.algo3.modelo.tablero.Casilla;
+import java.util.List;
+
 import edu.fiuba.algo3.modelo.tablero.Direccion;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
-import edu.fiuba.algo3.modelo.tablero.Tablero;
 
-import java.util.List;
-import java.util.Optional;
-
-public class ReglaAtacarMech implements ReglaPrioridadVek {
+public class ReglaAtacarMech extends ReglaAtacar {
 
     @Override
-    public boolean intentarEjecutar(Vek vek, List<Posicion> posicionesAlcanzables, Tablero tablero) {
-        for (Posicion destino : posicionesAlcanzables) {
-            for (Direccion direccion : Direccion.cardinales()) {
-                Optional<Casilla> impacto = vek.simularImpactoDesde(destino, direccion, tablero);
-                if (impacto.isPresent() && impacto.get().obtenerOcupante().esMech()) {
-                    if (!vek.obtenerPosicion().equals(destino)) {
-                        vek.moverA(destino, tablero);
-                    }
-                    vek.prepararAtaque(destino.siguienteEn(direccion));
-                    return true;
-                }
-            }
-        }
-        return false;
+    protected AtaquePosible crearAtaque(Posicion destino, Direccion direccion, List<AtaquePosible> ataquesPosibles) {
+        return new AtaqueAMech(destino, direccion, ataquesPosibles);   // o new AtaqueAMech(...)
     }
 }

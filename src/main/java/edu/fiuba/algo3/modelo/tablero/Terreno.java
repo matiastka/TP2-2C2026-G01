@@ -7,8 +7,7 @@ public abstract class Terreno {
     public void abandonar(Ocupante ocupante) {
     }
 
-    public boolean esEdificio() {
-        return false;
+    public void ofrecerComoObjetivo(BuscadorDeObjetivos buscador, Casilla casilla) {
     }
 
     public boolean esPeligrosoParaTerrestres() {

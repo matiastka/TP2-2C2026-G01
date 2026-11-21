@@ -20,4 +20,6 @@ public interface Ocupante {
     void recibirEfectoDeImpacto(EfectoImpacto efecto, Posicion posicion, Direccion direccion, Tablero tablero);
 
     void recibirEmergencia(EmergenciaVek emergencia, Casilla casilla, Tablero tablero);
+
+    void ofrecerComoObjetivo(BuscadorDeObjetivos buscador, Casilla casilla);
 }

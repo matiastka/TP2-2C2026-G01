@@ -45,5 +45,10 @@ public class SinOcupante implements Ocupante {
         emergencia.emergerEn(casilla, tablero);
     }
 
+    @Override
+    public void ofrecerComoObjetivo(BuscadorDeObjetivos buscador, Casilla casilla) {
+        casilla.ofrecerTerrenoComoObjetivo(buscador);
+    }
+
 
 }

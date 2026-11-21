@@ -61,4 +61,13 @@ public class Tablero {
     public int obtenerRedElectrica() {
         return this.redElectrica.obtenerNivel();
     }
+
+    public void recorrerTerrenos(BuscadorDeObjetivos buscador) {
+        for (int fila = 0; fila < CANTIDAD_DE_FILAS; fila++) {
+            for (int columna = 0; columna < CANTIDAD_DE_COLUMNAS; columna++) {
+                enCasilla(new Posicion(fila, columna)).ofrecerTerrenoComoObjetivo(buscador);
+            }
+        }
+    }
+
 }

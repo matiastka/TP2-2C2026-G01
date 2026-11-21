@@ -126,4 +126,9 @@ public abstract class Unidad implements Ocupante {
     public void recibirEmergencia(EmergenciaVek emergencia, Casilla casilla, Tablero tablero) {
         emergencia.serBloqueadaPor(this);
     }
+
+    @Override
+    public void ofrecerComoObjetivo(BuscadorDeObjetivos buscador, Casilla casilla) {
+    }
+
 }

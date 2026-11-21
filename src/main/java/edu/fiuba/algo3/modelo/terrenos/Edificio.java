@@ -1,10 +1,7 @@
 package edu.fiuba.algo3.modelo.terrenos;
 
 import edu.fiuba.algo3.modelo.RedElectrica;
-import edu.fiuba.algo3.modelo.tablero.Casilla;
-import edu.fiuba.algo3.modelo.tablero.Ocupante;
-import edu.fiuba.algo3.modelo.tablero.Terreno;
-import edu.fiuba.algo3.modelo.tablero.Transito;
+import edu.fiuba.algo3.modelo.tablero.*;
 
 public class Edificio extends Terreno {
     private final RedElectrica redElectrica;
@@ -26,8 +23,8 @@ public class Edificio extends Terreno {
     }
 
     @Override
-    public boolean esEdificio() {
-        return true;
+    public void ofrecerComoObjetivo(BuscadorDeObjetivos buscador, Casilla casilla) {
+        buscador.encontrarEdificio(casilla);
     }
 
     @Override

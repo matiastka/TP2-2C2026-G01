@@ -83,4 +83,13 @@ public class Casilla {
     public void aplicarEfectoDeImpacto(EfectoImpacto efecto, Direccion direccion, Tablero tablero) {
         this.ocupante.recibirEfectoDeImpacto(efecto, this.posicion, direccion, tablero);
     }
+
+    public void ofrecerComoObjetivo(BuscadorDeObjetivos buscador) {
+        this.ocupante.ofrecerComoObjetivo(buscador, this);
+    }
+
+    public void ofrecerTerrenoComoObjetivo(BuscadorDeObjetivos buscador) {
+        this.terreno.ofrecerComoObjetivo(buscador, this);
+    }
+
 }

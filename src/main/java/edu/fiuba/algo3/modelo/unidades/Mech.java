@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo.unidades;
 
+import edu.fiuba.algo3.modelo.tablero.BuscadorDeObjetivos;
+import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 
@@ -65,7 +67,7 @@ public abstract class Mech extends Unidad {
     private EstadoSalud estadoSaludAnterior;
 
     @Override
-    public boolean esMech() {
-        return true;
+    public void ofrecerComoObjetivo(BuscadorDeObjetivos buscador, Casilla casilla) {
+        buscador.encontrarMech(casilla);
     }
 }
