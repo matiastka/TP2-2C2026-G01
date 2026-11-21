@@ -12,6 +12,7 @@ import edu.fiuba.algo3.modelo.unidades.veks.Saltador;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class TurnoTest {
 
@@ -118,5 +119,21 @@ public class TurnoTest {
 
         // Assert
         assertEquals(redInicial, tablero.obtenerRedElectrica());
+    }
+
+    @Test
+    public void test05EnLaFaseDeEmergenciaEmergeElVekAnunciado() {
+        // Arrange
+        Tablero tablero = new ConstructorTablero().construir(MAPA_LIBRE);
+        Posicion posicion = new Posicion(3, 3);
+        Saltador vekQueEmerge = new Saltador();
+        tablero.anunciarEmergencia(posicion, vekQueEmerge);
+        Turno turno = new Turno(List.of(), new InteligenciaArtificialVek());
+
+        // Act
+        turno.faseEmergencia(tablero);
+
+        // Assert
+        assertSame(vekQueEmerge, tablero.enCasilla(posicion).obtenerOcupante());
     }
 }
