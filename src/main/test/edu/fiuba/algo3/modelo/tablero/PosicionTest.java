@@ -30,84 +30,84 @@ public class PosicionTest {
     public void test04LaSiguientePosicionHaciaElNorteEstaUnaFilaArriba() {
         Posicion posicion = new Posicion(3, 3);
 
-        assertEquals(new Posicion(2, 3), posicion.siguienteEn(Direccion.NORTE));
+        assertEquals(new Posicion(2, 3), posicion.siguienteEn(new Norte()));
     }
 
     @Test
     public void test05LaSiguientePosicionHaciaElSurEstaUnaFilaAbajo() {
         Posicion posicion = new Posicion(3, 3);
 
-        assertEquals(new Posicion(4, 3), posicion.siguienteEn(Direccion.SUR));
+        assertEquals(new Posicion(4, 3), posicion.siguienteEn(new Sur()));
     }
 
     @Test
     public void test06LaSiguientePosicionHaciaElEsteEstaUnaColumnaALaDerecha() {
         Posicion posicion = new Posicion(3, 3);
 
-        assertEquals(new Posicion(3, 4), posicion.siguienteEn(Direccion.ESTE));
+        assertEquals(new Posicion(3, 4), posicion.siguienteEn(new Este()));
     }
 
     @Test
     public void test07LaSiguientePosicionHaciaElOesteEstaUnaColumnaALaIzquierda() {
         Posicion posicion = new Posicion(3, 3);
 
-        assertEquals(new Posicion(3, 2), posicion.siguienteEn(Direccion.OESTE));
+        assertEquals(new Posicion(3, 2), posicion.siguienteEn(new Oeste()));
     }
 
     @Test
-    public void test08LaSiguientePosicionHaciaNingunaEsLaMismaPosicion() {
-        Posicion posicion = new Posicion(3, 3);
+    public void test08UnaPosicionEnDiagonalNoEstaEnLineaRecta() {
+        Posicion origen = new Posicion(3, 3);
 
-        assertEquals(new Posicion(3, 3), posicion.siguienteEn(Direccion.NINGUNA));
+        assertFalse(origen.estaEnLineaRectaA(new Posicion(1, 5), 1));
     }
 
     @Test
     public void test09LaDireccionHaciaUnaPosicionDeArribaEsNorte() {
         Posicion origen = new Posicion(3, 3);
 
-        assertEquals(Direccion.NORTE, origen.direccionHacia(new Posicion(0, 3)));
+        assertEquals(new Norte(), origen.direccionHacia(new Posicion(0, 3)));
     }
 
     @Test
     public void test10LaDireccionHaciaUnaPosicionDeAbajoEsSur() {
         Posicion origen = new Posicion(3, 3);
 
-        assertEquals(Direccion.SUR, origen.direccionHacia(new Posicion(6, 3)));
+        assertEquals(new Sur(), origen.direccionHacia(new Posicion(6, 3)));
     }
 
     @Test
     public void test11LaDireccionHaciaUnaPosicionALaDerechaEsEste() {
         Posicion origen = new Posicion(3, 3);
 
-        assertEquals(Direccion.ESTE, origen.direccionHacia(new Posicion(3, 7)));
+        assertEquals(new Este(), origen.direccionHacia(new Posicion(3, 7)));
     }
 
     @Test
     public void test12LaDireccionHaciaUnaPosicionALaIzquierdaEsOeste() {
         Posicion origen = new Posicion(3, 3);
 
-        assertEquals(Direccion.OESTE, origen.direccionHacia(new Posicion(3, 1)));
+        assertEquals(new Oeste(), origen.direccionHacia(new Posicion(3, 1)));
     }
 
     @Test
     public void test13LaDireccionHaciaUnaPosicionAdyacenteEsCorrecta() {
         Posicion origen = new Posicion(3, 3);
 
-        assertEquals(Direccion.NORTE, origen.direccionHacia(new Posicion(2, 3)));
+        assertEquals(new Norte(), origen.direccionHacia(new Posicion(2, 3)));
     }
 
     @Test
-    public void test14LaDireccionHaciaUnaPosicionEnDiagonalEsNinguna() {
+    public void test14PedirLaDireccionHaciaUnaPosicionEnDiagonalLanzaExcepcion() {
         Posicion origen = new Posicion(3, 3);
 
-        assertEquals(Direccion.NINGUNA, origen.direccionHacia(new Posicion(1, 5)));
+        assertThrows(DireccionInvalidaException.class, () -> origen.direccionHacia(new Posicion(1, 5)));
     }
 
     @Test
-    public void test15LaDireccionHaciaLaMismaPosicionEsNinguna() {
+    public void test15PedirLaDireccionHaciaLaMismaPosicionLanzaExcepcion() {
         Posicion origen = new Posicion(3, 3);
 
-        assertEquals(Direccion.NINGUNA, origen.direccionHacia(new Posicion(3, 3)));
+        assertThrows(DireccionInvalidaException.class, () -> origen.direccionHacia(new Posicion(3, 3)));
     }
 
     @Test

@@ -1,39 +1,29 @@
-
 package edu.fiuba.algo3.modelo.unidades.mechs;
 
-import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Direccion;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.Mech;
+import edu.fiuba.algo3.modelo.unidades.*;
 
 public class Canon extends Mech {
 
-    public Canon(Posicion posicion) {
-        super(3, posicion);
+    private final Ataque ataque = new AtaqueLineaRecta(1, new EfectoEmpujar());
+
+    public Canon() {
+        super(3);
     }
 
     @Override
     protected void ejecutarAtaque(Posicion objetivo, Tablero tablero) {
-        Direccion direccion = posicion.direccionHacia(objetivo);
-        if (direccion == Direccion.NINGUNA) {
-            return;
+        if (!tablero.estaEnRango(objetivo)) {
+            throw new DestinoFueraDelTableroException();
         }
 
-        Posicion posActual = posicion.siguienteEn(direccion);
-        while (tablero.estaEnRango(posActual)) {
-            Casilla casillaActual = tablero.enCasilla(posActual);
-
-            if (!casillaActual.estaLibre()) {
-                golpearYEmpujar(posActual, 1, direccion, tablero);
-                return;
-            }
-
-            if (!casillaActual.esTransitable()) {
-                return;
-            }
-
-            posActual = posActual.siguienteEn(direccion);
+        if (!obtenerPosicion().estaEnLineaRectaA(objetivo, 1)) {
+            throw new DestinoNoAlcanzableException();
         }
+
+        Direccion direccion = obtenerPosicion().direccionHacia(objetivo);
+        ataque.ejecutar(obtenerPosicion(), direccion, tablero);
     }
 }

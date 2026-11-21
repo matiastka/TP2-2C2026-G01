@@ -1,6 +1,7 @@
 
 package edu.fiuba.algo3.modelo.unidades;
 
+import edu.fiuba.algo3.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
@@ -32,39 +33,39 @@ public class MovimientoTerrestreTest {
     };
 
     @Test
-    public void test01DestinoDentroDeRangoYLibreDevuelveTrue() {
-        Tablero tablero = new Tablero(MAPA_BASE);
+    public void test01DestinoDentroDeRangoYLibreEsValido() {
+        Tablero tablero = new ConstructorTablero().construir(MAPA_BASE);
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 3);
 
-        assertTrue(movimiento.puedeLlegar(origen, destino, 3, tablero));
+        assertDoesNotThrow(() -> movimiento.validarCamino(origen, destino, 3, tablero));
     }
 
     @Test
-    public void test02DestinoFueraDeRangoDevuelveFalse() {
-        Tablero tablero = new Tablero(MAPA_BASE);
+    public void test02DestinoFueraDeRangoRetornaRechazo() {
+        Tablero tablero = new ConstructorTablero().construir(MAPA_BASE);
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 4);
 
-        assertFalse(movimiento.puedeLlegar(origen, destino, 3, tablero));
+        assertThrows(DestinoNoAlcanzableException.class, () -> movimiento.validarCamino(origen, destino, 3, tablero));
     }
 
     @Test
-    public void test03CaminoBloqueadoPorMontanaDevuelveFalse() {
-        Tablero tablero = new Tablero(MAPA_CON_MONTANA);
+    public void test03CaminoBloqueadoPorMontanaRetornaRechazo() {
+        Tablero tablero = new ConstructorTablero().construir(MAPA_CON_MONTANA);
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 2);
 
-        assertFalse(movimiento.puedeLlegar(origen, destino, 3, tablero));
+        assertThrows(CaminoBloqueadoException.class, () -> movimiento.validarCamino(origen, destino, 3, tablero));
     }
 
     @Test
-    public void test04CasillaDestinoOcupadaPorOtraUnidadDevuelveFalse() {
+    public void test04CasillaDestinoOcupadaPorOtraUnidadRetornaRechazo() {
         // Arrange
-        Tablero tablero = new Tablero(MAPA_BASE);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_BASE);
 
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 2);
@@ -72,40 +73,45 @@ public class MovimientoTerrestreTest {
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
 
         // Act
-        tablero.ocuparCasilla(destino, new Combate(origen));
+        tablero.ocuparCasilla(destino, new Combate());
 
         // Assert
-        assertFalse(movimiento.puedeLlegar(origen, destino, 3, tablero));
+        assertThrows(CaminoBloqueadoException.class, () -> movimiento.validarCamino(origen, destino, 3, tablero));
     }
 
     @Test
     public void test05AunqueTengaRangoNoPuedeRodearLaMontana() {
-        Tablero tablero = new Tablero(MAPA_CON_MONTANA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_CON_MONTANA);
+
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
+
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 2);
 
-        assertFalse(movimiento.puedeLlegar(origen, destino, 4, tablero));
+        assertThrows(CaminoBloqueadoException.class, () -> movimiento.validarCamino(origen, destino, 4, tablero));
     }
 
     @Test
-    public void test06DestinoQueNoEstaEnLaMismaFilaNiColumnaDevuelveFalse() {
-        Tablero tablero = new Tablero(MAPA_BASE);
+    public void test06DestinoQueNoEstaEnLaMismaFilaNiColumnaRetornaRechazo() {
+        Tablero tablero = new ConstructorTablero().construir(MAPA_BASE);
+
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
+
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(1, 2);
 
-        assertFalse(movimiento.puedeLlegar(origen, destino, 3, tablero));
+        assertThrows(DestinoNoAlcanzableException.class, () -> movimiento.validarCamino(origen, destino, 3, tablero));
     }
 
     @Test
     public void test07NoPuedeTerminarSobreUnaMontana() {
-        Tablero tablero = new Tablero(MAPA_CON_MONTANA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA_CON_MONTANA);
+
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
+
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 1);
 
-        assertFalse(movimiento.puedeLlegar(origen, destino, 3, tablero));
+        assertThrows(CaminoBloqueadoException.class, () -> movimiento.validarCamino(origen, destino, 3, tablero));
     }
-
 }

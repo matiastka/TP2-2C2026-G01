@@ -1,15 +1,24 @@
 package edu.fiuba.algo3.modelo.terrenos;
 
-import edu.fiuba.algo3.modelo.unidades.Unidad;
+import edu.fiuba.algo3.modelo.tablero.BuscadorDeDestinos;
+import edu.fiuba.algo3.modelo.tablero.Casilla;
+import edu.fiuba.algo3.modelo.tablero.Ocupante;
+import edu.fiuba.algo3.modelo.tablero.Terreno;
 
-public class Acido extends Terreno{
+public class Acido extends Terreno {
+
     @Override
-    public boolean esTransitable() {
+    public void afectarA(Ocupante ocupante) {
+        ocupante.caerEnAcido();
+    }
+
+    @Override
+    public boolean esPeligrosoParaTerrestres() {
         return true;
     }
 
     @Override
-    public void afectarA(Unidad unidad) {
-        unidad.caerEnAcido();
+    public void ofrecerComoDestino(BuscadorDeDestinos buscador, Casilla casilla) {
     }
+
 }

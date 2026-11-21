@@ -1,20 +1,21 @@
 
 package edu.fiuba.algo3.modelo.terrenos;
 
+import edu.fiuba.algo3.modelo.tablero.Casilla;
+import edu.fiuba.algo3.modelo.tablero.Posicion;
+import edu.fiuba.algo3.modelo.unidades.CaminoBloqueadoException;
+import edu.fiuba.algo3.modelo.unidades.MovimientoTerrestre;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MontanaTest {
 
     @Test
-    public void test01MontanaNoEsTransitable() {
+    public void test01UnaUnidadTerrestreNoPuedeAtravesarMontana() {
         // Arrange
-        Montana montana = new Montana();
+        Casilla casilla = new Casilla(new Montana(), new Posicion(0, 0));
 
-        // Act
-        boolean esTransitable = montana.esTransitable();
-
-        // Assert
-        assertFalse(esTransitable);
+        // Act & Assert
+        assertThrows(CaminoBloqueadoException.class, () -> casilla.recibirTransito(new MovimientoTerrestre()));
     }
 }

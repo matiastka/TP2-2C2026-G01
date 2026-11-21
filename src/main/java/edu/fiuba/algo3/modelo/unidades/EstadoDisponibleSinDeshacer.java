@@ -3,27 +3,21 @@ package edu.fiuba.algo3.modelo.unidades;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 
-public class EstadoDisponibleSinDeshacer implements EstadoTurno {
+public class EstadoDisponibleSinDeshacer implements EstadoTurnoMech {
 
     @Override
-    public EstadoTurno mover(Unidad unidad, Posicion destino, Tablero tablero) {
-        if (unidad.ejecutarMovimiento(destino, tablero)) {
-            return new EstadoYaSeMovioSinDeshacer();
-        }
-        return this;
+    public EstadoTurnoMech mover(Mech mech, Posicion destino, Tablero tablero) {
+        return new EstadoYaSeMovioSinDeshacer();
     }
 
     @Override
-    public EstadoTurno atacar(Mech mech, Posicion posicion, Tablero tablero) {
-        if (mech.ejecutarAtaqueValidado(posicion, tablero)) {
-            return new EstadoTurnoAgotado();
-        }
-        return this;
+    public EstadoTurnoMech atacar(Mech mech, Posicion posicion, Tablero tablero) {
+        mech.ejecutarAtaqueValidado(posicion, tablero);
+        return new EstadoTurnoAgotado();
     }
 
     @Override
-    public EstadoTurno deshacerMovimiento(Mech mech, Tablero tablero) {
-        System.out.println("El Mech ya deshizo un movimiento en este turno.");
-        return this;
+    public EstadoTurnoMech deshacerMovimiento(Mech mech, Tablero tablero) {
+        throw new AccionNoDisponibleException();
     }
 }

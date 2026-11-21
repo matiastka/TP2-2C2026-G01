@@ -1,14 +1,22 @@
 package edu.fiuba.algo3.entrega_1;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
+import edu.fiuba.algo3.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.unidades.AccionInvalidaException;
+import edu.fiuba.algo3.modelo.unidades.Mech;
+import edu.fiuba.algo3.modelo.unidades.AccionNoDisponibleException;
+import edu.fiuba.algo3.modelo.unidades.DestinoNoAlcanzableException;
+import edu.fiuba.algo3.modelo.unidades.MovimientoYaRealizadoException;
+import edu.fiuba.algo3.modelo.unidades.TurnoAgotadoException;
+import edu.fiuba.algo3.modelo.unidades.Unidad;
 import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
 import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
-import edu.fiuba.algo3.modelo.unidades.Mech;
-import edu.fiuba.algo3.modelo.unidades.Unidad;
-import org.junit.jupiter.api.Test;
 
 public class MechTurnoTest {
 
@@ -25,148 +33,165 @@ public class MechTurnoTest {
 
     @Test
     public void test01MechNoPuedeMoverseDosVecesEnElMismoTurno() {
-        Tablero tablero = new Tablero(MAPA);
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
+        Mech mech = new Combate();
+        mech.colocarseEn(new Posicion(0, 0), tablero);
+        mech.moverA(new Posicion(0, 2), tablero);
 
-        Posicion origen = new Posicion(0, 0);
-        Posicion primerDestino = new Posicion(0, 2);
-        Posicion segundoDestino = new Posicion(0, 4);
-
-        Unidad mech = new Combate(origen);
-
-        tablero.ocuparCasilla(origen, mech);
-
-        mech.moverA(primerDestino, tablero);
-        mech.moverA(segundoDestino, tablero); // Intento invalido
-
-        assertEquals(mech.obtenerPosicion(), primerDestino);
+        assertThrows(MovimientoYaRealizadoException.class, () -> mech.moverA(new Posicion(0, 4), tablero));
     }
 
     @Test
-    public void test02MechNoPuedeAtacarDosVecesEnElMismoTurno() {
-        Tablero tablero = new Tablero(MAPA);
+    public void test02MovimientoInvalidoNoCambiaLaPosicionDelMech() {
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
+        Posicion origen = new Posicion(0, 0);
+        Mech mech = new Combate();
+        mech.colocarseEn(origen, tablero);
 
-        Posicion posMech = new Posicion(2, 2);
-        Posicion posVek1 = new Posicion(2, 3);
-        Posicion posVek2 = new Posicion(3, 2);
-
-        Mech mech = new Combate(posMech);
-        Unidad vek1 = new Luciernaga(posVek1);
-        Unidad vek2 = new Luciernaga(posVek2);
-
-        tablero.ocuparCasilla(posMech, mech);
-        tablero.ocuparCasilla(posVek1, vek1);
-        tablero.ocuparCasilla(posVek2, vek2);
-
-        mech.atacarA(posVek1, tablero);
-        mech.atacarA(posVek2, tablero); // Segundo ataque en el mismo turno
-
-        assertEquals(3, vek2.obtenerVida()); // No debe recibir daño
+        assertThrows(DestinoNoAlcanzableException.class, () -> mech.moverA(new Posicion(0, 4), tablero));
     }
 
     @Test
-    public void test03AlReiniciarTurnoElMechPuedeVolverAMoverse() {
-        Tablero tablero = new Tablero(MAPA);
-
-        Posicion origen = new Posicion(0, 0);
+    public void test03MovimientoInvalidoNoConsumeLaAccionDelMech() {
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion destino = new Posicion(0, 1);
-        Posicion posVek = new Posicion(0, 2);
-
-        Mech mech = new Combate(origen);
-        Unidad vek = new Luciernaga(posVek);
-
-        tablero.ocuparCasilla(origen, mech);
-        tablero.ocuparCasilla(posVek, vek);
-
+        Mech mech = new Combate();
+        mech.colocarseEn(new Posicion(0, 0), tablero);
+        intentarAccionInvalida(() -> mech.moverA(new Posicion(0, 4), tablero));
         mech.moverA(destino, tablero);
-        mech.atacarA(posVek, tablero);
 
+        assertEquals(destino, mech.obtenerPosicion());
+    }
+
+    @Test
+    public void test04MechNoPuedeAtacarDosVecesEnElMismoTurno() {
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
+        Mech mech = new Combate();
+        mech.colocarseEn(new Posicion(2, 2), tablero);
+        new Luciernaga().colocarseEn(new Posicion(2, 3), tablero);
+        mech.atacarA(new Posicion(2, 3), tablero);
+
+        assertThrows(TurnoAgotadoException.class, () -> mech.atacarA(new Posicion(3, 2), tablero));
+    }
+
+    @Test
+    public void test05SegundoAtaqueDelMechNoAfectaOtroVek() {
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
+        Mech mech = new Combate();
+        Unidad vek1 = new Luciernaga();
+        Unidad vek2 = new Luciernaga();
+        mech.colocarseEn(new Posicion(2, 2), tablero);
+        vek1.colocarseEn(new Posicion(2, 3), tablero);
+        vek2.colocarseEn(new Posicion(3, 2), tablero);
+        mech.atacarA(new Posicion(2, 3), tablero);
+
+        assertThrows(TurnoAgotadoException.class, () -> mech.atacarA(new Posicion(3, 2), tablero));
+    }
+
+    @Test
+    public void test06AlReiniciarTurnoElMechPuedeVolverAMoverse() {
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
+        Posicion destino = new Posicion(1, 1);
+        Mech mech = new Combate();
+        mech.colocarseEn(new Posicion(0, 0), tablero);
+        new Luciernaga().colocarseEn(new Posicion(0, 2), tablero);
+        mech.moverA(new Posicion(0, 1), tablero);
+        mech.atacarA(new Posicion(0, 2), tablero);
         mech.reiniciarTurno();
-
-        Posicion nuevoDestino = new Posicion(1, 1);
-        mech.moverA(nuevoDestino, tablero);
-
-        assertEquals(mech.obtenerPosicion(), nuevoDestino);
-    }
-    
-    @Test
-    public void test04DeshacerMovimientoDeMechQueTodaviaNoAtaco() {
-        Tablero tablero = new Tablero(MAPA);
-
-        Posicion origen = new Posicion(0, 0);
-        Posicion destino = new Posicion(0, 1);
-
-        Mech mech = new Combate(origen);
-
-        tablero.ocuparCasilla(origen, mech);
         mech.moverA(destino, tablero);
-        
+
+        assertEquals(destino, mech.obtenerPosicion());
+    }
+
+    @Test
+    public void test07DeshacerMovimientoDeMechQueTodaviaNoAtaco() {
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
+        Posicion origen = new Posicion(0, 0);
+        Mech mech = new Combate();
+        mech.colocarseEn(origen, tablero);
+        mech.moverA(new Posicion(0, 1), tablero);
         mech.deshacerMovimiento(tablero);
 
-        assertEquals(mech.obtenerPosicion(), origen);
+        assertEquals(origen, mech.obtenerPosicion());
     }
-    
+
     @Test
-    public void test05DeshacerDejaLaCasillaDestinoLibre() {
-        Tablero tablero = new Tablero(MAPA);
-
-        Posicion origen = new Posicion(0, 0);
+    public void test08DeshacerDejaLaCasillaDestinoLibre() {
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion destino = new Posicion(0, 1);
-
-        Mech mech = new Combate(origen);
-
-        tablero.ocuparCasilla(origen, mech);
+        Mech mech = new Combate();
+        mech.colocarseEn(new Posicion(0, 0), tablero);
         mech.moverA(destino, tablero);
-        
         mech.deshacerMovimiento(tablero);
 
         assertTrue(tablero.enCasilla(destino).estaLibre());
     }
-    
+
     @Test
-    public void test06DeshacerDosMovimientosDeMechEnElMismoTurno() {
-        Tablero tablero = new Tablero(MAPA);
-
-        Posicion origen = new Posicion(0, 0);
-        Posicion destino = new Posicion(0, 1);
-        Posicion destino2 = new Posicion(0, 2);
-
-        Mech mech = new Combate(origen);
-
-        tablero.ocuparCasilla(origen, mech);
-        mech.moverA(destino, tablero);
-        
+    public void test09NoSePuedeDeshacerDosMovimientosEnElMismoTurno() {
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
+        Mech mech = new Combate();
+        mech.colocarseEn(new Posicion(0, 0), tablero);
+        mech.moverA(new Posicion(0, 1), tablero);
         mech.deshacerMovimiento(tablero);
-        
-        mech.moverA(destino2, tablero);
-        
-        mech.deshacerMovimiento(tablero);
-        
-        assertEquals(mech.obtenerPosicion(), destino2);
+        mech.moverA(new Posicion(0, 2), tablero);
+
+        assertThrows(AccionNoDisponibleException.class, () -> mech.deshacerMovimiento(tablero));
     }
 
     @Test
-    public void test07NoSePuedeDeshacerElMovimientoDespuesDeAtacar() {
-        // Arrange
-        Tablero tablero = new Tablero(MAPA);
+    public void test10NoSePuedeDeshacerElMovimientoDespuesDeAtacar() {
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
+        Mech mech = new Combate();
+        mech.colocarseEn(new Posicion(0, 0), tablero);
+        new Luciernaga().colocarseEn(new Posicion(0, 2), tablero);
+        mech.moverA(new Posicion(0, 1), tablero);
+        mech.atacarA(new Posicion(0, 2), tablero);
 
-        Posicion origen = new Posicion(0, 0);
+        assertThrows(AccionNoDisponibleException.class, () -> mech.deshacerMovimiento(tablero));
+    }
+
+    @Test
+    public void test11IntentarDeshacerDespuesDeAtacarNoMueveAlMech() {
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
         Posicion destino = new Posicion(0, 1);
-        Posicion posicionVek = new Posicion(0, 2);
-
-        Mech mech = new Combate(origen);
-        Unidad vek = new Luciernaga(posicionVek);
-
-        tablero.ocuparCasilla(origen, mech);
-        tablero.ocuparCasilla(posicionVek, vek);
-
+        Mech mech = new Combate();
+        mech.colocarseEn(new Posicion(0, 0), tablero);
+        new Luciernaga().colocarseEn(new Posicion(0, 2), tablero);
         mech.moverA(destino, tablero);
-        mech.atacarA(posicionVek, tablero);
+        mech.atacarA(new Posicion(0, 2), tablero);
 
-        // Act
-        mech.deshacerMovimiento(tablero);
+        assertThrows(AccionNoDisponibleException.class, () -> mech.deshacerMovimiento(tablero));
+    }
 
-        // Assert
+    @Test
+    public void test12AtaqueInvalidoRetornaMotivoDeRechazo() {
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
+        Posicion objetivoNoAdyacente = new Posicion(0, 2);
+        Mech mech = new Combate();
+        mech.colocarseEn(new Posicion(0, 0), tablero);
+        new Luciernaga().colocarseEn(objetivoNoAdyacente, tablero);
+
+        assertThrows(DestinoNoAlcanzableException.class, () -> mech.atacarA(objetivoNoAdyacente, tablero));
+    }
+
+    @Test
+    public void test13AtaqueInvalidoNoConsumeLaAccionDelMech() {
+        Tablero tablero = new ConstructorTablero().construir(MAPA);
+        Posicion destino = new Posicion(0, 1);
+        Mech mech = new Combate();
+        mech.colocarseEn(new Posicion(0, 0), tablero);
+        new Luciernaga().colocarseEn(new Posicion(0, 2), tablero);
+        intentarAccionInvalida(() -> mech.atacarA(new Posicion(0, 2), tablero));
+        mech.moverA(destino, tablero);
+
         assertEquals(destino, mech.obtenerPosicion());
     }
 
+    private void intentarAccionInvalida(Runnable accion) {
+        try {
+            accion.run();
+        } catch (AccionInvalidaException esperada) {
+        }
+    }
 }

@@ -1,31 +1,29 @@
-
 package edu.fiuba.algo3.modelo.unidades.mechs;
 
 import edu.fiuba.algo3.modelo.tablero.Direccion;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.Mech;
+import edu.fiuba.algo3.modelo.unidades.*;
 
 public class Combate extends Mech {
 
-    public Combate(Posicion posicion){
-        super(3, posicion);
+    private final Ataque ataque = new AtaqueCuerpoACuerpo(2, new EfectoEmpujar());
+
+    public Combate() {
+        super(3);
     }
 
     @Override
     protected void ejecutarAtaque(Posicion objetivo, Tablero tablero) {
-        if (!posicion.esAdyacente(objetivo)) {
-            System.out.println("El objetivo a atacar no es adyacente.\nPor ende no se aplica el danio ni el empuje");
-            return;
+        if (!tablero.estaEnRango(objetivo)) {
+            throw new DestinoFueraDelTableroException();
         }
 
-        if (tablero.enCasilla(objetivo).estaLibre()) {
-            System.out.println("La casilla a atacar esta vacia");
-            return;
+        if (!obtenerPosicion().esAdyacente(objetivo)) {
+            throw new DestinoNoAlcanzableException();
         }
 
-        Direccion direccion = posicion.direccionHacia(objetivo);
-        golpearYEmpujar(objetivo, 2, direccion, tablero);
+        Direccion direccion = obtenerPosicion().direccionHacia(objetivo);
+        ataque.ejecutar(obtenerPosicion(), direccion, tablero);
     }
-
 }

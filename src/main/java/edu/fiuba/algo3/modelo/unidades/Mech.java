@@ -1,73 +1,47 @@
 package edu.fiuba.algo3.modelo.unidades;
 
-import edu.fiuba.algo3.modelo.tablero.Direccion;
+import edu.fiuba.algo3.modelo.tablero.BuscadorDeObjetivos;
+import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 
 public abstract class Mech extends Unidad {
 
-    protected Posicion posicionAnterior;
+    private Posicion posicionAnterior;
+    private EstadoArma estadoArma;
+    private EstadoArma estadoArmaAnterior;
+    private EstadoTurnoMech estadoTurno;
 
-    protected Mech(int vida, Posicion posicion) {
-        super(vida, posicion);
-        this.rango = 3;
+    protected Mech(int vida) {
+        super(vida, 3, new MovimientoTerrestre());
+        this.estadoArma = new EstadoArmaOperativa();
+        this.estadoTurno = new EstadoDisponible();
     }
 
     public void atacarA(Posicion posicion, Tablero tablero) {
         this.estadoTurno = this.estadoTurno.atacar(this, posicion, tablero);
     }
 
-    boolean ejecutarAtaqueValidado(Posicion posicion, Tablero tablero) {
-        ejecutarAtaque(posicion, tablero);
-        return true;
+    void ejecutarAtaqueValidado(Posicion posicion, Tablero tablero) {
+        estadoArma.usar(this, posicion, tablero);
     }
 
     protected abstract void ejecutarAtaque(Posicion posicion, Tablero tablero);
 
-    protected final boolean hayUnidadEn(Posicion posicion, Tablero tablero) {
-        return tablero.estaEnRango(posicion) && !tablero.enCasilla(posicion).estaLibre();
-    }
-
-    protected final void aplicarDanioEn(Posicion posicion, int danio, Tablero tablero) {
-        if (hayUnidadEn(posicion, tablero)) {
-            tablero.enCasilla(posicion).obtenerUnidad().recibirDanio(danio);
-        }
-    }
-
-    protected final void empujarUnidadDesde(Posicion origen, Direccion direccion, Tablero tablero) {
-        if (direccion == Direccion.NINGUNA || !hayUnidadEn(origen, tablero)) {
-            return;
-        }
-
-        Posicion destino = origen.siguienteEn(direccion);
-        if (!tablero.estaEnRango(destino) || !tablero.enCasilla(destino).estaLibre() || !tablero.enCasilla(destino).esTransitable()) {
-            return;
-        }
-
-        Unidad unidad = tablero.enCasilla(origen).obtenerUnidad();
-        unidad.reubicarEn(destino, tablero);
-    }
-
-    protected final void golpearYEmpujar(Posicion objetivo, int danio, Direccion direccion, Tablero tablero) {
-        if (!hayUnidadEn(objetivo, tablero)) {
-            return;
-        }
-
-        Unidad unidad = tablero.enCasilla(objetivo).obtenerUnidad();
-        unidad.recibirDanio(danio);
-
-        if (direccion != Direccion.NINGUNA) {
-            empujarUnidadDesde(objetivo, direccion, tablero);
-        }
-    }
-
     @Override
     public void moverA(Posicion destino, Tablero tablero) {
-        Posicion posibleAnterior = this.posicion;
-        super.moverA(destino, tablero);
-        if (!this.posicion.equals(posibleAnterior)) {
-            this.posicionAnterior = posibleAnterior;
-        }
+        Posicion posibleAnterior = this.obtenerPosicion();
+        EstadoSalud posibleSaludAnterior = this.obtenerEstadoSalud();
+        EstadoArma posibleEstadoArmaAnterior = this.estadoArma;
+
+        this.estadoTurno = this.estadoTurno.mover(this, destino, tablero);
+        this.posicionAnterior = posibleAnterior;
+        this.estadoSaludAnterior = posibleSaludAnterior;
+        this.estadoArmaAnterior = posibleEstadoArmaAnterior;
+    }
+
+    public void reiniciarTurno() {
+        this.estadoTurno = new EstadoDisponible();
     }
 
     public void deshacerMovimiento(Tablero tablero) {
@@ -75,10 +49,25 @@ public abstract class Mech extends Unidad {
     }
 
     void ejecutarDeshacerMovimiento(Tablero tablero) {
-        reubicarEn(posicionAnterior, tablero);
+        this.establecerEstadoSalud(this.estadoSaludAnterior);
+        this.estadoArma = this.estadoArmaAnterior;
+        reubicarSinEfectoEn(posicionAnterior, tablero);
     }
 
-    protected boolean calcularLineaRecta(Posicion objetivo) {
-        return posicion.estaEnLineaRectaA(objetivo, 2);
+    @Override
+    protected void hundirse() {
+        this.estadoArma = new EstadoArmaSumergida();
+    }
+
+    @Override
+    public void salirDelAgua() {
+        this.estadoArma = new EstadoArmaOperativa();
+    }
+
+    private EstadoSalud estadoSaludAnterior;
+
+    @Override
+    public void ofrecerComoObjetivo(BuscadorDeObjetivos buscador, Casilla casilla) {
+        buscador.encontrarMech(casilla);
     }
 }
