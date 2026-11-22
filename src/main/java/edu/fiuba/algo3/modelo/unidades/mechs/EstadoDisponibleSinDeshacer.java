@@ -8,6 +8,7 @@ public class EstadoDisponibleSinDeshacer implements EstadoTurnoMech {
 
     @Override
     public EstadoTurnoMech mover(Mech mech, Posicion destino, Tablero tablero) {
+        mech.ejecutarMovimientoMech(destino, tablero);
         return new EstadoYaSeMovioSinDeshacer();
     }
 
