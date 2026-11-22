@@ -20,6 +20,6 @@ public class EstadoVekYaSeMovio implements EstadoTurnoVek {
 
     @Override
     public EstadoTurnoVek resolverAtaque(Vek vek, Tablero tablero) {
-        return this;
+        return new EstadoVekDisponible();
     }
 }
