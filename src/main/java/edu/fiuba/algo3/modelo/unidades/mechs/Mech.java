@@ -56,6 +56,7 @@ public abstract class Mech extends Unidad {
     }
 
     void ejecutarDeshacerMovimiento(Tablero tablero) {
+        tablero.enCasilla(this.posicionAnterior).recibirTransito(new MovimientoTerrestre());
         this.establecerEstadoSalud(this.estadoSaludAnterior);
         this.estadoArma = this.estadoArmaAnterior;
         notificarObservadores();

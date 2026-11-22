@@ -186,7 +186,7 @@ public class ControladorCasilla {
         for (int fila = 0; fila < tablero.cantidadFilas(); fila++) {
             for (int columna = 0; columna < tablero.cantidadColumnas(); columna++) {
                 Posicion posicion = new Posicion(fila, columna);
-                mech.agregarSiPuedeTerminarEn(posicion, destinos, tablero);
+                mech.agregarSiPuedeLlegarA(posicion, destinos, tablero);
             }
         }
         return List.copyOf(destinos);

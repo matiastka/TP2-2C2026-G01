@@ -151,4 +151,14 @@ public abstract class Unidad extends SujetoObservable implements Ocupante {
     public void recibirEmergencia(EmergenciaVek emergencia, Casilla casilla, Tablero tablero) {
         emergencia.serBloqueadaPor(this);
     }
+
+    public void agregarSiPuedeLlegarA(Posicion destino, List<Posicion> destinos, Tablero tablero) {
+        try {
+            this.movimiento.validarCamino(this.posicion, destino, this.rango, tablero);
+        } catch (AccionInvalidaException e) {
+            return;
+        }
+        destinos.add(destino);
+    }
+
 }
