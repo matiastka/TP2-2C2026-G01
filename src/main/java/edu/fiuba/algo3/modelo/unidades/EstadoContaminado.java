@@ -6,4 +6,9 @@ public class EstadoContaminado implements EstadoSalud {
     public int calcularDanio(int danio){
         return danio * 2;
     }
+
+    @Override
+    public boolean estaContaminado() {
+        return true;
+    }
 }

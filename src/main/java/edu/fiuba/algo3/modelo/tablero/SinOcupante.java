@@ -1,9 +1,14 @@
 package edu.fiuba.algo3.modelo.tablero;
 
+import edu.fiuba.algo3.modelo.VisitanteVisualCasilla;
 import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
 import edu.fiuba.algo3.modelo.tablero.emergencias.EmergenciaVek;
 
 public class SinOcupante implements Ocupante {
+    @Override
+    public void aceptar(VisitanteVisualCasilla visitante) {
+        visitante.visitarSinOcupante();
+    }
 
     @Override
     public boolean ocupaCasilla() {

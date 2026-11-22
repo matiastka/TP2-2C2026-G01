@@ -1,11 +1,33 @@
 package edu.fiuba.algo3.modelo.unidades.ataques;
 
 import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.fiuba.algo3.modelo.tablero.*;
 import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
 
 public class AtaqueArtilleria implements Ataque {
+    @Override
+    public List<Posicion> posicionesAmenazadasDesde(Posicion origen, Direccion direccion, Tablero tablero) {
+        Posicion objetivo = origen;
+        for (int i = 0; i < distancia; i++) {
+            objetivo = objetivo.siguienteEn(direccion);
+        }
+        if (!tablero.estaEnRango(objetivo)) {
+            return List.of();
+        }
+
+        List<Posicion> posiciones = new ArrayList<>();
+        posiciones.add(objetivo);
+        for (Direccion dirCard : Direccion.cardinales()) {
+            Posicion adyacente = objetivo.siguienteEn(dirCard);
+            if (tablero.estaEnRango(adyacente)) {
+                posiciones.add(adyacente);
+            }
+        }
+        return List.copyOf(posiciones);
+    }
 
     private final int danio;
     private final int distancia;

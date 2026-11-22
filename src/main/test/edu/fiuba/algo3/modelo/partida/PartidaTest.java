@@ -135,4 +135,24 @@ public class PartidaTest {
         // Assert
         assertEquals(redInicial - 1, tablero.obtenerRedElectrica());
     }
+
+    @Test
+    public void test08UnaPartidaNuevaEmpiezaEnFaseJugadorLuegoDeLaFaseVek() {
+        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Partida partida = new Partida(tablero, List.of(colocarMech(tablero)), List.of());
+
+        assertEquals(FaseTurno.JUGADOR, partida.obtenerFaseActual());
+    }
+
+    @Test
+    public void test09AlPasarElTurnoSeReiniciaLaFaseJugador() {
+        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Partida partida = new Partida(tablero, List.of(colocarMech(tablero)), List.of());
+
+        partida.terminarFaseJugador();
+
+        assertEquals(FaseTurno.JUGADOR, partida.obtenerFaseActual());
+    }
 }

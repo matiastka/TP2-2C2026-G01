@@ -61,4 +61,24 @@ public class EmpujeTest {
         // Assert
         assertEquals(0, objetivoVek.obtenerVida());
     }
+
+    @Test
+    public void test03AlEmpujarUnaUnidadSobreSueloLibreCambiaDeCasilla() {
+        // Arrange
+        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Posicion origen = new Posicion(3, 2);
+        Posicion objetivo = new Posicion(3, 3);
+        Posicion destino = new Posicion(3, 4);
+        Mech mech = new Combate();
+        Unidad objetivoVek = new Luciernaga();
+        mech.colocarseEn(origen, tablero);
+        objetivoVek.colocarseEn(objetivo, tablero);
+
+        // Act
+        mech.atacarA(objetivo, tablero);
+
+        // Assert
+        assertSame(objetivoVek, tablero.enCasilla(destino).obtenerOcupante());
+    }
 }

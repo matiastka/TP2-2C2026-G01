@@ -1,6 +1,13 @@
 package edu.fiuba.algo3.modelo.tablero;
 
+import edu.fiuba.algo3.modelo.VisitanteVisualCasilla;
+
 public abstract class Terreno {
+    public abstract void aceptar(VisitanteVisualCasilla visitante);
+
+    public boolean esTransitableParaEmergencia() {
+        return true;
+    }
 
     public abstract void afectarA(Ocupante ocupante);
 

@@ -5,8 +5,13 @@ import edu.fiuba.algo3.modelo.tablero.BuscadorDeDestinos;
 import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Ocupante;
 import edu.fiuba.algo3.modelo.tablero.Terreno;
+import edu.fiuba.algo3.modelo.VisitanteVisualCasilla;
 
 public class Agua extends Terreno {
+    @Override
+    public void aceptar(VisitanteVisualCasilla visitante) {
+        visitante.visitarAgua();
+    }
 
     @Override
     public void afectarA(Ocupante ocupante){

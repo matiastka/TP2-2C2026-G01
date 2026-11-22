@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.unidades.mechs;
 
+import edu.fiuba.algo3.modelo.VisitanteVisualCasilla;
 import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
@@ -10,6 +11,10 @@ import edu.fiuba.algo3.modelo.unidades.excepciones.DestinoFueraDelTableroExcepti
 import edu.fiuba.algo3.modelo.unidades.excepciones.DestinoNoAlcanzableException;
 
 public class Combate extends Mech {
+    @Override
+    public void aceptar(VisitanteVisualCasilla visitante) {
+        visitante.visitarCombate(this);
+    }
 
     private final Ataque ataque = new AtaqueCuerpoACuerpo(2, new EfectoEmpujar());
 

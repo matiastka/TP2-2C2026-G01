@@ -1,6 +1,7 @@
     package edu.fiuba.algo3.modelo.unidades.veks;
 
     import java.util.Optional;
+    import java.util.List;
 
     import edu.fiuba.algo3.modelo.tablero.Casilla;
     import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
@@ -69,6 +70,21 @@
         void apuntarA(Posicion objetivo) {
             validarObjetivo(objetivo);
             this.ataquePreparado = new AtaqueEnDireccion(obtenerPosicion().direccionHacia(objetivo));
+        }
+
+        public List<Posicion> obtenerPosicionesAmenazadas(Tablero tablero) {
+            if (obtenerVida() <= 0) {
+                return List.of();
+            }
+            return this.ataquePreparado.posicionesAmenazadas(
+                    this.ataque,
+                    obtenerPosicion(),
+                    tablero
+            );
+        }
+
+        public String obtenerAtaqueAnunciado() {
+            return this.ataquePreparado.obtenerDescripcion();
         }
 
         protected abstract void validarObjetivo(Posicion objetivo);

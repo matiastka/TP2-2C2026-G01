@@ -3,8 +3,11 @@ module edu.fiuba.algo3 {
     requires json.simple;
     requires java.desktop;
     exports edu.fiuba.algo3;
+    exports edu.fiuba.algo3.modelo;
+    exports edu.fiuba.algo3.controllers;
     exports edu.fiuba.algo3.vistas;
     exports edu.fiuba.algo3.modelo.mapa;
+    exports edu.fiuba.algo3.modelo.partida;
     exports edu.fiuba.algo3.modelo.tablero;
     exports edu.fiuba.algo3.modelo.terrenos;
     exports edu.fiuba.algo3.modelo.unidades;

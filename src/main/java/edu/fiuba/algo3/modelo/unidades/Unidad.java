@@ -2,13 +2,17 @@ package edu.fiuba.algo3.modelo.unidades;
 
 import java.util.List;
 
+import edu.fiuba.algo3.modelo.SujetoObservable;
+import edu.fiuba.algo3.modelo.VisitanteVisualCasilla;
 import edu.fiuba.algo3.modelo.tablero.*;
 import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
 import edu.fiuba.algo3.modelo.tablero.emergencias.EmergenciaVek;
 import edu.fiuba.algo3.modelo.unidades.excepciones.AccionInvalidaException;
 import edu.fiuba.algo3.modelo.unidades.movimientos.Movimiento;
 
-public abstract class Unidad implements Ocupante {
+public abstract class Unidad extends SujetoObservable implements Ocupante {
+    @Override
+    public abstract void aceptar(VisitanteVisualCasilla visitante);
 
     private int vida;
     private int rango;
@@ -55,6 +59,7 @@ public abstract class Unidad implements Ocupante {
     @Override
     public void recibirDanio(int danio) {
         this.vida -= this.estadoSalud.calcularDanio(danio);
+        notificarObservadores();
     }
 
     public int obtenerVida() {
@@ -73,10 +78,12 @@ public abstract class Unidad implements Ocupante {
     @Override
     public void contaminarse(){
         this.estadoSalud = new EstadoContaminado();
+        notificarObservadores();
     }
 
     public void descontaminarse(){
         this.estadoSalud = new EstadoSano();
+        notificarObservadores();
     }
 
     public void agregarSiPuedeTerminarEn(Posicion destino, List<Posicion> destinos, Tablero tablero) {
@@ -106,7 +113,9 @@ public abstract class Unidad implements Ocupante {
 
     @Override
     public void serEmpujadoA(Posicion destino, Tablero tablero) {
-        reubicarEn(destino, tablero);
+        if (this.obtenerVida() > 0) {
+            reubicarEn(destino, tablero);
+        }
     }
 
     public abstract void moverA(Posicion destino, Tablero tablero);
@@ -115,8 +124,13 @@ public abstract class Unidad implements Ocupante {
         return this.estadoSalud;
     }
 
+    public boolean estaContaminado() {
+        return this.estadoSalud.estaContaminado();
+    }
+
     protected void establecerEstadoSalud(EstadoSalud estado) {
         this.estadoSalud = estado;
+        notificarObservadores();
     }
 
     @Override

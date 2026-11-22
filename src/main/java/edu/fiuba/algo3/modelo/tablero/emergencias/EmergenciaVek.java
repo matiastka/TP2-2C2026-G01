@@ -1,22 +1,37 @@
 package edu.fiuba.algo3.modelo.tablero.emergencias;
 
+import edu.fiuba.algo3.modelo.VisitanteVisualCasilla;
 import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Ocupante;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
+import edu.fiuba.algo3.modelo.unidades.veks.Vek;
+import java.util.List;
 
 public class EmergenciaVek implements Emergencia {
+    @Override
+    public void aceptar(VisitanteVisualCasilla visitante) {
+        visitante.visitarEmergenciaVek(this);
+    }
     private static final int DANIO_POR_BLOQUEO = 1;
 
-    private final Unidad vekPendiente;
+    private final Vek vekPendiente;
 
-    public EmergenciaVek(Unidad vekPendiente) {
+    public EmergenciaVek(Vek vekPendiente) {
         this.vekPendiente = vekPendiente;
     }
 
+    public EmergenciaVek(Unidad unidadPendiente) {
+        this.vekPendiente = (Vek) unidadPendiente;
+    }
+
     @Override
-    public void resolver(Casilla casilla, Tablero tablero) {
+    public List<Vek> resolver(Casilla casilla, Tablero tablero) {
         casilla.recibirEmergencia(this, tablero);
+        if (casilla.obtenerOcupante() == this.vekPendiente) {
+            return List.of(this.vekPendiente);
+        }
+        return List.of();
     }
 
     public void emergerEn(Casilla casilla, Tablero tablero) {

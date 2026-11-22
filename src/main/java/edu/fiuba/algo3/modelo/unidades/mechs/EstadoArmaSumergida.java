@@ -10,4 +10,9 @@ public class EstadoArmaSumergida implements EstadoArma{
     public void usar(Mech mech, Posicion objetivo, Tablero tablero) {
         throw new ArmaSumergidaException();
     }
+
+    @Override
+    public String obtenerDescripcion() {
+        return "Sumergido";
+    }
 }

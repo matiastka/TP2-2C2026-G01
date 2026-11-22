@@ -28,7 +28,7 @@ public class Turno {
         }
     }
 
-    public void faseEmergencia(Tablero tablero) {
-        tablero.resolverEmergencias();
+    public List<Vek> faseEmergencia(Tablero tablero) {
+        return tablero.resolverEmergencias();
     }
 }

@@ -9,4 +9,9 @@ public class EstadoArmaOperativa implements EstadoArma{
     public void usar(Mech mech, Posicion objetivo, Tablero tablero){
         mech.ejecutarAtaque(objetivo, tablero);
     }
+
+    @Override
+    public String obtenerDescripcion() {
+        return "Operativo";
+    }
 }

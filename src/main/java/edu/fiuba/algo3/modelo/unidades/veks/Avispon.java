@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.unidades.veks;
 
+import edu.fiuba.algo3.modelo.VisitanteVisualCasilla;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.unidades.ataques.AtaqueCuerpoACuerpo;
 import edu.fiuba.algo3.modelo.unidades.excepciones.DestinoNoAlcanzableException;
@@ -7,6 +8,10 @@ import edu.fiuba.algo3.modelo.unidades.ataques.efectos.EfectoNulo;
 import edu.fiuba.algo3.modelo.unidades.movimientos.MovimientoVolador;
 
 public class Avispon extends Vek {
+    @Override
+    public void aceptar(VisitanteVisualCasilla visitante) {
+        visitante.visitarAvispon(this);
+    }
     public Avispon() {
         super(2, 4, new MovimientoVolador(), new AtaqueCuerpoACuerpo(1, new EfectoNulo()));
     }

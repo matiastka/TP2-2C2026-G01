@@ -3,6 +3,9 @@ package edu.fiuba.algo3.modelo.tablero;
 import java.util.Map;
 
 import edu.fiuba.algo3.modelo.unidades.Unidad;
+import edu.fiuba.algo3.modelo.unidades.veks.Vek;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Tablero {
     private static final int CANTIDAD_DE_FILAS = 8;
@@ -47,10 +50,12 @@ public class Tablero {
         enCasilla(posicion).activarEmergencia(unidad);
     }
 
-    public void resolverEmergencias() {
+    public List<Vek> resolverEmergencias() {
+        List<Vek> emergidos = new ArrayList<>();
         for (Casilla casilla : casillas.values()) {
-            casilla.resolverEmergencia(this);
+            emergidos.addAll(casilla.resolverEmergencia(this));
         }
+        return List.copyOf(emergidos);
     }
 
     public boolean estaEnRango(Posicion posicion){

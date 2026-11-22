@@ -47,6 +47,10 @@ public abstract class Mech extends Unidad {
         this.estadoTurno = new EstadoDisponible();
     }
 
+    public String obtenerEstadoArma() {
+        return this.estadoArma.obtenerDescripcion();
+    }
+
     public void deshacerMovimiento(Tablero tablero) {
         this.estadoTurno = this.estadoTurno.deshacerMovimiento(this, tablero);
     }
@@ -54,17 +58,20 @@ public abstract class Mech extends Unidad {
     void ejecutarDeshacerMovimiento(Tablero tablero) {
         this.establecerEstadoSalud(this.estadoSaludAnterior);
         this.estadoArma = this.estadoArmaAnterior;
+        notificarObservadores();
         reubicarSinEfectoEn(posicionAnterior, tablero);
     }
 
     @Override
     public void hundirse() {
         this.estadoArma = new EstadoArmaSumergida();
+        notificarObservadores();
     }
 
     @Override
     public void salirDelAgua() {
         this.estadoArma = new EstadoArmaOperativa();
+        notificarObservadores();
     }
 
     private EstadoSalud estadoSaludAnterior;
