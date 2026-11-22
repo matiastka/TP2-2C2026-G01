@@ -67,14 +67,14 @@ public class VistaPrincipal extends BorderPane implements Observador, VisitanteE
 
     @Override
     public void visitarVictoria() {
-        this.cartelFinPartida.mostrarVictoria();
+        this.cartelFinPartida.mostrarVictoria(this.partida.obtenerVeksEliminados(), this.partida.obtenerTablero().obtenerRedElectrica());
         this.barraEstado.mostrarMensaje("Victoria");
         finalizarInteraccion();
     }
 
     @Override
     public void visitarDerrota() {
-        this.cartelFinPartida.mostrarDerrota();
+        this.cartelFinPartida.mostrarDerrota(this.partida.obtenerVeksEliminados(), this.partida.obtenerTablero().obtenerRedElectrica());
         this.barraEstado.mostrarError("Derrota");
         finalizarInteraccion();
     }

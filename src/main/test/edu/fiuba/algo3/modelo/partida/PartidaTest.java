@@ -22,6 +22,7 @@ public class PartidaTest {
 
     private static final String RUTA_MAPA_LIBRE = "src/main/test/edu/fiuba/algo3/modelo/mapa/mapa_libre.txt";
     private static final String RUTA_MAPA_EDIFICIO_FILA1 = "src/main/test/edu/fiuba/algo3/modelo/mapa/mapa_edificio_fila1.txt";
+    private static final String RUTA_MAPA_1 = "src/main/java/edu/fiuba/algo3/modelo/mapa/mapa1.txt";
 
     private Mech colocarMech(Tablero tablero) {
         Mech mech = new Combate();
@@ -155,4 +156,87 @@ public class PartidaTest {
 
         assertEquals(FaseTurno.JUGADOR, partida.obtenerFaseActual());
     }
+
+    @Test
+    public void test10UnaPartidaNuevaNoTieneVeksEliminados() {
+        // Arrange
+        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Partida partida = new Partida(tablero, List.of(colocarMech(tablero)), List.of());
+
+        // Act
+        int eliminados = partida.obtenerVeksEliminados();
+
+        // Assert
+        assertEquals(0, eliminados);
+    }
+
+    @Test
+    public void test11UnVekMuertoAlTerminarElTurnoCuentaComoEliminado() {
+        // Arrange
+        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Vek vek = new Saltador();
+        vek.colocarseEn(new Posicion(0, 0), tablero);
+        Partida partida = new Partida(tablero, List.of(colocarMech(tablero)), List.of(vek));
+        vek.recibirDanio(2);
+
+        // Act
+        partida.terminarFaseJugador();
+
+        // Assert
+        assertEquals(1, partida.obtenerVeksEliminados());
+    }
+
+    @Test
+    public void test12UnVekMuertoEnLaFaseDelJugadorCuentaComoEliminado() {
+        // Arrange
+        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Vek vek = new Saltador();
+        vek.colocarseEn(new Posicion(0, 0), tablero);
+        Partida partida = new Partida(tablero, List.of(colocarMech(tablero)), List.of(vek));
+        vek.recibirDanio(2);
+
+        // Act
+        partida.retirarVeksMuertos();
+
+        // Assert
+        assertEquals(1, partida.obtenerVeksEliminados());
+    }
+
+    @Test
+    public void test13UnVekRetiradoNoSeCuentaDosVeces() {
+        // Arrange
+        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Vek vek = new Saltador();
+        vek.colocarseEn(new Posicion(0, 0), tablero);
+        Partida partida = new Partida(tablero, List.of(colocarMech(tablero)), List.of(vek));
+        vek.recibirDanio(2);
+        partida.retirarVeksMuertos();
+
+        // Act
+        partida.terminarFaseJugador();
+
+        // Assert
+        assertEquals(1, partida.obtenerVeksEliminados());
+    }
+
+
+
+    @Test
+    public void test14UnVekRetiradoNoSeCuentaDosVeces() {
+        // Arrange
+        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_1);
+        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Partida partida = new Partida(tablero, List.of(colocarMech(tablero)), List.of());
+
+        // Act
+        partida.terminarFaseJugador();
+
+        // Assert
+        assertEquals(0, partida.obtenerVeksEliminados());
+    }
+
 }

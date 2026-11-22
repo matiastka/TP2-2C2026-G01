@@ -26,4 +26,10 @@ public class Agua extends Terreno {
     @Override
     public void ofrecerComoDestino(BuscadorDeDestinos buscador, Casilla casilla) {
     }
+
+    @Override
+    public boolean esTransitableParaEmergencia() {
+        return false;
+    }
+
 }

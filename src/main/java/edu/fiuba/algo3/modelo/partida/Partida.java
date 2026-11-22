@@ -26,6 +26,7 @@ public class Partida extends SujetoObservable {
     private EstadoPartida estado;
     private int numeroDeTurno;
     private FaseTurno faseActual;
+    private int contadorVeksEliminados;
 
     public Partida(Tablero tablero, List<Mech> mechs, List<Vek> veks) {
         this.tablero = tablero;
@@ -39,6 +40,7 @@ public class Partida extends SujetoObservable {
         this.faseActual = FaseTurno.JUGADOR;
         anunciarNuevasEmergencias(1);
         notificarObservadores();
+        this.contadorVeksEliminados = 0;
     }
 
     public void terminarFaseJugador() {
@@ -125,25 +127,23 @@ public class Partida extends SujetoObservable {
 
     private void retirarUnidadesMuertas() {
         retirarMuertas(this.mechs);
-        retirarMuertas(this.veks);
+        this.contadorVeksEliminados += retirarMuertas(this.veks);
     }
 
-    private void retirarMuertas(List<? extends Unidad> unidades) {
+    private int retirarMuertas(List<? extends Unidad> unidades) {
+        int retiradas = 0;
         for (Unidad unidad : List.copyOf(unidades)) {
             if (unidad.obtenerVida() <= 0) {
                 this.tablero.desOcuparCasilla(unidad.obtenerPosicion());
                 unidades.remove(unidad);
+                retiradas++;
             }
         }
+        return retiradas;
     }
 
     public void retirarVeksMuertos() {
-        for (Vek vek : List.copyOf(this.veks)) {
-            if (vek.obtenerVida() <= 0) {
-                this.tablero.desOcuparCasilla(vek.obtenerPosicion());
-                this.veks.remove(vek);
-            }
-        }
+        this.contadorVeksEliminados += retirarMuertas(this.veks);
         notificarObservadores();
     }
 
@@ -177,6 +177,10 @@ public class Partida extends SujetoObservable {
 
     public List<Vek> obtenerVeks() {
         return List.copyOf(this.veks);
+    }
+
+    public int obtenerVeksEliminados(){
+        return this.contadorVeksEliminados;
     }
 
 }
