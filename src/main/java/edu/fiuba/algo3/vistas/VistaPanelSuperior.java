@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.vistas;
 
 import edu.fiuba.algo3.modelo.Observador;
-import edu.fiuba.algo3.modelo.partida.FaseTurno;
 import edu.fiuba.algo3.modelo.partida.Partida;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -43,15 +42,6 @@ public class VistaPanelSuperior extends HBox implements Observador {
     public void actualizar() {
         this.turno.setText("Turno " + this.partida.obtenerNumeroDeTurno() + " / 5");
         this.energia.setText("Red Electrica: " + this.partida.obtenerTablero().obtenerRedElectrica());
-
-        if (this.partida.obtenerFaseActual() == FaseTurno.JUGADOR) {
-            this.fase.setText("Fase del Jugador");
-        } else if (this.partida.obtenerFaseActual() == FaseTurno.VEKS) {
-            this.fase.setText("Fase Vek");
-        } else if (this.partida.obtenerFaseActual() == FaseTurno.RESOLUCION) {
-            this.fase.setText("Fase de Resolucion");
-        } else {
-            this.fase.setText("Fase de Emergencia");
-        }
+        this.fase.setText("Fase del Jugador");
     }
 }

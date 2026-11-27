@@ -25,7 +25,6 @@ public class Partida extends SujetoObservable {
     private final GeneradorDeEmergencias generador;
     private EstadoPartida estado;
     private int numeroDeTurno;
-    private FaseTurno faseActual;
     private int contadorVeksEliminados;
 
     public Partida(Tablero tablero, List<Mech> mechs, List<Vek> veks) {
@@ -40,9 +39,7 @@ public class Partida extends SujetoObservable {
         this.generador = generador;
         this.estado = new EnJuego();
         this.numeroDeTurno = 1;
-        this.faseActual = FaseTurno.VEKS;
         this.turno.faseVek(this.tablero);
-        this.faseActual = FaseTurno.JUGADOR;
         this.generador.anunciarEmergencias(this.numeroDeTurno, this.tablero);
         notificarObservadores();
         this.contadorVeksEliminados = 0;
@@ -54,9 +51,7 @@ public class Partida extends SujetoObservable {
     }
 
     public EstadoPartida jugarRestoDelTurno() {
-        this.faseActual = FaseTurno.RESOLUCION;
         this.turno.faseResolucion(this.tablero);
-        this.faseActual = FaseTurno.EMERGENCIA;
         List<Vek> emergidos = this.turno.faseEmergencia(this.tablero);
         for (Vek vek : emergidos) {
             if (!this.veks.contains(vek)) {
@@ -84,9 +79,7 @@ public class Partida extends SujetoObservable {
         for (Mech mech : this.mechs) {
             mech.reiniciarTurno();
         }
-        this.faseActual = FaseTurno.VEKS;
         this.turno.faseVek(this.tablero);
-        this.faseActual = FaseTurno.JUGADOR;
         this.generador.anunciarEmergencias(this.numeroDeTurno, this.tablero);
         notificarObservadores();
     }
@@ -127,10 +120,6 @@ public class Partida extends SujetoObservable {
 
     public int obtenerNumeroDeTurno() {
         return this.numeroDeTurno;
-    }
-
-    public FaseTurno obtenerFaseActual() {
-        return this.faseActual;
     }
 
     public Tablero obtenerTablero() {

@@ -130,25 +130,7 @@ public class PartidaTest {
     }
 
     @Test
-    public void test08UnaPartidaNuevaEmpiezaEnFaseJugadorLuegoDeLaFaseVek() {
-        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Partida partida = new Partida(tablero, List.of(colocarMech(tablero)), List.of());
-
-        assertEquals(FaseTurno.JUGADOR, partida.obtenerFaseActual());
-    }
-
-    @Test
-    public void test09AlPasarElTurnoSeReiniciaLaFaseJugador() {
-        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Partida partida = new Partida(tablero, List.of(colocarMech(tablero)), List.of());
-
-        partida.terminarFaseJugador();
-
-        assertEquals(FaseTurno.JUGADOR, partida.obtenerFaseActual());
-    }
-
-    @Test
-    public void test10UnaPartidaNuevaNoTieneVeksEliminados() {
+    public void test08UnaPartidaNuevaNoTieneVeksEliminados() {
         // Arrange
         Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Partida partida = new Partida(tablero, List.of(colocarMech(tablero)), List.of());
@@ -161,7 +143,7 @@ public class PartidaTest {
     }
 
     @Test
-    public void test11UnVekMuertoAlTerminarElTurnoCuentaComoEliminado() {
+    public void test09UnVekMuertoAlTerminarElTurnoCuentaComoEliminado() {
         // Arrange
         Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Vek vek = new Saltador();
@@ -177,7 +159,7 @@ public class PartidaTest {
     }
 
     @Test
-    public void test12UnVekMuertoEnLaFaseDelJugadorCuentaComoEliminado() {
+    public void test10UnVekMuertoEnLaFaseDelJugadorCuentaComoEliminado() {
         // Arrange
         Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Vek vek = new Saltador();
@@ -193,7 +175,7 @@ public class PartidaTest {
     }
 
     @Test
-    public void test13UnVekRetiradoNoSeCuentaDosVeces() {
+    public void test11UnVekRetiradoNoSeCuentaDosVeces() {
         // Arrange
         Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Vek vek = new Saltador();
@@ -210,7 +192,7 @@ public class PartidaTest {
     }
 
     @Test
-    public void test14UnVekRetiradoNoSeCuentaDosVeces() {
+    public void test12UnVekRetiradoNoSeCuentaDosVeces() {
         // Arrange
         Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_1);
         Partida partida = new Partida(tablero, List.of(colocarMech(tablero)), List.of());
