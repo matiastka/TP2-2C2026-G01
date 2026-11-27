@@ -1,18 +1,18 @@
 
 package edu.fiuba.algo3.modelo.unidades.ataques.proyectiles;
 
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
 import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.tablero.direcciones.Este;
-import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
-import org.junit.jupiter.api.Test;
-
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
 
 public class ProyectilSimuladoTest {
 

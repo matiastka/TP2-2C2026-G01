@@ -1,19 +1,20 @@
 
 package edu.fiuba.algo3.modelo.unidades.veks.ia;
 
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
-import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
-import edu.fiuba.algo3.modelo.tablero.Posicion;
-import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.veks.Saltador;
-import edu.fiuba.algo3.modelo.unidades.veks.Vek;
-import org.junit.jupiter.api.Test;
-
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
+import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
+import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
+import edu.fiuba.algo3.modelo.tablero.Posicion;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.unidades.veks.Vek;
+import edu.fiuba.algo3.modelo.unidades.veks.ia.reglas.ReglaAcercarseAEdificio;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Saltador;
 
 public class ReglaAcercarseAEdificioTest {
 

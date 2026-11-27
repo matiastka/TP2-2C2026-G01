@@ -13,7 +13,7 @@ module edu.fiuba.algo3 {
     exports edu.fiuba.algo3.modelo.unidades;
     exports edu.fiuba.algo3.modelo.unidades.mechs;
     exports edu.fiuba.algo3.modelo.unidades.veks;
-    exports edu.fiuba.algo3.modelo.unidades.excepciones;
+    exports edu.fiuba.algo3.modelo.excepciones;
     exports edu.fiuba.algo3.modelo.unidades.movimientos;
     exports edu.fiuba.algo3.modelo.unidades.ataques;
     exports edu.fiuba.algo3.modelo.unidades.veks.ia;

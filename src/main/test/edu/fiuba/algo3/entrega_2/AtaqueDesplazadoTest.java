@@ -6,9 +6,9 @@ import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.partida.Turno;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.mechs.Canon;
-import edu.fiuba.algo3.modelo.unidades.veks.Avispon;
-import edu.fiuba.algo3.modelo.unidades.veks.Saltador;
+import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Canon;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Avispon;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Saltador;
 import edu.fiuba.algo3.modelo.unidades.veks.ia.InteligenciaArtificialVek;
 import org.junit.jupiter.api.Test;
 

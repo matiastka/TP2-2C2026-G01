@@ -1,10 +1,10 @@
 package edu.fiuba.algo3.vistas;
 
-import edu.fiuba.algo3.modelo.Observador;
-import edu.fiuba.algo3.modelo.partida.Partida;
-import edu.fiuba.algo3.modelo.partida.VisitanteEstadoPartida;
 import edu.fiuba.algo3.controllers.ControladorCasilla;
 import edu.fiuba.algo3.controllers.EstadoSeleccionVista;
+import edu.fiuba.algo3.modelo.Observador;
+import edu.fiuba.algo3.modelo.partida.Partida;
+import edu.fiuba.algo3.modelo.partida.estado.VisitanteEstadoPartida;
 import javafx.geometry.Insets;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;

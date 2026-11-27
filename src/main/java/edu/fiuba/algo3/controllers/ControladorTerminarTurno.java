@@ -1,8 +1,8 @@
 package edu.fiuba.algo3.controllers;
 
+import edu.fiuba.algo3.modelo.excepciones.AccionInvalidaException;
+import edu.fiuba.algo3.modelo.excepciones.PartidaTerminadaException;
 import edu.fiuba.algo3.modelo.partida.Partida;
-import edu.fiuba.algo3.modelo.partida.PartidaTerminadaException;
-import edu.fiuba.algo3.modelo.unidades.excepciones.AccionInvalidaException;
 import edu.fiuba.algo3.vistas.VistaBarraEstado;
 
 public class ControladorTerminarTurno {

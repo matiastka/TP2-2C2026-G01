@@ -1,21 +1,21 @@
 
 package edu.fiuba.algo3.entrega_2;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
 import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
-import edu.fiuba.algo3.modelo.unidades.veks.Avispon;
-import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
-import edu.fiuba.algo3.modelo.unidades.veks.Saltador;
+import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
 import edu.fiuba.algo3.modelo.unidades.veks.ia.InteligenciaArtificialVek;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Avispon;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Saltador;
 
 public class ComportamientoVekIATest {
 

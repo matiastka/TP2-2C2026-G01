@@ -1,20 +1,22 @@
 
 package edu.fiuba.algo3.modelo.unidades.veks;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
+
+import edu.fiuba.algo3.modelo.excepciones.AccionInvalidaException;
+import edu.fiuba.algo3.modelo.excepciones.AtaqueYaPreparadoException;
+import edu.fiuba.algo3.modelo.excepciones.DestinoFueraDelTableroException;
+import edu.fiuba.algo3.modelo.excepciones.MovimientoYaRealizadoException;
 import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.excepciones.AccionInvalidaException;
-import edu.fiuba.algo3.modelo.unidades.excepciones.AtaqueYaPreparadoException;
-import edu.fiuba.algo3.modelo.unidades.excepciones.DestinoFueraDelTableroException;
-import edu.fiuba.algo3.modelo.unidades.excepciones.MovimientoYaRealizadoException;
-import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
 import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Avispon;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
 
 public class EstadoTurnoVekTest {
 

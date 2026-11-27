@@ -1,12 +1,12 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.unidades.mechs.Artilleria;
-import edu.fiuba.algo3.modelo.unidades.mechs.Canon;
-import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
-import edu.fiuba.algo3.modelo.unidades.veks.Avispon;
-import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
-import edu.fiuba.algo3.modelo.unidades.veks.Saltador;
 import edu.fiuba.algo3.modelo.tablero.emergencias.EmergenciaVek;
+import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Artilleria;
+import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Canon;
+import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Avispon;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Saltador;
 
 public interface VisitanteVisualCasilla {
     void visitarSuelo();

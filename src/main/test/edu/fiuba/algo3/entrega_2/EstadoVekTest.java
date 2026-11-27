@@ -5,11 +5,11 @@ import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.excepciones.MovimientoYaRealizadoException;
-import edu.fiuba.algo3.modelo.unidades.veks.EstadoVekConAtaquePreparado;
-import edu.fiuba.algo3.modelo.unidades.veks.EstadoVekDisponible;
-import edu.fiuba.algo3.modelo.unidades.veks.Saltador;
-import edu.fiuba.algo3.modelo.unidades.veks.ia.EstadoTurnoVek;
+import edu.fiuba.algo3.modelo.excepciones.MovimientoYaRealizadoException;
+import edu.fiuba.algo3.modelo.unidades.veks.estado.EstadoVekConAtaquePreparado;
+import edu.fiuba.algo3.modelo.unidades.veks.estado.EstadoVekDisponible;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Saltador;
+import edu.fiuba.algo3.modelo.unidades.veks.estado.EstadoTurnoVek;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

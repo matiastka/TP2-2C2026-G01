@@ -1,24 +1,24 @@
 
 package edu.fiuba.algo3.entrega_1;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
+import edu.fiuba.algo3.modelo.excepciones.AccionInvalidaException;
+import edu.fiuba.algo3.modelo.excepciones.AccionNoDisponibleException;
+import edu.fiuba.algo3.modelo.excepciones.DestinoNoAlcanzableException;
+import edu.fiuba.algo3.modelo.excepciones.MovimientoYaRealizadoException;
+import edu.fiuba.algo3.modelo.excepciones.TurnoAgotadoException;
 import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
-import edu.fiuba.algo3.modelo.unidades.excepciones.AccionInvalidaException;
-import edu.fiuba.algo3.modelo.unidades.excepciones.AccionNoDisponibleException;
-import edu.fiuba.algo3.modelo.unidades.excepciones.DestinoNoAlcanzableException;
-import edu.fiuba.algo3.modelo.unidades.excepciones.MovimientoYaRealizadoException;
-import edu.fiuba.algo3.modelo.unidades.excepciones.TurnoAgotadoException;
-import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
+import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
 import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
-import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
 
 public class MechTurnoTest {
 

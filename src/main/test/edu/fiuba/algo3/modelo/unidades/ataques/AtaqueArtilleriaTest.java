@@ -9,7 +9,7 @@ import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.tablero.direcciones.Este;
 import edu.fiuba.algo3.modelo.unidades.ataques.efectos.EfectoEmpujar;
 import edu.fiuba.algo3.modelo.unidades.ataques.efectos.EfectoNulo;
-import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
 import org.junit.jupiter.api.Test;
 

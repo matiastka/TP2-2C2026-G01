@@ -1,17 +1,22 @@
 
 package edu.fiuba.algo3.modelo.unidades.mechs;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
+
+import edu.fiuba.algo3.modelo.excepciones.MovimientoYaRealizadoException;
+import edu.fiuba.algo3.modelo.excepciones.TurnoAgotadoException;
 import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.excepciones.MovimientoYaRealizadoException;
-import edu.fiuba.algo3.modelo.unidades.excepciones.TurnoAgotadoException;
-import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import edu.fiuba.algo3.modelo.unidades.mechs.estado.turno.EstadoDisponible;
+import edu.fiuba.algo3.modelo.unidades.mechs.estado.turno.EstadoTurnoAgotado;
+import edu.fiuba.algo3.modelo.unidades.mechs.estado.turno.EstadoTurnoMech;
+import edu.fiuba.algo3.modelo.unidades.mechs.estado.turno.EstadoYaSeMovio;
+import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
 
 public class EstadoTurnoMechTest {
 

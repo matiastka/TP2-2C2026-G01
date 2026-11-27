@@ -4,11 +4,18 @@ import java.util.List;
 
 import edu.fiuba.algo3.modelo.SujetoObservable;
 import edu.fiuba.algo3.modelo.VisitanteVisualCasilla;
-import edu.fiuba.algo3.modelo.tablero.*;
+import edu.fiuba.algo3.modelo.excepciones.AccionInvalidaException;
+import edu.fiuba.algo3.modelo.tablero.BuscadorDeObjetivos;
+import edu.fiuba.algo3.modelo.tablero.Casilla;
+import edu.fiuba.algo3.modelo.tablero.EfectoImpacto;
+import edu.fiuba.algo3.modelo.tablero.Ocupante;
+import edu.fiuba.algo3.modelo.tablero.Posicion;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.tablero.Transito;
 import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
 import edu.fiuba.algo3.modelo.tablero.emergencias.EmergenciaVek;
-import edu.fiuba.algo3.modelo.unidades.excepciones.AccionInvalidaException;
 import edu.fiuba.algo3.modelo.unidades.movimientos.Movimiento;
+import edu.fiuba.algo3.modelo.unidades.estados.*;
 
 public abstract class Unidad extends SujetoObservable implements Ocupante {
     @Override

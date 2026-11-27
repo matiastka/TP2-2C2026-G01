@@ -4,16 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.fiuba.algo3.modelo.SujetoObservable;
-import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
-import edu.fiuba.algo3.modelo.unidades.Unidad;
-import edu.fiuba.algo3.modelo.unidades.veks.ia.InteligenciaArtificialVek;
-import edu.fiuba.algo3.modelo.unidades.veks.Vek;
-import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
-import edu.fiuba.algo3.modelo.unidades.veks.Saltador;
-import edu.fiuba.algo3.modelo.unidades.veks.Avispon;
-import edu.fiuba.algo3.modelo.tablero.Posicion;
+import edu.fiuba.algo3.modelo.partida.estado.Derrota;
+import edu.fiuba.algo3.modelo.partida.estado.EnJuego;
+import edu.fiuba.algo3.modelo.partida.estado.EstadoPartida;
+import edu.fiuba.algo3.modelo.partida.estado.Victoria;
 import edu.fiuba.algo3.modelo.tablero.Casilla;
+import edu.fiuba.algo3.modelo.tablero.Posicion;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.unidades.Unidad;
+import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
+import edu.fiuba.algo3.modelo.unidades.veks.Vek;
+import edu.fiuba.algo3.modelo.unidades.veks.ia.InteligenciaArtificialVek;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Avispon;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Saltador;
 
 public class Partida extends SujetoObservable {
 
@@ -48,7 +52,7 @@ public class Partida extends SujetoObservable {
         notificarObservadores();
     }
 
-    EstadoPartida jugarRestoDelTurno() {
+    public EstadoPartida jugarRestoDelTurno() {
         this.faseActual = FaseTurno.RESOLUCION;
         this.turno.faseResolucion(this.tablero);
         this.faseActual = FaseTurno.EMERGENCIA;
@@ -74,7 +78,7 @@ public class Partida extends SujetoObservable {
         return new EnJuego();
     }
 
-    void comenzarSiguienteTurno() {
+    public void comenzarSiguienteTurno() {
         this.numeroDeTurno++;
         for (Mech mech : this.mechs) {
             mech.reiniciarTurno();

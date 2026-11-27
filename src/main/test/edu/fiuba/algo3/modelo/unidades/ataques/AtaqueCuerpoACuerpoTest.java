@@ -1,6 +1,12 @@
 
 package edu.fiuba.algo3.modelo.unidades.ataques;
 
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
 import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Casilla;
@@ -10,14 +16,8 @@ import edu.fiuba.algo3.modelo.tablero.direcciones.Este;
 import edu.fiuba.algo3.modelo.tablero.direcciones.Norte;
 import edu.fiuba.algo3.modelo.unidades.ataques.efectos.EfectoEmpujar;
 import edu.fiuba.algo3.modelo.unidades.ataques.efectos.EfectoNulo;
-import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
-import org.junit.jupiter.api.Test;
-
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
 
 public class AtaqueCuerpoACuerpoTest {
 

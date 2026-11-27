@@ -4,8 +4,13 @@ import edu.fiuba.algo3.modelo.tablero.BuscadorDeObjetivos;
 import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.EstadoSalud;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
+import edu.fiuba.algo3.modelo.unidades.estados.EstadoSalud;
+import edu.fiuba.algo3.modelo.unidades.mechs.estado.arma.EstadoArma;
+import edu.fiuba.algo3.modelo.unidades.mechs.estado.arma.EstadoArmaOperativa;
+import edu.fiuba.algo3.modelo.unidades.mechs.estado.arma.EstadoArmaSumergida;
+import edu.fiuba.algo3.modelo.unidades.mechs.estado.turno.EstadoDisponible;
+import edu.fiuba.algo3.modelo.unidades.mechs.estado.turno.EstadoTurnoMech;
 import edu.fiuba.algo3.modelo.unidades.movimientos.MovimientoTerrestre;
 
 public abstract class Mech extends Unidad {
@@ -25,11 +30,11 @@ public abstract class Mech extends Unidad {
         this.estadoTurno = this.estadoTurno.atacar(this, posicion, tablero);
     }
 
-    void ejecutarAtaqueValidado(Posicion posicion, Tablero tablero) {
+    public void ejecutarAtaqueValidado(Posicion posicion, Tablero tablero) {
         estadoArma.usar(this, posicion, tablero);
     }
 
-    protected abstract void ejecutarAtaque(Posicion posicion, Tablero tablero);
+    public abstract void ejecutarAtaque(Posicion posicion, Tablero tablero);
 
     @Override
     public void moverA(Posicion destino, Tablero tablero) {
@@ -55,7 +60,7 @@ public abstract class Mech extends Unidad {
         this.estadoTurno = this.estadoTurno.deshacerMovimiento(this, tablero);
     }
 
-    void ejecutarDeshacerMovimiento(Tablero tablero) {
+    public void ejecutarDeshacerMovimiento(Tablero tablero) {
         tablero.enCasilla(this.posicionAnterior).recibirTransito(new MovimientoTerrestre());
         this.establecerEstadoSalud(this.estadoSaludAnterior);
         this.estadoArma = this.estadoArmaAnterior;
@@ -82,7 +87,7 @@ public abstract class Mech extends Unidad {
         buscador.encontrarMech(casilla);
     }
 
-    void ejecutarMovimientoMech(Posicion destino, Tablero tablero) {
+     public void ejecutarMovimientoMech(Posicion destino, Tablero tablero) {
         super.ejecutarMovimiento(destino, tablero);
     }
 

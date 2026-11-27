@@ -3,9 +3,10 @@ package edu.fiuba.algo3.modelo.partida;
 
 import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
+import edu.fiuba.algo3.modelo.partida.estado.*;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
+import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
 import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
 import org.junit.jupiter.api.Test;
 

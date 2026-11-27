@@ -7,7 +7,7 @@ import edu.fiuba.algo3.modelo.tablero.BuscadorDeObjetivos;
 import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 
-class BuscadorDeEdificios implements BuscadorDeObjetivos {
+public class BuscadorDeEdificios implements BuscadorDeObjetivos {
 
     private final List<Posicion> edificios = new ArrayList<>();
 
@@ -16,7 +16,7 @@ class BuscadorDeEdificios implements BuscadorDeObjetivos {
         this.edificios.add(casilla.obtenerPosicion());
     }
 
-    List<Posicion> obtenerEdificios() {
+    public List<Posicion> obtenerEdificios() {
         return this.edificios;
     }
 }

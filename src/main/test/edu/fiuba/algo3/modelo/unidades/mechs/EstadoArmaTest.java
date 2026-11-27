@@ -1,15 +1,19 @@
 
 package edu.fiuba.algo3.modelo.unidades.mechs;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
+
+import edu.fiuba.algo3.modelo.excepciones.ArmaSumergidaException;
 import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.excepciones.ArmaSumergidaException;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import edu.fiuba.algo3.modelo.unidades.mechs.estado.arma.EstadoArma;
+import edu.fiuba.algo3.modelo.unidades.mechs.estado.arma.EstadoArmaOperativa;
+import edu.fiuba.algo3.modelo.unidades.mechs.estado.arma.EstadoArmaSumergida;
+import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Canon;
 
 public class EstadoArmaTest {
 
