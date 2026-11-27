@@ -43,11 +43,11 @@ public class Tablero {
         ocuparCasilla(destino, ocupante);
     }
 
-    public void anunciarEmergencia(Posicion posicion, Unidad unidad) {
+    public void anunciarEmergencia(Posicion posicion, Vek vek) {
         if (!casillas.containsKey(posicion)) {
             throw new IllegalArgumentException("La posición de emergencia no pertenece al tablero.");
         }
-        enCasilla(posicion).activarEmergencia(unidad);
+        enCasilla(posicion).activarEmergencia(vek);
     }
 
     public List<Vek> resolverEmergencias() {

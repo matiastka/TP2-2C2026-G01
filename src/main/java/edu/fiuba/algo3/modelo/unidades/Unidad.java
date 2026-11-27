@@ -16,6 +16,7 @@ import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
 import edu.fiuba.algo3.modelo.tablero.emergencias.EmergenciaVek;
 import edu.fiuba.algo3.modelo.unidades.movimientos.Movimiento;
 import edu.fiuba.algo3.modelo.unidades.estados.*;
+import edu.fiuba.algo3.modelo.unidades.veks.Vek;
 
 public abstract class Unidad extends SujetoObservable implements Ocupante {
     @Override
@@ -155,8 +156,9 @@ public abstract class Unidad extends SujetoObservable implements Ocupante {
     }
 
     @Override
-    public void recibirEmergencia(EmergenciaVek emergencia, Casilla casilla, Tablero tablero) {
+    public List<Vek> recibirEmergencia(EmergenciaVek emergencia, Casilla casilla, Tablero tablero) {
         emergencia.serBloqueadaPor(this);
+        return List.of();
     }
 
     public void agregarSiPuedeLlegarA(Posicion destino, List<Posicion> destinos, Tablero tablero) {

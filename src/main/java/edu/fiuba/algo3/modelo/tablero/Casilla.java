@@ -42,8 +42,8 @@ public class Casilla extends SujetoObservable {
         notificarObservadores();
     }
 
-    public void activarEmergencia(Unidad unidad) {
-        this.emergencia = new EmergenciaVek(unidad);
+    public void activarEmergencia(Vek vek) {
+        this.emergencia = new EmergenciaVek(vek);
         notificarObservadores();
     }
 
@@ -51,8 +51,8 @@ public class Casilla extends SujetoObservable {
         return this.emergencia.resolver(this, tablero);
     }
 
-    public void recibirEmergencia(EmergenciaVek emergencia, Tablero tablero) {
-        this.ocupante.recibirEmergencia(emergencia, this, tablero);
+    public List<Vek> recibirEmergencia(EmergenciaVek emergencia, Tablero tablero) {
+        return this.ocupante.recibirEmergencia(emergencia, this, tablero);
     }
 
     public void setEmergencia(Emergencia emergencia) {

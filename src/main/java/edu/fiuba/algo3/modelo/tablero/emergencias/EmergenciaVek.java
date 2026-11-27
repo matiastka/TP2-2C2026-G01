@@ -4,7 +4,6 @@ import edu.fiuba.algo3.modelo.VisitanteVisualCasilla;
 import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Ocupante;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.Unidad;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
 import java.util.List;
 
@@ -21,23 +20,16 @@ public class EmergenciaVek implements Emergencia {
         this.vekPendiente = vekPendiente;
     }
 
-    public EmergenciaVek(Unidad unidadPendiente) {
-        this.vekPendiente = (Vek) unidadPendiente;
-    }
-
     @Override
     public List<Vek> resolver(Casilla casilla, Tablero tablero) {
-        casilla.recibirEmergencia(this, tablero);
-        if (casilla.obtenerOcupante() == this.vekPendiente) {
-            return List.of(this.vekPendiente);
-        }
-        return List.of();
+        return casilla.recibirEmergencia(this, tablero);
     }
 
-    public void emergerEn(Casilla casilla, Tablero tablero) {
+    public List<Vek> emergerEn(Casilla casilla, Tablero tablero) {
         this.vekPendiente.colocarseEn(casilla.obtenerPosicion(), tablero);
         casilla.aplicarEfectoA(this.vekPendiente);
         casilla.setEmergencia(new SinEmergencia());
+        return List.of(this.vekPendiente);
     }
 
     public void serBloqueadaPor(Ocupante bloqueador) {

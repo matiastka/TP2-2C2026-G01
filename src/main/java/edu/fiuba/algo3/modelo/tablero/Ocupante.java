@@ -4,6 +4,9 @@ import edu.fiuba.algo3.modelo.Observador;
 import edu.fiuba.algo3.modelo.VisitanteVisualCasilla;
 import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
 import edu.fiuba.algo3.modelo.tablero.emergencias.EmergenciaVek;
+import edu.fiuba.algo3.modelo.unidades.veks.Vek;
+
+import java.util.List;
 
 public interface Ocupante {
     default void agregarObservador(Observador observador) {
@@ -31,7 +34,7 @@ public interface Ocupante {
 
     void recibirEfectoDeImpacto(EfectoImpacto efecto, Posicion posicion, Direccion direccion, Tablero tablero);
 
-    void recibirEmergencia(EmergenciaVek emergencia, Casilla casilla, Tablero tablero);
+    List<Vek> recibirEmergencia(EmergenciaVek emergencia, Casilla casilla, Tablero tablero);
 
     void ofrecerComoObjetivo(BuscadorDeObjetivos buscador, Casilla casilla);
 }

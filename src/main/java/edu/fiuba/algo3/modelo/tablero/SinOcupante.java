@@ -3,6 +3,9 @@ package edu.fiuba.algo3.modelo.tablero;
 import edu.fiuba.algo3.modelo.VisitanteVisualCasilla;
 import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
 import edu.fiuba.algo3.modelo.tablero.emergencias.EmergenciaVek;
+import edu.fiuba.algo3.modelo.unidades.veks.Vek;
+
+import java.util.List;
 
 public class SinOcupante implements Ocupante {
     @Override
@@ -49,8 +52,8 @@ public class SinOcupante implements Ocupante {
     }
 
     @Override
-    public void recibirEmergencia(EmergenciaVek emergencia, Casilla casilla, Tablero tablero) {
-        emergencia.emergerEn(casilla, tablero);
+    public List<Vek> recibirEmergencia(EmergenciaVek emergencia, Casilla casilla, Tablero tablero) {
+        return emergencia.emergerEn(casilla, tablero);
     }
 
     @Override
