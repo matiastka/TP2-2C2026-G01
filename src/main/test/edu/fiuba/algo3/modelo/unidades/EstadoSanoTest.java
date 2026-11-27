@@ -1,10 +1,10 @@
 
 package edu.fiuba.algo3.modelo.unidades;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import edu.fiuba.algo3.modelo.unidades.estados.EstadoSano;
 import org.junit.jupiter.api.Test;
 
-import edu.fiuba.algo3.modelo.unidades.estados.EstadoSano;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EstadoSanoTest {
 

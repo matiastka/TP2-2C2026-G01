@@ -1,11 +1,6 @@
 
 package edu.fiuba.algo3.entrega_2;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
@@ -16,6 +11,10 @@ import edu.fiuba.algo3.modelo.unidades.veks.ia.InteligenciaArtificialVek;
 import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Avispon;
 import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
 import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Saltador;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ComportamientoVekIATest {
 
@@ -35,8 +34,7 @@ public class ComportamientoVekIATest {
     @Test
     public void test01Prioridad1AtacarEdificioAntesQueAUnMechAlAlcance() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO_FILA2);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO_FILA2);
         int redInicial = tablero.obtenerRedElectrica();
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(4, 5), tablero);
@@ -54,8 +52,7 @@ public class ComportamientoVekIATest {
     @Test
     public void test02Prioridad2AtacarMechCuandoNoPuedeAlcanzarNingunEdificio() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO_ESQUINA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO_ESQUINA);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(5, 5), tablero);
         int vidaInicialMech = mech.obtenerVida();
@@ -73,8 +70,7 @@ public class ComportamientoVekIATest {
     @Test
     public void test03Prioridad3SeAcercaAlEdificioMasCercanoSinAnunciarAtaque() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO_ESQUINA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO_ESQUINA);
         Vek saltador = new Saltador();
         saltador.colocarseEn(new Posicion(5, 0), tablero);
 
@@ -89,8 +85,7 @@ public class ComportamientoVekIATest {
     @Test
     public void test04VekTerrestreEvitaTerminarSuMovimientoEnAguaOAcido() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_AGUA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_AGUA_EDIFICIO);
         Vek saltador = new Saltador();
         saltador.colocarseEn(new Posicion(2, 2), tablero);
 
@@ -104,8 +99,7 @@ public class ComportamientoVekIATest {
     @Test
     public void test05AvisponVoladorSiPuedeTerminarEnAguaParaAtacarUnEdificio() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_AGUA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_AGUA_EDIFICIO);
         int redInicial = tablero.obtenerRedElectrica();
         Vek avispon = new Avispon();
         avispon.colocarseEn(new Posicion(2, 2), tablero);
@@ -121,8 +115,7 @@ public class ComportamientoVekIATest {
     @Test
     public void test06DesempateDeterministaPorMenorFilaYMenorColumna() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_DESEMPATE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_DESEMPATE);
         Vek saltador = new Saltador();
         saltador.colocarseEn(new Posicion(2, 3), tablero);
 
@@ -136,8 +129,7 @@ public class ComportamientoVekIATest {
     @Test
     public void test07LuciernagaRespetaBloqueoDeMontanaAlBuscarLineaDeTiroHaciaEdificio() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_MONTANA_BLOQUEO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_MONTANA_BLOQUEO);
         int redInicial = tablero.obtenerRedElectrica();
         Vek luciernaga = new Luciernaga();
         luciernaga.colocarseEn(new Posicion(2, 1), tablero);

@@ -1,12 +1,6 @@
 
 package edu.fiuba.algo3.entrega_1;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.Test;
-
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
@@ -15,6 +9,9 @@ import edu.fiuba.algo3.modelo.terrenos.Edificio;
 import edu.fiuba.algo3.modelo.terrenos.Montana;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
 import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TableroTest {
 
@@ -23,8 +20,7 @@ public class TableroTest {
     @Test
     public void test01UnTableroCargadoTiene8Columnas() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_1);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_1);
         int cantidadEsperada = 8;
 
         // Act
@@ -37,8 +33,7 @@ public class TableroTest {
     @Test
     public void test02UnTableroCargadoTiene8Filas() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_1);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_1);
         int cantidadEsperada = 8;
 
         // Act
@@ -51,8 +46,7 @@ public class TableroTest {
     @Test
     public void test03UnTableroCargadoEsDe8x8() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_1);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_1);
         int cantidadEsperada = 64;
 
         // Act
@@ -65,8 +59,7 @@ public class TableroTest {
     @Test
     public void test04UnTableroCargadoPreDefinidoTieneMontanaEnUnaPosicionParticular() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_1);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_1);
         Posicion posicionMontana = new Posicion(0, 7);
 
         // Act & Assert
@@ -76,8 +69,7 @@ public class TableroTest {
     @Test
     public void test05UnTableroCargadoPreDefinidoTieneAguaEnUnaPosicionParticular() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_1);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_1);
         Posicion posicionAgua = new Posicion(0, 0);
         Unidad luciernaga = new Luciernaga();
         luciernaga.colocarseEn(posicionAgua, tablero);
@@ -92,8 +84,7 @@ public class TableroTest {
     @Test
     public void test06UnTableroCargadoPreDefinidoTieneAcidoEnUnaPosicionParticular() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_1);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_1);
         Posicion posicionAcido = new Posicion(1, 5);
 
         // Act & Assert
@@ -103,8 +94,7 @@ public class TableroTest {
     @Test
     public void test07UnTableroCargadoPreDefinidoTieneEdificioEnUnaPosicionParticular() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_1);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_1);
         Posicion posicionEdificio = new Posicion(0, 2);
 
         // Act & Assert
@@ -114,8 +104,7 @@ public class TableroTest {
     @Test
     public void test08UnTableroCargadoPreDefinidoTieneSueloEnUnaPosicionParticular() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_1);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_1);
         Posicion posicionSuelo = new Posicion(6, 1);
         Unidad luciernaga = new Luciernaga();
         luciernaga.colocarseEn(posicionSuelo, tablero);
@@ -130,8 +119,7 @@ public class TableroTest {
     @Test
     public void test09Posicion77EstaEnElTablero() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_1);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_1);
         Posicion posicion = new Posicion(7, 7);
 
         // Act & Assert
@@ -141,8 +129,7 @@ public class TableroTest {
     @Test
     public void test10Posicion80NoEstaEnElTablero() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_1);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_1);
         Posicion posicion = new Posicion(8, 0);
 
         // Act & Assert

@@ -1,13 +1,7 @@
 
 package edu.fiuba.algo3.entrega_2;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import org.junit.jupiter.api.Test;
-
 import edu.fiuba.algo3.modelo.excepciones.ArmaSumergidaException;
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
@@ -17,6 +11,9 @@ import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
 import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Avispon;
 import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AguaTest {
 
@@ -25,8 +22,7 @@ public class AguaTest {
     @Test
     public void test01UnaLuciernagaEmpujadaAlAguaPorElCanonMuere() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_AGUA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_AGUA);
         Posicion posicionVek = new Posicion(2, 3);
         Posicion posicionMech = new Posicion(2, 0);
         Vek luciernagaVek = new Luciernaga();
@@ -45,8 +41,7 @@ public class AguaTest {
     @Test
     public void test02UnAvisponEmpujadoAlAguaPorElCanonNoMuere() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_AGUA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_AGUA);
         Posicion posicionVek = new Posicion(2, 3);
         Posicion posicionMech = new Posicion(2, 0);
         Vek avisponVek = new Avispon();
@@ -65,8 +60,7 @@ public class AguaTest {
     @Test
     public void test03UnMechCanonEnElAguaNoPuedeAtacar() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_AGUA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_AGUA);
         Posicion posicionVek = new Posicion(2, 5);
         Posicion posicionMech = new Posicion(2, 3);
         Posicion posicionAgua = new Posicion(2, 4);
@@ -83,8 +77,7 @@ public class AguaTest {
     @Test
     public void test04DeshacerMovimientoDesdeElAguaRestauraElArma() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_AGUA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_AGUA);
         Posicion posicionMech = new Posicion(2, 3);
         Posicion posicionAgua = new Posicion(2, 4);
         Posicion posicionVek = new Posicion(2, 5);
@@ -102,8 +95,7 @@ public class AguaTest {
     @Test
     public void test05UnMechSeMueveAlAguaSaleDelAguaYAtacaAUnVek() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_AGUA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_AGUA);
         Posicion posicionVek = new Posicion(2, 6);
         Posicion posicionMech = new Posicion(2, 3);
         Posicion posicionAgua = new Posicion(2, 4);
@@ -127,8 +119,7 @@ public class AguaTest {
     @Test
     public void test06UnMechCombateEnElAguaNoPuedeAtacar() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_AGUA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_AGUA);
         Posicion posicionVek = new Posicion(2, 5);
         Posicion posicionMech = new Posicion(2, 3);
         Posicion posicionAgua = new Posicion(2, 4);

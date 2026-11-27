@@ -1,13 +1,15 @@
 
 package edu.fiuba.algo3.modelo.partida;
 
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
-import edu.fiuba.algo3.modelo.partida.estado.*;
+import edu.fiuba.algo3.modelo.partida.estado.Derrota;
+import edu.fiuba.algo3.modelo.partida.estado.EnJuego;
+import edu.fiuba.algo3.modelo.partida.estado.EstadoPartida;
+import edu.fiuba.algo3.modelo.partida.estado.Victoria;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
 import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
+import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -27,8 +29,7 @@ public class EnJuegoTest {
     @Test
     public void test01TerminarFaseJugadorDevuelveEnJuegoMientrasQuedenTurnosYMechsVivos() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Partida partida = new Partida(tablero, List.of(crearMechEnTablero(tablero)), List.of());
         EstadoPartida estado = new EnJuego();
 
@@ -42,8 +43,7 @@ public class EnJuegoTest {
     @Test
     public void test02TerminarFaseJugadorEnElQuintoTurnoDevuelveVictoriaSiHayMechsYRedElectrica() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Partida partida = new Partida(tablero, List.of(crearMechEnTablero(tablero)), List.of());
         for (int turno = 0; turno < 4; turno++) {
             partida.terminarFaseJugador();
@@ -60,8 +60,7 @@ public class EnJuegoTest {
     @Test
     public void test03TerminarFaseJugadorDevuelveDerrotaSiTodosLosMechsSonDestruidos() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Mech mech = crearMechEnTablero(tablero);
         Partida partida = new Partida(tablero, List.of(mech), List.of());
         mech.recibirDanio(3);

@@ -1,7 +1,6 @@
 
 package edu.fiuba.algo3.modelo.unidades.veks.ia;
 
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
@@ -49,8 +48,7 @@ public class BuscadorDeEdificiosTest {
     @Test
     public void test03RecorrerTerrenosEnTableroSinEdificiosDejaLaListaVacia() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         BuscadorDeEdificios buscador = new BuscadorDeEdificios();
 
         // Act
@@ -63,8 +61,7 @@ public class BuscadorDeEdificiosTest {
     @Test
     public void test04RecorrerTerrenosEnTableroConEdificioEncuentraSuPosicion() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         BuscadorDeEdificios buscador = new BuscadorDeEdificios();
 
         // Act

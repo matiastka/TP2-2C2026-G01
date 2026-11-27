@@ -1,14 +1,13 @@
 
 package edu.fiuba.algo3.entrega_2;
 
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
+import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
 import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Canon;
 import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
-import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
 import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Avispon;
 import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
 import org.junit.jupiter.api.Test;
@@ -22,8 +21,7 @@ public class ContaminacionTest {
     @Test
     public void test01UnMechSeMueveAUnaCasillaConAcidoYAlRecibirDanioPierdeElDobleDeVida() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_ACIDO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_ACIDO);
         Posicion posicionMech = new Posicion(2, 3);
         Posicion posicionAcido = new Posicion(2, 4);
         Mech mechCombate = new Combate();
@@ -41,8 +39,7 @@ public class ContaminacionTest {
     @Test
     public void test02UnMechQueNuncaPisaAcidoRecibeDanioNormal() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_ACIDO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_ACIDO);
         Posicion posicionMech = new Posicion(2, 2);
         Posicion posicionSuelo = new Posicion(2, 3);
         Mech mechCombate = new Combate();
@@ -60,8 +57,7 @@ public class ContaminacionTest {
     @Test
     public void test03UnMechQueSaleDelAcidoSigueContaminado() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_ACIDO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_ACIDO);
         Posicion posicionMech = new Posicion(2, 2);
         Posicion posicionAcido = new Posicion(2, 4);
         Posicion posicionSuelo = new Posicion(2, 5);
@@ -82,8 +78,7 @@ public class ContaminacionTest {
     @Test
     public void test04UnaLucierganaEmpujadaAlAcidoQuedaContaminada() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_ACIDO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_ACIDO);
         Posicion posicionMech = new Posicion(2, 2);
         Posicion posicionVek = new Posicion(2, 3);
         Mech mechCanon = new Canon();
@@ -104,8 +99,7 @@ public class ContaminacionTest {
     @Test
     public void test05UnAvisponQueTerminaSobreAcidoNoQuedaContaminado() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_ACIDO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_ACIDO);
         Posicion posicionVek = new Posicion(2, 3);
         Posicion posicionAcido = new Posicion(2, 4);
         Unidad vekAvispon = new Avispon();

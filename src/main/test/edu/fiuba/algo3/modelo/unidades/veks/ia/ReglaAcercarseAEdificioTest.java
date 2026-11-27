@@ -1,20 +1,17 @@
 
 package edu.fiuba.algo3.modelo.unidades.veks.ia;
 
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.Test;
-
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
 import edu.fiuba.algo3.modelo.unidades.veks.ia.reglas.ReglaAcercarseAEdificio;
 import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Saltador;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ReglaAcercarseAEdificioTest {
 
@@ -24,8 +21,7 @@ public class ReglaAcercarseAEdificioTest {
     @Test
     public void test01IntentarEjecutarDevuelveTrueCuandoHayUnEdificioYPosicionesAlcanzables() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Vek saltador = new Saltador();
         saltador.colocarseEn(new Posicion(3, 0), tablero);
         List<Posicion> posicionesAlcanzables = List.of(new Posicion(3, 1), new Posicion(3, 2));
@@ -41,8 +37,7 @@ public class ReglaAcercarseAEdificioTest {
     @Test
     public void test02IntentarEjecutarMueveAlVekALaPosicionMasCercanaAlEdificio() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Vek saltador = new Saltador();
         saltador.colocarseEn(new Posicion(3, 0), tablero);
         List<Posicion> posicionesAlcanzables = List.of(new Posicion(3, 1), new Posicion(3, 2));
@@ -58,8 +53,7 @@ public class ReglaAcercarseAEdificioTest {
     @Test
     public void test03IntentarEjecutarNoAnunciaNingunAtaqueAlAcercarse() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         int redInicial = tablero.obtenerRedElectrica();
         Vek saltador = new Saltador();
         saltador.colocarseEn(new Posicion(3, 0), tablero);
@@ -77,8 +71,7 @@ public class ReglaAcercarseAEdificioTest {
     @Test
     public void test04IntentarEjecutarDevuelveFalseCuandoNoHayEdificiosEnElTablero() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Vek saltador = new Saltador();
         saltador.colocarseEn(new Posicion(3, 0), tablero);
         List<Posicion> posicionesAlcanzables = List.of(new Posicion(3, 1), new Posicion(3, 2));
@@ -94,8 +87,7 @@ public class ReglaAcercarseAEdificioTest {
     @Test
     public void test05IntentarEjecutarDevuelveFalseCuandoNoHayPosicionesAlcanzables() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Vek saltador = new Saltador();
         saltador.colocarseEn(new Posicion(3, 0), tablero);
         List<Posicion> posicionesAlcanzables = List.of();

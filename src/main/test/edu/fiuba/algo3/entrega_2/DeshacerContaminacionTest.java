@@ -1,14 +1,13 @@
 
 package edu.fiuba.algo3.entrega_2;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.Test;
-
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DeshacerContaminacionTest {
 
@@ -17,8 +16,7 @@ public class DeshacerContaminacionTest {
     @Test
     public void test01DeshacerMovimientoDesdeAcidoRestauraEstadoSano() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_ACIDO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_ACIDO);
         Posicion origen = new Posicion(1, 1);
         Posicion destinoAcido = new Posicion(1, 2);
         Combate mech = new Combate();

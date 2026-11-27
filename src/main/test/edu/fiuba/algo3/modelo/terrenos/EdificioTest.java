@@ -1,13 +1,14 @@
 
 package edu.fiuba.algo3.modelo.terrenos;
 
-import edu.fiuba.algo3.modelo.tablero.RedElectrica;
+import edu.fiuba.algo3.modelo.excepciones.CaminoBloqueadoException;
 import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
-import edu.fiuba.algo3.modelo.excepciones.CaminoBloqueadoException;
+import edu.fiuba.algo3.modelo.tablero.RedElectrica;
 import edu.fiuba.algo3.modelo.unidades.movimientos.MovimientoTerrestre;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class EdificioTest {
 

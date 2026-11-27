@@ -1,12 +1,6 @@
 
 package edu.fiuba.algo3.modelo.partida;
 
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.Test;
-
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.partida.estado.Derrota;
 import edu.fiuba.algo3.modelo.partida.estado.Victoria;
@@ -16,6 +10,11 @@ import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
 import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Artilleria;
 import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Canon;
 import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ReglamentoFinPartidaTest {
 
@@ -36,8 +35,7 @@ public class ReglamentoFinPartidaTest {
     @Test
     public void test01CompletarLos5TurnosConLaRedElectricaMayorACeroEsVictoria() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_CINCO_EDIFICIOS);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_CINCO_EDIFICIOS);
         Partida partida = new Partida(tablero, colocarMechs(tablero), List.of());
 
         // Act
@@ -52,8 +50,7 @@ public class ReglamentoFinPartidaTest {
     @Test
     public void test02SiLaRedElectricaLlegaACeroEsDerrota() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_CINCO_EDIFICIOS);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_CINCO_EDIFICIOS);
         Partida partida = new Partida(tablero, colocarMechs(tablero), List.of());
         for (int columna = 0; columna < 5; columna++) {
             tablero.enCasilla(new Posicion(0, columna)).recibirDanio(1);
@@ -69,8 +66,7 @@ public class ReglamentoFinPartidaTest {
     @Test
     public void test03SiLosTresMechsSonDestruidosEsDerrota() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_CINCO_EDIFICIOS);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_CINCO_EDIFICIOS);
         List<Mech> mechs = colocarMechs(tablero);
         Partida partida = new Partida(tablero, mechs, List.of());
         for (Mech mech : mechs) {

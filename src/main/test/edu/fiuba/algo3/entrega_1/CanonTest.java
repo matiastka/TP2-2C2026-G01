@@ -1,13 +1,6 @@
 
 package edu.fiuba.algo3.entrega_1;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.Test;
-
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
@@ -16,6 +9,9 @@ import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
 import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Canon;
 import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
 import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CanonTest {
 
@@ -24,8 +20,7 @@ public class CanonTest {
     @Test
     public void test01CanonDaniaALaPrimeraUnidadEnLineaRecta() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
         Posicion posCanon = new Posicion(0, 0);
         Posicion posBlanco1 = new Posicion(0, 2);
         Posicion posBlanco2 = new Posicion(0, 4);
@@ -46,8 +41,7 @@ public class CanonTest {
     @Test
     public void test02CanonNoDaniaALaSegundaUnidadEnLineaRecta() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
         Posicion posCanon = new Posicion(0, 0);
         Posicion posBlanco1 = new Posicion(0, 2);
         Posicion posBlanco2 = new Posicion(0, 4);
@@ -68,8 +62,7 @@ public class CanonTest {
     @Test
     public void test03CanonEmpujaALaPrimeraUnidadUnaCasillaEnLaDireccionDelDisparo() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
         Posicion posCanon = new Posicion(0, 0);
         Posicion posBlanco1 = new Posicion(0, 2);
         Posicion posBlanco2 = new Posicion(0, 4);
@@ -90,8 +83,7 @@ public class CanonTest {
     @Test
     public void test04CanonImpactaContraObstaculoYNoALaUnidadDeAtras() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
         Posicion posCanon = new Posicion(2, 0);
         Posicion posBlanco = new Posicion(2, 3);
         Posicion posMontana = new Posicion(2, 2);
@@ -114,8 +106,7 @@ public class CanonTest {
     @Test
     public void test05CanonQueFrenaEnUnaMontanaVaciaNoPisaALaUnidadDeAtras() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
         Posicion posCanon = new Posicion(2, 0);
         Posicion posDetras = new Posicion(2, 3);
         Mech canon = new Canon();
@@ -133,8 +124,7 @@ public class CanonTest {
     @Test
     public void test06CanonDisparaEnLineaLibreSinErrores() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
         Posicion posCanon = new Posicion(1, 0);
         Mech canon = new Canon();
         canon.colocarseEn(posCanon, tablero);
@@ -146,8 +136,7 @@ public class CanonTest {
     @Test
     public void test07CasoBordeImpactaAUnidadAdyacenteYLaEmpuja() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
         Posicion posCanon = new Posicion(4, 0);
         Posicion posBlanco = new Posicion(4, 1);
         Mech canon = new Canon();
@@ -165,8 +154,7 @@ public class CanonTest {
     @Test
     public void test08ElCanonNoEmpujaAUnaUnidadContraOtraYLaDeAtrasSigueEnSuLugar() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
         Posicion posicionCanon = new Posicion(4, 1);
         Posicion posicionBlanco1 = new Posicion(4, 3);
         Posicion posicionBlanco2 = new Posicion(4, 4);

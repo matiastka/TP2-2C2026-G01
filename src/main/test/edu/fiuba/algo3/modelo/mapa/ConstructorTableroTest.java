@@ -4,16 +4,12 @@ package edu.fiuba.algo3.modelo.mapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.tablero.TableroInvalidoException;
-import edu.fiuba.algo3.modelo.terrenos.Acido;
-import edu.fiuba.algo3.modelo.terrenos.Agua;
-import edu.fiuba.algo3.modelo.terrenos.Edificio;
-import edu.fiuba.algo3.modelo.terrenos.Montana;
-import edu.fiuba.algo3.modelo.terrenos.Suelo;
+import edu.fiuba.algo3.modelo.terrenos.*;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ConstructorTableroTest {
 
@@ -23,7 +19,7 @@ public class ConstructorTableroTest {
         ConstructorTablero constructor = new ConstructorTablero();
 
         // Act
-        Tablero tablero = constructor.construir(new String[]{"S"});
+        Tablero tablero = constructor.construir(List.of("S"));
 
         // Assert
         assertEquals(Suelo.class, tablero.enCasilla(new Posicion(0, 0)).obtenerTerreno().getClass());
@@ -35,7 +31,7 @@ public class ConstructorTableroTest {
         ConstructorTablero constructor = new ConstructorTablero();
 
         // Act
-        Tablero tablero = constructor.construir(new String[]{"E"});
+        Tablero tablero = constructor.construir(List.of("E"));
 
         // Assert
         assertEquals(Edificio.class, tablero.enCasilla(new Posicion(0, 0)).obtenerTerreno().getClass());
@@ -47,7 +43,7 @@ public class ConstructorTableroTest {
         ConstructorTablero constructor = new ConstructorTablero();
 
         // Act
-        Tablero tablero = constructor.construir(new String[]{"M"});
+        Tablero tablero = constructor.construir(List.of("M"));
 
         // Assert
         assertEquals(Montana.class, tablero.enCasilla(new Posicion(0, 0)).obtenerTerreno().getClass());
@@ -59,7 +55,7 @@ public class ConstructorTableroTest {
         ConstructorTablero constructor = new ConstructorTablero();
 
         // Act
-        Tablero tablero = constructor.construir(new String[]{"A"});
+        Tablero tablero = constructor.construir(List.of("A"));
 
         // Assert
         assertEquals(Agua.class, tablero.enCasilla(new Posicion(0, 0)).obtenerTerreno().getClass());
@@ -71,7 +67,7 @@ public class ConstructorTableroTest {
         ConstructorTablero constructor = new ConstructorTablero();
 
         // Act
-        Tablero tablero = constructor.construir(new String[]{"C"});
+        Tablero tablero = constructor.construir(List.of("C"));
 
         // Assert
         assertEquals(Acido.class, tablero.enCasilla(new Posicion(0, 0)).obtenerTerreno().getClass());
@@ -83,7 +79,7 @@ public class ConstructorTableroTest {
         ConstructorTablero constructor = new ConstructorTablero();
 
         // Act & Assert
-        assertThrows(TableroInvalidoException.class, () -> constructor.construir(new String[]{"X"}));
+        assertThrows(TableroInvalidoException.class, () -> constructor.construir(List.of("X")));
     }
 
     @Test
@@ -92,7 +88,7 @@ public class ConstructorTableroTest {
         ConstructorTablero constructor = new ConstructorTablero();
 
         // Act
-        Tablero tablero = constructor.construir(new String[]{"EE"});
+        Tablero tablero = constructor.construir(List.of("EE"));
 
         // Assert
         assertNotSame(tablero.enCasilla(new Posicion(0, 0)).obtenerTerreno(),

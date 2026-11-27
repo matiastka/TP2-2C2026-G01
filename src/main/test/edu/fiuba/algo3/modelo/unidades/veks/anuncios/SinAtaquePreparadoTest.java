@@ -1,10 +1,6 @@
 
 package edu.fiuba.algo3.modelo.unidades.veks.anuncios;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.Test;
-
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
@@ -13,6 +9,9 @@ import edu.fiuba.algo3.modelo.unidades.ataques.AtaqueCuerpoACuerpo;
 import edu.fiuba.algo3.modelo.unidades.ataques.efectos.EfectoNulo;
 import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
 import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SinAtaquePreparadoTest {
 
@@ -22,8 +21,7 @@ public class SinAtaquePreparadoTest {
     @Test
     public void test01EjecutarNoDaniaALosOcupantesAdyacentes() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(3, 3);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(3, 4), tablero);
@@ -40,8 +38,7 @@ public class SinAtaquePreparadoTest {
     @Test
     public void test02EjecutarNoAlteraLaRedElectricaAlApuntarAUnEdificio() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         int redInicial = tablero.obtenerRedElectrica();
         Posicion origen = new Posicion(3, 2);
         Ataque ataque = new AtaqueCuerpoACuerpo(1, new EfectoNulo());

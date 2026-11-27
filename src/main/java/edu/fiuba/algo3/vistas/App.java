@@ -3,7 +3,6 @@ package edu.fiuba.algo3.vistas;
 import java.util.List;
 
 import edu.fiuba.algo3.controllers.ControladorPartida;
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.partida.Partida;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
@@ -29,8 +28,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
         String rutaMapa = "src/main/java/edu/fiuba/algo3/modelo/mapa/mapa1.txt";
-        String[] mapa = new LectorDeMapa().leer(rutaMapa);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(rutaMapa);
 
         Mech combate = new Combate();
         combate.colocarseEn(new Posicion(6, 1), tablero);

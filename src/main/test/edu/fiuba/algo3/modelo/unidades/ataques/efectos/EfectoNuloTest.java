@@ -1,10 +1,6 @@
 
 package edu.fiuba.algo3.modelo.unidades.ataques.efectos;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.Test;
-
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
@@ -13,6 +9,9 @@ import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
 import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
 import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EfectoNuloTest {
 
@@ -21,8 +20,7 @@ public class EfectoNuloTest {
     @Test
     public void test01AplicarNoModificaLaVidaDelOcupante() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion pos = new Posicion(3, 3);
         Vek objetivo = new Luciernaga();
         objetivo.colocarseEn(pos, tablero);
@@ -38,8 +36,7 @@ public class EfectoNuloTest {
     @Test
     public void test02AplicarNoModificaLaPosicionDelOcupante() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion pos = new Posicion(3, 3);
         Vek objetivo = new Luciernaga();
         objetivo.colocarseEn(pos, tablero);
@@ -55,8 +52,7 @@ public class EfectoNuloTest {
     @Test
     public void test03AplicarNoContaminaAlOcupante() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion pos = new Posicion(3, 3);
         Mech mech = new Combate();
         mech.colocarseEn(pos, tablero);

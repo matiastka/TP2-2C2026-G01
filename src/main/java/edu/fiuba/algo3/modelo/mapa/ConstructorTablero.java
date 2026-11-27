@@ -13,11 +13,13 @@ import edu.fiuba.algo3.modelo.terrenos.Montana;
 import edu.fiuba.algo3.modelo.terrenos.Suelo;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
 public class ConstructorTablero {
-    public Tablero construir(String[] mapa) {
+
+    public Tablero construir(List<String> filas) {
         RedElectrica redElectrica = new RedElectrica();
         Map<Character, Supplier<Terreno>> terrenos = Map.of(
                 'S', Suelo::new,
@@ -27,10 +29,10 @@ public class ConstructorTablero {
                 'C', Acido::new
         );
         Map<Posicion, Casilla> casillas = new HashMap<>();
-        for (int fila = 0; fila < mapa.length; fila++) {
-            for (int columna = 0; columna < mapa[fila].length(); columna++) {
+        for (int fila = 0; fila < filas.size(); fila++) {
+            for (int columna = 0; columna < filas.get(fila).length(); columna++) {
                 Posicion posicion = new Posicion(fila, columna);
-                char letra = mapa[fila].charAt(columna);
+                char letra = filas.get(fila).charAt(columna);
                 casillas.put(posicion, new Casilla(terrenoSegun(letra, terrenos), posicion));
             }
         }

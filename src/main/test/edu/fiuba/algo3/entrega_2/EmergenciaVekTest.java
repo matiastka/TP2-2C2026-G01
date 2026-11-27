@@ -1,20 +1,17 @@
 
 package edu.fiuba.algo3.entrega_2;
 
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
-import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
 import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
-import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
+import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class EmergenciaVekTest {
 
@@ -23,8 +20,7 @@ public class EmergenciaVekTest {
     @Test
     public void test01AlAnunciarLaEmergenciaElVekTodaviaNoEmerge() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion posicion = new Posicion(3, 3);
         Vek vek = new Luciernaga();
 
@@ -38,8 +34,7 @@ public class EmergenciaVekTest {
     @Test
     public void test02CuandoLaCasillaEstaLibreElVekEmergeAlAvanzarElTurno() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion posicion = new Posicion(3, 3);
         Vek vek = new Luciernaga();
         tablero.anunciarEmergencia(posicion, vek);
@@ -54,8 +49,7 @@ public class EmergenciaVekTest {
     @Test
     public void test03UnaVezQueElVekEmergeLaEmergenciaNoVuelveAResolverse() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion posicion = new Posicion(3, 3);
         Vek vek = new Luciernaga();
         tablero.anunciarEmergencia(posicion, vek);
@@ -71,8 +65,7 @@ public class EmergenciaVekTest {
     @Test
     public void test04LaEmergenciaBloqueadaPorMechHace1DeDanioYNoHaceAparecerAlVek() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion posicion = new Posicion(3, 3);
         Mech mech = new Combate();
         Vek vek = new Luciernaga();
@@ -89,8 +82,7 @@ public class EmergenciaVekTest {
     @Test
     public void test05LaEmergenciaBloqueadaPorMechSeMantienePendienteParaElSiguienteTurno() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion posicion = new Posicion(3, 3);
         Mech mech = new Combate();
         Vek vek = new Luciernaga();
@@ -108,8 +100,7 @@ public class EmergenciaVekTest {
     @Test
     public void test06LaEmergenciaBloqueadaPorOtroVekHace1DeDanio() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion posicion = new Posicion(3, 3);
         Unidad bloqueador = new Luciernaga();
         Vek vek = new Luciernaga();
@@ -126,8 +117,7 @@ public class EmergenciaVekTest {
     @Test
     public void test07LaEmergenciaBloqueadaPorOtroVekSigueActiva() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion posicion = new Posicion(3, 3);
         Unidad bloqueador = new Luciernaga();
         Vek vek = new Luciernaga();
@@ -145,8 +135,7 @@ public class EmergenciaVekTest {
     @Test
     public void test08TrasLiberarLaCasillaElVekEmergeEnElTurnoSiguiente() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion posicion = new Posicion(3, 3);
         Mech mech = new Combate();
         Vek vek = new Luciernaga();

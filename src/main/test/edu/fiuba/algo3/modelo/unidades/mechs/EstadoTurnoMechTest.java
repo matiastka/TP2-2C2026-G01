@@ -1,13 +1,8 @@
 
 package edu.fiuba.algo3.modelo.unidades.mechs;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import org.junit.jupiter.api.Test;
-
 import edu.fiuba.algo3.modelo.excepciones.MovimientoYaRealizadoException;
 import edu.fiuba.algo3.modelo.excepciones.TurnoAgotadoException;
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
@@ -17,6 +12,10 @@ import edu.fiuba.algo3.modelo.unidades.mechs.estado.turno.EstadoTurnoMech;
 import edu.fiuba.algo3.modelo.unidades.mechs.estado.turno.EstadoYaSeMovio;
 import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
 import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class EstadoTurnoMechTest {
 
@@ -25,8 +24,7 @@ public class EstadoTurnoMechTest {
     @Test
     public void test01EstadoDisponibleAlMoverseExitosamenteRetornaEstadoYaSeMovio() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(0, 0), tablero);
         EstadoTurnoMech estado = new EstadoDisponible();
@@ -41,8 +39,7 @@ public class EstadoTurnoMechTest {
     @Test
     public void test02EstadoDisponibleAlAtacarExitosamenteRetornaEstadoTurnoAgotado() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Mech mech = new Combate();
         Luciernaga vek = new Luciernaga();
         mech.colocarseEn(new Posicion(0, 0), tablero);
@@ -59,8 +56,7 @@ public class EstadoTurnoMechTest {
     @Test
     public void test03EstadoYaSeMovioAlAtacarRetornaEstadoTurnoAgotado() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Combate mech = new Combate();
         Luciernaga vek = new Luciernaga();
         mech.colocarseEn(new Posicion(0, 0), tablero);
@@ -77,8 +73,7 @@ public class EstadoTurnoMechTest {
     @Test
     public void test04EstadoYaSeMovioAlIntentarMoverseNuevamenteRetornaRechazo() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Combate mech = new Combate();
         mech.colocarseEn(new Posicion(0, 0), tablero);
         EstadoTurnoMech estado = new EstadoYaSeMovio();
@@ -90,8 +85,7 @@ public class EstadoTurnoMechTest {
     @Test
     public void test05EstadoTurnoAgotadoAlIntentarMoverseRetornaRechazo() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Combate mech = new Combate();
         mech.colocarseEn(new Posicion(0, 0), tablero);
         EstadoTurnoMech estado = new EstadoTurnoAgotado();
@@ -103,8 +97,7 @@ public class EstadoTurnoMechTest {
     @Test
     public void test06EstadoTurnoAgotadoAlIntentarAtacarNuevamenteRetornaRechazo() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Combate mech = new Combate();
         mech.colocarseEn(new Posicion(0, 0), tablero);
         EstadoTurnoMech estado = new EstadoTurnoAgotado();

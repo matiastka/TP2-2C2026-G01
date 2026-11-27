@@ -1,18 +1,10 @@
 
 package edu.fiuba.algo3.modelo.tablero;
 
-import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
-import edu.fiuba.algo3.modelo.tablero.direcciones.DireccionInvalidaException;
-import edu.fiuba.algo3.modelo.tablero.direcciones.Este;
-import edu.fiuba.algo3.modelo.tablero.direcciones.Norte;
-import edu.fiuba.algo3.modelo.tablero.direcciones.Oeste;
-import edu.fiuba.algo3.modelo.tablero.direcciones.Sur;
+import edu.fiuba.algo3.modelo.tablero.direcciones.*;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PosicionTest {
 

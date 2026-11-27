@@ -1,12 +1,6 @@
 
 package edu.fiuba.algo3.entrega_2;
 
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.Test;
-
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.partida.Turno;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
@@ -14,6 +8,11 @@ import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
 import edu.fiuba.algo3.modelo.unidades.veks.ia.InteligenciaArtificialVek;
 import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Saltador;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AtaqueAnunciadoTest {
 
@@ -22,8 +21,7 @@ public class AtaqueAnunciadoTest {
     @Test
     public void test01DosVeksSeAtacanEntreSiConUnOrdenAnunciado() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion posVek1 = new Posicion(1, 1);
         Posicion posVek2 = new Posicion(1, 2);
         Saltador vek1 = new Saltador();
@@ -43,8 +41,7 @@ public class AtaqueAnunciadoTest {
     @Test
     public void test02VekMuertoDuranteLaFaseDeResolucionNoEjecutaSuAtaque() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion posVek1 = new Posicion(1, 1);
         Posicion posVek2 = new Posicion(1, 2);
         Posicion posMech = new Posicion(1, 3);

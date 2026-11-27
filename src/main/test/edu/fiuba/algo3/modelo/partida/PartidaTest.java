@@ -1,21 +1,18 @@
 package edu.fiuba.algo3.modelo.partida;
 
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.partida.estado.EnJuego;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
 import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
-import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Saltador;
+import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Saltador;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PartidaTest {
 
@@ -32,8 +29,7 @@ public class PartidaTest {
     @Test
     public void test01UnaPartidaNuevaEmpiezaEnElTurno1() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Partida partida = new Partida(tablero, List.of(colocarMech(tablero)), List.of());
 
         // Act
@@ -46,8 +42,7 @@ public class PartidaTest {
     @Test
     public void test02AlTerminarLaFaseDelJugadorSePasaAlSiguienteTurno() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Partida partida = new Partida(tablero, List.of(colocarMech(tablero)), List.of());
 
         // Act
@@ -60,8 +55,7 @@ public class PartidaTest {
     @Test
     public void test03AntesDeCompletarLos5TurnosLaPartidaSigueEnJuego() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Partida partida = new Partida(tablero, List.of(colocarMech(tablero)), List.of());
 
         // Act
@@ -76,8 +70,7 @@ public class PartidaTest {
     @Test
     public void test04TerminarLaFaseDeUnaPartidaTerminadaNoAvanzaElTurno() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Partida partida = new Partida(tablero, List.of(colocarMech(tablero)), List.of());
         for (int turno = 0; turno < 5; turno++) {
             partida.terminarFaseJugador();
@@ -93,8 +86,7 @@ public class PartidaTest {
     @Test
     public void test05EnElTurnoSiguienteLosMechsPuedenVolverAMoverse() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Mech mech = colocarMech(tablero);
         Partida partida = new Partida(tablero, List.of(mech), List.of());
         mech.moverA(new Posicion(7, 6), tablero);
@@ -107,8 +99,7 @@ public class PartidaTest {
     @Test
     public void test06UnVekMuertoSeRetiraDelTablero() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Vek vek = new Saltador();
         vek.colocarseEn(new Posicion(0, 0), tablero);
         Partida partida = new Partida(tablero, List.of(colocarMech(tablero)), List.of(vek));
@@ -125,8 +116,7 @@ public class PartidaTest {
     @Test
     public void test07LosVekAnuncianAlEmpezarElTurnoYAtacanAlTerminarLaFaseDelJugador() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO_FILA1);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO_FILA1);
         Vek vek = new Saltador();
         vek.colocarseEn(new Posicion(4, 1), tablero);
         Partida partida = new Partida(tablero, List.of(colocarMech(tablero)), List.of(vek));
@@ -141,8 +131,7 @@ public class PartidaTest {
 
     @Test
     public void test08UnaPartidaNuevaEmpiezaEnFaseJugadorLuegoDeLaFaseVek() {
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Partida partida = new Partida(tablero, List.of(colocarMech(tablero)), List.of());
 
         assertEquals(FaseTurno.JUGADOR, partida.obtenerFaseActual());
@@ -150,8 +139,7 @@ public class PartidaTest {
 
     @Test
     public void test09AlPasarElTurnoSeReiniciaLaFaseJugador() {
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Partida partida = new Partida(tablero, List.of(colocarMech(tablero)), List.of());
 
         partida.terminarFaseJugador();
@@ -162,8 +150,7 @@ public class PartidaTest {
     @Test
     public void test10UnaPartidaNuevaNoTieneVeksEliminados() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Partida partida = new Partida(tablero, List.of(colocarMech(tablero)), List.of());
 
         // Act
@@ -176,8 +163,7 @@ public class PartidaTest {
     @Test
     public void test11UnVekMuertoAlTerminarElTurnoCuentaComoEliminado() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Vek vek = new Saltador();
         vek.colocarseEn(new Posicion(0, 0), tablero);
         Partida partida = new Partida(tablero, List.of(colocarMech(tablero)), List.of(vek));
@@ -193,8 +179,7 @@ public class PartidaTest {
     @Test
     public void test12UnVekMuertoEnLaFaseDelJugadorCuentaComoEliminado() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Vek vek = new Saltador();
         vek.colocarseEn(new Posicion(0, 0), tablero);
         Partida partida = new Partida(tablero, List.of(colocarMech(tablero)), List.of(vek));
@@ -210,8 +195,7 @@ public class PartidaTest {
     @Test
     public void test13UnVekRetiradoNoSeCuentaDosVeces() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Vek vek = new Saltador();
         vek.colocarseEn(new Posicion(0, 0), tablero);
         Partida partida = new Partida(tablero, List.of(colocarMech(tablero)), List.of(vek));
@@ -228,8 +212,7 @@ public class PartidaTest {
     @Test
     public void test14UnVekRetiradoNoSeCuentaDosVeces() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_1);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_1);
         Partida partida = new Partida(tablero, List.of(colocarMech(tablero)), List.of());
 
         // Act

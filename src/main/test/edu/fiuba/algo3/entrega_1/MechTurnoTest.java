@@ -1,24 +1,17 @@
 
 package edu.fiuba.algo3.entrega_1;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.Test;
-
-import edu.fiuba.algo3.modelo.excepciones.AccionInvalidaException;
-import edu.fiuba.algo3.modelo.excepciones.AccionNoDisponibleException;
-import edu.fiuba.algo3.modelo.excepciones.DestinoNoAlcanzableException;
-import edu.fiuba.algo3.modelo.excepciones.MovimientoYaRealizadoException;
-import edu.fiuba.algo3.modelo.excepciones.TurnoAgotadoException;
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
+import edu.fiuba.algo3.modelo.excepciones.*;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
-import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
 import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
+import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
 import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MechTurnoTest {
 
@@ -27,8 +20,7 @@ public class MechTurnoTest {
     @Test
     public void test01MechNoPuedeMoverseDosVecesEnElMismoTurno() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(0, 0), tablero);
         mech.moverA(new Posicion(0, 2), tablero);
@@ -40,8 +32,7 @@ public class MechTurnoTest {
     @Test
     public void test02MovimientoInvalidoNoCambiaLaPosicionDelMech() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(0, 0);
         Mech mech = new Combate();
         mech.colocarseEn(origen, tablero);
@@ -53,8 +44,7 @@ public class MechTurnoTest {
     @Test
     public void test03MovimientoInvalidoNoConsumeLaAccionDelMech() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion destino = new Posicion(0, 1);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(0, 0), tablero);
@@ -70,8 +60,7 @@ public class MechTurnoTest {
     @Test
     public void test04MechNoPuedeAtacarDosVecesEnElMismoTurno() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(2, 2), tablero);
         new Luciernaga().colocarseEn(new Posicion(2, 3), tablero);
@@ -84,8 +73,7 @@ public class MechTurnoTest {
     @Test
     public void test05SegundoAtaqueDelMechNoAfectaOtroVek() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Mech mech = new Combate();
         Unidad vek1 = new Luciernaga();
         Unidad vek2 = new Luciernaga();
@@ -101,8 +89,7 @@ public class MechTurnoTest {
     @Test
     public void test06AlReiniciarTurnoElMechPuedeVolverAMoverse() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion destino = new Posicion(1, 1);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(0, 0), tablero);
@@ -121,8 +108,7 @@ public class MechTurnoTest {
     @Test
     public void test07DeshacerMovimientoDeMechQueTodaviaNoAtaco() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(0, 0);
         Mech mech = new Combate();
         mech.colocarseEn(origen, tablero);
@@ -138,8 +124,7 @@ public class MechTurnoTest {
     @Test
     public void test08DeshacerDejaLaCasillaDestinoLibre() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion destino = new Posicion(0, 1);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(0, 0), tablero);
@@ -155,8 +140,7 @@ public class MechTurnoTest {
     @Test
     public void test09NoSePuedeDeshacerDosMovimientosEnElMismoTurno() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(0, 0), tablero);
         mech.moverA(new Posicion(0, 1), tablero);
@@ -170,8 +154,7 @@ public class MechTurnoTest {
     @Test
     public void test10NoSePuedeDeshacerElMovimientoDespuesDeAtacar() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(0, 0), tablero);
         new Luciernaga().colocarseEn(new Posicion(0, 2), tablero);
@@ -185,8 +168,7 @@ public class MechTurnoTest {
     @Test
     public void test11IntentarDeshacerDespuesDeAtacarNoMueveAlMech() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion destino = new Posicion(0, 1);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(0, 0), tablero);
@@ -201,8 +183,7 @@ public class MechTurnoTest {
     @Test
     public void test12AtaqueInvalidoRetornaMotivoDeRechazo() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion objetivoNoAdyacente = new Posicion(0, 2);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(0, 0), tablero);
@@ -215,8 +196,7 @@ public class MechTurnoTest {
     @Test
     public void test13AtaqueInvalidoNoConsumeLaAccionDelMech() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion destino = new Posicion(0, 1);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(0, 0), tablero);

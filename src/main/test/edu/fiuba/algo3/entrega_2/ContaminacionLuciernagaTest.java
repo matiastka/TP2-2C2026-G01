@@ -1,10 +1,6 @@
 
 package edu.fiuba.algo3.entrega_2;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.Test;
-
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
@@ -14,6 +10,9 @@ import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
 import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Avispon;
 import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ContaminacionLuciernagaTest {
 
@@ -23,8 +22,7 @@ public class ContaminacionLuciernagaTest {
     @Test
     public void test01LuciernagaDaniaYContaminaAlMechImpactadoDuplicandoElSiguienteDanio() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion posicionMech = new Posicion(3, 3);
         Posicion posicionLuciernaga1 = new Posicion(3, 1);
         Posicion posicionLuciernaga2 = new Posicion(1, 3);
@@ -51,8 +49,7 @@ public class ContaminacionLuciernagaTest {
     @Test
     public void test02LaContaminacionNoSeAcumulaAlCombinarAcidoYLuciernaga() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_ACIDO_FILA3);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_ACIDO_FILA3);
         Mech mech = new Combate();
         Vek luciernaga = new Luciernaga();
         mech.colocarseEn(new Posicion(3, 3), tablero);
@@ -71,8 +68,7 @@ public class ContaminacionLuciernagaTest {
     @Test
     public void test03LaContaminacionNoSeAcumulaAlRecibirDosImpactosDeLuciernaga() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_ACIDO_FILA3);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_ACIDO_FILA3);
         Mech mech = new Combate();
         Vek luciernaga1 = new Luciernaga();
         Vek luciernaga2 = new Luciernaga();
@@ -95,8 +91,7 @@ public class ContaminacionLuciernagaTest {
     @Test
     public void test04AvisponEsInmuneALaContaminacionDeLuciernaga() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Vek avispon = new Avispon();
         Vek luciernaga = new Luciernaga();
         Mech artilleria = new Artilleria();

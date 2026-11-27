@@ -1,15 +1,14 @@
 
 package edu.fiuba.algo3.entrega_2;
 
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.partida.Turno;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Canon;
+import edu.fiuba.algo3.modelo.unidades.veks.ia.InteligenciaArtificialVek;
 import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Avispon;
 import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Saltador;
-import edu.fiuba.algo3.modelo.unidades.veks.ia.InteligenciaArtificialVek;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -23,8 +22,7 @@ public class AtaqueDesplazadoTest {
     @Test
     public void test01EmpujarVekDesplazaSuAtaqueAnunciadoYDaniaAlNuevoObjetivo() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion posCanon = new Posicion(1, 1);
         Posicion posAvispon = new Posicion(1, 2);
         Posicion posSaltador = new Posicion(2, 3);

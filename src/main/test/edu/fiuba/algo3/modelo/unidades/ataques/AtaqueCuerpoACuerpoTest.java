@@ -1,13 +1,6 @@
 
 package edu.fiuba.algo3.modelo.unidades.ataques;
 
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.Test;
-
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
@@ -18,6 +11,12 @@ import edu.fiuba.algo3.modelo.unidades.ataques.efectos.EfectoEmpujar;
 import edu.fiuba.algo3.modelo.unidades.ataques.efectos.EfectoNulo;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
 import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
+import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AtaqueCuerpoACuerpoTest {
 
@@ -26,8 +25,7 @@ public class AtaqueCuerpoACuerpoTest {
     @Test
     public void test01EjecutarDaniaAlOcupanteEnLaCasillaAdyacente() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(3, 3);
         Vek objetivo = new Luciernaga();
         objetivo.colocarseEn(new Posicion(3, 4), tablero);
@@ -43,8 +41,7 @@ public class AtaqueCuerpoACuerpoTest {
     @Test
     public void test02EjecutarAplicaElEfectoDeImpactoAlOcupante() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(3, 3);
         Vek objetivo = new Luciernaga();
         objetivo.colocarseEn(new Posicion(3, 4), tablero);
@@ -60,8 +57,7 @@ public class AtaqueCuerpoACuerpoTest {
     @Test
     public void test03EjecutarNoDaniaAUnOcupanteQueNoEstaAdyacente() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(3, 3);
         Vek noAdyacente = new Luciernaga();
         noAdyacente.colocarseEn(new Posicion(3, 5), tablero);
@@ -77,8 +73,7 @@ public class AtaqueCuerpoACuerpoTest {
     @Test
     public void test04EjecutarHaciaFueraDelTableroNoLanzaExcepcion() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(0, 0);
         Ataque ataque = new AtaqueCuerpoACuerpo(2, new EfectoNulo());
 
@@ -89,8 +84,7 @@ public class AtaqueCuerpoACuerpoTest {
     @Test
     public void test05CasillaImpactadaDesdeDevuelveLaCasillaAdyacenteCuandoEstaEnRango() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(3, 3);
         Posicion adyacente = new Posicion(3, 4);
         Ataque ataque = new AtaqueCuerpoACuerpo(2, new EfectoNulo());
@@ -105,8 +99,7 @@ public class AtaqueCuerpoACuerpoTest {
     @Test
     public void test06CasillaImpactadaDesdeDevuelveVacioCuandoApuntaFueraDelTablero() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(0, 0);
         Ataque ataque = new AtaqueCuerpoACuerpo(2, new EfectoNulo());
 

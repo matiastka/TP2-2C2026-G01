@@ -1,20 +1,17 @@
 package edu.fiuba.algo3.modelo.unidades.mechs;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.Test;
-
 import edu.fiuba.algo3.modelo.excepciones.CaminoBloqueadoException;
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Canon;
 import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MechDeshacerYDestinosTest {
 
@@ -25,7 +22,7 @@ public class MechDeshacerYDestinosTest {
     @Test
     public void test01NoSePuedeDeshacerSiOtroMechOcupaLaPosicionAnterior() {
         // Arrange
-        Tablero tablero = new ConstructorTablero().construir(new LectorDeMapa().leer(RUTA_MAPA_LIBRE));
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Mech primero = new Combate();
         Mech segundo = new Canon();
         primero.colocarseEn(new Posicion(0, 0), tablero);
@@ -40,7 +37,7 @@ public class MechDeshacerYDestinosTest {
     @Test
     public void test02SiNoSePuedeDeshacerElOtroMechSigueEnSuCasilla() {
         // Arrange
-        Tablero tablero = new ConstructorTablero().construir(new LectorDeMapa().leer(RUTA_MAPA_LIBRE));
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Mech primero = new Combate();
         Mech segundo = new Canon();
         primero.colocarseEn(new Posicion(0, 0), tablero);
@@ -58,7 +55,7 @@ public class MechDeshacerYDestinosTest {
     @Test
     public void test03ElAguaEstaEntreLosDestinosAlcanzablesDeUnMech() {
         // Arrange
-        Tablero tablero = new ConstructorTablero().construir(new LectorDeMapa().leer(RUTA_MAPA_AGUA));
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_AGUA);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(2, 2), tablero);
         List<Posicion> destinos = new ArrayList<>();
@@ -73,7 +70,7 @@ public class MechDeshacerYDestinosTest {
     @Test
     public void test04ElAcidoEstaEntreLosDestinosAlcanzablesDeUnMech() {
         // Arrange
-        Tablero tablero = new ConstructorTablero().construir(new LectorDeMapa().leer(RUTA_MAPA_ACIDO));
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_ACIDO);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(1, 0), tablero);
         List<Posicion> destinos = new ArrayList<>();

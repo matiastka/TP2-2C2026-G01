@@ -1,7 +1,6 @@
 
 package edu.fiuba.algo3.modelo.unidades.ataques;
 
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
@@ -9,8 +8,8 @@ import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.tablero.direcciones.Este;
 import edu.fiuba.algo3.modelo.unidades.ataques.efectos.EfectoEmpujar;
 import edu.fiuba.algo3.modelo.unidades.ataques.efectos.EfectoNulo;
-import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -25,8 +24,7 @@ public class AtaqueArtilleriaTest {
     @Test
     public void test01EjecutarDaniaAlOcupanteALaDistanciaIndicada() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(4, 0);
         Vek objetivo = new Luciernaga();
         objetivo.colocarseEn(new Posicion(4, 4), tablero);
@@ -42,8 +40,7 @@ public class AtaqueArtilleriaTest {
     @Test
     public void test02EjecutarSalteaObstaculosIntermediosYDaniaAlObjetivo() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
         Posicion origen = new Posicion(2, 0);
         Vek objetivo = new Luciernaga();
         objetivo.colocarseEn(new Posicion(2, 4), tablero);
@@ -59,8 +56,7 @@ public class AtaqueArtilleriaTest {
     @Test
     public void test03EjecutarNoDaniaALosOcupantesAdyacentesAlPuntoDeImpacto() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(4, 0);
         Vek adyacenteNorte = new Luciernaga();
         adyacenteNorte.colocarseEn(new Posicion(3, 4), tablero);
@@ -76,8 +72,7 @@ public class AtaqueArtilleriaTest {
     @Test
     public void test04EjecutarAplicaEfectoAdyacenteHaciaElNorteDelImpacto() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(4, 0);
         Vek adyacenteNorte = new Luciernaga();
         adyacenteNorte.colocarseEn(new Posicion(3, 4), tablero);
@@ -93,8 +88,7 @@ public class AtaqueArtilleriaTest {
     @Test
     public void test05EjecutarAplicaEfectoAdyacenteHaciaElSurDelImpacto() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(4, 0);
         Vek adyacenteSur = new Luciernaga();
         adyacenteSur.colocarseEn(new Posicion(5, 4), tablero);
@@ -110,8 +104,7 @@ public class AtaqueArtilleriaTest {
     @Test
     public void test06EjecutarAplicaEfectoAdyacenteHaciaElEsteDelImpacto() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(4, 0);
         Vek adyacenteEste = new Luciernaga();
         adyacenteEste.colocarseEn(new Posicion(4, 5), tablero);
@@ -127,8 +120,7 @@ public class AtaqueArtilleriaTest {
     @Test
     public void test07EjecutarAplicaEfectoAdyacenteHaciaElOesteDelImpacto() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(4, 0);
         Vek adyacenteOeste = new Luciernaga();
         adyacenteOeste.colocarseEn(new Posicion(4, 3), tablero);
@@ -144,8 +136,7 @@ public class AtaqueArtilleriaTest {
     @Test
     public void test08CasillaImpactadaDesdeDevuelveLaCasillaALaDistanciaIndicada() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(4, 0);
         Posicion destino = new Posicion(4, 4);
         Ataque ataque = new AtaqueArtilleria(1, 4, new EfectoNulo());
@@ -160,8 +151,7 @@ public class AtaqueArtilleriaTest {
     @Test
     public void test09CasillaImpactadaDesdeDevuelveVacioSiLaDistanciaExcedeElTablero() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(4, 5);
         Ataque ataque = new AtaqueArtilleria(1, 4, new EfectoNulo());
 
