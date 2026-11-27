@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.controllers;
 
 import edu.fiuba.algo3.modelo.excepciones.AccionInvalidaException;
-import edu.fiuba.algo3.modelo.excepciones.PartidaTerminadaException;
 import edu.fiuba.algo3.modelo.partida.Partida;
 import edu.fiuba.algo3.vistas.VistaBarraEstado;
 
@@ -19,8 +18,6 @@ public class ControladorPartida {
             this.partida.terminarFaseJugador();
             this.barraEstado.mostrarMensaje("Se resolvio el turno");
         } catch (AccionInvalidaException excepcion) {
-            this.barraEstado.mostrarError(excepcion.getMessage());
-        } catch (PartidaTerminadaException excepcion) {
             this.barraEstado.mostrarError(excepcion.getMessage());
         }
     }

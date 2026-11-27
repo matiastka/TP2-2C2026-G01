@@ -1,7 +1,5 @@
-
 package edu.fiuba.algo3.modelo.partida;
 
-import edu.fiuba.algo3.modelo.excepciones.PartidaTerminadaException;
 import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.partida.estado.Derrota;
@@ -15,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class DerrotaTest {
 
@@ -28,15 +26,18 @@ public class DerrotaTest {
     }
 
     @Test
-    public void test01TerminarFaseJugadorLanzaPartidaTerminadaException() {
+    public void test01TerminarFaseJugadorNoCambiaElEstadoDeLaPartida() {
         // Arrange
         String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Tablero tablero = new ConstructorTablero().construir(mapa);
         Partida partida = new Partida(tablero, List.of(crearMechEnTablero(tablero)), List.of());
         EstadoPartida derrota = new Derrota();
 
-        // Act & Assert
-        assertThrows(PartidaTerminadaException.class, () -> derrota.terminarFaseJugador(partida));
+        // Act
+        EstadoPartida siguiente = derrota.terminarFaseJugador(partida);
+
+        // Assert
+        assertSame(derrota, siguiente);
     }
 
     @Test
@@ -49,10 +50,7 @@ public class DerrotaTest {
         int turnoInicial = partida.obtenerNumeroDeTurno();
 
         // Act
-        try {
-            derrota.terminarFaseJugador(partida);
-        } catch (PartidaTerminadaException ignored) {
-        }
+        derrota.terminarFaseJugador(partida);
 
         // Assert
         assertEquals(turnoInicial, partida.obtenerNumeroDeTurno());

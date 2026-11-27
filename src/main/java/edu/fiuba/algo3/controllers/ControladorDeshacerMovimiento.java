@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.controllers;
 
 import edu.fiuba.algo3.modelo.excepciones.AccionInvalidaException;
-import edu.fiuba.algo3.modelo.excepciones.PartidaTerminadaException;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
 import edu.fiuba.algo3.vistas.VistaBarraEstado;
@@ -25,8 +24,6 @@ public class ControladorDeshacerMovimiento {
             mechSeleccionado.deshacerMovimiento(this.tablero);
             this.barraEstado.mostrarMensaje("Movimiento deshecho");
         } catch (AccionInvalidaException excepcion) {
-            this.barraEstado.mostrarError(excepcion.getMessage());
-        } catch (PartidaTerminadaException excepcion) {
             this.barraEstado.mostrarError(excepcion.getMessage());
         }
     }

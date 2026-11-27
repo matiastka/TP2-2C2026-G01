@@ -5,7 +5,6 @@ import java.util.List;
 
 import edu.fiuba.algo3.modelo.VisitanteVisualCasilla;
 import edu.fiuba.algo3.modelo.excepciones.AccionInvalidaException;
-import edu.fiuba.algo3.modelo.excepciones.PartidaTerminadaException;
 import edu.fiuba.algo3.modelo.partida.Partida;
 import edu.fiuba.algo3.modelo.tablero.BuscadorDeObjetivos;
 import edu.fiuba.algo3.modelo.tablero.Casilla;
@@ -53,7 +52,7 @@ public class ControladorCasilla {
 
         try {
             casilla.aceptar(new VisitanteClicCasilla(casilla));
-        } catch (AccionInvalidaException | PartidaTerminadaException excepcion) {
+        } catch (AccionInvalidaException excepcion) {
             this.barraEstado.mostrarError(excepcion.getMessage());
         }
     }

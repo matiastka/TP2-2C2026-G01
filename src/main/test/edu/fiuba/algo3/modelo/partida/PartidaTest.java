@@ -1,7 +1,5 @@
-
 package edu.fiuba.algo3.modelo.partida;
 
-import edu.fiuba.algo3.modelo.excepciones.PartidaTerminadaException;
 import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.partida.estado.EnJuego;
@@ -17,7 +15,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PartidaTest {
@@ -77,7 +74,7 @@ public class PartidaTest {
     }
 
     @Test
-    public void test04NoSePuedeSeguirJugandoUnaPartidaTerminada() {
+    public void test04TerminarLaFaseDeUnaPartidaTerminadaNoAvanzaElTurno() {
         // Arrange
         String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Tablero tablero = new ConstructorTablero().construir(mapa);
@@ -86,8 +83,11 @@ public class PartidaTest {
             partida.terminarFaseJugador();
         }
 
-        // Act & Assert
-        assertThrows(PartidaTerminadaException.class, partida::terminarFaseJugador);
+        // Act
+        partida.terminarFaseJugador();
+
+        // Assert
+        assertEquals(5, partida.obtenerNumeroDeTurno());
     }
 
     @Test
@@ -224,8 +224,6 @@ public class PartidaTest {
         // Assert
         assertEquals(1, partida.obtenerVeksEliminados());
     }
-
-
 
     @Test
     public void test14UnVekRetiradoNoSeCuentaDosVeces() {
