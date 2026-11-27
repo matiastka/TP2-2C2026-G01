@@ -9,11 +9,8 @@ import edu.fiuba.algo3.modelo.unidades.veks.Vek;
 import java.util.List;
 
 public interface Ocupante {
-    default void agregarObservador(Observador observador) {
-    }
-
-    default void quitarObservador(Observador observador) {
-    }
+    void agregarObservador(Observador observador);
+    void quitarObservador(Observador observador);
 
     void aceptar(VisitanteVisualCasilla visitante);
     boolean ocupaCasilla();
@@ -23,8 +20,7 @@ public interface Ocupante {
     void serEmpujadoA(Posicion destino, Tablero tablero);
     void contaminarse();
 
-    default void salirDelAgua() {
-    }
+    void salirDelAgua();
 
     void recibirTransito(Transito transito, Casilla casilla);
 

@@ -31,6 +31,10 @@
         }
 
         @Override
+        public void salirDelAgua() {
+        }
+
+        @Override
         public void moverA(Posicion destino, Tablero tablero) {
             this.estadoTurno = this.estadoTurno.mover(this, destino, tablero);
         }
