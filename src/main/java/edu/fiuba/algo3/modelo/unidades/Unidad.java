@@ -89,11 +89,6 @@ public abstract class Unidad extends SujetoObservable implements Ocupante {
         notificarObservadores();
     }
 
-    public void descontaminarse(){
-        this.estadoSalud = new EstadoSano();
-        notificarObservadores();
-    }
-
     public void agregarSiPuedeTerminarEn(Posicion destino, List<Posicion> destinos, Tablero tablero) {
         if (this.posicion.equals(destino)) {
             destinos.add(destino);

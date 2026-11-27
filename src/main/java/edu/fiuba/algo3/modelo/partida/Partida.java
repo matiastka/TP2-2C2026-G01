@@ -175,10 +175,6 @@ public class Partida extends SujetoObservable {
         return this.tablero;
     }
 
-    public List<Mech> obtenerMechs() {
-        return List.copyOf(this.mechs);
-    }
-
     public List<Vek> obtenerVeks() {
         return List.copyOf(this.veks);
     }

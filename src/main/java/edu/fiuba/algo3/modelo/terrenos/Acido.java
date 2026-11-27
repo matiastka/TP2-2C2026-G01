@@ -18,11 +18,6 @@ public class Acido extends Terreno {
     }
 
     @Override
-    public boolean esPeligrosoParaTerrestres() {
-        return true;
-    }
-
-    @Override
     public void ofrecerComoDestino(BuscadorDeDestinos buscador, Casilla casilla) {
     }
 

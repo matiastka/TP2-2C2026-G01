@@ -17,10 +17,6 @@ public abstract class Terreno {
     public void ofrecerComoObjetivo(BuscadorDeObjetivos buscador, Casilla casilla) {
     }
 
-    public boolean esPeligrosoParaTerrestres() {
-        return false;
-    }
-
     public void recibirDanio(int danio, Casilla casilla) {
     }
 

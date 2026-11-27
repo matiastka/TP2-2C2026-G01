@@ -26,10 +26,6 @@ public interface Ocupante {
     default void salirDelAgua() {
     }
 
-    default boolean esMech() {
-        return false;
-    }
-
     void recibirTransito(Transito transito, Casilla casilla);
 
     void recibirEfectoDeImpacto(EfectoImpacto efecto, Posicion posicion, Direccion direccion, Tablero tablero);
