@@ -2,7 +2,7 @@
 package edu.fiuba.algo3.entrega_2;
 
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
-import edu.fiuba.algo3.modelo.partida.Turno;
+import edu.fiuba.algo3.modelo.partida.Enjambre;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Canon;
@@ -37,7 +37,7 @@ public class AtaqueDesplazadoTest {
         // Act
         vek1.prepararAtaque(posAtaqueAvispon);
         mechCanon.atacarA(posAvispon, tablero);
-        new Turno(List.of(vek1), new InteligenciaArtificialVek()).faseResolucion(tablero);
+        new Enjambre(List.of(vek1), new InteligenciaArtificialVek()).faseResolucion(tablero);
 
         // Assert
         assertEquals(1, vek2.obtenerVida());

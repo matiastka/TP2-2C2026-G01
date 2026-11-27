@@ -34,6 +34,9 @@ public class GeneradorDeEmergencias {
     }
 
     private int cantidadParaElTurno(int numeroDeTurno) {
-        return numeroDeTurno % 2 == 0 ? 2 : 1;
+        if (numeroDeTurno % 2 == 0) {
+            return 2;
+        }
+        return 1;
     }
 }

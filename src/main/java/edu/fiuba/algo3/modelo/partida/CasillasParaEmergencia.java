@@ -17,6 +17,12 @@ public class CasillasParaEmergencia implements BuscadorDeEmergencias {
     }
 
     public List<Posicion> primeras(int cantidad) {
-        return List.copyOf(this.posiciones.subList(0, Math.min(cantidad, this.posiciones.size())));
+        List<Posicion> primeras = new ArrayList<>();
+        for (Posicion posicion : this.posiciones) {
+            if (primeras.size() < cantidad) {
+                primeras.add(posicion);
+            }
+        }
+        return primeras;
     }
 }

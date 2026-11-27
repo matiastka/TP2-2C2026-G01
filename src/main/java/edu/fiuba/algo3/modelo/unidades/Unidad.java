@@ -163,4 +163,13 @@ public abstract class Unidad extends SujetoObservable implements Ocupante {
     public void ofrecerParaEmergencia(BuscadorDeEmergencias buscador, Casilla casilla) {
     }
 
+    public boolean retirarseSiEstaDestruida(Tablero tablero) {
+        if (this.vida > 0) {
+            return false;
+        }
+        tablero.desOcuparCasilla(this.posicion);
+        return true;
+    }
+
+
 }
