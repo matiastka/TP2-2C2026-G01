@@ -74,5 +74,9 @@ public class SinOcupante implements Ocupante {
         casilla.ofrecerTerrenoComoObjetivo(buscador);
     }
 
+    @Override
+    public void ofrecerParaEmergencia(BuscadorDeEmergencias buscador, Casilla casilla) {
+        casilla.ofrecerTerrenoParaEmergencia(buscador);
+    }
 
 }

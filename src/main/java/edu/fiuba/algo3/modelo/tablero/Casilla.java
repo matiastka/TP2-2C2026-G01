@@ -114,5 +114,13 @@ public class Casilla extends SujetoObservable {
         this.terreno.ofrecerComoDestino(buscador, this);
     }
 
+    public void ofrecerParaEmergencia(BuscadorDeEmergencias buscador) {
+        this.ocupante.ofrecerParaEmergencia(buscador, this);
+    }
+
+    public void ofrecerTerrenoParaEmergencia(BuscadorDeEmergencias buscador) {
+        this.terreno.ofrecerParaEmergencia(buscador, this);
+    }
+
 
 }

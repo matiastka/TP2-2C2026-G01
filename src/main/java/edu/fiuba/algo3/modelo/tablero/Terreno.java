@@ -5,8 +5,8 @@ import edu.fiuba.algo3.modelo.VisitanteVisualCasilla;
 public abstract class Terreno {
     public abstract void aceptar(VisitanteVisualCasilla visitante);
 
-    public boolean esTransitableParaEmergencia() {
-        return true;
+    public void ofrecerParaEmergencia(BuscadorDeEmergencias buscador, Casilla casilla) {
+        buscador.encontrarCasillaParaEmergencia(casilla);
     }
 
     public abstract void afectarA(Ocupante ocupante);

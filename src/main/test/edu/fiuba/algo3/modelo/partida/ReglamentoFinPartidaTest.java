@@ -36,7 +36,8 @@ public class ReglamentoFinPartidaTest {
     public void test01CompletarLos5TurnosConLaRedElectricaMayorACeroEsVictoria() {
         // Arrange
         Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_CINCO_EDIFICIOS);
-        Partida partida = new Partida(tablero, colocarMechs(tablero), List.of());
+        GeneradorDeEmergencias sinEmergencias = new GeneradorDeEmergencias(new FabricaDeVeks(), List.of());
+        Partida partida = new Partida(tablero, colocarMechs(tablero), List.of(), sinEmergencias);
 
         // Act
         for (int turno = 0; turno < 5; turno++) {
@@ -51,7 +52,9 @@ public class ReglamentoFinPartidaTest {
     public void test02SiLaRedElectricaLlegaACeroEsDerrota() {
         // Arrange
         Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_CINCO_EDIFICIOS);
-        Partida partida = new Partida(tablero, colocarMechs(tablero), List.of());
+        GeneradorDeEmergencias sinEmergencias = new GeneradorDeEmergencias(new FabricaDeVeks(), List.of());
+        Partida partida = new Partida(tablero, colocarMechs(tablero), List.of(), sinEmergencias);
+
         for (int columna = 0; columna < 5; columna++) {
             tablero.enCasilla(new Posicion(0, columna)).recibirDanio(1);
         }

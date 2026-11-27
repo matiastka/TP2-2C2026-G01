@@ -29,4 +29,6 @@ public interface Ocupante {
     List<Vek> recibirEmergencia(EmergenciaVek emergencia, Casilla casilla, Tablero tablero);
 
     void ofrecerComoObjetivo(BuscadorDeObjetivos buscador, Casilla casilla);
+
+    void ofrecerParaEmergencia(BuscadorDeEmergencias buscador, Casilla casilla);
 }

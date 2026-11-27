@@ -58,6 +58,10 @@ public class Tablero {
         return List.copyOf(emergidos);
     }
 
+    public void ofrecerParaEmergencia(Posicion posicion, BuscadorDeEmergencias buscador) {
+        enCasilla(posicion).ofrecerParaEmergencia(buscador);
+    }
+
     public boolean estaEnRango(Posicion posicion){
         return casillas.containsKey(posicion);
     }

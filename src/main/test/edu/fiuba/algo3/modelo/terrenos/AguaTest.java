@@ -1,6 +1,7 @@
 
 package edu.fiuba.algo3.modelo.terrenos;
 
+import edu.fiuba.algo3.modelo.partida.CasillasParaEmergencia;
 import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
@@ -51,4 +52,18 @@ public class AguaTest {
         // Assert
         assertEquals(vidaEsperada, vidaActual);
     }
+
+    @Test
+    public void test04UnaCasillaDeAguaNoSeOfreceParaUnaEmergencia() {
+        // Arrange
+        Casilla casilla = new Casilla(new Agua(), new Posicion(0, 0));
+        CasillasParaEmergencia candidatas = new CasillasParaEmergencia();
+
+        // Act
+        casilla.ofrecerParaEmergencia(candidatas);
+
+        // Assert
+        assertEquals(0, candidatas.primeras(1).size());
+    }
+
 }

@@ -1,10 +1,7 @@
 package edu.fiuba.algo3.modelo.terrenos;
 
 
-import edu.fiuba.algo3.modelo.tablero.BuscadorDeDestinos;
-import edu.fiuba.algo3.modelo.tablero.Casilla;
-import edu.fiuba.algo3.modelo.tablero.Ocupante;
-import edu.fiuba.algo3.modelo.tablero.Terreno;
+import edu.fiuba.algo3.modelo.tablero.*;
 import edu.fiuba.algo3.modelo.VisitanteVisualCasilla;
 
 public class Agua extends Terreno {
@@ -28,8 +25,7 @@ public class Agua extends Terreno {
     }
 
     @Override
-    public boolean esTransitableParaEmergencia() {
-        return false;
+    public void ofrecerParaEmergencia(BuscadorDeEmergencias buscador, Casilla casilla) {
     }
 
 }
