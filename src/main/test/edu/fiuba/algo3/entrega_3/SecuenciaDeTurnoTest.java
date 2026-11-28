@@ -159,4 +159,33 @@ public class SecuenciaDeTurnoTest {
         // Assert
         assertEquals(List.of(posicionMech), vek.obtenerPosicionesAmenazadas(tablero));
     }
+
+    @Test
+    public void test09AlTerminarLaFaseDelJugadorSePasaAlSiguienteTurno() {
+        // Arrange
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
+        Partida partida = new Partida(tablero, List.of(colocarCombate(new Posicion(7, 7), tablero)), List.of(), sinEmergencias());
+
+        // Act
+        partida.terminarFaseJugador();
+
+        // Assert
+        assertEquals(2, partida.obtenerNumeroDeTurno());
+    }
+
+    @Test
+    public void test10EnElTurnoSiguienteLosMechsPuedenVolverAMoverse() {
+        // Arrange
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
+        Mech mech = colocarCombate(new Posicion(7, 7), tablero);
+        Partida partida = new Partida(tablero, List.of(mech), List.of(), sinEmergencias());
+        mech.moverA(new Posicion(7, 6), tablero);
+        partida.terminarFaseJugador();
+
+        // Act
+        mech.moverA(new Posicion(7, 5), tablero);
+
+        // Assert
+        assertEquals(new Posicion(7, 5), mech.obtenerPosicion());
+    }
 }
