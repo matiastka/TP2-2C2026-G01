@@ -1,12 +1,15 @@
 
 package edu.fiuba.algo3.modelo.terrenos;
 
+import edu.fiuba.algo3.modelo.partida.CasillasParaEmergencia;
 import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.unidades.movimientos.MovimientoTerrestre;
-import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SueloTest {
 
@@ -33,4 +36,18 @@ public class SueloTest {
         // Assert
         assertEquals(vidaEsperada, vidaActual);
     }
+
+    @Test
+    public void test03UnaCasillaDeSueloLibreSeOfreceParaUnaEmergencia() {
+        // Arrange
+        Casilla casilla = new Casilla(new Suelo(), new Posicion(0, 0));
+        CasillasParaEmergencia candidatas = new CasillasParaEmergencia();
+
+        // Act
+        casilla.ofrecerParaEmergencia(candidatas);
+
+        // Assert
+        assertEquals(1, candidatas.primeras(1).size());
+    }
+
 }

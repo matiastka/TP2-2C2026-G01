@@ -2,29 +2,25 @@
 
 package edu.fiuba.algo3.modelo.unidades.movimientos;
 
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
+import edu.fiuba.algo3.modelo.excepciones.CaminoBloqueadoException;
+import edu.fiuba.algo3.modelo.excepciones.DestinoFueraDelTableroException;
+import edu.fiuba.algo3.modelo.excepciones.DestinoNoAlcanzableException;
+import edu.fiuba.algo3.modelo.excepciones.DestinoOcupadoException;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.terrenos.Agua;
-import edu.fiuba.algo3.modelo.unidades.excepciones.CaminoBloqueadoException;
-import edu.fiuba.algo3.modelo.unidades.excepciones.DestinoFueraDelTableroException;
-import edu.fiuba.algo3.modelo.unidades.excepciones.DestinoNoAlcanzableException;
-import edu.fiuba.algo3.modelo.unidades.excepciones.DestinoOcupadoException;
-import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
 import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
-import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
+import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MovimientoVoladorTest {
 
@@ -34,8 +30,7 @@ public class MovimientoVoladorTest {
     @Test
     public void test01ValidarCaminoPermiteSobrevolarUnaMontanaHastaUnDestinoLibre() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
         MovimientoVolador movimiento = new MovimientoVolador();
         Posicion origen = new Posicion(2, 0);
         Posicion destino = new Posicion(2, 4);
@@ -47,8 +42,7 @@ public class MovimientoVoladorTest {
     @Test
     public void test02ValidarCaminoPermiteSobrevolarOtraUnidadHastaUnDestinoLibre() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         new Combate().colocarseEn(new Posicion(2, 1), tablero);
         MovimientoVolador movimiento = new MovimientoVolador();
         Posicion origen = new Posicion(2, 0);
@@ -61,8 +55,7 @@ public class MovimientoVoladorTest {
     @Test
     public void test03ValidarCaminoLanzaExcepcionSiElDestinoEstaOcupadoPorUnaUnidad() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion destino = new Posicion(2, 2);
         new Combate().colocarseEn(destino, tablero);
         MovimientoVolador movimiento = new MovimientoVolador();
@@ -75,8 +68,7 @@ public class MovimientoVoladorTest {
     @Test
     public void test04ValidarCaminoLanzaExcepcionSiElDestinoEsUnaMontana() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
         MovimientoVolador movimiento = new MovimientoVolador();
         Posicion origen = new Posicion(2, 0);
         Posicion destino = new Posicion(2, 2);
@@ -88,8 +80,7 @@ public class MovimientoVoladorTest {
     @Test
     public void test05ValidarCaminoLanzaExcepcionSiElDestinoEstaFueraDeRango() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         MovimientoVolador movimiento = new MovimientoVolador();
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 5);
@@ -101,8 +92,7 @@ public class MovimientoVoladorTest {
     @Test
     public void test06ValidarCaminoLanzaExcepcionSiElDestinoEstaFueraDelTablero() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         MovimientoVolador movimiento = new MovimientoVolador();
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(-1, 0);
@@ -114,8 +104,7 @@ public class MovimientoVoladorTest {
     @Test
     public void test07ValidarCaminoLanzaExcepcionSiElDestinoNoEstaEnLineaRecta() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         MovimientoVolador movimiento = new MovimientoVolador();
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(2, 2);

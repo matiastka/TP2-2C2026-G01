@@ -1,11 +1,14 @@
 
 package edu.fiuba.algo3.modelo.unidades.mechs;
 
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
+import edu.fiuba.algo3.modelo.excepciones.ArmaSumergidaException;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.excepciones.ArmaSumergidaException;
+import edu.fiuba.algo3.modelo.unidades.mechs.estado.arma.EstadoArma;
+import edu.fiuba.algo3.modelo.unidades.mechs.estado.arma.EstadoArmaOperativa;
+import edu.fiuba.algo3.modelo.unidades.mechs.estado.arma.EstadoArmaSumergida;
+import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Canon;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -18,8 +21,7 @@ public class EstadoArmaTest {
     @Test
     public void test01UnArmaOperativaPuedeUsarse() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Mech canonMech = new Canon();
         canonMech.colocarseEn(new Posicion(2, 0), tablero);
         EstadoArma estadoArma = new EstadoArmaOperativa();
@@ -31,8 +33,7 @@ public class EstadoArmaTest {
     @Test
     public void test02UnArmaSumergidaNoPuedeUsarse() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Mech canonMech = new Canon();
         canonMech.colocarseEn(new Posicion(2, 0), tablero);
         EstadoArma estadoArma = new EstadoArmaSumergida();

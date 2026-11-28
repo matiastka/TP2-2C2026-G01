@@ -1,13 +1,12 @@
 
 package edu.fiuba.algo3.modelo.unidades.ataques.proyectiles;
 
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.tablero.direcciones.Este;
-import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -23,8 +22,7 @@ public class ProyectilSimuladoTest {
     @Test
     public void test01LanzarDesdeRegistraLaCasillaDelPrimerOcupanteEnLaTrayectoria() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(2, 0);
         Posicion posObjetivo = new Posicion(2, 3);
         new Luciernaga().colocarseEn(posObjetivo, tablero);
@@ -41,8 +39,7 @@ public class ProyectilSimuladoTest {
     @Test
     public void test02LanzarDesdeFrenaEnElPrimerOcupanteYNoRegistraAlSegundo() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(2, 0);
         Posicion posPrimero = new Posicion(2, 2);
         Posicion posSegundo = new Posicion(2, 5);
@@ -61,8 +58,7 @@ public class ProyectilSimuladoTest {
     @Test
     public void test03LanzarDesdeRegistraLaCasillaDeUnaMontanaEnLaTrayectoria() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
         Posicion origen = new Posicion(2, 0);
         Posicion posMontana = new Posicion(2, 2);
         ProyectilSimulado proyectil = new ProyectilSimulado(new Este(), tablero);
@@ -78,8 +74,7 @@ public class ProyectilSimuladoTest {
     @Test
     public void test04LanzarDesdeRegistraLaCasillaDeUnEdificioEnLaTrayectoria() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Posicion origen = new Posicion(3, 0);
         Posicion posEdificio = new Posicion(3, 3);
         ProyectilSimulado proyectil = new ProyectilSimulado(new Este(), tablero);
@@ -95,8 +90,7 @@ public class ProyectilSimuladoTest {
     @Test
     public void test05LanzarDesdeDevuelveVacioCuandoLaTrayectoriaEstaDespejada() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(2, 0);
         ProyectilSimulado proyectil = new ProyectilSimulado(new Este(), tablero);
 

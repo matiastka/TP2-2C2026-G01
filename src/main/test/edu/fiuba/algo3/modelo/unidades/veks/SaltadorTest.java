@@ -1,11 +1,11 @@
 
 package edu.fiuba.algo3.modelo.unidades.veks;
 
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
+import edu.fiuba.algo3.modelo.excepciones.DestinoNoAlcanzableException;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.excepciones.DestinoNoAlcanzableException;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Saltador;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -18,8 +18,7 @@ public class SaltadorTest {
     @Test
     public void test01ElSaltadorPuedeAtacarUnaCasillaAdyacente() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Saltador vek = new Saltador();
         vek.colocarseEn(new Posicion(3, 3), tablero);
 
@@ -30,8 +29,7 @@ public class SaltadorTest {
     @Test
     public void test02ElSaltadorNoPuedeAtacarUnaCasillaNoAdyacente() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Saltador vek = new Saltador();
         vek.colocarseEn(new Posicion(3, 3), tablero);
 

@@ -1,10 +1,13 @@
 package edu.fiuba.algo3.modelo.tablero;
 
+import edu.fiuba.algo3.modelo.Observador;
 import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
 import edu.fiuba.algo3.modelo.tablero.emergencias.EmergenciaVek;
+import edu.fiuba.algo3.modelo.unidades.veks.Vek;
+
+import java.util.List;
 
 public class SinOcupante implements Ocupante {
-
     @Override
     public boolean ocupaCasilla() {
         return false;
@@ -35,6 +38,18 @@ public class SinOcupante implements Ocupante {
     }
 
     @Override
+    public void salirDelAgua() {
+    }
+
+    @Override
+    public void agregarObservador(Observador observador) {
+    }
+
+    @Override
+    public void quitarObservador(Observador observador) {
+    }
+
+    @Override
     public void recibirTransito(Transito transito, Casilla casilla) {
         casilla.recibirTransitoEnTerreno(transito);
     }
@@ -44,8 +59,8 @@ public class SinOcupante implements Ocupante {
     }
 
     @Override
-    public void recibirEmergencia(EmergenciaVek emergencia, Casilla casilla, Tablero tablero) {
-        emergencia.emergerEn(casilla, tablero);
+    public List<Vek> recibirEmergencia(EmergenciaVek emergencia, Casilla casilla, Tablero tablero) {
+        return emergencia.emergerEn(casilla, tablero);
     }
 
     @Override
@@ -53,5 +68,14 @@ public class SinOcupante implements Ocupante {
         casilla.ofrecerTerrenoComoObjetivo(buscador);
     }
 
+    @Override
+    public void ofrecerParaEmergencia(BuscadorDeEmergencias buscador, Casilla casilla) {
+        casilla.ofrecerTerrenoParaEmergencia(buscador);
+    }
+
+    @Override
+    public void entregarseA(ReceptorDeOcupante receptor) {
+        receptor.recibirSinOcupante();
+    }
 
 }

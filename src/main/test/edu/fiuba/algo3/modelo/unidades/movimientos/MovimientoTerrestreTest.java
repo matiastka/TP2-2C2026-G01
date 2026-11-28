@@ -1,13 +1,12 @@
 
 package edu.fiuba.algo3.modelo.unidades.movimientos;
 
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
+import edu.fiuba.algo3.modelo.excepciones.CaminoBloqueadoException;
+import edu.fiuba.algo3.modelo.excepciones.DestinoNoAlcanzableException;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.excepciones.CaminoBloqueadoException;
-import edu.fiuba.algo3.modelo.unidades.excepciones.DestinoNoAlcanzableException;
-import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
+import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -21,8 +20,7 @@ public class MovimientoTerrestreTest {
     @Test
     public void test01DestinoDentroDeRangoYLibreEsValido() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 3);
@@ -34,8 +32,7 @@ public class MovimientoTerrestreTest {
     @Test
     public void test02DestinoFueraDeRangoRetornaRechazo() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 4);
@@ -47,8 +44,7 @@ public class MovimientoTerrestreTest {
     @Test
     public void test03CaminoBloqueadoPorMontanaRetornaRechazo() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_MONTANA_FILA0);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_MONTANA_FILA0);
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 2);
@@ -60,8 +56,7 @@ public class MovimientoTerrestreTest {
     @Test
     public void test04CasillaDestinoOcupadaPorOtraUnidadRetornaRechazo() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 2);
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
@@ -74,8 +69,7 @@ public class MovimientoTerrestreTest {
     @Test
     public void test05AunqueTengaRangoNoPuedeRodearLaMontana() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_MONTANA_FILA0);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_MONTANA_FILA0);
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 2);
@@ -87,8 +81,7 @@ public class MovimientoTerrestreTest {
     @Test
     public void test06DestinoQueNoEstaEnLaMismaFilaNiColumnaRetornaRechazo() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(1, 2);
@@ -100,8 +93,7 @@ public class MovimientoTerrestreTest {
     @Test
     public void test07NoPuedeTerminarSobreUnaMontana() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_MONTANA_FILA0);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_MONTANA_FILA0);
         MovimientoTerrestre movimiento = new MovimientoTerrestre();
         Posicion origen = new Posicion(0, 0);
         Posicion destino = new Posicion(0, 1);

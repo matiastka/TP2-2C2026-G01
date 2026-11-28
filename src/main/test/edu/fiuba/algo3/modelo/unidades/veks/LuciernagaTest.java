@@ -1,16 +1,14 @@
 
 package edu.fiuba.algo3.modelo.unidades.veks;
 
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
+import edu.fiuba.algo3.modelo.excepciones.DestinoNoAlcanzableException;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.excepciones.DestinoNoAlcanzableException;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class LuciernagaTest {
 
@@ -45,8 +43,7 @@ public class LuciernagaTest {
     @Test
     public void test03LaLuciernagaPuedeAtacarUnaCasillaLejanaEnLineaRecta() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Luciernaga vek = new Luciernaga();
         vek.colocarseEn(new Posicion(3, 3), tablero);
 
@@ -57,8 +54,7 @@ public class LuciernagaTest {
     @Test
     public void test04LaLuciernagaNoPuedeAtacarUnaCasillaEnDiagonal() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Luciernaga vek = new Luciernaga();
         vek.colocarseEn(new Posicion(3, 3), tablero);
 

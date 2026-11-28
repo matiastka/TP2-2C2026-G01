@@ -1,12 +1,15 @@
 package edu.fiuba.algo3.modelo.tablero;
 
+import edu.fiuba.algo3.modelo.SujetoObservable;
 import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
 import edu.fiuba.algo3.modelo.tablero.emergencias.Emergencia;
 import edu.fiuba.algo3.modelo.tablero.emergencias.EmergenciaVek;
 import edu.fiuba.algo3.modelo.tablero.emergencias.SinEmergencia;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
+import edu.fiuba.algo3.modelo.unidades.veks.Vek;
+import java.util.List;
 
-public class Casilla {
+public class Casilla extends SujetoObservable {
     private Terreno terreno;
     private Ocupante ocupante;
     private final Posicion posicion;
@@ -25,26 +28,30 @@ public class Casilla {
 
     public void ocupar(Ocupante ocupante){
         this.ocupante = ocupante;
+        notificarObservadores();
     }
 
     public void desOcupar(){
         this.ocupante = new SinOcupante();
+        notificarObservadores();
     }
 
-    public void activarEmergencia(Unidad unidad) {
-        this.emergencia = new EmergenciaVek(unidad);
+    public void activarEmergencia(Vek vek) {
+        this.emergencia = new EmergenciaVek(vek);
+        notificarObservadores();
     }
 
-    public void resolverEmergencia(Tablero tablero) {
-        this.emergencia.resolver(this, tablero);
+    public List<Vek> resolverEmergencia(Tablero tablero) {
+        return this.emergencia.resolver(this, tablero);
     }
 
-    public void recibirEmergencia(EmergenciaVek emergencia, Tablero tablero) {
-        this.ocupante.recibirEmergencia(emergencia, this, tablero);
+    public List<Vek> recibirEmergencia(EmergenciaVek emergencia, Tablero tablero) {
+        return this.ocupante.recibirEmergencia(emergencia, this, tablero);
     }
 
     public void setEmergencia(Emergencia emergencia) {
         this.emergencia = emergencia;
+        notificarObservadores();
     }
 
     public Posicion obtenerPosicion() {
@@ -59,6 +66,10 @@ public class Casilla {
         return ocupante;
     }
 
+    public Emergencia obtenerEmergencia() {
+        return emergencia;
+    }
+
     public void aplicarEfectoA(Ocupante ocupante) {
         this.terreno.afectarA(ocupante);
     }
@@ -69,6 +80,7 @@ public class Casilla {
 
     public void cambiarTerreno(Terreno nuevoTerreno){
         this.terreno = nuevoTerreno;
+        notificarObservadores();
     }
 
     public void recibirDanio(int danio) {
@@ -98,6 +110,14 @@ public class Casilla {
 
     public void ofrecerTerrenoComoDestino(BuscadorDeDestinos buscador) {
         this.terreno.ofrecerComoDestino(buscador, this);
+    }
+
+    public void ofrecerParaEmergencia(BuscadorDeEmergencias buscador) {
+        this.ocupante.ofrecerParaEmergencia(buscador, this);
+    }
+
+    public void ofrecerTerrenoParaEmergencia(BuscadorDeEmergencias buscador) {
+        this.terreno.ofrecerParaEmergencia(buscador, this);
     }
 
 

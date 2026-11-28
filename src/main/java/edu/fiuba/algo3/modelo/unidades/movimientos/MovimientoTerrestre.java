@@ -3,12 +3,15 @@ package edu.fiuba.algo3.modelo.unidades.movimientos;
 
 import java.util.List;
 
-import edu.fiuba.algo3.modelo.tablero.*;
+import edu.fiuba.algo3.modelo.excepciones.CaminoBloqueadoException;
+import edu.fiuba.algo3.modelo.excepciones.DestinoFueraDelTableroException;
+import edu.fiuba.algo3.modelo.excepciones.DestinoNoAlcanzableException;
+import edu.fiuba.algo3.modelo.tablero.Casilla;
+import edu.fiuba.algo3.modelo.tablero.Posicion;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.tablero.Transito;
 import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
-import edu.fiuba.algo3.modelo.unidades.excepciones.CaminoBloqueadoException;
-import edu.fiuba.algo3.modelo.unidades.excepciones.DestinoFueraDelTableroException;
-import edu.fiuba.algo3.modelo.unidades.excepciones.DestinoNoAlcanzableException;
 
 public class MovimientoTerrestre implements Movimiento, Transito {
 
@@ -31,7 +34,7 @@ public class MovimientoTerrestre implements Movimiento, Transito {
         Posicion actual = origen;
         do {
             actual = actual.siguienteEn(direccion);
-            tablero.enCasilla(actual).recibirTransito(this);
+            tablero.recibirTransitoEn(actual, this);
         } while (!actual.equals(destino));
     }
 

@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.modelo.tablero;
 
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import org.junit.jupiter.api.Test;
 
@@ -51,9 +50,8 @@ public class RedElectricaTest {
     @Test
     public void test04DaniarUnEdificioDeUnTableroNoAfectaLaRedDeOtroTablero() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tableroAtacado = new ConstructorTablero().construir(mapa);
-        Tablero otroTablero = new ConstructorTablero().construir(mapa);
+        Tablero tableroAtacado = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
+        Tablero otroTablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
 
         // Act
         tableroAtacado.enCasilla(new Posicion(3, 3)).recibirDanio(1);

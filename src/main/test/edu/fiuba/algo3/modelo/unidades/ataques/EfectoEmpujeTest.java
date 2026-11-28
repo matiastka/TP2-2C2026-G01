@@ -1,14 +1,13 @@
 
 package edu.fiuba.algo3.modelo.unidades.ataques;
 
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.mechs.Canon;
 import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
-import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
+import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Canon;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,8 +19,7 @@ public class EfectoEmpujeTest {
     @Test
     public void test01EmpujarUnidadContraOtraUnidadNoMueveALaUnidadEmpujada() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_OBSTACULOS);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_OBSTACULOS);
         Posicion posVek1 = new Posicion(1, 2);
         Mech canon = new Canon();
         canon.colocarseEn(new Posicion(1, 0), tablero);
@@ -40,8 +38,7 @@ public class EfectoEmpujeTest {
     @Test
     public void test02EmpujarUnidadContraOtraUnidadAplicaDanioDeColisionALaEmpujada() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_OBSTACULOS);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_OBSTACULOS);
         Posicion posVek1 = new Posicion(1, 2);
         Mech canon = new Canon();
         canon.colocarseEn(new Posicion(1, 0), tablero);
@@ -60,8 +57,7 @@ public class EfectoEmpujeTest {
     @Test
     public void test03EmpujarUnidadContraOtraUnidadAplicaDanioDeColisionALaUnidadObstaculo() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_OBSTACULOS);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_OBSTACULOS);
         Posicion posVek1 = new Posicion(1, 2);
         Mech canon = new Canon();
         canon.colocarseEn(new Posicion(1, 0), tablero);
@@ -80,8 +76,7 @@ public class EfectoEmpujeTest {
     @Test
     public void test04EmpujarUnidadContraMontanaNoLaMueve() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_OBSTACULOS);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_OBSTACULOS);
         Posicion posVek = new Posicion(3, 2);
         Mech canon = new Canon();
         canon.colocarseEn(new Posicion(3, 0), tablero);
@@ -98,8 +93,7 @@ public class EfectoEmpujeTest {
     @Test
     public void test05EmpujarUnidadContraMontanaAplicaDanioDeColision() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_OBSTACULOS);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_OBSTACULOS);
         Posicion posVek = new Posicion(3, 2);
         Mech canon = new Canon();
         canon.colocarseEn(new Posicion(3, 0), tablero);
@@ -116,8 +110,7 @@ public class EfectoEmpujeTest {
     @Test
     public void test06EmpujarUnidadContraEdificioNoLaMueve() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_OBSTACULOS);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_OBSTACULOS);
         Posicion posVek = new Posicion(3, 5);
         Mech canon = new Canon();
         canon.colocarseEn(new Posicion(3, 7), tablero);
@@ -134,8 +127,7 @@ public class EfectoEmpujeTest {
     @Test
     public void test07EmpujarUnidadContraEdificioAplicaDanioDeColisionALaUnidad() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_OBSTACULOS);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_OBSTACULOS);
         Posicion posVek = new Posicion(3, 5);
         Mech canon = new Canon();
         canon.colocarseEn(new Posicion(3, 7), tablero);
@@ -152,8 +144,7 @@ public class EfectoEmpujeTest {
     @Test
     public void test08EmpujarUnidadContraBordeDelTableroNoLaMueve() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_OBSTACULOS);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_OBSTACULOS);
         Posicion posVekEnBorde = new Posicion(0, 0);
         Mech canon = new Canon();
         canon.colocarseEn(new Posicion(0, 2), tablero);
@@ -170,8 +161,7 @@ public class EfectoEmpujeTest {
     @Test
     public void test09EmpujarUnidadContraBordeDelTableroNoAplicaDanioDeColision() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_OBSTACULOS);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_OBSTACULOS);
         Posicion posVekEnBorde = new Posicion(0, 0);
         Mech canon = new Canon();
         canon.colocarseEn(new Posicion(0, 2), tablero);

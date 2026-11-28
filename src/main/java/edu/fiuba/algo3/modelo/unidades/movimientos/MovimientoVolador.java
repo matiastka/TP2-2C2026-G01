@@ -1,13 +1,16 @@
 package edu.fiuba.algo3.modelo.unidades.movimientos;
 
-import edu.fiuba.algo3.modelo.tablero.*;
-import edu.fiuba.algo3.modelo.unidades.Unidad;
-import edu.fiuba.algo3.modelo.unidades.excepciones.CaminoBloqueadoException;
-import edu.fiuba.algo3.modelo.unidades.excepciones.DestinoFueraDelTableroException;
-import edu.fiuba.algo3.modelo.unidades.excepciones.DestinoNoAlcanzableException;
-import edu.fiuba.algo3.modelo.unidades.excepciones.DestinoOcupadoException;
-
 import java.util.List;
+
+import edu.fiuba.algo3.modelo.excepciones.CaminoBloqueadoException;
+import edu.fiuba.algo3.modelo.excepciones.DestinoFueraDelTableroException;
+import edu.fiuba.algo3.modelo.excepciones.DestinoNoAlcanzableException;
+import edu.fiuba.algo3.modelo.excepciones.DestinoOcupadoException;
+import edu.fiuba.algo3.modelo.tablero.Casilla;
+import edu.fiuba.algo3.modelo.tablero.Posicion;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.tablero.Transito;
+import edu.fiuba.algo3.modelo.unidades.Unidad;
 
 public class MovimientoVolador implements Movimiento, Transito {
 
@@ -26,7 +29,7 @@ public class MovimientoVolador implements Movimiento, Transito {
     }
 
     private void aterrizarEn(Posicion destino, Tablero tablero) {
-        tablero.enCasilla(destino).recibirTransito(this);
+        tablero.recibirTransitoEn(destino, this);
     }
 
     @Override

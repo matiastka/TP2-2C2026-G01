@@ -1,15 +1,14 @@
 
 package edu.fiuba.algo3.entrega_2;
 
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.mechs.Canon;
-import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
 import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
-import edu.fiuba.algo3.modelo.unidades.veks.Saltador;
+import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Canon;
+import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Saltador;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,8 +20,7 @@ public class EdificioTest {
     @Test
     public void test01ElDanioAUnEdificioReduceLaRedElectricaEn1() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         int redInicial = tablero.obtenerRedElectrica();
         Posicion posicionOrigen = new Posicion(3, 2);
         Posicion posicionEdificio = new Posicion(3, 3);
@@ -39,8 +37,7 @@ public class EdificioTest {
     @Test
     public void test02UnEdificioDestruidoPasaASerTransitableParaOtroMech() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Posicion posicionEdificio = new Posicion(3, 3);
         Mech atacante = new Combate();
         atacante.colocarseEn(new Posicion(3, 2), tablero);
@@ -58,8 +55,7 @@ public class EdificioTest {
     @Test
     public void test03AtacarUnEdificioYaDestruidoNoVuelveARestarRedElectrica() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         int redInicial = tablero.obtenerRedElectrica();
         Posicion posicionEdificio = new Posicion(3, 3);
         Mech primerAtacante = new Combate();
@@ -78,8 +74,7 @@ public class EdificioTest {
     @Test
     public void test04DisparoEnLineaRectaAtraviesaUnEdificioYaDestruido() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Posicion posicionEdificio = new Posicion(3, 3);
         Posicion posicionVekDetrasDelEdificio = new Posicion(3, 5);
         Mech combate = new Combate();
@@ -101,8 +96,7 @@ public class EdificioTest {
     @Test
     public void test05EmpujarUnaUnidadContraUnEdificioReduceLaRedElectrica() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         int redInicial = tablero.obtenerRedElectrica();
         Posicion posicionVek = new Posicion(3, 2);
         Mech mech = new Combate();
@@ -120,8 +114,7 @@ public class EdificioTest {
     @Test
     public void test06EmpujarUnaUnidadContraUnEdificioLeAplicaDanioAdicionalPorColision() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Posicion posicionVek = new Posicion(3, 2);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(3, 1), tablero);
@@ -139,8 +132,7 @@ public class EdificioTest {
     @Test
     public void test07EmpujarUnaUnidadContraUnEdificioNoLaDesplaza() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Posicion posicionVek = new Posicion(3, 2);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(3, 1), tablero);

@@ -1,19 +1,16 @@
 
 package edu.fiuba.algo3.entrega_1;
 
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
+import edu.fiuba.algo3.modelo.excepciones.DestinoNoAlcanzableException;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.excepciones.DestinoNoAlcanzableException;
-import edu.fiuba.algo3.modelo.unidades.mechs.Artilleria;
-import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
 import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
+import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Artilleria;
+import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ArtilleriaTest {
 
@@ -22,8 +19,7 @@ public class ArtilleriaTest {
     @Test
     public void test01ArtilleriaNoPuedeAtacarCasillaAdyacente() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
         Posicion posArtilleria = new Posicion(4, 4);
         Posicion posObjetivoAdyacente = new Posicion(4, 5);
 
@@ -40,8 +36,7 @@ public class ArtilleriaTest {
     @Test
     public void test02ArtilleriaAtacaPorEncimaDeObstaculos() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
         Posicion posArtilleria = new Posicion(2, 0);
         Posicion posObjetivo = new Posicion(2, 3);
         Mech artilleria = new Artilleria();
@@ -59,8 +54,7 @@ public class ArtilleriaTest {
     @Test
     public void test03ArtilleriaDaniaALaUnidadDelCentro() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
         Posicion posArtilleria = new Posicion(4, 0);
         Posicion posCentro = new Posicion(4, 4);
         Mech artilleria = new Artilleria();
@@ -78,8 +72,7 @@ public class ArtilleriaTest {
     @Test
     public void test04ArtilleriaEmpujaHaciaElNorteALaUnidadDeArribaDelCentro() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
         Posicion posArtilleria = new Posicion(4, 0);
         Posicion posCentro = new Posicion(4, 4);
         Posicion posNorte = new Posicion(3, 4);
@@ -98,8 +91,7 @@ public class ArtilleriaTest {
     @Test
     public void test05ArtilleriaEmpujaHaciaElSurALaUnidadDeAbajoDelCentro() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
         Posicion posArtilleria = new Posicion(4, 0);
         Posicion posCentro = new Posicion(4, 4);
         Posicion posSur = new Posicion(5, 4);
@@ -118,8 +110,7 @@ public class ArtilleriaTest {
     @Test
     public void test06ArtilleriaEmpujaHaciaElOesteALaUnidadDeLaIzquierdaDelCentro() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
         Posicion posArtilleria = new Posicion(4, 0);
         Posicion posCentro = new Posicion(4, 4);
         Posicion posOeste = new Posicion(4, 3);
@@ -138,8 +129,7 @@ public class ArtilleriaTest {
     @Test
     public void test07ArtilleriaEmpujaHaciaElEsteALaUnidadDeLaDerechaDelCentro() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
         Posicion posArtilleria = new Posicion(4, 0);
         Posicion posCentro = new Posicion(4, 4);
         Posicion posEste = new Posicion(4, 5);

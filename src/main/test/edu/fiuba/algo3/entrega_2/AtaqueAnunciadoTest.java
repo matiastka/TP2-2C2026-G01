@@ -1,14 +1,13 @@
 
 package edu.fiuba.algo3.entrega_2;
 
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
-import edu.fiuba.algo3.modelo.partida.Turno;
+import edu.fiuba.algo3.modelo.partida.Enjambre;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
-import edu.fiuba.algo3.modelo.unidades.veks.Saltador;
+import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
 import edu.fiuba.algo3.modelo.unidades.veks.ia.InteligenciaArtificialVek;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Saltador;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -22,8 +21,7 @@ public class AtaqueAnunciadoTest {
     @Test
     public void test01DosVeksSeAtacanEntreSiConUnOrdenAnunciado() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion posVek1 = new Posicion(1, 1);
         Posicion posVek2 = new Posicion(1, 2);
         Saltador vek1 = new Saltador();
@@ -34,7 +32,7 @@ public class AtaqueAnunciadoTest {
         // Act
         vek1.prepararAtaque(posVek2);
         vek2.prepararAtaque(posVek1);
-        new Turno(List.of(vek1, vek2), new InteligenciaArtificialVek()).faseResolucion(tablero);
+        new Enjambre(List.of(vek1, vek2), new InteligenciaArtificialVek()).faseResolucion(tablero);
 
         // Assert
         assertEquals(0, vek2.obtenerVida());
@@ -43,8 +41,7 @@ public class AtaqueAnunciadoTest {
     @Test
     public void test02VekMuertoDuranteLaFaseDeResolucionNoEjecutaSuAtaque() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion posVek1 = new Posicion(1, 1);
         Posicion posVek2 = new Posicion(1, 2);
         Posicion posMech = new Posicion(1, 3);
@@ -58,7 +55,7 @@ public class AtaqueAnunciadoTest {
         // Act
         vek1.prepararAtaque(posVek2);
         vek2.prepararAtaque(posMech);
-        new Turno(List.of(vek1, vek2), new InteligenciaArtificialVek()).faseResolucion(tablero);
+        new Enjambre(List.of(vek1, vek2), new InteligenciaArtificialVek()).faseResolucion(tablero);
 
         // Assert
         assertEquals(3, mech.obtenerVida());

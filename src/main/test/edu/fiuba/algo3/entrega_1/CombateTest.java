@@ -1,23 +1,18 @@
 
 package edu.fiuba.algo3.entrega_1;
 
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
+import edu.fiuba.algo3.modelo.excepciones.CaminoBloqueadoException;
+import edu.fiuba.algo3.modelo.excepciones.DestinoNoAlcanzableException;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
-import edu.fiuba.algo3.modelo.unidades.excepciones.CaminoBloqueadoException;
-import edu.fiuba.algo3.modelo.unidades.excepciones.DestinoNoAlcanzableException;
-import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
 import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
-import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
+import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CombateTest {
 
@@ -26,8 +21,7 @@ public class CombateTest {
     @Test
     public void test01UnMechCombateSeMueve1ALaDerecha() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Posicion posicionMechOrigen = new Posicion(2, 3);
         Posicion posicionMechDestino = new Posicion(2, 4);
         Unidad mechCombate = new Combate();
@@ -43,8 +37,7 @@ public class CombateTest {
     @Test
     public void test02UnMechCombateSeMueve1Arriba() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Posicion posicionMechOrigen = new Posicion(2, 3);
         Posicion posicionMechDestino = new Posicion(1, 3);
         Unidad mechCombate = new Combate();
@@ -60,8 +53,7 @@ public class CombateTest {
     @Test
     public void test03AlMoverseElMechLaCasillaDeOrigenQuedaLibre() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Posicion posicionMechOrigen = new Posicion(2, 3);
         Posicion posicionMechDestino = new Posicion(2, 4);
         Unidad mechCombate = new Combate();
@@ -77,8 +69,7 @@ public class CombateTest {
     @Test
     public void test04AlMoverseElMechQuedaEnLaCasillaDestino() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Posicion posicionMechOrigen = new Posicion(2, 3);
         Posicion posicionMechDestino = new Posicion(2, 4);
         Unidad mechCombate = new Combate();
@@ -94,8 +85,7 @@ public class CombateTest {
     @Test
     public void test05UnMechNoSeMueveFueraDeSuRango() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Posicion posicionMechDestino = new Posicion(4, 5);
         Posicion posicionMechOrigen = new Posicion(4, 1);
         Unidad mechCombate = new Combate();
@@ -108,8 +98,7 @@ public class CombateTest {
     @Test
     public void test06UnMechCombatePuedeMoverseExactamenteSuRangoMaximo() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Posicion posicionMechOrigen = new Posicion(4, 1);
         Posicion posicionRangoDestino = new Posicion(4, 4);
         Unidad mechCombate = new Combate();
@@ -125,8 +114,7 @@ public class CombateTest {
     @Test
     public void test07UnMechNoPuedeAtravesarAOtroMech() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Posicion posicionMech1Origen = new Posicion(4, 1);
         Posicion posicionMech2Origen = new Posicion(4, 2);
         Posicion posicionDestinoMech1 = new Posicion(4, 3);
@@ -142,8 +130,7 @@ public class CombateTest {
     @Test
     public void test08UnMechNoPuedeAtravesarUnEdificioYSeQuedaEnElMismoLugar() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Posicion posicionMechOrigen = new Posicion(3, 1);
         Posicion posicionEdificio = new Posicion(3, 3);
         Unidad mechCombate = new Combate();
@@ -156,8 +143,7 @@ public class CombateTest {
     @Test
     public void test09ElPunioHace2DeDanioAUnaLucierganaAdyacente() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Posicion posicionMechOrigen = new Posicion(4, 2);
         Posicion posicionVekOrigen = new Posicion(4, 3);
         Mech mechCombate = new Combate();
@@ -176,8 +162,7 @@ public class CombateTest {
     @Test
     public void test10ElPunioEmpujaAlObjetivoUnaCasillaEnDireccionAlGolpe() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Posicion posicionMechOrigen = new Posicion(4, 2);
         Posicion posicionVekOrigen = new Posicion(4, 3);
         Posicion posicionTrasEmpuje = new Posicion(4, 4);
@@ -196,8 +181,7 @@ public class CombateTest {
     @Test
     public void test11TrasSerEmpujadoLaCasillaDondeEstabaQuedaLibre() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Posicion posicionMechOrigen = new Posicion(4, 2);
         Posicion posicionVekOrigen = new Posicion(4, 3);
         Mech mechCombate = new Combate();
@@ -215,8 +199,7 @@ public class CombateTest {
     @Test
     public void test12SeEmpujaAUnVekAlLimiteDelMapaElMismoQuedaEnElBorde() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Posicion posicionMechOrigen = new Posicion(6, 4);
         Posicion posicionVekOrigen = new Posicion(7, 4);
         Mech mechCombate = new Combate();
@@ -234,8 +217,7 @@ public class CombateTest {
     @Test
     public void test13AtacarAUnVekNoAdyacenteNoLeQuitaVida() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Posicion posicionMechOrigen = new Posicion(4, 1);
         Posicion posicionVekOrigen = new Posicion(4, 3);
         Mech mechCombate = new Combate();
@@ -250,8 +232,7 @@ public class CombateTest {
     @Test
     public void test14AtacarAUnVekNoAdyacenteNoLoEmpuja() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Posicion posicionMechOrigen = new Posicion(4, 1);
         Posicion posicionVekOrigen = new Posicion(4, 3);
         Mech mechCombate = new Combate();
@@ -266,8 +247,7 @@ public class CombateTest {
     @Test
     public void test15AtacarUnaCasillaVaciaNoDebeLanzarUnError() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Posicion posicionMech = new Posicion(4, 2);
         Posicion posicionVacia = new Posicion(4, 3);
         Mech mechCombate = new Combate();
@@ -280,8 +260,7 @@ public class CombateTest {
     @Test
     public void test16ElPunioNoEmpujaAUnaUnidadContraUnEdificio() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Posicion posicionMech = new Posicion(3, 1);
         Posicion posicionVek = new Posicion(3, 2);
         Mech mechCombate = new Combate();
@@ -299,8 +278,7 @@ public class CombateTest {
     @Test
     public void test17ElPunioEmpujaAUnaUnidadQueYaSeMovioEnElTurno() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Posicion posicionMech = new Posicion(4, 2);
         Posicion posicionVekOrigen = new Posicion(4, 4);
         Posicion posicionVekDestino = new Posicion(4, 3);

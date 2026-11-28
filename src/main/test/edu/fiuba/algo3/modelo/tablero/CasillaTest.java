@@ -2,12 +2,10 @@
 package edu.fiuba.algo3.modelo.tablero;
 
 import edu.fiuba.algo3.modelo.terrenos.Suelo;
-import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
+import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CasillaTest {
 

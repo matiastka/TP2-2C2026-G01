@@ -1,11 +1,20 @@
 package edu.fiuba.algo3.modelo.unidades.ataques;
 
 import java.util.Optional;
+import java.util.List;
 
 import edu.fiuba.algo3.modelo.tablero.*;
 import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
 
 public class AtaqueCuerpoACuerpo implements Ataque {
+    @Override
+    public List<Posicion> posicionesAmenazadasDesde(Posicion origen, Direccion direccion, Tablero tablero) {
+        Posicion objetivo = origen.siguienteEn(direccion);
+        if (!tablero.estaEnRango(objetivo)) {
+            return List.of();
+        }
+        return List.of(objetivo);
+    }
 
     private final int danio;
     private final EfectoImpacto efecto;
@@ -31,8 +40,7 @@ public class AtaqueCuerpoACuerpo implements Ataque {
             return;
         }
 
-        Casilla casillaObjetivo = tablero.enCasilla(objetivo);
-        casillaObjetivo.recibirDanio(danio);
-        casillaObjetivo.aplicarEfectoDeImpacto(efecto, direccion, tablero);
+        tablero.aplicarDanioEn(objetivo, danio);
+        tablero.aplicarEfectoDeImpactoEn(objetivo,efecto,direccion);
     }
 }

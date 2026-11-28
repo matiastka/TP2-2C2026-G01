@@ -1,7 +1,6 @@
 
 package edu.fiuba.algo3.modelo.unidades.ataques;
 
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
@@ -9,10 +8,11 @@ import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.tablero.direcciones.Este;
 import edu.fiuba.algo3.modelo.unidades.ataques.efectos.EfectoEmpujar;
 import edu.fiuba.algo3.modelo.unidades.ataques.efectos.EfectoNulo;
-import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,8 +25,7 @@ public class AtaqueLineaRectaTest {
     @Test
     public void test01EjecutarImpactaYDaniaAlPrimerOcupanteEnLineaRecta() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(2, 0);
         Vek objetivo = new Luciernaga();
         objetivo.colocarseEn(new Posicion(2, 3), tablero);
@@ -42,8 +41,7 @@ public class AtaqueLineaRectaTest {
     @Test
     public void test02EjecutarFrenaEnElPrimerOcupanteYNoDaniaAlSegundo() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(2, 0);
         Vek primerObjetivo = new Luciernaga();
         Vek segundoObjetivo = new Luciernaga();
@@ -61,8 +59,7 @@ public class AtaqueLineaRectaTest {
     @Test
     public void test03EjecutarAplicaElEfectoDeImpactoAlOcupanteImpactado() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(2, 0);
         Vek objetivo = new Luciernaga();
         objetivo.colocarseEn(new Posicion(2, 3), tablero);
@@ -78,8 +75,7 @@ public class AtaqueLineaRectaTest {
     @Test
     public void test04EjecutarFrenaContraUnaMontanaYNoDaniaAlOcupanteDeAtras() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
         Posicion origen = new Posicion(2, 0);
         Vek detrasDeMontana = new Luciernaga();
         detrasDeMontana.colocarseEn(new Posicion(2, 4), tablero);
@@ -95,8 +91,7 @@ public class AtaqueLineaRectaTest {
     @Test
     public void test05CasillaImpactadaDesdeDevuelveLaCasillaDelPrimerOcupante() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(2, 0);
         Posicion posObjetivo = new Posicion(2, 3);
         new Luciernaga().colocarseEn(posObjetivo, tablero);
@@ -112,8 +107,7 @@ public class AtaqueLineaRectaTest {
     @Test
     public void test06CasillaImpactadaDesdeDevuelveLaCasillaDeUnaMontanaEnLaTrayectoria() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_MONTANA);
         Posicion origen = new Posicion(2, 0);
         Posicion posMontana = new Posicion(2, 2);
         Ataque ataque = new AtaqueLineaRecta(1, new EfectoNulo());
@@ -128,8 +122,7 @@ public class AtaqueLineaRectaTest {
     @Test
     public void test07CasillaImpactadaDesdeDevuelveVacioSiLaLineaEstaDespejada() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(2, 0);
         Ataque ataque = new AtaqueLineaRecta(1, new EfectoNulo());
 
@@ -138,5 +131,21 @@ public class AtaqueLineaRectaTest {
 
         // Assert
         assertEquals(Optional.empty(), resultado);
+    }
+
+    @Test
+    public void test08LasPosicionesAmenazadasLleganHastaElPrimerOcupante() {
+        // Arrange
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
+        Posicion origen = new Posicion(2, 0);
+        Vek objetivo = new Luciernaga();
+        objetivo.colocarseEn(new Posicion(2, 3), tablero);
+        Ataque ataque = new AtaqueLineaRecta(1, new EfectoNulo());
+
+        // Act
+        List<Posicion> amenazadas = ataque.posicionesAmenazadasDesde(origen, new Este(), tablero);
+
+        // Assert
+        assertEquals(List.of(new Posicion(2, 1), new Posicion(2, 2), new Posicion(2, 3)), amenazadas);
     }
 }

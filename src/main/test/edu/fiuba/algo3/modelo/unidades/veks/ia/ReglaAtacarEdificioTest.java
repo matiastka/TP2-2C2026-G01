@@ -1,21 +1,19 @@
 
 package edu.fiuba.algo3.modelo.unidades.veks.ia;
 
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
 import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
-import edu.fiuba.algo3.modelo.unidades.veks.Saltador;
+import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
+import edu.fiuba.algo3.modelo.unidades.veks.ia.reglas.ReglaAtacarEdificio;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Saltador;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ReglaAtacarEdificioTest {
 
@@ -25,8 +23,7 @@ public class ReglaAtacarEdificioTest {
     @Test
     public void test01IntentarEjecutarDevuelveTrueCuandoHayUnEdificioAlAlcance() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Vek saltador = new Saltador();
         saltador.colocarseEn(new Posicion(3, 1), tablero);
         List<Posicion> posicionesAlcanzables = List.of(new Posicion(3, 2));
@@ -42,8 +39,7 @@ public class ReglaAtacarEdificioTest {
     @Test
     public void test02IntentarEjecutarMueveAlVekALaPosicionDesdeDondeAtacaAlEdificio() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Vek saltador = new Saltador();
         saltador.colocarseEn(new Posicion(3, 1), tablero);
         List<Posicion> posicionesAlcanzables = List.of(new Posicion(3, 2));
@@ -59,8 +55,7 @@ public class ReglaAtacarEdificioTest {
     @Test
     public void test03IntentarEjecutarPreparaElAtaqueContraElEdificioAlAlcance() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         int redInicial = tablero.obtenerRedElectrica();
         Vek saltador = new Saltador();
         saltador.colocarseEn(new Posicion(3, 1), tablero);
@@ -78,8 +73,7 @@ public class ReglaAtacarEdificioTest {
     @Test
     public void test04IntentarEjecutarDevuelveFalseCuandoNoHayNingunEdificioAlAlcance() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Vek saltador = new Saltador();
         saltador.colocarseEn(new Posicion(3, 1), tablero);
         List<Posicion> posicionesAlcanzables = List.of(new Posicion(3, 2));
@@ -95,8 +89,7 @@ public class ReglaAtacarEdificioTest {
     @Test
     public void test05IntentarEjecutarNoAtacaAUnMechAunqueEsteAlAlcance() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(3, 3), tablero);
         Vek saltador = new Saltador();

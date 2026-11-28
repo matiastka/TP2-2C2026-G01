@@ -6,6 +6,10 @@ import java.util.List;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
+import edu.fiuba.algo3.modelo.unidades.veks.ia.reglas.ReglaAcercarseAEdificio;
+import edu.fiuba.algo3.modelo.unidades.veks.ia.reglas.ReglaAtacarEdificio;
+import edu.fiuba.algo3.modelo.unidades.veks.ia.reglas.ReglaAtacarMech;  
+import edu.fiuba.algo3.modelo.unidades.veks.ia.reglas.ReglaPrioridadVek;
 
 public class InteligenciaArtificialVek {
 

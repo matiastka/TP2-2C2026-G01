@@ -3,14 +3,17 @@ module edu.fiuba.algo3 {
     requires json.simple;
     requires java.desktop;
     exports edu.fiuba.algo3;
+    exports edu.fiuba.algo3.modelo;
+    exports edu.fiuba.algo3.controllers;
     exports edu.fiuba.algo3.vistas;
     exports edu.fiuba.algo3.modelo.mapa;
+    exports edu.fiuba.algo3.modelo.partida;
     exports edu.fiuba.algo3.modelo.tablero;
     exports edu.fiuba.algo3.modelo.terrenos;
     exports edu.fiuba.algo3.modelo.unidades;
     exports edu.fiuba.algo3.modelo.unidades.mechs;
     exports edu.fiuba.algo3.modelo.unidades.veks;
-    exports edu.fiuba.algo3.modelo.unidades.excepciones;
+    exports edu.fiuba.algo3.modelo.excepciones;
     exports edu.fiuba.algo3.modelo.unidades.movimientos;
     exports edu.fiuba.algo3.modelo.unidades.ataques;
     exports edu.fiuba.algo3.modelo.unidades.veks.ia;
@@ -19,4 +22,15 @@ module edu.fiuba.algo3 {
     exports edu.fiuba.algo3.modelo.unidades.ataques.efectos;
     exports edu.fiuba.algo3.modelo.unidades.veks.anuncios;
     exports edu.fiuba.algo3.modelo.tablero.emergencias;
+    exports edu.fiuba.algo3.modelo.partida.estado;
+    exports edu.fiuba.algo3.modelo.unidades.estados;
+    exports edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech;
+    exports edu.fiuba.algo3.modelo.unidades.mechs.estado.turno;
+    exports edu.fiuba.algo3.modelo.unidades.mechs.estado.arma;
+    exports edu.fiuba.algo3.modelo.unidades.veks.ia.reglas;
+    exports edu.fiuba.algo3.modelo.unidades.veks.ia.ataque;
+    exports edu.fiuba.algo3.modelo.unidades.veks.unidadesVek;
+    exports edu.fiuba.algo3.modelo.unidades.veks.estado;
+    exports edu.fiuba.algo3.vistas.seleccion;
+    exports edu.fiuba.algo3.vistas.componentes;
 }

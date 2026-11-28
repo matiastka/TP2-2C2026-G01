@@ -1,12 +1,11 @@
 
 package edu.fiuba.algo3.modelo.unidades.ataques.efectos;
 
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.veks.Luciernaga;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,8 +18,7 @@ public class EmpujonTest {
     @Test
     public void test01AtravesarDesplazaAlOcupanteEmpujadoALaCasillaDestino() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Vek empujado = new Luciernaga();
         empujado.colocarseEn(new Posicion(3, 3), tablero);
         Posicion destino = new Posicion(3, 4);
@@ -36,8 +34,7 @@ public class EmpujonTest {
     @Test
     public void test02ChocarConOcupanteNoDesplazaAlOcupanteEmpujado() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(3, 3);
         Posicion posObstaculo = new Posicion(3, 4);
         Vek empujado = new Luciernaga();
@@ -56,8 +53,7 @@ public class EmpujonTest {
     @Test
     public void test03ChocarConOcupanteDaniaEn1AlOcupanteEmpujado() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(3, 3);
         Posicion posObstaculo = new Posicion(3, 4);
         Vek empujado = new Luciernaga();
@@ -76,8 +72,7 @@ public class EmpujonTest {
     @Test
     public void test04ChocarConOcupanteDaniaEn1AlOcupanteDeLaCasilla() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Posicion origen = new Posicion(3, 3);
         Posicion posObstaculo = new Posicion(3, 4);
         Vek empujado = new Luciernaga();
@@ -96,8 +91,7 @@ public class EmpujonTest {
     @Test
     public void test05ChocarConTerrenoNoDesplazaAlOcupanteEmpujado() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Posicion origen = new Posicion(3, 2);
         Posicion posEdificio = new Posicion(3, 3);
         Vek empujado = new Luciernaga();
@@ -114,8 +108,7 @@ public class EmpujonTest {
     @Test
     public void test06ChocarConTerrenoDaniaEn1AlOcupanteEmpujado() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         Posicion origen = new Posicion(3, 2);
         Posicion posEdificio = new Posicion(3, 3);
         Vek empujado = new Luciernaga();
@@ -132,8 +125,7 @@ public class EmpujonTest {
     @Test
     public void test07ChocarConTerrenoDaniaAlTerrenoDeLaCasilla() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_EDIFICIO);
         int redInicial = tablero.obtenerRedElectrica();
         Posicion origen = new Posicion(3, 2);
         Posicion posEdificio = new Posicion(3, 3);

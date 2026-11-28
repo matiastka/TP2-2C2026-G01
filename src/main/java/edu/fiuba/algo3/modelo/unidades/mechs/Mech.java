@@ -1,12 +1,18 @@
 package edu.fiuba.algo3.modelo.unidades.mechs;
 
-import edu.fiuba.algo3.modelo.tablero.BuscadorDeObjetivos;
-import edu.fiuba.algo3.modelo.tablero.Casilla;
-import edu.fiuba.algo3.modelo.tablero.Posicion;
-import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.EstadoSalud;
+import edu.fiuba.algo3.modelo.excepciones.AccionInvalidaException;
+import edu.fiuba.algo3.modelo.tablero.*;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
+import edu.fiuba.algo3.modelo.unidades.estados.EstadoSalud;
+import edu.fiuba.algo3.modelo.unidades.mechs.estado.arma.EstadoArma;
+import edu.fiuba.algo3.modelo.unidades.mechs.estado.arma.EstadoArmaOperativa;
+import edu.fiuba.algo3.modelo.unidades.mechs.estado.arma.EstadoArmaSumergida;
+import edu.fiuba.algo3.modelo.unidades.mechs.estado.turno.EstadoDisponible;
+import edu.fiuba.algo3.modelo.unidades.mechs.estado.turno.EstadoTurnoMech;
 import edu.fiuba.algo3.modelo.unidades.movimientos.MovimientoTerrestre;
+
+import java.util.List;
+import java.util.Optional;
 
 public abstract class Mech extends Unidad {
 
@@ -25,11 +31,22 @@ public abstract class Mech extends Unidad {
         this.estadoTurno = this.estadoTurno.atacar(this, posicion, tablero);
     }
 
-    void ejecutarAtaqueValidado(Posicion posicion, Tablero tablero) {
+    public void ejecutarAtaqueValidado(Posicion posicion, Tablero tablero) {
         estadoArma.usar(this, posicion, tablero);
     }
 
-    protected abstract void ejecutarAtaque(Posicion posicion, Tablero tablero);
+    public abstract void ejecutarAtaque(Posicion posicion, Tablero tablero);
+
+    protected abstract void validarObjetivo(Posicion objetivo, Tablero tablero);
+
+    public void agregarSiPuedeAtacarA(Posicion objetivo, List<Posicion> objetivos, Tablero tablero) {
+        try {
+            validarObjetivo(objetivo, tablero);
+        } catch (AccionInvalidaException e) {
+            return;
+        }
+        objetivos.add(objetivo);
+    }
 
     @Override
     public void moverA(Posicion destino, Tablero tablero) {
@@ -47,24 +64,37 @@ public abstract class Mech extends Unidad {
         this.estadoTurno = new EstadoDisponible();
     }
 
+    public String obtenerEstadoArma() {
+        return this.estadoArma.obtenerDescripcion();
+    }
+
+    @Override
+    public void entregarseA(ReceptorDeOcupante receptor) {
+        receptor.recibirMech(this);
+    }
+
     public void deshacerMovimiento(Tablero tablero) {
         this.estadoTurno = this.estadoTurno.deshacerMovimiento(this, tablero);
     }
 
-    void ejecutarDeshacerMovimiento(Tablero tablero) {
+    public void ejecutarDeshacerMovimiento(Tablero tablero) {
+        tablero.recibirTransitoEn(this.posicionAnterior,new MovimientoTerrestre());
         this.establecerEstadoSalud(this.estadoSaludAnterior);
         this.estadoArma = this.estadoArmaAnterior;
+        notificarObservadores();
         reubicarSinEfectoEn(posicionAnterior, tablero);
     }
 
     @Override
     public void hundirse() {
         this.estadoArma = new EstadoArmaSumergida();
+        notificarObservadores();
     }
 
     @Override
     public void salirDelAgua() {
         this.estadoArma = new EstadoArmaOperativa();
+        notificarObservadores();
     }
 
     private EstadoSalud estadoSaludAnterior;
@@ -74,7 +104,7 @@ public abstract class Mech extends Unidad {
         buscador.encontrarMech(casilla);
     }
 
-    void ejecutarMovimientoMech(Posicion destino, Tablero tablero) {
+     public void ejecutarMovimientoMech(Posicion destino, Tablero tablero) {
         super.ejecutarMovimiento(destino, tablero);
     }
 

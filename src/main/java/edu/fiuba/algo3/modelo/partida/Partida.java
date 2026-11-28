@@ -1,50 +1,80 @@
 package edu.fiuba.algo3.modelo.partida;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import edu.fiuba.algo3.modelo.SujetoObservable;
+import edu.fiuba.algo3.modelo.partida.estado.*;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
-import edu.fiuba.algo3.modelo.unidades.Unidad;
-import edu.fiuba.algo3.modelo.unidades.veks.ia.InteligenciaArtificialVek;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
+import edu.fiuba.algo3.modelo.unidades.veks.ia.InteligenciaArtificialVek;
 
-public class Partida {
+public class Partida extends SujetoObservable {
 
     private static final int CANTIDAD_DE_TURNOS = 5;
 
     private final Tablero tablero;
-    private final List<Mech> mechs;
-    private final List<Vek> veks;
-    private final Turno turno;
+    private final Escuadron escuadron;
+    private final Enjambre enjambre;
+    private final GeneradorDeEmergencias generador;
     private EstadoPartida estado;
     private int numeroDeTurno;
 
     public Partida(Tablero tablero, List<Mech> mechs, List<Vek> veks) {
+        this(
+                tablero,
+                new Escuadron(mechs),
+                new Enjambre(veks, new InteligenciaArtificialVek()),
+                new GeneradorDeEmergencias()
+        );
+    }
+
+    public Partida(Tablero tablero, List<Mech> mechs, List<Vek> veks, GeneradorDeEmergencias generador) {
+        this(
+                tablero,
+                new Escuadron(mechs),
+                new Enjambre(veks, new InteligenciaArtificialVek()),
+                generador
+        );
+    }
+
+    public Partida(Tablero tablero, Escuadron escuadron, Enjambre enjambre) {
+        this(tablero, escuadron, enjambre, new GeneradorDeEmergencias());
+    }
+
+    public Partida(
+            Tablero tablero,
+            Escuadron escuadron,
+            Enjambre enjambre,
+            GeneradorDeEmergencias generador
+    ) {
         this.tablero = tablero;
-        this.mechs = new ArrayList<>(mechs);
-        this.veks = new ArrayList<>(veks);
-        this.turno = new Turno(this.veks, new InteligenciaArtificialVek());
+        this.escuadron = escuadron;
+        this.enjambre = enjambre;
+        this.generador = generador;
         this.estado = new EnJuego();
         this.numeroDeTurno = 1;
-        this.turno.faseVek(this.tablero);
+        this.enjambre.faseVek(this.tablero);
+        this.generador.anunciarEmergencias(this.numeroDeTurno, this.tablero);
+        notificarObservadores();
     }
 
     public void terminarFaseJugador() {
         this.estado = this.estado.terminarFaseJugador(this);
+        notificarObservadores();
     }
 
-    EstadoPartida jugarRestoDelTurno() {
-        this.turno.faseResolucion(this.tablero);
-        this.turno.faseEmergencia(this.tablero);
-        retirarUnidadesMuertas();
+    public EstadoPartida jugarRestoDelTurno() {
+        this.enjambre.faseResolucion(this.tablero);
+        this.enjambre.faseEmergencia(this.tablero);
+        retirarUnidadesDestruidas();
         EstadoPartida siguiente = evaluarFinDelTurno();
         siguiente.comenzarTurno(this);
         return siguiente;
     }
 
     private EstadoPartida evaluarFinDelTurno() {
-        if (this.tablero.obtenerRedElectrica() == 0 || this.mechs.isEmpty()) {
+        if (esDerrota()) {
             return new Derrota();
         }
         if (this.numeroDeTurno == CANTIDAD_DE_TURNOS) {
@@ -53,26 +83,38 @@ public class Partida {
         return new EnJuego();
     }
 
-    void comenzarSiguienteTurno() {
+    private boolean esDerrota() {
+        return this.tablero.obtenerRedElectrica() <= 0 || this.escuadron.fueDestruido();
+    }
+
+    public void comenzarSiguienteTurno() {
         this.numeroDeTurno++;
-        for (Mech mech : this.mechs) {
-            mech.reiniciarTurno();
-        }
-        this.turno.faseVek(this.tablero);
+        this.escuadron.reiniciarTurno();
+        this.enjambre.faseVek(this.tablero);
+        this.generador.anunciarEmergencias(this.numeroDeTurno, this.tablero);
+        notificarObservadores();
     }
 
-    private void retirarUnidadesMuertas() {
-        retirarMuertas(this.mechs);
-        retirarMuertas(this.veks);
+    private void retirarUnidadesDestruidas() {
+        this.escuadron.retirarDestruidos(this.tablero);
+        this.enjambre.retirarDestruidos(this.tablero);
     }
 
-    private void retirarMuertas(List<? extends Unidad> unidades) {
-        for (Unidad unidad : List.copyOf(unidades)) {
-            if (unidad.obtenerVida() <= 0) {
-                this.tablero.desOcuparCasilla(unidad.obtenerPosicion());
-                unidades.remove(unidad);
-            }
+    public void retirarVeksMuertos() {
+        this.enjambre.retirarDestruidos(this.tablero);
+        notificarObservadores();
+    }
+
+    public void verificarFinInmediato() {
+        retirarUnidadesDestruidas();
+        if (esDerrota()) {
+            this.estado = new Derrota();
         }
+        notificarObservadores();
+    }
+
+    public void informarEstadoA(ReceptorDeEstadoPartida receptor) {
+        this.estado.informarA(receptor);
     }
 
     public EstadoPartida obtenerEstado() {
@@ -81,6 +123,18 @@ public class Partida {
 
     public int obtenerNumeroDeTurno() {
         return this.numeroDeTurno;
+    }
+
+    public Tablero obtenerTablero() {
+        return this.tablero;
+    }
+
+    public List<Vek> obtenerVeks() {
+        return this.enjambre.integrantes();
+    }
+
+    public int obtenerVeksEliminados() {
+        return this.enjambre.cantidadDeEliminados();
     }
 
 }

@@ -1,18 +1,22 @@
     package edu.fiuba.algo3.modelo.unidades.veks;
 
+    import java.util.List;
     import java.util.Optional;
 
     import edu.fiuba.algo3.modelo.tablero.Casilla;
-    import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
     import edu.fiuba.algo3.modelo.tablero.Posicion;
+    import edu.fiuba.algo3.modelo.tablero.ReceptorDeOcupante;
     import edu.fiuba.algo3.modelo.tablero.Tablero;
+    import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
+    import edu.fiuba.algo3.modelo.unidades.Unidad;
     import edu.fiuba.algo3.modelo.unidades.ataques.Ataque;
     import edu.fiuba.algo3.modelo.unidades.movimientos.Movimiento;
-    import edu.fiuba.algo3.modelo.unidades.Unidad;
     import edu.fiuba.algo3.modelo.unidades.veks.anuncios.AtaqueEnDireccion;
     import edu.fiuba.algo3.modelo.unidades.veks.anuncios.AtaquePreparado;
     import edu.fiuba.algo3.modelo.unidades.veks.anuncios.SinAtaquePreparado;
-    import edu.fiuba.algo3.modelo.unidades.veks.ia.EstadoTurnoVek;
+    import edu.fiuba.algo3.modelo.unidades.veks.estado.EstadoTurnoVek;
+    import edu.fiuba.algo3.modelo.unidades.veks.estado.EstadoVekDisponible;
+    import edu.fiuba.algo3.modelo.unidades.veks.estado.EstadoVekMuerto;
 
     public abstract class Vek extends Unidad {
 
@@ -28,6 +32,10 @@
         }
 
         @Override
+        public void salirDelAgua() {
+        }
+
+        @Override
         public void moverA(Posicion destino, Tablero tablero) {
             this.estadoTurno = this.estadoTurno.mover(this, destino, tablero);
         }
@@ -36,7 +44,7 @@
             return this.ataque.casillaImpactadaDesde(origen, direccion, tablero);
         }
 
-        void ejecutarMovimientoVek(Posicion destino, Tablero tablero) {
+        public void ejecutarMovimientoVek(Posicion destino, Tablero tablero) {
             super.ejecutarMovimiento(destino, tablero);
         }
 
@@ -48,7 +56,7 @@
             this.estadoTurno = this.estadoTurno.resolverAtaque(this, tablero);
         }
 
-        void ejecutarAtaquePreparado(Tablero tablero) {
+        public void ejecutarAtaquePreparado(Tablero tablero) {
             this.ataquePreparado.ejecutar(this.ataque, obtenerPosicion(), tablero);
             this.ataquePreparado = new SinAtaquePreparado();
         }
@@ -66,10 +74,31 @@
             }
         }
 
-        void apuntarA(Posicion objetivo) {
+        public void apuntarA(Posicion objetivo) {
             validarObjetivo(objetivo);
             this.ataquePreparado = new AtaqueEnDireccion(obtenerPosicion().direccionHacia(objetivo));
         }
 
+        public List<Posicion> obtenerPosicionesAmenazadas(Tablero tablero) {
+            if (obtenerVida() <= 0) {
+                return List.of();
+            }
+            return this.ataquePreparado.posicionesAmenazadas(
+                    this.ataque,
+                    obtenerPosicion(),
+                    tablero
+            );
+        }
+
+        public String obtenerAtaqueAnunciado() {
+            return this.ataquePreparado.obtenerDescripcion();
+        }
+
         protected abstract void validarObjetivo(Posicion objetivo);
+
+        @Override
+        public void entregarseA(ReceptorDeOcupante receptor) {
+            receptor.recibirVek(this);
+        }
+
 }

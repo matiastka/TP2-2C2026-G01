@@ -4,6 +4,15 @@ import edu.fiuba.algo3.modelo.tablero.RedElectrica;
 import edu.fiuba.algo3.modelo.tablero.*;
 
 public class Edificio extends Terreno {
+
+    @Override
+    public void ofrecerParaEmergencia(BuscadorDeEmergencias buscador, Casilla casilla) {
+    }
+
+    @Override
+    public String obtenerNombre() {
+        return "Edificio";
+    }
     private final RedElectrica redElectrica;
 
     public Edificio(RedElectrica redElectrica) {

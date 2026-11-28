@@ -1,12 +1,13 @@
 package edu.fiuba.algo3.modelo.terrenos;
 
 
-import edu.fiuba.algo3.modelo.tablero.BuscadorDeDestinos;
-import edu.fiuba.algo3.modelo.tablero.Casilla;
-import edu.fiuba.algo3.modelo.tablero.Ocupante;
-import edu.fiuba.algo3.modelo.tablero.Terreno;
+import edu.fiuba.algo3.modelo.tablero.*;
 
 public class Agua extends Terreno {
+    @Override
+    public String obtenerNombre() {
+        return "Agua";
+    }
 
     @Override
     public void afectarA(Ocupante ocupante){
@@ -21,4 +22,9 @@ public class Agua extends Terreno {
     @Override
     public void ofrecerComoDestino(BuscadorDeDestinos buscador, Casilla casilla) {
     }
+
+    @Override
+    public void ofrecerParaEmergencia(BuscadorDeEmergencias buscador, Casilla casilla) {
+    }
+
 }

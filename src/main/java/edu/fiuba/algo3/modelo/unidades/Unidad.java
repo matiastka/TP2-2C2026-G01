@@ -1,15 +1,16 @@
 package edu.fiuba.algo3.modelo.unidades;
 
 import java.util.List;
-
+import edu.fiuba.algo3.modelo.SujetoObservable;
+import edu.fiuba.algo3.modelo.excepciones.AccionInvalidaException;
 import edu.fiuba.algo3.modelo.tablero.*;
 import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
 import edu.fiuba.algo3.modelo.tablero.emergencias.EmergenciaVek;
-import edu.fiuba.algo3.modelo.unidades.excepciones.AccionInvalidaException;
 import edu.fiuba.algo3.modelo.unidades.movimientos.Movimiento;
+import edu.fiuba.algo3.modelo.unidades.estados.*;
+import edu.fiuba.algo3.modelo.unidades.veks.Vek;
 
-public abstract class Unidad implements Ocupante {
-
+public abstract class Unidad extends SujetoObservable implements Ocupante {
     private int vida;
     private int rango;
     private Posicion posicion;
@@ -29,9 +30,9 @@ public abstract class Unidad implements Ocupante {
     }
 
     protected void reubicarEn(Posicion destino, Tablero tablero) {
-        tablero.enCasilla(this.posicion).abandonar(this);
+        tablero.abandonarCasilla(this.posicion, this);
         trasladarA(destino, tablero);
-        tablero.enCasilla(destino).aplicarEfectoA(this);
+        tablero.aplicarEfectoDeTerrenoEn(destino,this);
     }
 
     protected void reubicarSinEfectoEn(Posicion destino, Tablero tablero) {
@@ -55,11 +56,14 @@ public abstract class Unidad implements Ocupante {
     @Override
     public void recibirDanio(int danio) {
         this.vida -= this.estadoSalud.calcularDanio(danio);
+        notificarObservadores();
     }
 
     public int obtenerVida() {
         return vida;
     }
+
+    public abstract String obtenerNombre();
 
     @Override
     public boolean ocupaCasilla() {
@@ -73,10 +77,7 @@ public abstract class Unidad implements Ocupante {
     @Override
     public void contaminarse(){
         this.estadoSalud = new EstadoContaminado();
-    }
-
-    public void descontaminarse(){
-        this.estadoSalud = new EstadoSano();
+        notificarObservadores();
     }
 
     public void agregarSiPuedeTerminarEn(Posicion destino, List<Posicion> destinos, Tablero tablero) {
@@ -89,7 +90,7 @@ public abstract class Unidad implements Ocupante {
         } catch (AccionInvalidaException e) {
             return;
         }
-        this.movimiento.agregarSiPuedeTerminarEn(tablero.enCasilla(destino), destinos);
+        tablero.ofrecerDestinoAMovimiento(destino, this.movimiento, destinos);
     }
 
     public abstract void hundirse();
@@ -106,7 +107,9 @@ public abstract class Unidad implements Ocupante {
 
     @Override
     public void serEmpujadoA(Posicion destino, Tablero tablero) {
-        reubicarEn(destino, tablero);
+        if (this.obtenerVida() > 0) {
+            reubicarEn(destino, tablero);
+        }
     }
 
     public abstract void moverA(Posicion destino, Tablero tablero);
@@ -115,8 +118,13 @@ public abstract class Unidad implements Ocupante {
         return this.estadoSalud;
     }
 
+    public boolean estaContaminado() {
+        return this.estadoSalud.estaContaminado();
+    }
+
     protected void establecerEstadoSalud(EstadoSalud estado) {
         this.estadoSalud = estado;
+        notificarObservadores();
     }
 
     @Override
@@ -134,7 +142,31 @@ public abstract class Unidad implements Ocupante {
     }
 
     @Override
-    public void recibirEmergencia(EmergenciaVek emergencia, Casilla casilla, Tablero tablero) {
+    public List<Vek> recibirEmergencia(EmergenciaVek emergencia, Casilla casilla, Tablero tablero) {
         emergencia.serBloqueadaPor(this);
+        return List.of();
     }
+
+    public void agregarSiPuedeLlegarA(Posicion destino, List<Posicion> destinos, Tablero tablero) {
+        try {
+            this.movimiento.validarCamino(this.posicion, destino, this.rango, tablero);
+        } catch (AccionInvalidaException e) {
+            return;
+        }
+        destinos.add(destino);
+    }
+
+    @Override
+    public void ofrecerParaEmergencia(BuscadorDeEmergencias buscador, Casilla casilla) {
+    }
+
+    public boolean retirarseSiEstaDestruida(Tablero tablero) {
+        if (this.vida > 0) {
+            return false;
+        }
+        tablero.desOcuparCasilla(this.posicion);
+        return true;
+    }
+
+
 }

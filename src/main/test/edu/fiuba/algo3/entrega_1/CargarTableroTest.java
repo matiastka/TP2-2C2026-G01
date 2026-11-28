@@ -1,0 +1,152 @@
+
+package edu.fiuba.algo3.entrega_1;
+
+import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
+import edu.fiuba.algo3.modelo.tablero.*;
+import edu.fiuba.algo3.modelo.tablero.BuscadorDeObjetivos;
+import edu.fiuba.algo3.modelo.tablero.Ocupante;
+import edu.fiuba.algo3.modelo.tablero.Transito;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import edu.fiuba.algo3.modelo.unidades.Unidad;
+import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+
+public class CargarTableroTest {
+
+    private static final String RUTA_MAPA_1 = "src/main/java/edu/fiuba/algo3/modelo/mapa/mapa1.txt";
+
+    @Test
+    public void test01UnTableroCargadoTiene8Columnas() {
+        // Arrange
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_1);
+        int cantidadEsperada = 8;
+
+        // Act
+        int cantidadColumnas = tablero.cantidadColumnas();
+
+        // Assert
+        assertEquals(cantidadEsperada, cantidadColumnas);
+    }
+
+    @Test
+    public void test02UnTableroCargadoTiene8Filas() {
+        // Arrange
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_1);
+        int cantidadEsperada = 8;
+
+        // Act
+        int cantidadFilas = tablero.cantidadFilas();
+
+        // Assert
+        assertEquals(cantidadEsperada, cantidadFilas);
+    }
+
+    @Test
+    public void test03UnTableroCargadoEsDe8x8() {
+        // Arrange
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_1);
+        int cantidadEsperada = 64;
+
+        // Act
+        int cantidadCeldas = tablero.cantidadColumnas() * tablero.cantidadFilas();
+
+        // Assert
+        assertEquals(cantidadEsperada, cantidadCeldas);
+    }
+
+    @Test
+    public void test04UnTableroCargadoPreDefinidoTieneMontanaEnUnaPosicionParticular() {
+        // Arrange
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_1);
+        Posicion posicionMontana = new Posicion(0, 7);
+        Transito transito = mock(Transito.class);
+
+        // Act
+        tablero.recibirTransitoEn(posicionMontana, transito);
+
+        // Assert
+        verify(transito).chocarConTerreno(tablero.enCasilla(posicionMontana));
+    }
+
+    @Test
+    public void test05UnTableroCargadoPreDefinidoTieneAguaEnUnaPosicionParticular() {
+        // Arrange
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_1);
+        Posicion posicionAgua = new Posicion(0, 0);
+        Unidad luciernaga = new Luciernaga();
+        luciernaga.colocarseEn(posicionAgua, tablero);
+
+        // Act
+        tablero.enCasilla(posicionAgua).aplicarEfectoA(luciernaga);
+
+        // Assert
+        assertEquals(0, luciernaga.obtenerVida());
+    }
+
+    @Test
+    public void test06UnTableroCargadoPreDefinidoTieneAcidoEnUnaPosicionParticular() {
+        // Arrange
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_1);
+        Posicion posicionAcido = new Posicion(1, 5);
+        Ocupante ocupante = mock(Ocupante.class);
+
+        // Act
+        tablero.aplicarEfectoDeTerrenoEn(posicionAcido, ocupante);
+
+        // Assert
+        verify(ocupante).caerEnAcido();
+    }
+
+    @Test
+    public void test07UnTableroCargadoPreDefinidoTieneEdificioEnUnaPosicionParticular() {
+        // Arrange
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_1);
+        Posicion posicionEdificio = new Posicion(0, 2);
+        BuscadorDeObjetivos buscador = mock(BuscadorDeObjetivos.class);
+
+        // Act
+        tablero.enCasilla(posicionEdificio).ofrecerComoObjetivo(buscador);
+
+        // Assert
+        verify(buscador).encontrarEdificio(tablero.enCasilla(posicionEdificio));
+    }
+
+    @Test
+    public void test08UnTableroCargadoPreDefinidoTieneSueloEnUnaPosicionParticular() {
+        // Arrange
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_1);
+        Posicion posicionSuelo = new Posicion(6, 1);
+        Unidad luciernaga = new Luciernaga();
+        luciernaga.colocarseEn(posicionSuelo, tablero);
+
+        // Act
+        tablero.enCasilla(posicionSuelo).aplicarEfectoA(luciernaga);
+
+        // Assert
+        assertEquals(3, luciernaga.obtenerVida());
+    }
+
+    @Test
+    public void test09Posicion77EstaEnElTablero() {
+        // Arrange
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_1);
+        Posicion posicion = new Posicion(7, 7);
+
+        // Act & Assert
+        assertTrue(tablero.estaEnRango(posicion));
+    }
+
+    @Test
+    public void test10Posicion80NoEstaEnElTablero() {
+        // Arrange
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_1);
+        Posicion posicion = new Posicion(8, 0);
+
+        // Act & Assert
+        assertFalse(tablero.estaEnRango(posicion));
+    }
+}

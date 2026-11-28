@@ -1,6 +1,11 @@
 package edu.fiuba.algo3.modelo.tablero;
 
 public abstract class Terreno {
+    public abstract String obtenerNombre();
+
+    public void ofrecerParaEmergencia(BuscadorDeEmergencias buscador, Casilla casilla) {
+        buscador.encontrarCasillaParaEmergencia(casilla);
+    }
 
     public abstract void afectarA(Ocupante ocupante);
 
@@ -8,10 +13,6 @@ public abstract class Terreno {
     }
 
     public void ofrecerComoObjetivo(BuscadorDeObjetivos buscador, Casilla casilla) {
-    }
-
-    public boolean esPeligrosoParaTerrestres() {
-        return false;
     }
 
     public void recibirDanio(int danio, Casilla casilla) {

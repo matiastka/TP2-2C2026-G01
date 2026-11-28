@@ -1,18 +1,18 @@
-
 package edu.fiuba.algo3.modelo.partida;
 
-import edu.fiuba.algo3.modelo.mapa.ConstructorTablero;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
+import edu.fiuba.algo3.modelo.partida.estado.Derrota;
+import edu.fiuba.algo3.modelo.partida.estado.EstadoPartida;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.mechs.Combate;
 import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
+import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class DerrotaTest {
 
@@ -25,31 +25,29 @@ public class DerrotaTest {
     }
 
     @Test
-    public void test01TerminarFaseJugadorLanzaPartidaTerminadaException() {
+    public void test01TerminarFaseJugadorNoCambiaElEstadoDeLaPartida() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Partida partida = new Partida(tablero, List.of(crearMechEnTablero(tablero)), List.of());
         EstadoPartida derrota = new Derrota();
 
-        // Act & Assert
-        assertThrows(PartidaTerminadaException.class, () -> derrota.terminarFaseJugador(partida));
+        // Act
+        EstadoPartida siguiente = derrota.terminarFaseJugador(partida);
+
+        // Assert
+        assertSame(derrota, siguiente);
     }
 
     @Test
     public void test02TerminarFaseJugadorNoAvanzaElNumeroDeTurno() {
         // Arrange
-        String[] mapa = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
-        Tablero tablero = new ConstructorTablero().construir(mapa);
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Partida partida = new Partida(tablero, List.of(crearMechEnTablero(tablero)), List.of());
         EstadoPartida derrota = new Derrota();
         int turnoInicial = partida.obtenerNumeroDeTurno();
 
         // Act
-        try {
-            derrota.terminarFaseJugador(partida);
-        } catch (PartidaTerminadaException ignored) {
-        }
+        derrota.terminarFaseJugador(partida);
 
         // Assert
         assertEquals(turnoInicial, partida.obtenerNumeroDeTurno());
