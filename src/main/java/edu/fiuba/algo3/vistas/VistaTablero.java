@@ -10,13 +10,12 @@ import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
-import java.util.function.Consumer;
 import javafx.scene.layout.GridPane;
 
-public class VistaTablero extends GridPane implements Observador, Consumer<Casilla> {
+public class VistaTablero extends GridPane implements Observador, ReceptorDeClicEnCasilla {
     private final Partida partida;
     private final Map<Posicion, VistaCasilla> casillas;
-    private Consumer<Casilla> seleccionListener = new SinListenerSeleccionCasilla();
+    private ReceptorDeClicEnCasilla receptor = new SinReceptorDeClicEnCasilla();
 
     public VistaTablero(Partida partida) {
         this.partida = partida;
@@ -36,7 +35,7 @@ public class VistaTablero extends GridPane implements Observador, Consumer<Casil
             for (int columna = 0; columna < tablero.cantidadColumnas(); columna++) {
                 Posicion posicion = new Posicion(fila, columna);
                 VistaCasilla vistaCasilla = new VistaCasilla(tablero.enCasilla(posicion));
-                vistaCasilla.agregarListenerSeleccion(this);
+                vistaCasilla.agregarReceptor(this);
                 this.casillas.put(posicion, vistaCasilla);
                 add(vistaCasilla, columna, fila);
             }
@@ -44,13 +43,13 @@ public class VistaTablero extends GridPane implements Observador, Consumer<Casil
         refrescarAmenazas();
     }
 
-    public void agregarListenerSeleccion(Consumer<Casilla> listener) {
-        this.seleccionListener = listener;
+    public void agregarReceptor(ReceptorDeClicEnCasilla receptor) {
+        this.receptor = receptor;
     }
 
     @Override
-    public void accept(Casilla casilla) {
-        this.seleccionListener.accept(casilla);
+    public void casillaSeleccionada(Casilla casilla) {
+        this.receptor.casillaSeleccionada(casilla);
     }
 
     public void refrescarAmenazas() {

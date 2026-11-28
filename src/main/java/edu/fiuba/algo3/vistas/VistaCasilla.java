@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.vistas;
 
 import java.util.Map;
-import java.util.function.Consumer;
 
 import edu.fiuba.algo3.modelo.Observador;
 import edu.fiuba.algo3.modelo.tablero.Casilla;
@@ -41,7 +40,7 @@ public class VistaCasilla extends StackPane implements Observador, ReceptorDeOcu
     private boolean destinoValido;
     private boolean objetivoValido;
     private boolean emergenciaActiva;
-    private Consumer<Casilla> seleccionListener = new SinListenerSeleccionCasilla();
+    private ReceptorDeClicEnCasilla receptor = new SinReceptorDeClicEnCasilla();
 
     public VistaCasilla(Casilla casilla) {
         this.casilla = casilla;
@@ -65,12 +64,12 @@ public class VistaCasilla extends StackPane implements Observador, ReceptorDeOcu
         setOnMouseClicked(new ManejadorClickCasilla(this));
     }
 
-    public void agregarListenerSeleccion(Consumer<Casilla> listener) {
-        this.seleccionListener = listener;
+    public void agregarReceptor(ReceptorDeClicEnCasilla receptor) {
+        this.receptor = receptor;
     }
 
     void seleccionar() {
-        this.seleccionListener.accept(this.casilla);
+        this.receptor.casillaSeleccionada(this.casilla);
     }
 
     @Override

@@ -1,17 +1,15 @@
 package edu.fiuba.algo3.controllers;
-
-import java.util.function.Consumer;
-
 import edu.fiuba.algo3.modelo.excepciones.AccionInvalidaException;
 import edu.fiuba.algo3.modelo.partida.Partida;
 import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
+import edu.fiuba.algo3.vistas.ReceptorDeClicEnCasilla;
 import edu.fiuba.algo3.vistas.VistaBarraEstado;
 import edu.fiuba.algo3.vistas.seleccion.ManejadorAccionesSeleccion;
 import edu.fiuba.algo3.vistas.seleccion.SeleccionJugador;
 
-public class ControladorCasilla implements Consumer<Casilla>, ManejadorAccionesSeleccion {
+public class ControladorCasilla implements ReceptorDeClicEnCasilla, ManejadorAccionesSeleccion {
     private final Partida partida;
     private final SeleccionJugador seleccion;
     private final VistaBarraEstado barraEstado;
@@ -23,7 +21,7 @@ public class ControladorCasilla implements Consumer<Casilla>, ManejadorAccionesS
     }
 
     @Override
-    public void accept(Casilla casilla) {
+    public void casillaSeleccionada(Casilla casilla) {
         try {
             this.seleccion.procesarClic(casilla, this);
         } catch (AccionInvalidaException excepcion) {

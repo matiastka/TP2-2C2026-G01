@@ -40,7 +40,7 @@ public class VistaPrincipal extends BorderPane {
                 this.barraEstado
         );
         this.panelLateral.configurarSeleccion(this.seleccion);
-        this.tableroVisual.agregarListenerSeleccion(controladorCasilla);
+        this.tableroVisual.agregarReceptor(controladorCasilla);
         this.cartelFinPartida = new CartelFinPartida();
         StackPane centro = new StackPane(this.tableroVisual, this.cartelFinPartida);
 
