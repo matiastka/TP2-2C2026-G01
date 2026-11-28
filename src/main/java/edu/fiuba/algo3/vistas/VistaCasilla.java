@@ -29,11 +29,13 @@ public class VistaCasilla extends StackPane implements Observador, VisitanteVisu
     private boolean destinoValido;
     private boolean objetivoValido;
     private boolean emergenciaActiva;
-    private Consumer<Casilla> seleccionListener;
+    private Consumer<Casilla> seleccionListener = new SinListenerSeleccionCasilla();
 
     public VistaCasilla(Casilla casilla) {
         this.casilla = casilla;
         this.casilla.agregarObservador(this);
+        this.ocupanteAnterior = this.casilla.obtenerOcupante();
+        this.ocupanteAnterior.agregarObservador(this);
         this.identificador = new Label("");
         this.vida = new Label("");
         this.emergencia = new Label("");
@@ -48,23 +50,20 @@ public class VistaCasilla extends StackPane implements Observador, VisitanteVisu
         getChildren().addAll(this.identificador, this.vida, this.emergencia);
 
         actualizar();
-        setOnMouseClicked(evento -> {
-            if (this.seleccionListener != null) {
-                this.seleccionListener.accept(this.casilla);
-            }
-        });
+        setOnMouseClicked(new ManejadorClickCasilla(this));
     }
 
     public void agregarListenerSeleccion(Consumer<Casilla> listener) {
         this.seleccionListener = listener;
     }
 
+    void seleccionar() {
+        this.seleccionListener.accept(this.casilla);
+    }
+
     @Override
     public void actualizar() {
-        if (this.ocupanteAnterior != null) {
-            this.ocupanteAnterior.quitarObservador(this);
-        }
-
+        this.ocupanteAnterior.quitarObservador(this);
         this.ocupanteAnterior = this.casilla.obtenerOcupante();
         this.ocupanteAnterior.agregarObservador(this);
 

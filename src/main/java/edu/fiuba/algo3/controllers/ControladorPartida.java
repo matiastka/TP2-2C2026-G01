@@ -3,8 +3,10 @@ package edu.fiuba.algo3.controllers;
 import edu.fiuba.algo3.modelo.excepciones.AccionInvalidaException;
 import edu.fiuba.algo3.modelo.partida.Partida;
 import edu.fiuba.algo3.vistas.VistaBarraEstado;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
-public class ControladorPartida {
+public class ControladorPartida implements EventHandler<ActionEvent> {
     private final Partida partida;
     private final VistaBarraEstado barraEstado;
 
@@ -20,5 +22,10 @@ public class ControladorPartida {
         } catch (AccionInvalidaException excepcion) {
             this.barraEstado.mostrarError(excepcion.getMessage());
         }
+    }
+
+    @Override
+    public void handle(ActionEvent evento) {
+        terminarFaseJugador();
     }
 }

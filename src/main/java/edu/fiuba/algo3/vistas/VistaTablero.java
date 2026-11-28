@@ -10,13 +10,13 @@ import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
-import javafx.scene.layout.GridPane;
 import java.util.function.Consumer;
+import javafx.scene.layout.GridPane;
 
-public class VistaTablero extends GridPane implements Observador {
+public class VistaTablero extends GridPane implements Observador, Consumer<Casilla> {
     private final Partida partida;
     private final Map<Posicion, VistaCasilla> casillas;
-    private Consumer<Casilla> seleccionListener;
+    private Consumer<Casilla> seleccionListener = new SinListenerSeleccionCasilla();
 
     public VistaTablero(Partida partida) {
         this.partida = partida;
@@ -36,7 +36,7 @@ public class VistaTablero extends GridPane implements Observador {
             for (int columna = 0; columna < tablero.cantidadColumnas(); columna++) {
                 Posicion posicion = new Posicion(fila, columna);
                 VistaCasilla vistaCasilla = new VistaCasilla(tablero.enCasilla(posicion));
-                vistaCasilla.agregarListenerSeleccion(this::seleccionar);
+                vistaCasilla.agregarListenerSeleccion(this);
                 this.casillas.put(posicion, vistaCasilla);
                 add(vistaCasilla, columna, fila);
             }
@@ -48,10 +48,9 @@ public class VistaTablero extends GridPane implements Observador {
         this.seleccionListener = listener;
     }
 
-    private void seleccionar(Casilla casilla) {
-        if (this.seleccionListener != null) {
-            this.seleccionListener.accept(casilla);
-        }
+    @Override
+    public void accept(Casilla casilla) {
+        this.seleccionListener.accept(casilla);
     }
 
     public void refrescarAmenazas() {
@@ -59,9 +58,8 @@ public class VistaTablero extends GridPane implements Observador {
         Tablero tablero = this.partida.obtenerTablero();
         for (Vek vek : this.partida.obtenerVeks()) {
             for (Posicion posicion : vek.obtenerPosicionesAmenazadas(tablero)) {
-                VistaCasilla casilla = this.casillas.get(posicion);
-                if (casilla != null) {
-                    casilla.resaltarAmenaza(true);
+                if (this.casillas.containsKey(posicion)) {
+                    this.casillas.get(posicion).resaltarAmenaza(true);
                 }
             }
         }
@@ -70,9 +68,8 @@ public class VistaTablero extends GridPane implements Observador {
     public void resaltarDestinos(List<Posicion> posiciones) {
         limpiarResaltados();
         for (Posicion posicion : posiciones) {
-            VistaCasilla casilla = this.casillas.get(posicion);
-            if (casilla != null) {
-                casilla.resaltarDestino(true);
+            if (this.casillas.containsKey(posicion)) {
+                this.casillas.get(posicion).resaltarDestino(true);
             }
         }
     }
@@ -80,9 +77,8 @@ public class VistaTablero extends GridPane implements Observador {
     public void resaltarObjetivos(List<Posicion> posiciones) {
         limpiarResaltados();
         for (Posicion posicion : posiciones) {
-            VistaCasilla casilla = this.casillas.get(posicion);
-            if (casilla != null) {
-                casilla.resaltarObjetivo(true);
+            if (this.casillas.containsKey(posicion)) {
+                this.casillas.get(posicion).resaltarObjetivo(true);
             }
         }
     }
@@ -90,15 +86,13 @@ public class VistaTablero extends GridPane implements Observador {
     public void resaltarDestinosYObjetivos(List<Posicion> destinos, List<Posicion> objetivos) {
         limpiarResaltados();
         for (Posicion posicion : destinos) {
-            VistaCasilla casilla = this.casillas.get(posicion);
-            if (casilla != null) {
-                casilla.resaltarDestino(true);
+            if (this.casillas.containsKey(posicion)) {
+                this.casillas.get(posicion).resaltarDestino(true);
             }
         }
         for (Posicion posicion : objetivos) {
-            VistaCasilla casilla = this.casillas.get(posicion);
-            if (casilla != null) {
-                casilla.resaltarObjetivo(true);
+            if (this.casillas.containsKey(posicion)) {
+                this.casillas.get(posicion).resaltarObjetivo(true);
             }
         }
     }

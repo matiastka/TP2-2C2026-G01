@@ -53,10 +53,14 @@ public class App extends Application {
         VistaBarraEstado barraEstado = new VistaBarraEstado();
         Button terminarTurno = new Button("Terminar fase del jugador");
         ControladorPartida controlador = new ControladorPartida(partida, barraEstado);
-        terminarTurno.setOnAction(evento -> controlador.terminarFaseJugador());
+        terminarTurno.setOnAction(controlador);
 
         VistaPanelSuperior panelSuperior = new VistaPanelSuperior(partida, terminarTurno);
-        VistaPanelLateral panelLateral = new VistaPanelLateral(partida, barraEstado);
+        VistaPanelLateral panelLateral = new VistaPanelLateral(
+                partida,
+                barraEstado,
+                controlador
+        );
         VistaPrincipal vistaPrincipal = new VistaPrincipal(
                 partida,
                 panelSuperior,
