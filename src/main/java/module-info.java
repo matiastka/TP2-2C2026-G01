@@ -22,4 +22,15 @@ module edu.fiuba.algo3 {
     exports edu.fiuba.algo3.modelo.unidades.ataques.efectos;
     exports edu.fiuba.algo3.modelo.unidades.veks.anuncios;
     exports edu.fiuba.algo3.modelo.tablero.emergencias;
+    exports edu.fiuba.algo3.modelo.partida.estado;
+    exports edu.fiuba.algo3.modelo.unidades.estados;
+    exports edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech;
+    exports edu.fiuba.algo3.modelo.unidades.mechs.estado.turno;
+    exports edu.fiuba.algo3.modelo.unidades.mechs.estado.arma;
+    exports edu.fiuba.algo3.modelo.unidades.veks.ia.reglas;
+    exports edu.fiuba.algo3.modelo.unidades.veks.ia.ataque;
+    exports edu.fiuba.algo3.modelo.unidades.veks.unidadesVek;
+    exports edu.fiuba.algo3.modelo.unidades.veks.estado;
+    exports edu.fiuba.algo3.vistas.seleccion;
+    exports edu.fiuba.algo3.vistas.componentes;
 }

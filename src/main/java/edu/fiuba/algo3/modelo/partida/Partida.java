@@ -3,10 +3,7 @@ package edu.fiuba.algo3.modelo.partida;
 import java.util.List;
 
 import edu.fiuba.algo3.modelo.SujetoObservable;
-import edu.fiuba.algo3.modelo.partida.estado.Derrota;
-import edu.fiuba.algo3.modelo.partida.estado.EnJuego;
-import edu.fiuba.algo3.modelo.partida.estado.EstadoPartida;
-import edu.fiuba.algo3.modelo.partida.estado.Victoria;
+import edu.fiuba.algo3.modelo.partida.estado.*;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
@@ -114,6 +111,10 @@ public class Partida extends SujetoObservable {
             this.estado = new Derrota();
         }
         notificarObservadores();
+    }
+
+    public void informarEstadoA(ReceptorDeEstadoPartida receptor) {
+        this.estado.informarA(receptor);
     }
 
     public EstadoPartida obtenerEstado() {

@@ -13,12 +13,8 @@ public class Derrota implements EstadoPartida {
     }
 
     @Override
-    public boolean estaTerminada() {
-        return true;
+    public void informarA(ReceptorDeEstadoPartida receptor) {
+        receptor.partidaPerdida();
     }
 
-    @Override
-    public boolean ganoElJugador() {
-        return false;
-    }
 }

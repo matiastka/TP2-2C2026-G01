@@ -13,12 +13,9 @@ public class Victoria implements EstadoPartida {
     }
 
     @Override
-    public boolean estaTerminada() {
-        return true;
+    public void informarA(ReceptorDeEstadoPartida receptor) {
+        receptor.partidaGanada();
     }
 
-    @Override
-    public boolean ganoElJugador() {
-        return true;
-    }
+
 }

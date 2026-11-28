@@ -14,13 +14,8 @@ public class EnJuego implements EstadoPartida {
     }
 
     @Override
-    public boolean estaTerminada() {
-        return false;
-    }
-
-    @Override
-    public boolean ganoElJugador() {
-        return false;
+    public void informarA(ReceptorDeEstadoPartida receptor) {
+        receptor.partidaEnJuego();
     }
 }
 
