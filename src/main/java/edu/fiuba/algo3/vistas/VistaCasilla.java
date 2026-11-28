@@ -1,24 +1,17 @@
 package edu.fiuba.algo3.vistas;
 
 import java.util.function.Consumer;
+import java.util.Optional;
 
 import edu.fiuba.algo3.modelo.Observador;
-import edu.fiuba.algo3.modelo.VisitanteVisualCasilla;
 import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Ocupante;
-import edu.fiuba.algo3.modelo.tablero.emergencias.EmergenciaVek;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
-import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Artilleria;
-import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Canon;
-import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
-import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Avispon;
-import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
-import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Saltador;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 
-public class VistaCasilla extends StackPane implements Observador, VisitanteVisualCasilla {
+public class VistaCasilla extends StackPane implements Observador {
     private final Casilla casilla;
     private Ocupante ocupanteAnterior;
     private final Label identificador;
@@ -70,8 +63,15 @@ public class VistaCasilla extends StackPane implements Observador, VisitanteVisu
         this.identificador.setText("");
         this.vida.setText("");
         this.emergencia.setText("");
-        this.emergenciaActiva = false;
-        this.casilla.aceptar(this);
+        this.estiloTerreno = obtenerEstiloTerreno(this.casilla.obtenerTerreno().obtenerNombre());
+        Optional<Unidad> unidad = this.casilla.obtenerOcupante().obtenerUnidad();
+        if (unidad.isPresent()) {
+            dibujarUnidad(unidad.get(), obtenerIdentificador(unidad.get().obtenerNombre()));
+        }
+        this.emergenciaActiva = this.casilla.obtenerEmergencia().estaActiva();
+        if (this.emergenciaActiva) {
+            this.emergencia.setText("⚠");
+        }
         aplicarEstilo();
     }
 
@@ -120,73 +120,39 @@ public class VistaCasilla extends StackPane implements Observador, VisitanteVisu
         }
     }
 
-    @Override
-    public void visitarSuelo() {
-        this.estiloTerreno = "-fx-background-color: #81c784;";
+    private String obtenerEstiloTerreno(String nombre) {
+        switch (nombre) {
+            case "Suelo":
+                return "-fx-background-color: #81c784;";
+            case "Agua":
+                return "-fx-background-color: #64b5f6;";
+            case "Acido":
+                return "-fx-background-color: #aed581;";
+            case "Edificio":
+                return "-fx-background-color: #b0bec5;";
+            case "Montana":
+                return "-fx-background-color: #a1887f;";
+            default:
+                throw new IllegalArgumentException("Terreno no soportado: " + nombre);
+        }
     }
 
-    @Override
-    public void visitarAgua() {
-        this.estiloTerreno = "-fx-background-color: #64b5f6;";
-    }
-
-    @Override
-    public void visitarAcido() {
-        this.estiloTerreno = "-fx-background-color: #aed581;";
-    }
-
-    @Override
-    public void visitarEdificio() {
-        this.estiloTerreno = "-fx-background-color: #b0bec5;";
-    }
-
-    @Override
-    public void visitarMontana() {
-        this.estiloTerreno = "-fx-background-color: #a1887f;";
-    }
-
-    @Override
-    public void visitarSinOcupante() {
-    }
-
-    @Override
-    public void visitarCombate(Combate combate) {
-        dibujarUnidad(combate, "C");
-    }
-
-    @Override
-    public void visitarCanon(Canon canon) {
-        dibujarUnidad(canon, "A");
-    }
-
-    @Override
-    public void visitarArtilleria(Artilleria artilleria) {
-        dibujarUnidad(artilleria, "R");
-    }
-
-    @Override
-    public void visitarLuciernaga(Luciernaga luciernaga) {
-        dibujarUnidad(luciernaga, "L");
-    }
-
-    @Override
-    public void visitarSaltador(Saltador saltador) {
-        dibujarUnidad(saltador, "S");
-    }
-
-    @Override
-    public void visitarAvispon(Avispon avispon) {
-        dibujarUnidad(avispon, "V");
-    }
-
-    @Override
-    public void visitarSinEmergencia() {
-        this.emergenciaActiva = false;
-    }
-
-    @Override
-    public void visitarEmergenciaVek(EmergenciaVek emergencia) {
-        this.emergenciaActiva = true;
-        this.emergencia.setText("⚠");
+    private String obtenerIdentificador(String nombre) {
+        switch (nombre) {
+            case "Combate":
+                return "C";
+            case "Canon":
+                return "A";
+            case "Artilleria":
+                return "R";
+            case "Luciernaga":
+                return "L";
+            case "Saltador":
+                return "S";
+            case "Avispon":
+                return "V";
+            default:
+                throw new IllegalArgumentException("Unidad no soportada: " + nombre);
+        }
     }
 }

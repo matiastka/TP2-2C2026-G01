@@ -2,10 +2,9 @@ package edu.fiuba.algo3.controllers;
 
 import edu.fiuba.algo3.modelo.Observador;
 import edu.fiuba.algo3.modelo.partida.Partida;
-import edu.fiuba.algo3.modelo.partida.estado.VisitanteEstadoPartida;
 import edu.fiuba.algo3.vistas.VistaPrincipal;
 
-public class ControladorEstadoPartida implements Observador, VisitanteEstadoPartida {
+public class ControladorEstadoPartida implements Observador {
     private final Partida partida;
     private final VistaPrincipal vista;
 
@@ -19,27 +18,18 @@ public class ControladorEstadoPartida implements Observador, VisitanteEstadoPart
     @Override
     public void actualizar() {
         this.vista.refrescarAmenazas();
-        this.partida.obtenerEstado().aceptar(this);
-    }
-
-    @Override
-    public void visitarEnJuego() {
-        this.vista.mostrarEnJuego();
-    }
-
-    @Override
-    public void visitarVictoria() {
-        this.vista.mostrarVictoria(
-                this.partida.obtenerVeksEliminados(),
-                this.partida.obtenerTablero().obtenerRedElectrica()
-        );
-    }
-
-    @Override
-    public void visitarDerrota() {
-        this.vista.mostrarDerrota(
-                this.partida.obtenerVeksEliminados(),
-                this.partida.obtenerTablero().obtenerRedElectrica()
-        );
+        if (!this.partida.obtenerEstado().estaTerminada()) {
+            this.vista.mostrarEnJuego();
+        } else if (this.partida.obtenerEstado().ganoElJugador()) {
+            this.vista.mostrarVictoria(
+                    this.partida.obtenerVeksEliminados(),
+                    this.partida.obtenerTablero().obtenerRedElectrica()
+            );
+        } else {
+            this.vista.mostrarDerrota(
+                    this.partida.obtenerVeksEliminados(),
+                    this.partida.obtenerTablero().obtenerRedElectrica()
+            );
+        }
     }
 }

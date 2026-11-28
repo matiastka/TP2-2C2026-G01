@@ -1,9 +1,7 @@
 package edu.fiuba.algo3.modelo.tablero;
 
-import edu.fiuba.algo3.modelo.VisitanteVisualCasilla;
-
 public abstract class Terreno {
-    public abstract void aceptar(VisitanteVisualCasilla visitante);
+    public abstract String obtenerNombre();
 
     public void ofrecerParaEmergencia(BuscadorDeEmergencias buscador, Casilla casilla) {
         buscador.encontrarCasillaParaEmergencia(casilla);

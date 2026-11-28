@@ -3,6 +3,7 @@ package edu.fiuba.algo3.vistas;
 import edu.fiuba.algo3.controllers.ControladorCasilla;
 import edu.fiuba.algo3.controllers.ControladorEstadoPartida;
 import edu.fiuba.algo3.modelo.partida.Partida;
+import edu.fiuba.algo3.vistas.componentes.CartelFinPartida;
 import edu.fiuba.algo3.vistas.seleccion.SeleccionJugador;
 import javafx.geometry.Insets;
 import javafx.scene.layout.BorderPane;
@@ -14,7 +15,7 @@ public class VistaPrincipal extends BorderPane {
     private final VistaBarraEstado barraEstado;
     private final VistaPanelLateral panelLateral;
     private final SeleccionJugador seleccion;
-    private final VistaCartelFinPartida cartelFinPartida;
+    private final CartelFinPartida cartelFinPartida;
 
     public VistaPrincipal(
             Partida partida,
@@ -40,7 +41,7 @@ public class VistaPrincipal extends BorderPane {
         );
         this.panelLateral.configurarSeleccion(this.seleccion);
         this.tableroVisual.agregarListenerSeleccion(controladorCasilla);
-        this.cartelFinPartida = new VistaCartelFinPartida();
+        this.cartelFinPartida = new CartelFinPartida();
         StackPane centro = new StackPane(this.tableroVisual, this.cartelFinPartida);
 
         this.tableroVisual.setPadding(new Insets(10));

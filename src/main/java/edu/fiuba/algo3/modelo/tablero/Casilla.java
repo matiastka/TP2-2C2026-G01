@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo.tablero;
 
 import edu.fiuba.algo3.modelo.SujetoObservable;
-import edu.fiuba.algo3.modelo.VisitanteVisualCasilla;
 import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
 import edu.fiuba.algo3.modelo.tablero.emergencias.Emergencia;
 import edu.fiuba.algo3.modelo.tablero.emergencias.EmergenciaVek;
@@ -11,11 +10,6 @@ import edu.fiuba.algo3.modelo.unidades.veks.Vek;
 import java.util.List;
 
 public class Casilla extends SujetoObservable {
-    public void aceptar(VisitanteVisualCasilla visitante) {
-        this.terreno.aceptar(visitante);
-        this.ocupante.aceptar(visitante);
-        this.emergencia.aceptar(visitante);
-    }
     private Terreno terreno;
     private Ocupante ocupante;
     private final Posicion posicion;
@@ -70,6 +64,10 @@ public class Casilla extends SujetoObservable {
 
     public Ocupante obtenerOcupante() {
         return ocupante;
+    }
+
+    public Emergencia obtenerEmergencia() {
+        return emergencia;
     }
 
     public void aplicarEfectoA(Ocupante ocupante) {

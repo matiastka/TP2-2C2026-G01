@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo.terrenos;
 
 import edu.fiuba.algo3.modelo.tablero.*;
-import edu.fiuba.algo3.modelo.VisitanteVisualCasilla;
 
 public class Montana extends Terreno {
 
@@ -10,8 +9,8 @@ public class Montana extends Terreno {
     }
 
     @Override
-    public void aceptar(VisitanteVisualCasilla visitante) {
-        visitante.visitarMontana();
+    public String obtenerNombre() {
+        return "Montana";
     }
 
     @Override

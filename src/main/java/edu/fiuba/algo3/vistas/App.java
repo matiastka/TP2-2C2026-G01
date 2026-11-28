@@ -4,6 +4,8 @@ import java.util.List;
 
 import edu.fiuba.algo3.controllers.ControladorPartida;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
+import edu.fiuba.algo3.modelo.partida.Enjambre;
+import edu.fiuba.algo3.modelo.partida.Escuadron;
 import edu.fiuba.algo3.modelo.partida.Partida;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
@@ -15,9 +17,10 @@ import edu.fiuba.algo3.modelo.unidades.veks.Vek;
 import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Avispon;
 import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
 import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Saltador;
+import edu.fiuba.algo3.modelo.unidades.veks.ia.InteligenciaArtificialVek;
+import edu.fiuba.algo3.vistas.componentes.BotonAccionTurno;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
@@ -44,14 +47,15 @@ public class App extends Application {
         Vek avispon = new Avispon();
         avispon.colocarseEn(new Posicion(1, 6), tablero);
 
-        Partida partida = new Partida(
-                tablero,
-                List.of(combate, canon, artilleria),
-                List.of(luciernaga, saltador, avispon)
+        Escuadron escuadron = new Escuadron(List.of(combate, canon, artilleria));
+        Enjambre enjambre = new Enjambre(
+                List.of(luciernaga, saltador, avispon),
+                new InteligenciaArtificialVek()
         );
+        Partida partida = new Partida(tablero, escuadron, enjambre);
 
         VistaBarraEstado barraEstado = new VistaBarraEstado();
-        Button terminarTurno = new Button("Terminar fase del jugador");
+        BotonAccionTurno terminarTurno = new BotonAccionTurno("Terminar fase del jugador");
         ControladorPartida controlador = new ControladorPartida(partida, barraEstado);
         terminarTurno.setOnAction(controlador);
 

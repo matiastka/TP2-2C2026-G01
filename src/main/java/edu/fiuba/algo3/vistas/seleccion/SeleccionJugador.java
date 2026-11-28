@@ -2,6 +2,7 @@ package edu.fiuba.algo3.vistas.seleccion;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import edu.fiuba.algo3.modelo.partida.Partida;
 import edu.fiuba.algo3.modelo.tablero.BuscadorDeObjetivos;
@@ -9,6 +10,7 @@ import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
+import edu.fiuba.algo3.modelo.unidades.veks.Vek;
 import edu.fiuba.algo3.vistas.VistaBarraEstado;
 import edu.fiuba.algo3.vistas.VistaPanelLateral;
 import edu.fiuba.algo3.vistas.VistaTablero;
@@ -40,7 +42,14 @@ public class SeleccionJugador {
             return;
         }
         this.panelLateral.seleccionar(casilla);
-        casilla.aceptar(new VisitanteClicSeleccion(this, this.estado, casilla, manejador));
+        Optional<Mech> mechEnCasilla = casilla.obtenerOcupante().obtenerMech();
+        if (mechEnCasilla.isPresent()) {
+            this.estado.clicEnMech(mechEnCasilla.get(), this, manejador);
+        } else if (casilla.estaLibre()) {
+            this.estado.clicEnCasillaVacia(casilla, this, manejador);
+        } else {
+            this.estado.clicEnVek(casilla.obtenerPosicion(), this, manejador);
+        }
     }
 
     public void seleccionarMech(Mech mech) {
@@ -126,7 +135,13 @@ public class SeleccionJugador {
                 Posicion posicion = new Posicion(fila, columna);
                 Casilla casilla = tablero.enCasilla(posicion);
                 casilla.ofrecerComoObjetivo(buscador);
-                casilla.aceptar(new VisitanteObjetivoVek(posicion, mech, objetivos));
+            }
+        }
+        for (Vek vek : this.partida.obtenerVeks()) {
+            Posicion posicion = vek.obtenerPosicion();
+            if (posicion.distanciaA(mech.obtenerPosicion()) <= mech.obtenerRango()
+                    && !posicion.equals(mech.obtenerPosicion())) {
+                objetivos.add(posicion);
             }
         }
         return List.copyOf(objetivos);

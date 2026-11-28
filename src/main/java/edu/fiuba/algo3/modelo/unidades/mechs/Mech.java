@@ -13,6 +13,8 @@ import edu.fiuba.algo3.modelo.unidades.mechs.estado.turno.EstadoDisponible;
 import edu.fiuba.algo3.modelo.unidades.mechs.estado.turno.EstadoTurnoMech;
 import edu.fiuba.algo3.modelo.unidades.movimientos.MovimientoTerrestre;
 
+import java.util.Optional;
+
 public abstract class Mech extends Unidad {
 
     private Posicion posicionAnterior;
@@ -54,6 +56,21 @@ public abstract class Mech extends Unidad {
 
     public String obtenerEstadoArma() {
         return this.estadoArma.obtenerDescripcion();
+    }
+
+    @Override
+    public Optional<Mech> obtenerMech() {
+        return Optional.of(this);
+    }
+
+    @Override
+    public String obtenerTipoUnidad() {
+        return "Mech";
+    }
+
+    @Override
+    public String obtenerDescripcionAtaque() {
+        return obtenerEstadoArma();
     }
 
     public void deshacerMovimiento(Tablero tablero) {

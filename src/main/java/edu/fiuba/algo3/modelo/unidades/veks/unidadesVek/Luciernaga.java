@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.modelo.unidades.veks.unidadesVek;
 
-import edu.fiuba.algo3.modelo.VisitanteVisualCasilla;
 import edu.fiuba.algo3.modelo.excepciones.DestinoNoAlcanzableException;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.unidades.ataques.AtaqueLineaRecta;
@@ -10,8 +9,8 @@ import edu.fiuba.algo3.modelo.unidades.veks.*;
 
 public class Luciernaga extends Vek {
     @Override
-    public void aceptar(VisitanteVisualCasilla visitante) {
-        visitante.visitarLuciernaga(this);
+    public String obtenerNombre() {
+        return "Luciernaga";
     }
     public Luciernaga() {
         super(3, 2, new MovimientoTerrestre(), new AtaqueLineaRecta(1, new EfectoContaminar()));

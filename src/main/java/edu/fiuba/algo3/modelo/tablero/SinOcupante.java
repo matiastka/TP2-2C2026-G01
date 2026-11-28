@@ -1,22 +1,29 @@
 package edu.fiuba.algo3.modelo.tablero;
 
 import edu.fiuba.algo3.modelo.Observador;
-import edu.fiuba.algo3.modelo.VisitanteVisualCasilla;
 import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
 import edu.fiuba.algo3.modelo.tablero.emergencias.EmergenciaVek;
+import edu.fiuba.algo3.modelo.unidades.Unidad;
+import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
 
 import java.util.List;
+import java.util.Optional;
 
 public class SinOcupante implements Ocupante {
     @Override
-    public void aceptar(VisitanteVisualCasilla visitante) {
-        visitante.visitarSinOcupante();
+    public boolean ocupaCasilla() {
+        return false;
     }
 
     @Override
-    public boolean ocupaCasilla() {
-        return false;
+    public Optional<Unidad> obtenerUnidad() {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Mech> obtenerMech() {
+        return Optional.empty();
     }
 
     @Override

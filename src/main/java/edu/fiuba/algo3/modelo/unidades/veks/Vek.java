@@ -93,5 +93,15 @@
             return this.ataquePreparado.obtenerDescripcion();
         }
 
+        @Override
+        public String obtenerTipoUnidad() {
+            return "Vek";
+        }
+
+        @Override
+        public String obtenerDescripcionAtaque() {
+            return obtenerAtaqueAnunciado();
+        }
+
         protected abstract void validarObjetivo(Posicion objetivo);
 }

@@ -24,13 +24,36 @@ public class Partida extends SujetoObservable {
     private int numeroDeTurno;
 
     public Partida(Tablero tablero, List<Mech> mechs, List<Vek> veks) {
-        this(tablero, mechs, veks, new GeneradorDeEmergencias());
+        this(
+                tablero,
+                new Escuadron(mechs),
+                new Enjambre(veks, new InteligenciaArtificialVek()),
+                new GeneradorDeEmergencias()
+        );
     }
 
     public Partida(Tablero tablero, List<Mech> mechs, List<Vek> veks, GeneradorDeEmergencias generador) {
+        this(
+                tablero,
+                new Escuadron(mechs),
+                new Enjambre(veks, new InteligenciaArtificialVek()),
+                generador
+        );
+    }
+
+    public Partida(Tablero tablero, Escuadron escuadron, Enjambre enjambre) {
+        this(tablero, escuadron, enjambre, new GeneradorDeEmergencias());
+    }
+
+    public Partida(
+            Tablero tablero,
+            Escuadron escuadron,
+            Enjambre enjambre,
+            GeneradorDeEmergencias generador
+    ) {
         this.tablero = tablero;
-        this.escuadron = new Escuadron(mechs);
-        this.enjambre = new Enjambre(veks, new InteligenciaArtificialVek());
+        this.escuadron = escuadron;
+        this.enjambre = enjambre;
         this.generador = generador;
         this.estado = new EnJuego();
         this.numeroDeTurno = 1;

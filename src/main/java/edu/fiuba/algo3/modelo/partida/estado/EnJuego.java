@@ -4,11 +4,6 @@ import edu.fiuba.algo3.modelo.partida.Partida;
 
 public class EnJuego implements EstadoPartida {
     @Override
-    public void aceptar(VisitanteEstadoPartida visitante) {
-        visitante.visitarEnJuego();
-    }
-
-    @Override
     public EstadoPartida terminarFaseJugador(Partida partida) {
         return partida.jugarRestoDelTurno();
     }
@@ -16,6 +11,16 @@ public class EnJuego implements EstadoPartida {
     @Override
     public void comenzarTurno(Partida partida) {
         partida.comenzarSiguienteTurno();
+    }
+
+    @Override
+    public boolean estaTerminada() {
+        return false;
+    }
+
+    @Override
+    public boolean ganoElJugador() {
+        return false;
     }
 }
 

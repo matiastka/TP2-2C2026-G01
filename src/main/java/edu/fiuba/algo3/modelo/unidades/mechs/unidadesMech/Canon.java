@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech;
 
-import edu.fiuba.algo3.modelo.VisitanteVisualCasilla;
 import edu.fiuba.algo3.modelo.excepciones.DestinoFueraDelTableroException;
 import edu.fiuba.algo3.modelo.excepciones.DestinoNoAlcanzableException;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
@@ -13,8 +12,8 @@ import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
 
 public class Canon extends Mech {
     @Override
-    public void aceptar(VisitanteVisualCasilla visitante) {
-        visitante.visitarCanon(this);
+    public String obtenerNombre() {
+        return "Canon";
     }
 
     private final Ataque ataque = new AtaqueLineaRecta(1, new EfectoEmpujar());

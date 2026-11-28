@@ -1,17 +1,17 @@
-package edu.fiuba.algo3.vistas;
+package edu.fiuba.algo3.vistas.componentes;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-public class VistaCartelFinPartida extends StackPane {
+public class CartelFinPartida extends StackPane {
     private final Label titulo;
     private final Label subtitulo;
     private final VBox tarjeta;
     private final Label resumen;
 
-    public VistaCartelFinPartida() {
+    public CartelFinPartida() {
         this.titulo = new Label();
         this.subtitulo = new Label();
         this.tarjeta = new VBox(12);

@@ -2,12 +2,11 @@ package edu.fiuba.algo3.modelo.terrenos;
 
 
 import edu.fiuba.algo3.modelo.tablero.*;
-import edu.fiuba.algo3.modelo.VisitanteVisualCasilla;
 
 public class Agua extends Terreno {
     @Override
-    public void aceptar(VisitanteVisualCasilla visitante) {
-        visitante.visitarAgua();
+    public String obtenerNombre() {
+        return "Agua";
     }
 
     @Override
