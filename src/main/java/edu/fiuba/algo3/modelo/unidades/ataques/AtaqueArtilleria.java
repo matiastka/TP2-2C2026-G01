@@ -65,13 +65,12 @@ public class AtaqueArtilleria implements Ataque {
             return;
         }
 
-        tablero.enCasilla(objetivo).recibirDanio(danio);
+        tablero.aplicarDanioEn(objetivo, danio);
 
         for (Direccion dirCard : Direccion.cardinales()) {
-            Posicion posAdyacente = objetivo.siguienteEn(dirCard);
-            if (tablero.estaEnRango(posAdyacente)) {
-                tablero.enCasilla(posAdyacente).aplicarEfectoDeImpacto(efectoAdyacente, dirCard, tablero);
-            }
+           Posicion posAdyacente = objetivo.siguienteEn(dirCard);
+           
+           tablero.aplicarEfectoDeImpactoEn(posAdyacente,efectoAdyacente,dirCard);
         }
     }
 }

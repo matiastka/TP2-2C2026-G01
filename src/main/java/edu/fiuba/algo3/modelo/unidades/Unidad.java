@@ -30,9 +30,9 @@ public abstract class Unidad extends SujetoObservable implements Ocupante {
     }
 
     protected void reubicarEn(Posicion destino, Tablero tablero) {
-        tablero.enCasilla(this.posicion).abandonar(this);
+        tablero.abandonarCasilla(this.posicion, this);
         trasladarA(destino, tablero);
-        tablero.enCasilla(destino).aplicarEfectoA(this);
+        tablero.aplicarEfectoDeTerrenoEn(destino,this);
     }
 
     protected void reubicarSinEfectoEn(Posicion destino, Tablero tablero) {
@@ -90,7 +90,7 @@ public abstract class Unidad extends SujetoObservable implements Ocupante {
         } catch (AccionInvalidaException e) {
             return;
         }
-        this.movimiento.agregarSiPuedeTerminarEn(tablero.enCasilla(destino), destinos);
+        tablero.ofrecerDestinoAMovimiento(destino, this.movimiento, destinos);
     }
 
     public abstract void hundirse();

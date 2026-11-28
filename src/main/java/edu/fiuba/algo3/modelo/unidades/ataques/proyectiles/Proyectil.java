@@ -18,9 +18,7 @@ public abstract class Proyectil implements Transito {
 
     public void lanzarDesde(Posicion origen) {
         Posicion siguiente = origen.siguienteEn(this.direccion);
-        if (this.tablero.estaEnRango(siguiente)) {
-            this.tablero.enCasilla(siguiente).recibirTransito(this);
-        }
+       this.tablero.recibirTransitoEn(siguiente, this);
     }
 
     @Override

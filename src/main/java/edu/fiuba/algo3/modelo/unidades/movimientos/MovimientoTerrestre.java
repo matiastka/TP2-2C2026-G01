@@ -34,7 +34,7 @@ public class MovimientoTerrestre implements Movimiento, Transito {
         Posicion actual = origen;
         do {
             actual = actual.siguienteEn(direccion);
-            tablero.enCasilla(actual).recibirTransito(this);
+            tablero.recibirTransitoEn(actual, this);
         } while (!actual.equals(destino));
     }
 

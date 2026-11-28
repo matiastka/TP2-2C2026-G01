@@ -40,8 +40,7 @@ public class AtaqueCuerpoACuerpo implements Ataque {
             return;
         }
 
-        Casilla casillaObjetivo = tablero.enCasilla(objetivo);
-        casillaObjetivo.recibirDanio(danio);
-        casillaObjetivo.aplicarEfectoDeImpacto(efecto, direccion, tablero);
+        tablero.aplicarDanioEn(objetivo, danio);
+        tablero.aplicarEfectoDeImpactoEn(objetivo,efecto,direccion);
     }
 }

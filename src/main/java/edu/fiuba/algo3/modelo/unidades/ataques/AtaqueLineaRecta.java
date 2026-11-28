@@ -14,9 +14,9 @@ public class AtaqueLineaRecta implements Ataque {
     public List<Posicion> posicionesAmenazadasDesde(Posicion origen, Direccion direccion, Tablero tablero) {
         List<Posicion> posiciones = new ArrayList<>();
         Posicion siguiente = origen.siguienteEn(direccion);
-        while (tablero.estaEnRango(siguiente)) {
+        while (tablero.estaEnRango(siguiente)){
             posiciones.add(siguiente);
-            if (!tablero.enCasilla(siguiente).estaLibre()) {
+            if (tablero.estaLibre(siguiente)){
                 break;
             }
             siguiente = siguiente.siguienteEn(direccion);

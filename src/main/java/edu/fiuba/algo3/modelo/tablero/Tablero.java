@@ -6,6 +6,8 @@ import edu.fiuba.algo3.modelo.unidades.Unidad;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
 import java.util.ArrayList;
 import java.util.List;
+import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
+import edu.fiuba.algo3.modelo.unidades.movimientos.Movimiento;
 
 public class Tablero {
     private static final int CANTIDAD_DE_FILAS = 8;
@@ -77,5 +79,32 @@ public class Tablero {
             }
         }
     }
-
+    public void recibirTransitoEn(Posicion posicion, Transito transito){
+        if(!estaEnRango(posicion)){
+            return;
+        }
+        enCasilla(posicion).recibirTransito(transito);
+    }
+    public boolean estaLibre(Posicion posicion){
+        return enCasilla(posicion).estaLibre();
+    }
+    public void aplicarDanioEn(Posicion posicion ,int danio){
+        if(estaEnRango(posicion)){
+            enCasilla(posicion).recibirDanio(danio);
+        }
+    }
+    public void aplicarEfectoDeImpactoEn(Posicion posicion ,EfectoImpacto efecto , Direccion direccion){
+        if(estaEnRango(posicion)){
+            enCasilla(posicion).aplicarEfectoDeImpacto(efecto,direccion,this);
+        }
+    }
+    public void abandonarCasilla(Posicion posicion,Ocupante ocupante){
+        enCasilla(posicion).abandonar(ocupante);
+    }
+    public void aplicarEfectoDeTerrenoEn(Posicion posicion,Ocupante ocupante){
+        enCasilla(posicion).aplicarEfectoA(ocupante);
+    }
+    public void ofrecerDestinoAMovimiento(Posicion destino ,Movimiento movimiento,List<Posicion> destinos){
+        movimiento.agregarSiPuedeTerminarEn(enCasilla(destino), destinos);
+    }
 }

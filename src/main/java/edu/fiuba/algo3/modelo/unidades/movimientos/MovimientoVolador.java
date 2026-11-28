@@ -29,7 +29,7 @@ public class MovimientoVolador implements Movimiento, Transito {
     }
 
     private void aterrizarEn(Posicion destino, Tablero tablero) {
-        tablero.enCasilla(destino).recibirTransito(this);
+        tablero.recibirTransitoEn(destino, this);
     }
 
     @Override
