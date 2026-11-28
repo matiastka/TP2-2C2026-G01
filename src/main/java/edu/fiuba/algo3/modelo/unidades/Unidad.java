@@ -1,8 +1,6 @@
 package edu.fiuba.algo3.modelo.unidades;
 
 import java.util.List;
-import java.util.Optional;
-
 import edu.fiuba.algo3.modelo.SujetoObservable;
 import edu.fiuba.algo3.modelo.excepciones.AccionInvalidaException;
 import edu.fiuba.algo3.modelo.tablero.*;
@@ -10,7 +8,6 @@ import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
 import edu.fiuba.algo3.modelo.tablero.emergencias.EmergenciaVek;
 import edu.fiuba.algo3.modelo.unidades.movimientos.Movimiento;
 import edu.fiuba.algo3.modelo.unidades.estados.*;
-import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
 import edu.fiuba.algo3.modelo.unidades.veks.Vek;
 
 public abstract class Unidad extends SujetoObservable implements Ocupante {
@@ -66,21 +63,7 @@ public abstract class Unidad extends SujetoObservable implements Ocupante {
         return vida;
     }
 
-    @Override
-    public Optional<Unidad> obtenerUnidad() {
-        return Optional.of(this);
-    }
-
-    @Override
-    public Optional<Mech> obtenerMech() {
-        return Optional.empty();
-    }
-
     public abstract String obtenerNombre();
-
-    public abstract String obtenerTipoUnidad();
-
-    public abstract String obtenerDescripcionAtaque();
 
     @Override
     public boolean ocupaCasilla() {

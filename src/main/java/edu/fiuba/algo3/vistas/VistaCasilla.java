@@ -1,17 +1,36 @@
 package edu.fiuba.algo3.vistas;
 
+import java.util.Map;
 import java.util.function.Consumer;
-import java.util.Optional;
 
 import edu.fiuba.algo3.modelo.Observador;
 import edu.fiuba.algo3.modelo.tablero.Casilla;
 import edu.fiuba.algo3.modelo.tablero.Ocupante;
+import edu.fiuba.algo3.modelo.tablero.ReceptorDeOcupante;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
+import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
+import edu.fiuba.algo3.modelo.unidades.veks.Vek;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 
-public class VistaCasilla extends StackPane implements Observador {
+public class VistaCasilla extends StackPane implements Observador, ReceptorDeOcupante {
+    private static final Map<String, String> ESTILOS_DE_TERRENO = Map.of(
+            "Suelo", "-fx-background-color: #81c784;",
+            "Agua", "-fx-background-color: #64b5f6;",
+            "Acido", "-fx-background-color: #aed581;",
+            "Edificio", "-fx-background-color: #b0bec5;",
+            "Montana", "-fx-background-color: #a1887f;"
+    );
+    private static final Map<String, String> IDENTIFICADORES_DE_UNIDAD = Map.of(
+            "Combate", "C",
+            "Canon", "A",
+            "Artilleria", "R",
+            "Luciernaga", "L",
+            "Saltador", "S",
+            "Avispon", "V"
+    );
+
     private final Casilla casilla;
     private Ocupante ocupanteAnterior;
     private final Label identificador;
@@ -63,11 +82,8 @@ public class VistaCasilla extends StackPane implements Observador {
         this.identificador.setText("");
         this.vida.setText("");
         this.emergencia.setText("");
-        this.estiloTerreno = obtenerEstiloTerreno(this.casilla.obtenerTerreno().obtenerNombre());
-        Optional<Unidad> unidad = this.casilla.obtenerOcupante().obtenerUnidad();
-        if (unidad.isPresent()) {
-            dibujarUnidad(unidad.get(), obtenerIdentificador(unidad.get().obtenerNombre()));
-        }
+        this.estiloTerreno = ESTILOS_DE_TERRENO.get(this.casilla.obtenerTerreno().obtenerNombre());
+        this.casilla.obtenerOcupante().entregarseA(this);
         this.emergenciaActiva = this.casilla.obtenerEmergencia().estaActiva();
         if (this.emergenciaActiva) {
             this.emergencia.setText("⚠");
@@ -112,47 +128,26 @@ public class VistaCasilla extends StackPane implements Observador {
         setStyle(this.estiloTerreno + borde);
     }
 
-    private void dibujarUnidad(Unidad unidad, String identificador) {
+    @Override
+    public void recibirMech(Mech mech) {
+        dibujarUnidad(mech);
+    }
+
+    @Override
+    public void recibirVek(Vek vek) {
+        dibujarUnidad(vek);
+    }
+
+    @Override
+    public void recibirSinOcupante() {
+    }
+
+    private void dibujarUnidad(Unidad unidad) {
+        String identificador = IDENTIFICADORES_DE_UNIDAD.get(unidad.obtenerNombre());
         this.identificador.setText(identificador);
         this.vida.setText(String.valueOf(unidad.obtenerVida()));
         if (unidad.estaContaminado()) {
             this.identificador.setText(identificador + "*");
-        }
-    }
-
-    private String obtenerEstiloTerreno(String nombre) {
-        switch (nombre) {
-            case "Suelo":
-                return "-fx-background-color: #81c784;";
-            case "Agua":
-                return "-fx-background-color: #64b5f6;";
-            case "Acido":
-                return "-fx-background-color: #aed581;";
-            case "Edificio":
-                return "-fx-background-color: #b0bec5;";
-            case "Montana":
-                return "-fx-background-color: #a1887f;";
-            default:
-                throw new IllegalArgumentException("Terreno no soportado: " + nombre);
-        }
-    }
-
-    private String obtenerIdentificador(String nombre) {
-        switch (nombre) {
-            case "Combate":
-                return "C";
-            case "Canon":
-                return "A";
-            case "Artilleria":
-                return "R";
-            case "Luciernaga":
-                return "L";
-            case "Saltador":
-                return "S";
-            case "Avispon":
-                return "V";
-            default:
-                throw new IllegalArgumentException("Unidad no soportada: " + nombre);
         }
     }
 }

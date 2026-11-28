@@ -1,9 +1,6 @@
 package edu.fiuba.algo3.modelo.unidades.mechs;
 
-import edu.fiuba.algo3.modelo.tablero.BuscadorDeObjetivos;
-import edu.fiuba.algo3.modelo.tablero.Casilla;
-import edu.fiuba.algo3.modelo.tablero.Posicion;
-import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.tablero.*;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
 import edu.fiuba.algo3.modelo.unidades.estados.EstadoSalud;
 import edu.fiuba.algo3.modelo.unidades.mechs.estado.arma.EstadoArma;
@@ -59,18 +56,8 @@ public abstract class Mech extends Unidad {
     }
 
     @Override
-    public Optional<Mech> obtenerMech() {
-        return Optional.of(this);
-    }
-
-    @Override
-    public String obtenerTipoUnidad() {
-        return "Mech";
-    }
-
-    @Override
-    public String obtenerDescripcionAtaque() {
-        return obtenerEstadoArma();
+    public void entregarseA(ReceptorDeOcupante receptor) {
+        receptor.recibirMech(this);
     }
 
     public void deshacerMovimiento(Tablero tablero) {

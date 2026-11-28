@@ -2,7 +2,6 @@ package edu.fiuba.algo3.vistas.seleccion;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import edu.fiuba.algo3.modelo.partida.Partida;
 import edu.fiuba.algo3.modelo.tablero.BuscadorDeObjetivos;
@@ -42,15 +41,21 @@ public class SeleccionJugador {
             return;
         }
         this.panelLateral.seleccionar(casilla);
-        Optional<Mech> mechEnCasilla = casilla.obtenerOcupante().obtenerMech();
-        if (mechEnCasilla.isPresent()) {
-            this.estado.clicEnMech(mechEnCasilla.get(), this, manejador);
-        } else if (casilla.estaLibre()) {
-            this.estado.clicEnCasillaVacia(casilla, this, manejador);
-        } else {
-            this.estado.clicEnVek(casilla.obtenerPosicion(), this, manejador);
-        }
+        casilla.obtenerOcupante().entregarseA(new ClicSobreOcupante(this, casilla, manejador));
     }
+
+    void clicEnMech(Mech mech, ManejadorAccionesSeleccion manejador) {
+        this.estado.clicEnMech(mech, this, manejador);
+    }
+
+    void clicEnVek(Posicion posicion, ManejadorAccionesSeleccion manejador) {
+        this.estado.clicEnVek(posicion, this, manejador);
+    }
+
+    void clicEnCasillaVacia(Casilla casilla, ManejadorAccionesSeleccion manejador) {
+        this.estado.clicEnCasillaVacia(casilla, this, manejador);
+    }
+
 
     public void seleccionarMech(Mech mech) {
         this.estado = new MechSeleccionado(mech);

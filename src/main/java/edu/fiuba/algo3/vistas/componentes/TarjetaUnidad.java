@@ -3,11 +3,14 @@ package edu.fiuba.algo3.vistas.componentes;
 import java.util.Optional;
 
 import edu.fiuba.algo3.modelo.tablero.Casilla;
+import edu.fiuba.algo3.modelo.tablero.ReceptorDeOcupante;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
+import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
+import edu.fiuba.algo3.modelo.unidades.veks.Vek;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-public class TarjetaUnidad extends VBox {
+public class TarjetaUnidad extends VBox implements ReceptorDeOcupante {
     private final Label casilla;
     private final Label unidad;
     private final Label terreno;
@@ -57,11 +60,8 @@ public class TarjetaUnidad extends VBox {
         this.estadoArma.setText("Arma: -");
         this.ataque.setText("Ataque: -");
 
-        Optional<Unidad> unidadSeleccionada =
-                casillaSeleccionada.obtenerOcupante().obtenerUnidad();
-        if (unidadSeleccionada.isPresent()) {
-            mostrarUnidad(unidadSeleccionada.get());
-        }
+        casillaSeleccionada.obtenerOcupante().entregarseA(this);
+
         if (casillaSeleccionada.obtenerEmergencia().estaActiva()) {
             this.unidad.setText(this.unidad.getText() + " | Emergencia");
         }
@@ -74,22 +74,29 @@ public class TarjetaUnidad extends VBox {
         return etiqueta;
     }
 
-    private void mostrarUnidad(Unidad unidadSeleccionada) {
-        this.unidad.setText(
-                "Unidad: " + unidadSeleccionada.obtenerTipoUnidad() + " "
-                        + unidadSeleccionada.obtenerNombre()
-        );
+    @Override
+    public void recibirMech(Mech mech) {
+        mostrarUnidad("Mech", mech);
+        this.estadoArma.setText("Arma: " + mech.obtenerEstadoArma());
+    }
+
+    @Override
+    public void recibirVek(Vek vek) {
+        mostrarUnidad("Vek", vek);
+        this.ataque.setText("Ataque: " + vek.obtenerAtaqueAnunciado());
+    }
+
+    @Override
+    public void recibirSinOcupante() {
+    }
+
+    private void mostrarUnidad(String tipo, Unidad unidadSeleccionada) {
+        this.unidad.setText("Unidad: " + tipo + " " + unidadSeleccionada.obtenerNombre());
         this.vida.setText("Vida: " + unidadSeleccionada.obtenerVida());
         String estadoSalud = "Sano";
         if (unidadSeleccionada.estaContaminado()) {
             estadoSalud = "Contaminado";
         }
         this.salud.setText("Estado: " + estadoSalud);
-        if (unidadSeleccionada.obtenerTipoUnidad().equals("Mech")) {
-            this.estadoArma.setText("Arma: " + unidadSeleccionada.obtenerDescripcionAtaque());
-        } else {
-            this.estadoArma.setText("Arma: -");
-            this.ataque.setText("Ataque: " + unidadSeleccionada.obtenerDescripcionAtaque());
-        }
     }
 }

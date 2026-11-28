@@ -5,6 +5,7 @@
 
     import edu.fiuba.algo3.modelo.tablero.Casilla;
     import edu.fiuba.algo3.modelo.tablero.Posicion;
+    import edu.fiuba.algo3.modelo.tablero.ReceptorDeOcupante;
     import edu.fiuba.algo3.modelo.tablero.Tablero;
     import edu.fiuba.algo3.modelo.tablero.direcciones.Direccion;
     import edu.fiuba.algo3.modelo.unidades.Unidad;
@@ -93,15 +94,11 @@
             return this.ataquePreparado.obtenerDescripcion();
         }
 
-        @Override
-        public String obtenerTipoUnidad() {
-            return "Vek";
-        }
-
-        @Override
-        public String obtenerDescripcionAtaque() {
-            return obtenerAtaqueAnunciado();
-        }
-
         protected abstract void validarObjetivo(Posicion objetivo);
+
+        @Override
+        public void entregarseA(ReceptorDeOcupante receptor) {
+            receptor.recibirVek(this);
+        }
+
 }
