@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.unidades.mechs;
 
+import edu.fiuba.algo3.modelo.excepciones.AccionInvalidaException;
 import edu.fiuba.algo3.modelo.tablero.*;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
 import edu.fiuba.algo3.modelo.unidades.estados.EstadoSalud;
@@ -10,6 +11,7 @@ import edu.fiuba.algo3.modelo.unidades.mechs.estado.turno.EstadoDisponible;
 import edu.fiuba.algo3.modelo.unidades.mechs.estado.turno.EstadoTurnoMech;
 import edu.fiuba.algo3.modelo.unidades.movimientos.MovimientoTerrestre;
 
+import java.util.List;
 import java.util.Optional;
 
 public abstract class Mech extends Unidad {
@@ -34,6 +36,17 @@ public abstract class Mech extends Unidad {
     }
 
     public abstract void ejecutarAtaque(Posicion posicion, Tablero tablero);
+
+    protected abstract void validarObjetivo(Posicion objetivo, Tablero tablero);
+
+    public void agregarSiPuedeAtacarA(Posicion objetivo, List<Posicion> objetivos, Tablero tablero) {
+        try {
+            validarObjetivo(objetivo, tablero);
+        } catch (AccionInvalidaException e) {
+            return;
+        }
+        objetivos.add(objetivo);
+    }
 
     @Override
     public void moverA(Posicion destino, Tablero tablero) {

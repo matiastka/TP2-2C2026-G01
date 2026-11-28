@@ -23,15 +23,18 @@ public class Canon extends Mech {
     }
 
     @Override
-    public void ejecutarAtaque(Posicion objetivo, Tablero tablero) {
+    protected void validarObjetivo(Posicion objetivo, Tablero tablero) {
         if (!tablero.estaEnRango(objetivo)) {
             throw new DestinoFueraDelTableroException();
         }
-
         if (!obtenerPosicion().estaEnLineaRectaA(objetivo, 1)) {
             throw new DestinoNoAlcanzableException();
         }
+    }
 
+    @Override
+    public void ejecutarAtaque(Posicion objetivo, Tablero tablero) {
+        validarObjetivo(objetivo, tablero);
         Direccion direccion = obtenerPosicion().direccionHacia(objetivo);
         ataque.ejecutar(obtenerPosicion(), direccion, tablero);
     }

@@ -134,19 +134,10 @@ public class SeleccionJugador {
     private List<Posicion> obtenerObjetivos(Mech mech) {
         Tablero tablero = this.partida.obtenerTablero();
         List<Posicion> objetivos = new ArrayList<>();
-        BuscadorDeObjetivos buscador = new BuscadorObjetivosDeMech(mech, objetivos);
         for (int fila = 0; fila < tablero.cantidadFilas(); fila++) {
             for (int columna = 0; columna < tablero.cantidadColumnas(); columna++) {
                 Posicion posicion = new Posicion(fila, columna);
-                Casilla casilla = tablero.enCasilla(posicion);
-                casilla.ofrecerComoObjetivo(buscador);
-            }
-        }
-        for (Vek vek : this.partida.obtenerVeks()) {
-            Posicion posicion = vek.obtenerPosicion();
-            if (posicion.distanciaA(mech.obtenerPosicion()) <= mech.obtenerRango()
-                    && !posicion.equals(mech.obtenerPosicion())) {
-                objetivos.add(posicion);
+                mech.agregarSiPuedeAtacarA(posicion, objetivos, tablero);
             }
         }
         return List.copyOf(objetivos);
