@@ -1,6 +1,7 @@
 
 package edu.fiuba.algo3.entrega_2;
 
+import edu.fiuba.algo3.modelo.excepciones.AtaqueYaPreparadoException;
 import edu.fiuba.algo3.modelo.excepciones.MovimientoYaRealizadoException;
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
@@ -34,32 +35,31 @@ public class EstadoVekTest {
     }
 
     @Test
-    public void test02EstadoVekDisponibleCambiaAConAtaquePreparadoAlPrepararAtaque() {
+    public void test02ConElAtaquePreparadoElVekYaNoPuedeMoverse() {
         // Arrange
         Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Saltador vek = new Saltador();
         vek.colocarseEn(new Posicion(1, 1), tablero);
         EstadoTurnoVek estadoInicial = new EstadoVekDisponible();
-
-        // Act
         EstadoTurnoVek resultado = estadoInicial.prepararAtaque(vek, new Posicion(2, 1));
 
-        // Assert
-        assertEquals(EstadoVekConAtaquePreparado.class, resultado.getClass());
+        // Act & Assert
+        assertThrows(AtaqueYaPreparadoException.class, () -> resultado.mover(vek, new Posicion(1, 2), tablero));
     }
 
     @Test
-    public void test03EstadoVekConAtaquePreparadoRestauraAEstadoDisponibleAlResolverAtaque() {
+    public void test03DespuesDeResolverSuAtaqueElVekPuedeVolverAMoverse() {
         // Arrange
         Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Saltador vek = new Saltador();
         vek.colocarseEn(new Posicion(1, 1), tablero);
         EstadoTurnoVek estadoConAtaque = new EstadoVekConAtaquePreparado();
-
-        // Act
         EstadoTurnoVek resultado = estadoConAtaque.resolverAtaque(vek, tablero);
 
+        // Act
+        resultado.mover(vek, new Posicion(1, 2), tablero);
+
         // Assert
-        assertEquals(EstadoVekDisponible.class, resultado.getClass());
+        assertEquals(new Posicion(1, 2), vek.obtenerPosicion());
     }
 }

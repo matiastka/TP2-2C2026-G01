@@ -6,9 +6,7 @@ import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
 import edu.fiuba.algo3.modelo.partida.FabricaDeVeks;
 import edu.fiuba.algo3.modelo.partida.GeneradorDeEmergencias;
 import edu.fiuba.algo3.modelo.partida.Partida;
-import edu.fiuba.algo3.modelo.partida.estado.Derrota;
-import edu.fiuba.algo3.modelo.partida.estado.EnJuego;
-import edu.fiuba.algo3.modelo.partida.estado.Victoria;
+import edu.fiuba.algo3.modelo.partida.estado.ReceptorDeEstadoPartida;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
@@ -19,7 +17,9 @@ import edu.fiuba.algo3.modelo.unidades.veks.Vek;
 import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Saltador;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class FinDePartidaTest {
 
@@ -57,12 +57,14 @@ public class FinDePartidaTest {
         // Arrange
         Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Partida partida = new Partida(tablero, colocarLosTresMechs(tablero), List.of(), sinEmergencias());
+        ReceptorDeEstadoPartida receptor = mock(ReceptorDeEstadoPartida.class);
 
         // Act
         jugarTurnos(partida, 5);
+        partida.informarEstadoA(receptor);
 
         // Assert
-        assertEquals(Victoria.class, partida.obtenerEstado().getClass());
+        verify(receptor).partidaGanada();
     }
 
     @Test
@@ -70,12 +72,14 @@ public class FinDePartidaTest {
         // Arrange
         Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Partida partida = new Partida(tablero, colocarLosTresMechs(tablero), List.of(), sinEmergencias());
+        ReceptorDeEstadoPartida receptor = mock(ReceptorDeEstadoPartida.class);
 
         // Act
         jugarTurnos(partida, 4);
+        partida.informarEstadoA(receptor);
 
         // Assert
-        assertEquals(EnJuego.class, partida.obtenerEstado().getClass());
+        verify(receptor).partidaEnJuego();
     }
 
     @Test
@@ -90,12 +94,14 @@ public class FinDePartidaTest {
                 colocarSaltador(new Posicion(1, 4), tablero)
         );
         Partida partida = new Partida(tablero, colocarLosTresMechs(tablero), veks, sinEmergencias());
+        ReceptorDeEstadoPartida receptor = mock(ReceptorDeEstadoPartida.class);
 
         // Act
         partida.terminarFaseJugador();
+        partida.informarEstadoA(receptor);
 
         // Assert
-        assertEquals(Derrota.class, partida.obtenerEstado().getClass());
+        verify(receptor).partidaPerdida();
     }
 
     @Test
@@ -111,11 +117,13 @@ public class FinDePartidaTest {
                 colocarSaltador(new Posicion(6, 6), tablero)
         );
         Partida partida = new Partida(tablero, mechs, veks, sinEmergencias());
+        ReceptorDeEstadoPartida receptor = mock(ReceptorDeEstadoPartida.class);
 
         // Act
         partida.terminarFaseJugador();
+        partida.informarEstadoA(receptor);
 
         // Assert
-        assertEquals(Derrota.class, partida.obtenerEstado().getClass());
+        verify(receptor).partidaPerdida();
     }
 }

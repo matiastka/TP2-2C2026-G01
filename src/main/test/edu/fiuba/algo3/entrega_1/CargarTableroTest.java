@@ -2,18 +2,20 @@
 package edu.fiuba.algo3.entrega_1;
 
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
-import edu.fiuba.algo3.modelo.tablero.Posicion;
-import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.terrenos.Acido;
-import edu.fiuba.algo3.modelo.terrenos.Edificio;
-import edu.fiuba.algo3.modelo.terrenos.Montana;
+import edu.fiuba.algo3.modelo.tablero.*;
+import edu.fiuba.algo3.modelo.tablero.BuscadorDeObjetivos;
+import edu.fiuba.algo3.modelo.tablero.Ocupante;
+import edu.fiuba.algo3.modelo.tablero.Transito;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
 import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
-public class TableroTest {
+public class CargarTableroTest {
 
     private static final String RUTA_MAPA_1 = "src/main/java/edu/fiuba/algo3/modelo/mapa/mapa1.txt";
 
@@ -61,9 +63,13 @@ public class TableroTest {
         // Arrange
         Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_1);
         Posicion posicionMontana = new Posicion(0, 7);
+        Transito transito = mock(Transito.class);
 
-        // Act & Assert
-        assertEquals(Montana.class, tablero.enCasilla(posicionMontana).obtenerTerreno().getClass());
+        // Act
+        tablero.recibirTransitoEn(posicionMontana, transito);
+
+        // Assert
+        verify(transito).chocarConTerreno(tablero.enCasilla(posicionMontana));
     }
 
     @Test
@@ -86,9 +92,13 @@ public class TableroTest {
         // Arrange
         Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_1);
         Posicion posicionAcido = new Posicion(1, 5);
+        Ocupante ocupante = mock(Ocupante.class);
 
-        // Act & Assert
-        assertEquals(Acido.class, tablero.enCasilla(posicionAcido).obtenerTerreno().getClass());
+        // Act
+        tablero.aplicarEfectoDeTerrenoEn(posicionAcido, ocupante);
+
+        // Assert
+        verify(ocupante).caerEnAcido();
     }
 
     @Test
@@ -96,9 +106,13 @@ public class TableroTest {
         // Arrange
         Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_1);
         Posicion posicionEdificio = new Posicion(0, 2);
+        BuscadorDeObjetivos buscador = mock(BuscadorDeObjetivos.class);
 
-        // Act & Assert
-        assertEquals(Edificio.class, tablero.enCasilla(posicionEdificio).obtenerTerreno().getClass());
+        // Act
+        tablero.enCasilla(posicionEdificio).ofrecerComoObjetivo(buscador);
+
+        // Assert
+        verify(buscador).encontrarEdificio(tablero.enCasilla(posicionEdificio));
     }
 
     @Test

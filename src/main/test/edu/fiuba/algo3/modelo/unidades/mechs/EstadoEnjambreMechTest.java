@@ -14,7 +14,6 @@ import edu.fiuba.algo3.modelo.unidades.mechs.unidadesMech.Combate;
 import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class EstadoEnjambreMechTest {
@@ -22,22 +21,20 @@ public class EstadoEnjambreMechTest {
     private static final String RUTA_MAPA_LIBRE = "src/main/test/edu/fiuba/algo3/modelo/mapa/mapa_libre.txt";
 
     @Test
-    public void test01EstadoDisponibleAlMoverseExitosamenteRetornaEstadoYaSeMovio() {
+    public void test01DespuesDeMoverseElMechNoPuedeVolverAMoverse() {
         // Arrange
         Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Mech mech = new Combate();
         mech.colocarseEn(new Posicion(0, 0), tablero);
         EstadoTurnoMech estado = new EstadoDisponible();
-
-        // Act
         EstadoTurnoMech resultado = estado.mover(mech, new Posicion(0, 1), tablero);
 
-        // Assert
-        assertEquals(EstadoYaSeMovio.class, resultado.getClass());
+        // Act & Assert
+        assertThrows(MovimientoYaRealizadoException.class, () -> resultado.mover(mech, new Posicion(0, 2), tablero));
     }
 
     @Test
-    public void test02EstadoDisponibleAlAtacarExitosamenteRetornaEstadoTurnoAgotado() {
+    public void test02DespuesDeAtacarSinMoverseElMechYaNoPuedeMoverse() {
         // Arrange
         Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Mech mech = new Combate();
@@ -46,15 +43,14 @@ public class EstadoEnjambreMechTest {
         vek.colocarseEn(new Posicion(0, 1), tablero);
         EstadoTurnoMech estado = new EstadoDisponible();
 
-        // Act
         EstadoTurnoMech resultado = estado.atacar(mech, new Posicion(0, 1), tablero);
 
-        // Assert
-        assertEquals(EstadoTurnoAgotado.class, resultado.getClass());
+        // Act & Assert
+        assertThrows(TurnoAgotadoException.class, () -> resultado.mover(mech, new Posicion(1, 0), tablero));
     }
 
     @Test
-    public void test03EstadoYaSeMovioAlAtacarRetornaEstadoTurnoAgotado() {
+    public void test03DespuesDeMoverseYAtacarElMechYaNoPuedeMoverse() {
         // Arrange
         Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Combate mech = new Combate();
@@ -63,11 +59,10 @@ public class EstadoEnjambreMechTest {
         vek.colocarseEn(new Posicion(0, 1), tablero);
         EstadoTurnoMech estado = new EstadoYaSeMovio();
 
-        // Act
         EstadoTurnoMech resultado = estado.atacar(mech, new Posicion(0, 1), tablero);
 
-        // Assert
-        assertEquals(EstadoTurnoAgotado.class, resultado.getClass());
+        // Act & Assert
+        assertThrows(TurnoAgotadoException.class, () -> resultado.mover(mech, new Posicion(1, 0), tablero));
     }
 
     @Test

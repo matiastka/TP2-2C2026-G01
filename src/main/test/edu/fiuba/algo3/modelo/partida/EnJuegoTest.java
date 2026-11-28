@@ -2,10 +2,9 @@
 package edu.fiuba.algo3.modelo.partida;
 
 import edu.fiuba.algo3.modelo.mapa.LectorDeMapa;
-import edu.fiuba.algo3.modelo.partida.estado.Derrota;
 import edu.fiuba.algo3.modelo.partida.estado.EnJuego;
 import edu.fiuba.algo3.modelo.partida.estado.EstadoPartida;
-import edu.fiuba.algo3.modelo.partida.estado.Victoria;
+import edu.fiuba.algo3.modelo.partida.estado.ReceptorDeEstadoPartida;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.mechs.Mech;
@@ -14,7 +13,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class EnJuegoTest {
 
@@ -32,12 +32,14 @@ public class EnJuegoTest {
         Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
         Partida partida = new Partida(tablero, List.of(crearMechEnTablero(tablero)), List.of());
         EstadoPartida estado = new EnJuego();
+        ReceptorDeEstadoPartida receptor = mock(ReceptorDeEstadoPartida.class);
 
         // Act
         EstadoPartida nuevoEstado = estado.terminarFaseJugador(partida);
+        nuevoEstado.informarA(receptor);
 
         // Assert
-        assertEquals(EnJuego.class, nuevoEstado.getClass());
+        verify(receptor).partidaEnJuego();
     }
 
     @Test
@@ -49,12 +51,14 @@ public class EnJuegoTest {
             partida.terminarFaseJugador();
         }
         EstadoPartida estado = new EnJuego();
+        ReceptorDeEstadoPartida receptor = mock(ReceptorDeEstadoPartida.class);
 
         // Act
         EstadoPartida nuevoEstado = estado.terminarFaseJugador(partida);
+        nuevoEstado.informarA(receptor);
 
         // Assert
-        assertEquals(Victoria.class, nuevoEstado.getClass());
+        verify(receptor).partidaGanada();
     }
 
     @Test
@@ -65,11 +69,13 @@ public class EnJuegoTest {
         Partida partida = new Partida(tablero, List.of(mech), List.of());
         mech.recibirDanio(3);
         EstadoPartida estado = new EnJuego();
+        ReceptorDeEstadoPartida receptor = mock(ReceptorDeEstadoPartida.class);
 
         // Act
         EstadoPartida nuevoEstado = estado.terminarFaseJugador(partida);
+        nuevoEstado.informarA(receptor);
 
         // Assert
-        assertEquals(Derrota.class, nuevoEstado.getClass());
+        verify(receptor).partidaPerdida();
     }
 }

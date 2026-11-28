@@ -10,7 +10,11 @@ public class FabricaDeVeks {
     private int siguiente;
 
     public FabricaDeVeks() {
-        this.creadores = List.of(new CreadorDeSaltador(), new CreadorDeAvispon(), new CreadorDeLuciernaga());
+        this(List.of(new CreadorDeSaltador(), new CreadorDeAvispon(), new CreadorDeLuciernaga()));
+    }
+
+    public FabricaDeVeks(List<CreadorDeVek> creadores) {
+        this.creadores = List.copyOf(creadores);
         this.siguiente = 0;
     }
 

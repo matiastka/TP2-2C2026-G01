@@ -1,14 +1,15 @@
 package edu.fiuba.algo3.modelo.mapa;
 
+import edu.fiuba.algo3.modelo.tablero.BuscadorDeObjetivos;
+import edu.fiuba.algo3.modelo.tablero.Ocupante;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.tablero.TableroInvalidoException;
-import edu.fiuba.algo3.modelo.terrenos.Agua;
-import edu.fiuba.algo3.modelo.terrenos.Edificio;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class LectorDeMapaTest {
 
@@ -18,24 +19,28 @@ public class LectorDeMapaTest {
     public void test01LaPrimeraCasillaDelMapaLeidoEsAgua() {
         // Arrange
         LectorDeMapa lector = new LectorDeMapa();
+        Tablero tablero = lector.leer(RUTA_MAPA_1);
+        Ocupante ocupante = mock(Ocupante.class);
 
         // Act
-        Tablero tablero = lector.leer(RUTA_MAPA_1);
+        tablero.aplicarEfectoDeTerrenoEn(new Posicion(0, 0), ocupante);
 
         // Assert
-        assertEquals(Agua.class, tablero.enCasilla(new Posicion(0, 0)).obtenerTerreno().getClass());
+        verify(ocupante).caerEnAgua();
     }
 
     @Test
     public void test02LaTerceraCasillaDeLaPrimeraFilaDelMapaLeidoEsUnEdificio() {
         // Arrange
         LectorDeMapa lector = new LectorDeMapa();
+        Tablero tablero = lector.leer(RUTA_MAPA_1);
+        BuscadorDeObjetivos buscador = mock(BuscadorDeObjetivos.class);
 
         // Act
-        Tablero tablero = lector.leer(RUTA_MAPA_1);
+        tablero.enCasilla(new Posicion(0, 2)).ofrecerComoObjetivo(buscador);
 
         // Assert
-        assertEquals(Edificio.class, tablero.enCasilla(new Posicion(0, 2)).obtenerTerreno().getClass());
+        verify(buscador).encontrarEdificio(tablero.enCasilla(new Posicion(0, 2)));
     }
 
     @Test

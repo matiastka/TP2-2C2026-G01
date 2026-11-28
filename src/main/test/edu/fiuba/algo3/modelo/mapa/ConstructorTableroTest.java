@@ -1,15 +1,19 @@
 
 package edu.fiuba.algo3.modelo.mapa;
 
+import edu.fiuba.algo3.modelo.tablero.BuscadorDeObjetivos;
+import edu.fiuba.algo3.modelo.tablero.Ocupante;
 import edu.fiuba.algo3.modelo.tablero.Posicion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.tablero.TableroInvalidoException;
-import edu.fiuba.algo3.modelo.terrenos.*;
+import edu.fiuba.algo3.modelo.tablero.Transito;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class ConstructorTableroTest {
 
@@ -17,60 +21,70 @@ public class ConstructorTableroTest {
     public void test01LaLetraSCreaUnaCasillaDeSuelo() {
         // Arrange
         ConstructorTablero constructor = new ConstructorTablero();
+        Tablero tablero = constructor.construir(List.of("S"));
+        Transito transito = mock(Transito.class);
 
         // Act
-        Tablero tablero = constructor.construir(List.of("S"));
+        tablero.recibirTransitoEn(new Posicion(0, 0), transito);
 
         // Assert
-        assertEquals(Suelo.class, tablero.enCasilla(new Posicion(0, 0)).obtenerTerreno().getClass());
+        verify(transito).atravesar(tablero.enCasilla(new Posicion(0, 0)));
     }
 
     @Test
     public void test02LaLetraECreaUnaCasillaDeEdificio() {
         // Arrange
         ConstructorTablero constructor = new ConstructorTablero();
+        Tablero tablero = constructor.construir(List.of("E"));
+        BuscadorDeObjetivos buscador = mock(BuscadorDeObjetivos.class);
 
         // Act
-        Tablero tablero = constructor.construir(List.of("E"));
+        tablero.enCasilla(new Posicion(0, 0)).ofrecerComoObjetivo(buscador);
 
         // Assert
-        assertEquals(Edificio.class, tablero.enCasilla(new Posicion(0, 0)).obtenerTerreno().getClass());
+        verify(buscador).encontrarEdificio(tablero.enCasilla(new Posicion(0, 0)));
     }
 
     @Test
     public void test03LaLetraMCreaUnaCasillaDeMontana() {
         // Arrange
         ConstructorTablero constructor = new ConstructorTablero();
+        Tablero tablero = constructor.construir(List.of("M"));
+        Transito transito = mock(Transito.class);
 
         // Act
-        Tablero tablero = constructor.construir(List.of("M"));
+        tablero.recibirTransitoEn(new Posicion(0, 0), transito);
 
         // Assert
-        assertEquals(Montana.class, tablero.enCasilla(new Posicion(0, 0)).obtenerTerreno().getClass());
+        verify(transito).chocarConTerreno(tablero.enCasilla(new Posicion(0, 0)));
     }
 
     @Test
     public void test04LaLetraACreaUnaCasillaDeAgua() {
         // Arrange
         ConstructorTablero constructor = new ConstructorTablero();
+        Tablero tablero = constructor.construir(List.of("A"));
+        Ocupante ocupante = mock(Ocupante.class);
 
         // Act
-        Tablero tablero = constructor.construir(List.of("A"));
+        tablero.aplicarEfectoDeTerrenoEn(new Posicion(0, 0), ocupante);
 
         // Assert
-        assertEquals(Agua.class, tablero.enCasilla(new Posicion(0, 0)).obtenerTerreno().getClass());
+        verify(ocupante).caerEnAgua();
     }
 
     @Test
     public void test05LaLetraCCreaUnaCasillaDeAcido() {
         // Arrange
         ConstructorTablero constructor = new ConstructorTablero();
+        Tablero tablero = constructor.construir(List.of("C"));
+        Ocupante ocupante = mock(Ocupante.class);
 
         // Act
-        Tablero tablero = constructor.construir(List.of("C"));
+        tablero.aplicarEfectoDeTerrenoEn(new Posicion(0, 0), ocupante);
 
         // Assert
-        assertEquals(Acido.class, tablero.enCasilla(new Posicion(0, 0)).obtenerTerreno().getClass());
+        verify(ocupante).caerEnAcido();
     }
 
     @Test
