@@ -12,6 +12,7 @@ import edu.fiuba.algo3.modelo.unidades.veks.Vek;
 import edu.fiuba.algo3.modelo.unidades.veks.unidadesVek.Luciernaga;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -130,5 +131,21 @@ public class AtaqueLineaRectaTest {
 
         // Assert
         assertEquals(Optional.empty(), resultado);
+    }
+
+    @Test
+    public void test08LasPosicionesAmenazadasLleganHastaElPrimerOcupante() {
+        // Arrange
+        Tablero tablero = new LectorDeMapa().leer(RUTA_MAPA_LIBRE);
+        Posicion origen = new Posicion(2, 0);
+        Vek objetivo = new Luciernaga();
+        objetivo.colocarseEn(new Posicion(2, 3), tablero);
+        Ataque ataque = new AtaqueLineaRecta(1, new EfectoNulo());
+
+        // Act
+        List<Posicion> amenazadas = ataque.posicionesAmenazadasDesde(origen, new Este(), tablero);
+
+        // Assert
+        assertEquals(List.of(new Posicion(2, 1), new Posicion(2, 2), new Posicion(2, 3)), amenazadas);
     }
 }

@@ -16,7 +16,7 @@ public class AtaqueLineaRecta implements Ataque {
         Posicion siguiente = origen.siguienteEn(direccion);
         while (tablero.estaEnRango(siguiente)){
             posiciones.add(siguiente);
-            if (tablero.estaLibre(siguiente)){
+            if (!tablero.estaLibre(siguiente)){
                 break;
             }
             siguiente = siguiente.siguienteEn(direccion);
